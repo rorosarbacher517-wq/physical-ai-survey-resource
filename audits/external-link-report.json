@@ -1,0 +1,932 @@
+{
+  "generated": "2026-07-17T12:52:57+00:00",
+  "mode": "network",
+  "checked": 115,
+  "ok": 78,
+  "access_blocked": 34,
+  "transient": 5,
+  "permanent_failure": 0,
+  "failed": 37,
+  "results": [
+    {
+      "url": "https://ameriflux.lbl.gov/",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://cds.climate.copernicus.eu/",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://cds.climate.copernicus.eu/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://data.neonscience.org/",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://www.neonscience.org/data",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://developers.google.com/earth-engine",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://developers.google.com/earth-engine",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1002/9781119793403.ch17",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1007/978-1-62703-688-7_21",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://link.springer.com/protocol/10.1007/978-1-62703-688-7_21",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1007/978-3-030-95231-0_6",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://link.springer.com/10.1007/978-3-030-95231-0_6",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1007/s10668-022-02276-9",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://link.springer.com/10.1007/s10668-022-02276-9",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/0034-4257(95)00258-8",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/0034425795002588",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.agrformet.2014.04.011",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0168192314001117",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.agrformet.2022.108980",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0168192322001708",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.agwat.2024.108706",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0378377424000416",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.applthermaleng.2026.130757",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S1359431126010653",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.ecoinf.2022.101697",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S1574954122001479",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.fecs.2025.100368",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S2197562025000776",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.ifacsc.2019.100036",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S2468601817302584",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.jcp.2023.112603",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0021999123006988",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.rsase.2025.101728",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S2352938525002812",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1016/j.rse.2005.10.009",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0034425705003470",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1021/acs.jctc.5c00090.s001",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1021/acs.jpca.1c05102.s001",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1029/2010gb003900",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1029/2021ms002802",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1034/j.1600-0889.47.issue1.15.x",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1038/s44287-025-00208-z",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://www.nature.com/articles/s44287-025-00208-z",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1049/sbew552e_ch7",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1080/01431161.2024.2312266",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.1109/icmlc.2008.4620630",
+      "status": 202,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://ieeexplore.ieee.org/document/4620630/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1109/igarss.2017.8128126",
+      "status": 202,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://ieeexplore.ieee.org/document/8128126/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1109/igarss.2019.8900191",
+      "status": 202,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://ieeexplore.ieee.org/document/8900191/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1109/jstars.2026.3706054",
+      "status": 202,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://ieeexplore.ieee.org/document/11574555/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1109/jstars.2026.3706054/mm1",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://ieeexplore.ieee.org/ielx8/4609443/4609444/11574555/supp1-3706054.docx?arnumber=11574555",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1109/lgrs.2025.3541893/mm1",
+      "status": 202,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://ieeexplore.ieee.org/document/10908405/;jsessionid=53CD39DAC30B435901AFE4F3554651EE",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1111/j.1600-0889.2007.00274.x",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://b.tellusjournals.se/articles/10.1111/j.1600-0889.2007.00274.x",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1175/jhm467.1",
+      "status": 202,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://journals.ametsoc.org/doi/10.1175/JHM467.1",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1201/9781032711126-34",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://www.taylorfrancis.com/chapters/oa-edit/10.1201/9781032711126-34/global-carbon-cycle-data-assimilation-using-earth-observation-mathew-williams",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.15486/ngt/1279968",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://data.ess-dive.lbl.gov/view/doi:10.15486/NGT/1279968",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.1615/jmachlearnmodelcomput.2024055786",
+      "status": 302,
+      "ok": true,
+      "category": "transient",
+      "error": "HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nFound",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.17760/d20659778",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.21203/rs.3.rs-640751/v1",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://www.researchsquare.com/article/rs-640751/v1",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.21203/rs.3.rs-6880919/v1",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://www.researchsquare.com/article/rs-6880919/v1",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.4527164",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.4601468",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.4801189",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.5207041",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.5252965",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.5352244",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.5749490",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.6298873",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.2139/ssrn.7003298",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.22541/essoar.172526720.02219772/v1",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.23967/isc.2024.304",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://www.scipedia.com/public/Kim*_et_al_2024a",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.31219/osf.io/p95zn",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://osf.io/p95zn_v1",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.31223/x5r957",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://eartharxiv.org/repository/view/5783/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.31223/x5xw61",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://eartharxiv.org/repository/view/2887/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.3334/ornldaac/1315",
+      "status": null,
+      "ok": false,
+      "category": "transient",
+      "error": "The read operation timed out",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/atmos12020281",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs13132448",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs13214229",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs13244976",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs17030426",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs17213615",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs17233805",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs18101529",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/rs18122016",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.3390/su18041944",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.33915/etd.7022",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://researchrepository.wvu.edu/etd/7022/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.3410/f.1028523.341152",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.35370/bjost.2020.2.2-06",
+      "status": null,
+      "ok": false,
+      "category": "transient",
+      "error": "<urlopen error [Errno 2] No such file or directory>",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.36227/techrxiv.175760430.01088421/v1",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.4018/979-8-3373-2091-5.ch014",
+      "status": 429,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 429: Too Many Requests",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.4135/9781446247501.n1783",
+      "status": 302,
+      "ok": true,
+      "category": "transient",
+      "error": "HTTP Error 302: The HTTP server returned a redirect error that would lead to an infinite loop.\nThe last 30x error message was:\nFound",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.5194/bg-2018-270-rc1",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://bg.copernicus.org/preprints/bg-2018-270/bg-2018-270-RC1.pdf",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/bg-2020-50-rc1",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://bg.copernicus.org/preprints/bg-2020-50/bg-2020-50-RC1.pdf",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-2022-640-supplement",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://egusphere.copernicus.org/preprints/2022/egusphere-2022-640/egusphere-2022-640-supplement.pdf",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-2025-2517",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://egusphere.copernicus.org/preprints/2025/egusphere-2025-2517/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-2026-3281",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://egusphere.copernicus.org/preprints/2026/egusphere-2026-3281/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu2020-19498",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU2020/EGU2020-19498.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu2020-2135",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU2020/EGU2020-2135.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu21-9254",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU21/EGU21-9254.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu22-11111",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU22/EGU22-11111.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu23-15533",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU23/EGU23-15533.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu23-16443",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU23/EGU23-16443.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu23-3276",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU23/EGU23-3276.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu24-13899",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU24/EGU24-13899.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu24-1760",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU24/EGU24-1760.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu24-22211",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU24/EGU24-22211.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu24-5488",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU24/EGU24-5488.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu24-7413",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU24/EGU24-7413.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu24-9398",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU24/EGU24-9398.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu25-11746",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU25/EGU25-11746.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu25-14398",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU25/EGU25-14398.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu25-14709",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU25/EGU25-14709.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu25-17514",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU25/EGU25-17514.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu25-4594",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU25/EGU25-4594.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu26-10329",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU26/EGU26-10329.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/egusphere-egu26-9141",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EGU26/EGU26-9141.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/ems2023-530",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/EMS2023/EMS2023-530.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/esd-2021-38",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://esd.copernicus.org/articles/12/1413/2021/esd-12-1413-2021-discussion.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/essd-2016-36",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://essd.copernicus.org/preprints/essd-2016-36/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/essd-2016-36-rc2",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://essd.copernicus.org/preprints/essd-2016-36/essd-2016-36-RC2.pdf",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.5194/icuc12-821",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://meetingorganizer.copernicus.org/ICUC12/ICUC12-821.html",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://doi.org/10.53846/goediss-9953",
+      "status": 403,
+      "ok": false,
+      "category": "access-blocked",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "GET"
+    },
+    {
+      "url": "https://doi.org/10.53962/yg21-zyxf",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://researchequals.com/en-US/outputs/4c59ee9c-1698-4af6-a49d-86a53b474e9d",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://fluxnet.org/",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://fluxnet.org/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://footprint.kljun.net/",
+      "status": null,
+      "ok": false,
+      "category": "transient",
+      "error": "<urlopen error _ssl.c:985: The handshake operation timed out>",
+      "method": "GET"
+    },
+    {
+      "url": "https://github.com/NVIDIA/modulus",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://github.com/NVIDIA/physicsnemo",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://github.com/lululxvi/deepxde",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://github.com/lululxvi/deepxde",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://github.com/maziarraissi/PINNs",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://github.com/maziarraissi/PINNs",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://github.com/neuraloperator/neuraloperator",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://github.com/neuraloperator/neuraloperator",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://github.com/pangeo-data/pangeo",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://github.com/pangeo-data/pangeo",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://github.com/pdebench/PDEBench",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://github.com/pdebench/PDEBench",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://hls.gsfc.nasa.gov/",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://hls.gsfc.nasa.gov/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://modis.gsfc.nasa.gov/data/",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://modis.gsfc.nasa.gov/data/",
+      "method": "HEAD"
+    },
+    {
+      "url": "https://smap.jpl.nasa.gov/data/",
+      "status": 200,
+      "ok": true,
+      "category": "ok",
+      "final_url": "https://smap.jpl.nasa.gov/data/",
+      "method": "HEAD"
+    }
+  ]
+}

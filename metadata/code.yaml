@@ -1,0 +1,131 @@
+code:
+- code_id: code-deeponet
+  name: DeepXDE
+  canonical_url: https://github.com/lululxvi/deepxde
+  status: framework-example
+  related_paper_ids:
+  - paper-full19
+  language: Python
+  framework: deep-learning
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://github.com/lululxvi/deepxde
+- code_id: code-pinns-tensorflow
+  name: Physics-Informed Neural Networks
+  canonical_url: https://github.com/maziarraissi/PINNs
+  status: author-maintained
+  related_paper_ids: []
+  language: Python
+  framework: pinn
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://github.com/maziarraissi/PINNs
+- code_id: code-neuraloperator
+  name: NeuralOperator
+  canonical_url: https://github.com/neuraloperator/neuraloperator
+  status: framework-example
+  related_paper_ids: []
+  language: Python
+  framework: neural-operators
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://github.com/neuraloperator/neuraloperator
+- code_id: code-modulus
+  name: NVIDIA Modulus
+  canonical_url: https://github.com/NVIDIA/modulus
+  status: framework-example
+  related_paper_ids: []
+  language: Python
+  framework: physics-informed-ml
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://github.com/NVIDIA/modulus
+- code_id: code-ffp
+  name: Flux Footprint Prediction reference implementation
+  canonical_url: https://footprint.kljun.net/
+  status: reference-only
+  related_paper_ids: []
+  language: R/Python
+  framework: flux-footprint
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://footprint.kljun.net/
+- code_id: code-google-earth-engine
+  name: Google Earth Engine examples
+  canonical_url: https://developers.google.com/earth-engine
+  status: framework-example
+  related_paper_ids: []
+  language: JavaScript/Python
+  framework: remote-sensing
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://developers.google.com/earth-engine
+- code_id: code-pangeo
+  name: Pangeo
+  canonical_url: https://github.com/pangeo-data/pangeo
+  status: framework-example
+  related_paper_ids: []
+  language: Python
+  framework: geoscience
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L0
+  tested_commands: []
+  evidence_level: single_source
+  content_status: needs_review
+  source_urls:
+  - https://github.com/pangeo-data/pangeo
+- code_id: code-repo-examples
+  name: Repository pedagogical examples
+  canonical_url: examples/
+  status: repository-original
+  related_paper_ids: []
+  language: Python
+  framework: smoke-tests
+  license: unknown
+  last_verified: '2026-07-17'
+  environment_available: null
+  reproduction_level: L2
+  tested_commands:
+  - pytest tests/test_examples.py
+  evidence_level: single_source
+  content_status: verified
+  source_urls:
+  - examples/

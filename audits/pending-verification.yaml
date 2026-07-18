@@ -1,0 +1,10 @@
+items:
+- id: fulltext-depth
+  reason: Many expanded paper records are bibliographic-metadata verified but do not
+    yet have detailed full-text notes.
+  recommended_resolution: Prioritize milestone and carbon-flux core papers for detailed
+    paper notes.
+- id: external-link-network-run
+  reason: External links require a network-enabled run for current status.
+  recommended_resolution: Run python -m scripts.verify_external_links --respect-cache
+    --report in an approved network environment.

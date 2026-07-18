@@ -1,0 +1,74 @@
+{
+  "AGENTS.md": {
+    "sha256": "0470f51fcc98a6041ccce16f0c5055e6e50d72d4ec892992677fcc921993f0fd",
+    "size_bytes": 6055
+  },
+  "EXECPLAN.md": {
+    "sha256": "65b55b0561a0da99935dd291459331ef4b1d0e4f53ee4f92a9aa93e07cf0d3e4",
+    "size_bytes": 2409
+  },
+  "MASTER_ORCHESTRATOR_PROMPT.md": {
+    "sha256": "28a63cde88eab0e48e79df8dac9214b3e3c7f703d748c03dc21cf493acadfc62",
+    "size_bytes": 4749
+  },
+  "README_USE.md": {
+    "sha256": "b70c3d7b8497d422c94a9d1d0a1f0362982dbdb5ad821035e1ad0d48095f9b92",
+    "size_bytes": 3039
+  },
+  "RUN_COMMAND.md": {
+    "sha256": "b5c5f27db5ef43919c971f508fbc4b47f600864442d691b8f806aa70297a9ef9",
+    "size_bytes": 1303
+  },
+  "prompts/00_preflight_and_inventory.md": {
+    "sha256": "9ac703aaef8be7dd5c59527200207d8832faf89426425023114c56296f597ee0",
+    "size_bytes": 1582
+  },
+  "prompts/01_scaffold_governance_and_licenses.md": {
+    "sha256": "b6a1aaffdb229661ee07c6f41b0fa093c541ae817e186b10bc03acde3062b195",
+    "size_bytes": 2610
+  },
+  "prompts/02_taxonomy_metadata_and_schemas.md": {
+    "sha256": "b3639fb2728205d7c31ae58bf13b5157ed0d2dc471c31a22bd7511aaa43703a6",
+    "size_bytes": 3895
+  },
+  "prompts/03_generation_validation_and_audit_tooling.md": {
+    "sha256": "86f1ee8840c5389009f2000985e583ebe3e998111473b29c5dfef3ffb635400e",
+    "size_bytes": 2620
+  },
+  "prompts/04_knowledge_base_templates_and_learning_paths.md": {
+    "sha256": "38d3bc06474e398f0cc202d55ad041d9c69c27f90a03848fc14eaeb3cac67805",
+    "size_bytes": 2967
+  },
+  "prompts/05_verified_paper_library.md": {
+    "sha256": "4c393ed25c8e0887caac67fd1d554697ed4d2df465d705b6cfa8832c5e11453a",
+    "size_bytes": 3024
+  },
+  "prompts/06_code_library_and_reproduction_system.md": {
+    "sha256": "06fcccd851ca85f8f94d1ee6da908d7c05a0ddb63f83da9c7b2a7e37e741b30d",
+    "size_bytes": 2822
+  },
+  "prompts/07_dataset_library_and_data_governance.md": {
+    "sha256": "a35c4597f37bbf8cc8fb0e8b66fbe3be9f8d2df247f68bb2c04876852ee2f4b1",
+    "size_bytes": 2331
+  },
+  "prompts/08_benchmarks_metrics_and_fair_comparison.md": {
+    "sha256": "d8e04910d3ae70a978f703102403cee3da936034e3700919c289546b2efdcf58",
+    "size_bytes": 2283
+  },
+  "prompts/09_geoscience_remote_sensing_and_carbon_flux_track.md": {
+    "sha256": "59ca36173f89659552212c62cca563972f82a3bf58c3360717f5f7a0e19c5122",
+    "size_bytes": 2895
+  },
+  "prompts/10_documentation_site_and_navigation.md": {
+    "sha256": "141f1b2c1ff092ba8d749da3c3ebb148ebf3bbdb28d4e685106a2bf27bffa5c2",
+    "size_bytes": 1604
+  },
+  "prompts/11_ci_automation_and_maintenance.md": {
+    "sha256": "83b1e666c83ca1cd6a24855c150b577c4bca2132e61843cae9fe2b16cebf895a",
+    "size_bytes": 1860
+  },
+  "prompts/12_final_release_audit.md": {
+    "sha256": "42e7407ba84c5ea671a47decf0bb434f933dea3e6d7fa5f66a3cdd5959c8564d",
+    "size_bytes": 2597
+  }
+}

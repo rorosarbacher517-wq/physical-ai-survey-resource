@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: Physical AI Survey Resource
+message: Please cite this repository and the original resources you use.
+type: dataset
+version: 1.0.0-candidate
+date-released: "2026-07-17"
+authors:
+  - family-names: Contributors
+    given-names: Physical AI Survey Resource

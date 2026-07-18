@@ -1,0 +1,9 @@
+code_id,name,canonical_url,status,language,framework,reproduction_level,evidence_level,content_status
+code-deeponet,DeepXDE,https://github.com/lululxvi/deepxde,framework-example,Python,deep-learning,L0,single_source,needs_review
+code-pinns-tensorflow,Physics-Informed Neural Networks,https://github.com/maziarraissi/PINNs,author-maintained,Python,pinn,L0,single_source,needs_review
+code-neuraloperator,NeuralOperator,https://github.com/neuraloperator/neuraloperator,framework-example,Python,neural-operators,L0,single_source,needs_review
+code-modulus,NVIDIA Modulus,https://github.com/NVIDIA/modulus,framework-example,Python,physics-informed-ml,L0,single_source,needs_review
+code-ffp,Flux Footprint Prediction reference implementation,https://footprint.kljun.net/,reference-only,R/Python,flux-footprint,L0,single_source,needs_review
+code-google-earth-engine,Google Earth Engine examples,https://developers.google.com/earth-engine,framework-example,JavaScript/Python,remote-sensing,L0,single_source,needs_review
+code-pangeo,Pangeo,https://github.com/pangeo-data/pangeo,framework-example,Python,geoscience,L0,single_source,needs_review
+code-repo-examples,Repository pedagogical examples,examples/,repository-original,Python,smoke-tests,L2,single_source,verified

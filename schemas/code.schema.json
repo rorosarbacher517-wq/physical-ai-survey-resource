@@ -1,0 +1,83 @@
+{
+  "type": "object",
+  "required": [
+    "code_id",
+    "canonical_url",
+    "status",
+    "related_paper_ids",
+    "language",
+    "framework",
+    "license",
+    "reproduction_level",
+    "evidence_level",
+    "content_status",
+    "last_verified",
+    "source_urls"
+  ],
+  "properties": {
+    "evidence_level": {
+      "enum": [
+        "primary_verified",
+        "cross_verified",
+        "single_source",
+        "unverified"
+      ]
+    },
+    "content_status": {
+      "enum": [
+        "draft",
+        "verified",
+        "needs_review",
+        "deprecated",
+        "archived"
+      ]
+    },
+    "last_verified": {
+      "type": "string"
+    },
+    "source_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "code_id": {
+      "pattern": "^code-[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "canonical_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "related_paper_ids": {
+      "type": "array"
+    },
+    "language": {
+      "type": "string"
+    },
+    "framework": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "environment_available": {},
+    "reproduction_level": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    "tested_commands": {
+      "type": "array"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "required": [
+    "benchmark_id",
+    "task_definition",
+    "dataset_ids",
+    "split_definition",
+    "metrics",
+    "comparability_warnings",
+    "license",
+    "access",
+    "evidence_level",
+    "content_status",
+    "last_verified",
+    "source_urls"
+  ],
+  "properties": {
+    "evidence_level": {
+      "enum": [
+        "primary_verified",
+        "cross_verified",
+        "single_source",
+        "unverified"
+      ]
+    },
+    "content_status": {
+      "enum": [
+        "draft",
+        "verified",
+        "needs_review",
+        "deprecated",
+        "archived"
+      ]
+    },
+    "last_verified": {
+      "type": "string"
+    },
+    "source_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "benchmark_id": {
+      "pattern": "^benchmark-[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "task_definition": {
+      "type": "string"
+    },
+    "dataset_ids": {
+      "type": "array"
+    },
+    "split_definition": {
+      "type": "string"
+    },
+    "metrics": {
+      "type": "array"
+    },
+    "baseline_references": {
+      "type": "array"
+    },
+    "comparability_warnings": {
+      "type": "array"
+    },
+    "license": {
+      "type": "string"
+    },
+    "access": {
+      "type": "string"
+    }
+  }
+}

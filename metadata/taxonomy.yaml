@@ -1,0 +1,91 @@
+taxonomy_version: 1.0.0
+branches:
+- id: physics-informed-scientific-ai
+  label: Physics-informed scientific AI
+  definition: AI systems that incorporate scientific priors, equations, constraints,
+    operators, simulators, or physical evaluation.
+  parent: null
+  aliases:
+  - scientific machine learning
+  - physics-informed AI
+  inclusion_rules:
+  - Scientific or engineering system is explicit.
+  exclusion_rules:
+  - Embodied interaction without scientific-modeling content belongs under embodied
+    physical intelligence.
+  examples:
+  - PINNs
+  - neural operators
+- id: embodied-physical-intelligence
+  label: Embodied physical intelligence
+  definition: AI systems that perceive, reason, plan, and act in the physical world.
+  parent: null
+  aliases:
+  - embodied AI
+  - physical intelligence
+  inclusion_rules:
+  - Physical perception, control, robot learning, or VLA behavior is central.
+  exclusion_rules:
+  - Pure scientific surrogate modelling belongs in physics-informed scientific AI.
+  examples:
+  - robot learning
+  - vision-language-action models
+method_families:
+- physics-constrained-objectives
+- physics-embedded-architectures
+- differentiable-simulation
+- neural-operators
+- hybrid-numerical-machine-learning
+- symmetry-and-equivariance
+- system-identification-and-inverse-problems
+- uncertainty-quantification
+- scientific-foundation-models
+- theory-optimization-generalization
+- physical-perception
+- spatial-and-3d-reasoning
+- dynamics-and-physical-reasoning
+- world-models
+- planning-and-control
+- robot-learning
+- vision-language-action-models
+- sim-to-real-and-domain-adaptation
+- safety-and-uncertainty
+- machine-learning-upscaling
+- observation-operator-methods
+domains:
+- fluids-and-aerodynamics
+- energy-and-materials
+- climate-geoscience-remote-sensing
+- biomedical-mechanics
+- robotics-and-embodied-systems
+- terrestrial-carbon-flux
+- other-verified-domains
+physics_sources:
+- governing-equations
+- conservation-laws
+- symmetry
+- observation-operator
+- domain-knowledge
+- process-model
+- uncertainty-model
+- measurement-support
+integration_stages:
+- labels
+- inputs
+- architecture
+- loss-objective
+- simulation-loop
+- data-assimilation
+- evaluation-audit
+- post-hoc-analysis
+evidence_levels:
+- primary_verified
+- cross_verified
+- single_source
+- unverified
+content_statuses:
+- draft
+- verified
+- needs_review
+- deprecated
+- archived

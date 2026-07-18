@@ -1,0 +1,8 @@
+decisions:
+- id: d001
+  decision: Use local DOI-verified carbon-flux corpus for initial paper records.
+  rationale: Avoid fabricating records to satisfy quantity targets.
+- id: d002
+  decision: Mark many records as needs_review/single_source.
+  rationale: Metadata is DOI-linked but not all full texts were manually read in this
+    phase.

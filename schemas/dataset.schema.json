@@ -1,0 +1,88 @@
+{
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "provider",
+    "official_url",
+    "domains",
+    "tasks",
+    "modalities",
+    "access_conditions",
+    "license",
+    "redistribution_policy",
+    "evidence_level",
+    "content_status",
+    "last_verified",
+    "source_urls"
+  ],
+  "properties": {
+    "evidence_level": {
+      "enum": [
+        "primary_verified",
+        "cross_verified",
+        "single_source",
+        "unverified"
+      ]
+    },
+    "content_status": {
+      "enum": [
+        "draft",
+        "verified",
+        "needs_review",
+        "deprecated",
+        "archived"
+      ]
+    },
+    "last_verified": {
+      "type": "string"
+    },
+    "source_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dataset_id": {
+      "pattern": "^dataset-[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "official_url": {
+      "type": "string"
+    },
+    "identifier": {},
+    "domains": {
+      "type": "array"
+    },
+    "tasks": {
+      "type": "array"
+    },
+    "modalities": {
+      "type": "array"
+    },
+    "spatial_coverage": {},
+    "temporal_coverage": {},
+    "access_conditions": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "redistribution_policy": {
+      "type": "string"
+    },
+    "related_papers": {
+      "type": "array"
+    },
+    "related_code": {
+      "type": "array"
+    },
+    "related_benchmarks": {
+      "type": "array"
+    }
+  }
+}

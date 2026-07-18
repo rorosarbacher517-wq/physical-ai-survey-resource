@@ -1,0 +1,45 @@
+generated: '2026-07-17T12:36:16+00:00'
+top_level_items:
+- .editorconfig
+- .gitattributes
+- .github
+- .gitignore
+- .pre-commit-config.yaml
+- 00-overview
+- 01-knowledge-base
+- 02-paper-library
+- 03-code-library
+- 04-dataset-library
+- 05-benchmarks-and-evaluation
+- 06-case-studies
+- 07-extended-resources
+- AGENTS.md
+- CHANGELOG.md
+- CITATION.cff
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- EXECPLAN.md
+- LICENSE-CODE
+- LICENSE-DOCS
+- README.md
+- README_zh-CN.md
+- ROADMAP.md
+- SECURITY.md
+- THIRD_PARTY_LICENSES.md
+- _agent_bootstrap
+- audits
+- docs
+- examples
+- inputs
+- maintenance.md
+- metadata
+- mkdocs.yml
+- pyproject.toml
+- schemas
+- scripts
+- templates
+- tests
+python: 3.11.4 observed
+network: restricted
+git: not available in shell
+large_files_over_10mb: []

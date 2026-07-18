@@ -1,0 +1,13 @@
+site_name: Physical AI Survey Resource
+theme:
+  name: mkdocs
+nav:
+  - Home: README.md
+  - Resource counts: docs/resource-counts.md
+  - Papers: 02-paper-library/index.md
+  - Code: 03-code-library/index.md
+  - Datasets: 04-dataset-library/index.md
+  - Benchmarks: 05-benchmarks-and-evaluation/index.md
+  - Geoscience track: 06-case-studies/geoscience-remote-sensing/index.md
+  - Carbon flux: 06-case-studies/geoscience-remote-sensing/carbon-flux/index.md
+  - Governance: CONTRIBUTING.md

@@ -1,0 +1,13 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+.env
+*.pyc
+*.log
+data/raw/
+data/interim/
+inputs/private-not-for-publication/
+audits/link-cache.json
+site/

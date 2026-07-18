@@ -1,0 +1,92 @@
+benchmarks:
+- benchmark_id: benchmark-carbon-flux-site-blocked
+  name: Site-blocked carbon-flux upscaling
+  task_definition: Site-blocked carbon-flux upscaling
+  dataset_ids:
+  - dataset-fluxnet
+  split_definition: Defined in benchmark card; verify before comparing scores.
+  metrics:
+  - RMSE
+  - site-blocked generalization
+  baseline_references: []
+  comparability_warnings:
+  - Do not compare scores across incompatible splits or target definitions.
+  license: unknown
+  access: metadata-only
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls: []
+- benchmark_id: benchmark-carbon-flux-footprint-support
+  name: Footprint-support validation
+  task_definition: Footprint-support validation
+  dataset_ids:
+  - dataset-ameriflux
+  split_definition: Defined in benchmark card; verify before comparing scores.
+  metrics:
+  - support mismatch
+  - RMSE
+  baseline_references: []
+  comparability_warnings:
+  - Do not compare scores across incompatible splits or target definitions.
+  license: unknown
+  access: metadata-only
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls: []
+- benchmark_id: benchmark-remote-sensing-gpp
+  name: Remote-sensing GPP upscaling
+  task_definition: Remote-sensing GPP upscaling
+  dataset_ids:
+  - dataset-modis
+  - dataset-hls
+  split_definition: Defined in benchmark card; verify before comparing scores.
+  metrics:
+  - RMSE
+  - cross-site generalization
+  baseline_references: []
+  comparability_warnings:
+  - Do not compare scores across incompatible splits or target definitions.
+  license: unknown
+  access: metadata-only
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls: []
+- benchmark_id: benchmark-pde-operator-learning
+  name: PDE operator learning
+  task_definition: PDE operator learning
+  dataset_ids:
+  - dataset-pdebench
+  split_definition: Defined in benchmark card; verify before comparing scores.
+  metrics:
+  - relative L2 error
+  - rollout stability
+  baseline_references: []
+  comparability_warnings:
+  - Do not compare scores across incompatible splits or target definitions.
+  license: unknown
+  access: metadata-only
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls: []
+- benchmark_id: benchmark-geoscience-ood
+  name: Geoscience out-of-distribution evaluation
+  task_definition: Geoscience out-of-distribution evaluation
+  dataset_ids:
+  - dataset-era5-land
+  split_definition: Defined in benchmark card; verify before comparing scores.
+  metrics:
+  - OOD error
+  - uncertainty calibration
+  baseline_references: []
+  comparability_warnings:
+  - Do not compare scores across incompatible splits or target definitions.
+  license: unknown
+  access: metadata-only
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls: []

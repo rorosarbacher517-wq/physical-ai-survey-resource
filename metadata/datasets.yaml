@@ -1,0 +1,202 @@
+datasets:
+- dataset_id: dataset-fluxnet
+  name: FLUXNET
+  provider: FLUXNET
+  official_url: https://fluxnet.org/
+  identifier: null
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - eddy-covariance
+  - carbon-flux
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://fluxnet.org/
+- dataset_id: dataset-ameriflux
+  name: AmeriFlux
+  provider: AmeriFlux
+  official_url: https://ameriflux.lbl.gov/
+  identifier: null
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - eddy-covariance
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://ameriflux.lbl.gov/
+- dataset_id: dataset-neon
+  name: NEON Data Portal
+  provider: NEON
+  official_url: https://data.neonscience.org/
+  identifier: null
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - field-observations
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://data.neonscience.org/
+- dataset_id: dataset-era5-land
+  name: ERA5-Land
+  provider: ECMWF
+  official_url: https://cds.climate.copernicus.eu/
+  identifier: null
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - meteorology
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://cds.climate.copernicus.eu/
+- dataset_id: dataset-hls
+  name: Harmonized Landsat Sentinel-2
+  provider: NASA
+  official_url: https://hls.gsfc.nasa.gov/
+  identifier: null
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - optical-remote-sensing
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://hls.gsfc.nasa.gov/
+- dataset_id: dataset-modis
+  name: MODIS Land Products
+  provider: NASA
+  official_url: https://modis.gsfc.nasa.gov/data/
+  identifier: null
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - remote-sensing
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://modis.gsfc.nasa.gov/data/
+- dataset_id: dataset-smap
+  name: SMAP
+  provider: NASA
+  official_url: https://smap.jpl.nasa.gov/data/
+  identifier: null
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - soil-moisture
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://smap.jpl.nasa.gov/data/
+- dataset_id: dataset-pdebench
+  name: PDEBench
+  provider: PDEBench
+  official_url: https://github.com/pdebench/PDEBench
+  identifier: null
+  domains:
+  - fluids-and-aerodynamics
+  tasks:
+  - model-training
+  - evaluation
+  modalities:
+  - synthetic-pde
+  spatial_coverage: null
+  temporal_coverage: null
+  access_conditions: See official provider terms.
+  license: unknown
+  redistribution_policy: Do not redistribute raw data from this repository.
+  related_papers: []
+  related_code: []
+  related_benchmarks: []
+  evidence_level: single_source
+  content_status: needs_review
+  last_verified: '2026-07-17'
+  source_urls:
+  - https://github.com/pdebench/PDEBench

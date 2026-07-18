@@ -1,0 +1,21 @@
+relationships:
+- source_id: code-repo-examples
+  target_id: benchmark-pde-operator-learning
+  relationship_type: demonstrates
+  evidence_level: primary_verified
+- source_id: paper-10-1016-j-agrformet-2022-108980
+  target_id: dataset-fluxnet
+  relationship_type: uses-or-discusses
+  evidence_level: single_source
+- source_id: code-repo-examples
+  target_id: benchmark-pde-operator-learning
+  relationship_type: demonstrates
+  evidence_level: primary_verified
+- source_id: paper-10-1016-j-agrformet-2022-108980
+  target_id: dataset-fluxnet
+  relationship_type: uses-or-discusses
+  evidence_level: single_source
+- source_id: code-repo-examples
+  target_id: benchmark-pde-operator-learning
+  relationship_type: demonstrates
+  evidence_level: primary_verified

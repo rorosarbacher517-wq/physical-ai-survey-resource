@@ -1,0 +1,15 @@
+[project]
+name = "physical-ai-survey-resource"
+version = "1.0.0"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+files = ["scripts"]
+ignore_missing_imports = true

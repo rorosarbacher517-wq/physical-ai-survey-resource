@@ -1,0 +1,112 @@
+{
+  "type": "object",
+  "required": [
+    "paper_id",
+    "title",
+    "authors",
+    "year",
+    "venue",
+    "identifiers",
+    "primary_method",
+    "domains",
+    "tasks",
+    "physics_source",
+    "physics_integration_stage",
+    "survey_sections",
+    "evidence_level",
+    "content_status",
+    "last_verified",
+    "source_urls"
+  ],
+  "properties": {
+    "evidence_level": {
+      "enum": [
+        "primary_verified",
+        "cross_verified",
+        "single_source",
+        "unverified"
+      ]
+    },
+    "content_status": {
+      "enum": [
+        "draft",
+        "verified",
+        "needs_review",
+        "deprecated",
+        "archived"
+      ]
+    },
+    "last_verified": {
+      "type": "string"
+    },
+    "source_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "paper_id": {
+      "pattern": "^paper-[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "authors": {
+      "type": "array"
+    },
+    "year": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "venue": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identifiers": {
+      "type": "object"
+    },
+    "primary_method": {
+      "type": "string"
+    },
+    "secondary_tags": {
+      "type": "array"
+    },
+    "domains": {
+      "type": "array"
+    },
+    "tasks": {
+      "type": "array"
+    },
+    "physics_source": {
+      "type": "array"
+    },
+    "physics_integration_stage": {
+      "type": "array"
+    },
+    "survey_sections": {
+      "type": "array"
+    },
+    "open_access": {
+      "type": "boolean"
+    },
+    "license": {
+      "type": "string"
+    },
+    "code_ids": {
+      "type": "array"
+    },
+    "dataset_ids": {
+      "type": "array"
+    },
+    "benchmark_ids": {
+      "type": "array"
+    },
+    "why_included": {
+      "type": "string"
+    }
+  }
+}

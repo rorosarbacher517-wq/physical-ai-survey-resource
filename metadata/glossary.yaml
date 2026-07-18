@@ -1,0 +1,143 @@
+terms:
+- term_id: pinn
+  canonical_term: Physics-informed neural network
+  aliases:
+  - PINN
+  definition: Neural network trained with physical residuals or constraints.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: neural-operator
+  canonical_term: Neural operator
+  aliases:
+  - operator learning
+  definition: Model class that learns mappings between function spaces.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: deeponet
+  canonical_term: DeepONet
+  aliases: []
+  definition: Neural operator architecture using branch and trunk subnetworks.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: fno
+  canonical_term: Fourier neural operator
+  aliases:
+  - FNO
+  definition: Neural operator using Fourier-domain parameterization.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: differentiable-simulator
+  canonical_term: Differentiable simulator
+  aliases: []
+  definition: Simulator whose outputs can be differentiated with respect to inputs
+    or parameters.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: equivariance
+  canonical_term: Equivariance
+  aliases: []
+  definition: Property that transformations of inputs induce predictable transformations
+    of outputs.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: inverse-problem
+  canonical_term: Inverse problem
+  aliases: []
+  definition: Problem of inferring causes, states, parameters, or sources from observations.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: uncertainty-quantification
+  canonical_term: Uncertainty quantification
+  aliases:
+  - UQ
+  definition: Methods for characterizing predictive, parametric, or observational
+    uncertainty.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: world-model
+  canonical_term: World model
+  aliases: []
+  definition: Learned model of environment dynamics used for prediction or planning.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: sim-to-real
+  canonical_term: Sim-to-real
+  aliases: []
+  definition: Transfer from simulation-trained systems to physical deployment.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: vision-language-action-model
+  canonical_term: Vision-language-action model
+  aliases:
+  - VLA
+  definition: Embodied model connecting visual input, language, and actions.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'
+- term_id: eddy-covariance
+  canonical_term: Eddy covariance
+  aliases:
+  - EC
+  definition: Micrometeorological method for measuring turbulent exchange between
+    ecosystem and atmosphere.
+  branch: physics-informed-scientific-ai
+  method_tags: []
+  related_terms: []
+  common_confusion: Terminology varies across communities; verify field-specific usage.
+  source_ids: []
+  status: needs_review
+  verification_date: '2026-07-17'

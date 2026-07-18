@@ -1,0 +1,5156 @@
+papers:
+- paper_id: paper-10-3390-rs13132448
+  title: Comparison of Machine Learning Methods to Up-Scale Gross Primary Production
+  authors:
+  - Tao Yu
+  - Qiang Zhang
+  - Rui Sun
+  year: 2021
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs13132448
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.3390/rs13132448
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Eddy covariance observation is an applicable way to obtain accurate and
+    continuous carbon flux at flux tower sites, while remote sensing technology could
+    estimate carbon exchange and carbon storage at regional and global scales effectively.
+    However, it is still challenging to up-scale the field-observed carbon flux to
+    a regional scale, due to the heterogeneity and the unstable air conditions at
+    the land surface. In this paper, gross primary production (GPP) from ground eddy
+    covariance systems were up-scaled to a regional scale by using five machine learning
+    methods (Cubist regression tree, random forest, support vector machine, artificial
+    neural network, and deep belief network). Then, the up-scaled GPP were validated
+    using GPP at flux tower sites, weighted GPP in the footprint, and MODIS GPP products.
+    At last, the sensitivity of the input data (normalized difference vegetation index,
+    fractional vegetation cover, shortwave radiation, relative humidity and air temperature)
+    to the precision of up-scaled GPP was analyzed, and the uncertainty of the machine
+    learning methods was discussed. The results of this paper indicated that machine
+    learning methods had a great potential in up-scal
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-1029-2021ms002802
+  title: Machine Learning‐Based Modeling of Vegetation Leaf Area Index and Gross Primary
+    Productivity Across North America and Comparison With a Process‐Based Model
+  authors:
+  - Zhicheng Zhang
+  - Qinchuan Xin
+  - Wanjing Li
+  year: 2021
+  venue: Journal of Advances in Modeling Earth Systems
+  identifiers:
+    doi: 10.1029/2021ms002802
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1029/2021ms002802
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Abstract Vegetation plays a key role in regulating the material and energy
+    exchanges among the biosphere, the atmosphere, and the pedosphere. Modeling and
+    predicting vegetation key variables such as leaf area index (LAI) and gross primary
+    productivity (GPP) are crucial to understand and project the processes of vegetation
+    growth in response to climate change. While a number of studies developed models
+    to simulate vegetation GPP using satellite‐derived LAI, the requirement of satellite‐based
+    model inputs largely limits the predicting power of these developed models. This
+    study developed a machine learning scheme, utilizing both support vector regression
+    (SVR) and random forests (RF), which are capable of modeling LAI and GPP time
+    series using only meteorological variables. We first simulated the LAI time series
+    directly using meteorological variables as inputs and then buffered its unrealistic
+    day‐to‐day fluctuation, and further modeled the GPP time series using meteorological
+    variables and modeled LAI time series. This scheme enhanced the interpretability
+    of machine learning models by considering the nonnegligible coupling between LAI
+    and GPP. We tested our methods for four main pl
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-1016-j-agrformet-2022-108980
+  title: 'Two for one: Partitioning CO2 fluxes and understanding the relationship
+    between solar-induced chlorophyll fluorescence and gross primary productivity
+    using machine learning'
+  authors:
+  - Weiwei Zhan
+  - Xi Yang
+  - Youngryel Ryu
+  - Benjamin Dechant
+  - Yu Huang
+  - Yves Goulas
+  - Minseok Kang
+  - Pierre Gentine
+  year: 2022
+  venue: Agricultural and Forest Meteorology
+  identifiers:
+    doi: 10.1016/j.agrformet.2022.108980
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/j.agrformet.2022.108980
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: false
+  abstract: ''
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-3390-rs13244976
+  title: 'Gap-Filling Eddy Covariance Latent Heat Flux: Inter-Comparison of Four Machine
+    Learning Model Predictions and Uncertainties in Forest Ecosystem'
+  authors:
+  - Muhammad Sarfraz Khan
+  - Seung Bae Jeon
+  - Myeong-Hun Jeong
+  year: 2021
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs13244976
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.3390/rs13244976
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: 'Environmental monitoring using satellite remote sensing is challenging
+    because of data gaps in eddy-covariance (EC)-based in situ flux tower observations.
+    In this study, we obtain the latent heat flux (LE) from an EC station and perform
+    gap filling using two deep learning methods (two-dimensional convolutional neural
+    network (CNN) and long short-term memory (LSTM) neural networks) and two machine
+    learning (ML) models (support vector machine (SVM), and random forest (RF)), and
+    we investigate their accuracies and uncertainties. The average model performance
+    based on ~25 input and hysteresis combinations show that the mean absolute error
+    is in an acceptable range (34.9 to 38.5 Wm−2), which indicates a marginal difference
+    among the performances of the four models. In fact, the model performance is ranked
+    in the following order: SVM > CNN > RF > LSTM. We conduct a robust analysis of
+    variance and post-hoc tests, which yielded statistically insignificant results
+    (p-value ranging from 0.28 to 0.76). This indicates that the distribution of means
+    is equal within groups and among pairs, thereby implying similar performances
+    among the four models. The time-series analysis and Taylor diagram in'
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-3390-rs17213615
+  title: 'Digital Twin-Ready Earth Observation: Operationalizing GeoML for Agricultural
+    CO2 Flux Monitoring at Field Scale'
+  authors:
+  - Asima Khan
+  - Muhammad Ali
+  - Akshatha Mandadi
+  - Ashiq Anjum
+  - Heiko Balzter
+  year: 2025
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs17213615
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.3390/rs17213615
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Operationalizing Earth Observation (EO)-based Machine Learning (ML) algorithms
+    (or GeoML) for ingestion in environmental Digital Twins remains a challenging
+    task due to the complexities associated with balancing real-time inference with
+    cost, data, and infrastructure requirements. In the field of GHG monitoring, most
+    GeoML models of land use CO2 fluxes remain at the proof-of-concept stage, limiting
+    their use in policy and land management for net-zero goals. In this study, we
+    develop and demonstrate a Digital Twin-ready framework to operationalize a pre-trained
+    Random Forest model that estimates the Net Ecosystem Exchange of CO2 (NEE) from
+    drained peatlands into a biweekly, field-scale CO2 flux monitoring system using
+    EO and weather data. The system achieves an average response time of 6.12 s, retains
+    98% accuracy of the underlying model, and predicts the NEE of CO2 with an R2 of
+    0.76 and NRMSE of 8%. It is characterized by hybrid data ingestion (combining
+    non-time-critical and real-time retrieval), automated biweekly data updates, efficient
+    storage, and a user-friendly front-end. The underlying framework, which is part
+    of an operational Digital Twin under the UK Research &amp; Inno
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-3390-su18041944
+  title: Assessing Proxy-Based Grassland Gross Primary Productivity Using Machine
+    Learning Approaches and Multi-Source Remote Sensing
+  authors:
+  - Tsolmon Sodnomdavaa
+  year: 2026
+  venue: Sustainability
+  identifiers:
+    doi: 10.3390/su18041944
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.3390/su18041944
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Gross Primary Productivity (GPP) in grassland ecosystems is a fundamental
+    eco-biophysical indicator for assessing carbon cycling, grazing capacity, and
+    ecosystem responses to climatic stress. However, robust estimation of GPP in arid
+    and semi-arid rangelands remains challenging because of pronounced spatial heterogeneity,
+    strong climate variability, and inherent uncertainties associated with remotely
+    sensed observations. Together, these factors constrain both modeling performance
+    and out-of-sample generalization beyond the training domain. In this dryland grassland
+    context, this study compares the performance of machine learning (ML) models for
+    grassland GPP proxy-based characterization, downscaling, and predictive agreement
+    using a multivariate dataset that integrates Sentinel-2-derived spectral and phenological
+    features, a Moderate-Resolution Imaging Spectroradiometer (MODIS)-derived GPP
+    proxy, and complementary climatic and geographic information. Pixel-level observations
+    spanning multiple years are analyzed, with ordinary linear regression used as
+    a baseline benchmark and ensemble decision-tree models, including Random Forest,
+    Gradient Boosting, and Histogram-based Gradient Boo
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-5194-egusphere-egu2020-2135
+  title: GPP and NEE estimation for global forests based on a deep convolutional neural
+    network
+  authors:
+  - Wenjin Wu
+  year: 2020
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu2020-2135
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu2020-2135
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: '&amp;lt;p&amp;gt;To generate FluxNet-consistent annual forest GPP and
+    NEE, we have developed a deep neural network that can retrieve estimations globally.
+    Seven parameters considering different aspects of forest ecological and climatic
+    features which include the Normalized Difference Vegetation Index (NDVI), the
+    Enhanced Vegetation Index (EVI), Evapotranspiration (ET), Land Surface Temperature
+    during Daytime (LSTD), Land Surface Temperature at Night (LSTN), precipitation,
+    and forest type were selected as the input. All these datasets can be acquired
+    from the Google earth engine platform to ensure rapid large-scale analysis. The
+    model has three favorable traits: (1) Based on a multidimensional convolutional
+    block, this model arranges all temporal variables into a two-dimensional feature
+    map to consider phenology and inter-parameter relationships. The model can thus
+    obtain the estimation with encoded meaningful patterns instead of raw input variables.
+    (2) In contrast to filling data gaps with historical values or smoothing methods,
+    the new model is developed and trained to catch signals with certain levels of
+    occlusions; therefore, it can tolerate a relativly large portion of missing'
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-5194-egusphere-egu24-5488
+  title: Global long-term hourly 9 km terrestrial water-energy-carbon fluxes with
+    physics-informed machine learning
+  authors:
+  - Qianqian Han
+  - Yijian Zeng
+  - Yunfei Wang
+  - Fakhereh (Sarah) Alidoost
+  - Francesco Nattino
+  - Yang Liu
+  - Bob Su
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu24-5488
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu24-5488
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: 'In this study, we generate a global, long-term, hourly terrestrial water-energy-carbon
+    fluxes, using model simulations, in-situ measurements, and physics-informed machine
+    learning. The soil-plant model, STEMMUS-SCOPE was deployed to simulate land surface
+    fluxes over 170 Fluxnet sites (STEMMUS &amp;#8211; Simultaneous Transfer of Energy,
+    Mass, and Momentum in Unsaturated Soil; SCOPE - Soil Canopy Observation, Photochemistry
+    and Energy fluxes radiative transfer model). The model input and output data were
+    then used as training data-pairs to develop the STEMMUS-SCOPE emulator using multivariate
+    random forests regression algorithm. Here, physics-informed machine learning refers
+    to the fact that the emulator was trained and constrained by the physical consistency
+    represented by the soil-plant model. We compared the physics-informed emulator
+    (RF_S-S) with the one trained using only Fluxnet in-situ measurements (RF_in-situ),
+    and found that the land surface fluxes predicted by RF_S-S are less scattered
+    than that by RF_in-situ.We estimate six variables simultaneously: net radiation,
+    latent heat flux, sensible heat flux, gross primary productivity, solar-induced
+    fluorescence in 685 nm and 74'
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-5194-egusphere-egu25-17514
+  title: Enhancing quantification of local carbon sinks through Eddy Covariance CO2
+    Flux and Machine Learning
+  authors:
+  - Luca Tuzzi
+  - Marta Galvagno
+  - Gianluca Filippa
+  - Jacob Nelson
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu25-17514
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu25-17514
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Under the Paris Agreement, countries are encouraged to preserve and enhance
+    existing carbon sinks. Europe, in particular, has committed to achieving climate
+    neutrality - attaining a balance between anthropogenic emissions from sources
+    and removals by sinks - by 2050. Achieving these ambitious goals requires accurate
+    and credible estimation of CO2 fluxes. However, discrepancies between observations
+    and global models hinder the tracking of collective progress towards climate neutrality.
+    Efforts to improve transparency and data comparability are crucial to better align
+    national mitigation strategies with global pathways. In particular, effective
+    climate mitigation policies increasingly depend on local-level actions where detailed
+    data on CO&amp;#8322; removals from forests and other land uses are traditionally
+    lacking. Addressing the uncertainty in land-sector mitigation potential and enhancing
+    the availability and comparability of data are critical for achieving climate
+    goals by cities and regions. Different models, including process-based and data-driven
+    approaches, exist to estimate land carbon fluxes, but their application and accuracy
+    often vary significantly depending on the sca
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-5194-egusphere-egu25-14709
+  title: Investigation of eco-hydrogical processes influencing Himalayan Chir-Pine
+    net ecosystem exchange using machine learning classifiers
+  authors:
+  - Priyanka Lohani
+  - Sandipan Mukherjee
+  - Sumit Pundir
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu25-14709
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu25-14709
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Terrestrial ecosystems gain carbon through photosynthesis and lose it
+    through respiration in autotrophs and heterotrophs. Continuously measured values
+    of carbon fluxes of a forest ecosystem, particularly net ecosystem exchange (NEE)
+    could be used as a general indicator of forest ecosystem functioning. Subsequently,
+    quantification of the ecosystem functioning as a response to changes in the microclimate
+    and environmental variables is necessary to frame sustainable adaptive measures
+    and conservation policies. The Himalayan Chir- Pine (Pinus roxburghii Sarg.) is
+    a gregarious, fire-resistant, indigenous tree species, often form pure forests
+    and having the characteristics of high regeneration potential. The Chir-Pine is
+    widely distributed across the western and central part of the Indian Himalayan
+    Region and thereby acts as a major control of land-atmosphere processes. In the
+    recent years, studies have provided insights on sub-daily to annual scale interactions
+    of Chir-Pine ecosystem with microclimatic and environmental variables, and it
+    was reported that Chir-Pine ecosystem is a heat dominating ecosystem with high
+    carbon sequestration potential. However, almost no information is availa
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-2139-ssrn-6298873
+  title: High-Resolution Daily Net Ecosystem Exchange (NEE) Estimation over Rice Paddies
+    Using Machine Learning and Multi-Source Satellite and Meteorological Data
+  authors:
+  - Nari Kim
+  - Jaeil Cho
+  - Gayoung Yoo
+  - Sujong Jeong
+  - Menas Kafatos
+  - Seung Hee Kim
+  - Yangwon Lee
+  year: 2026
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.6298873
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.2139/ssrn.6298873
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Estimating net ecosystem exchange (NEE) in agricultural ecosystems is
+    essential for quantifying carbon fluxes and supporting carbon neutrality strategies.
+    However, satellite-based NEE products developed at coarse spatial resolutions
+    often exhibit limited applicability to fragmented agricultural landscapes, where
+    mixed-pixel effects and scale mismatch obscure field-scale carbon exchange signals.
+    This limitation is particularly pronounced in South Korea, where rice paddies
+    are widely distributed within complex terrain and exhibit strong seasonal variability
+    driven by intensive management practices. In this study, we developed a high-resolution,
+    grid-based NEE estimation framework for rice paddy areas in South Korea with a
+    daily temporal resolution and a spatial resolution of 500 m. The proposed approach
+    integrates satellite-derived MODIS vegetation indices—normalized difference vegetation
+    index (NDVI), fraction of photosynthetically active radiation (FPAR), and leaf
+    area index (LAI)—with meteorological variables from the Local Data Assimilation
+    and Prediction System (LDAPS) of the Korea Meteorological Administration. Machine
+    learning models based on Extremely Randomized Trees (ERT) a
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-2139-ssrn-7003298
+  title: 'Bridging from Canopy to Ecosystem: Physics-Informed Machine Learning Partitions
+    Carbon–Water Fluxes to Reveal Divergent Water Use Strategies'
+  authors:
+  - Yao Wu
+  - Wenyang Cao
+  - Wenjing Ma
+  - Renjie Guo
+  - Xiuchen Wu
+  - Pei Wang
+  year: 2026
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.7003298
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.2139/ssrn.7003298
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: Water use efficiency (WUE) represents a crucial functional trait that
+    governs ecosystem resilience to climate change; however, accurately partitioning
+    its underlying carbon–water fluxes and identifying the key biophysical drivers
+    remain particularly challenging in water-limited ecosystems. To address this,
+    we developed a new modelling framework that integrates a physically constrained
+    two-layer XGBoost machine learning architecture with a mechanistic soil–plant–atmosphere
+    continuum (SPAC) model. This integrated approach enables robust prediction of
+    gross primary productivity (GPP) and transpiration (Tr) across multiple spatiotemporal
+    scales (half-hourly to decadal) in China&amp;apos;s climatically sensitive Heihe
+    River Basin from 2014 to 2023. Our framework achieves precise quantification of
+    both ecosystem-level water use efficiency (WUEECO = GPP/ET) and plant-level water
+    use efficiency (WUET = GPP/Tr), demonstrating a 19% reduction in GPP estimation
+    uncertainty compared with conventional nighttime partitioning methods. Decadal
+    analysis reveals striking differences in how ecosystems respond to hydroclimatic
+    extremes. Desert riparian forests exhibit exceptional drought adaptation, r
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-3390-rs18122016
+  title: MODIS-Based Estimation of Grassland Gross Primary Productivity in Inner Mongolia
+    Using a ConvTransformer Deep Learning Model
+  authors:
+  - Dingqi Shi
+  - Yunjun Yao
+  - Yufu Li
+  - Xueyi Zhang
+  - Xiaotong Zhang
+  - Bo Jiang
+  - Ruiyang Yu
+  - Lu Liu
+  year: 2026
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs18122016
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - core_candidate
+  - doi-linked
+  - include
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.3390/rs18122016
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: include
+  screening_role: core_candidate
+  abstract_available: true
+  abstract: 'Understanding ecosystem carbon processes relies heavily on the reliable
+    assessment of gross primary productivity (GPP) yet remains challenging in the
+    Inner Mongolia grasslands due to data scarcity and high uncertainty among existing
+    products. We developed a ConvTransformer-based framework that exploits complementary
+    information from satellite observations and meteorological datasets to enhance
+    the representation of complex spatiotemporal dependencies in grassland ecosystems.
+    Grounded in leave-one-site-out cross-validation across six eddy covariance sites,
+    the model achieved average performance metrics of R2 = 0.59, RMSE = 1.40 g C m−2
+    d−1, Bias = −0.31 g C m−2 d−1, and KGE = 0.46, outperforming traditional machine
+    learning models (RF, GBRT, and SVR) as well as the light use efficiency model
+    (EC-LUE) in both accuracy and robustness. Using this framework, we generated a
+    daily GPP dataset at spatial granularity of 1 km for the Inner Mongolia grasslands
+    from 2003 to 2018. The results reveal a clear spatial gradient, with GPP decreasing
+    from southeast to northwest. Comparisons with established products, including
+    FLUXCOM, BESS V2, and PML V2, show strong spatial consistency and reduced '
+  why_included: 'Keep for full-text review: carbon-flux ML plus physics/scale/observation
+    signal.'
+- paper_id: paper-10-1016-j-rse-2005-10-009
+  title: Evaluation of MODIS Gross Primary Productivity (GPP) in tropical monsoon
+    regions
+  authors:
+  - M GEBREMICHAEL
+  - A BARROS
+  year: 2006
+  venue: Remote Sensing of Environment
+  identifiers:
+    doi: 10.1016/j.rse.2005.10.009
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/j.rse.2005.10.009
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1016-0034-42579500258-8
+  title: Estimating net ecosystem exchange of carbon using the normalized difference
+    vegetation index and an ecosystem model
+  authors:
+  - F. Veroustraete
+  - J. Patyn
+  - R.B. Myneni
+  year: 1996
+  venue: Remote Sensing of Environment
+  identifiers:
+    doi: 10.1016/0034-4257(95)00258-8
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/0034-4257(95)00258-8
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1029-2010gb003900
+  title: 'Atmospheric constraints on gross primary productivity and net ecosystem
+    productivity: Results from a carbon‐cycle data assimilation system'
+  authors:
+  - E. N. Koffi
+  - P. J. Rayner
+  - M. Scholze
+  - C. Beer
+  year: 2012
+  venue: Global Biogeochemical Cycles
+  identifiers:
+    doi: 10.1029/2010gb003900
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1029/2010gb003900
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: This paper combines an atmospheric transport model and a terrestrial ecosystem
+    model to estimate gross primary productivity (GPP) and net ecosystem productivity
+    (NEP) of the land biosphere. Using atmospheric CO2observations in a Carbon Cycle
+    Data Assimilation System (CCDAS) we estimate a terrestrial global GPP of 146 ±
+    19 GtC/yr. However, the current observing network cannot distinguish this best
+    estimate from a different assimilation experiment yielding a terrestrial global
+    GPP of 117 GtC/yr. Spatial estimates of GPP agree with data‐driven estimates in
+    the extratropics but are overestimated in the poorly observed tropics. The uncertainty
+    analysis of previous studies was extended by using two atmospheric transport models
+    and different CO2 observing networks. We find that estimates of GPP and NEP are
+    less sensitive to these choices than the form of the prior probability for model
+    parameters. NEP is also found to be significantly sensitive to the transport model
+    and this sensitivity is not greatly reduced compared to direct atmospheric transport
+    inversions, which optimize NEP directly.
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-1034-j-1600-0889-47-issue1-15-x
+  title: Monitoring seasonal and interannual variations of gross primary productivity,
+    net primary productivity and net ecosystem productivity using a diagnostic model
+    and remotely-sensed data
+  authors:
+  - P. MAISONGRANDE
+  - A. RUIMY
+  - G. DEDIEU
+  - B. SAUGIER
+  year: 1995
+  venue: Tellus B
+  identifiers:
+    doi: 10.1034/j.1600-0889.47.issue1.15.x
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1034/j.1600-0889.47.issue1.15.x
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1016-j-ecoinf-2022-101697
+  title: Machine learning approach to predict terrestrial gross primary productivity
+    using topographical and remote sensing data
+  authors:
+  - Deep Prakash Sarkar
+  - B. Uma Shankar
+  - Bikash Ranjan Parida
+  year: 2022
+  venue: Ecological Informatics
+  identifiers:
+    doi: 10.1016/j.ecoinf.2022.101697
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1016/j.ecoinf.2022.101697
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-5194-essd-2016-36
+  title: Understanding the representativeness of FLUXNET for upscaling carbon flux
+    from eddy covariance measurements
+  authors:
+  - Jitendra Kumar
+  - Forrest M. Hoffman
+  - William W. Hargrove
+  - Nathan Collier
+  year: 2016
+  venue: null
+  identifiers:
+    doi: 10.5194/essd-2016-36
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/essd-2016-36
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Abstract. Eddy covariance data from regional flux networks are direct
+    in situ measurement of carbon, water, and energy fluxes and are of vital importance
+    for understanding the spatio-temporal dynamics of the the global carbon cycle.
+    FLUXNET links regional networks of eddy covariance sites across the globe to quantify
+    the spatial and temporal variability of fluxes at regional to global scales and
+    to detect emergent ecosystem properties. This study presents an assessment of
+    the representativeness of FLUXNET based on the recently released FLUXNET2015 data
+    set. We present a detailed high resolution analysis of the evolving representativeness
+    of FLUXNET through time. Results provide quantitative insights into the extent
+    that various biomes are sampled by the network of networks, the role of the spatial
+    distribution of the sites on the network scale representativeness at any given
+    time, and how that representativeness has changed through time due to changing
+    operational status and data availability at sites in the network. To realize the
+    full potential of FLUXNET observations for understanding emergent ecosystem properties
+    at regional and global scales, we present an approach for upscali
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-3390-rs13214229
+  title: 'Estimating Gross Primary Productivity (GPP) over Rice–Wheat-Rotation Croplands
+    by Using the Random Forest Model and Eddy Covariance Measurements: Upscaling and
+    Comparison with the MODIS Product'
+  authors:
+  - Zexia Duan
+  - Yuanjian Yang
+  - Shaohui Zhou
+  - Zhiqiu Gao
+  - Lian Zong
+  - Sihui Fan
+  - Jian Yin
+  year: 2021
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs13214229
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.3390/rs13214229
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: true
+  abstract: Despite advances in remote sensing–based gross primary productivity (GPP)
+    modeling, the calibration of the Moderate Resolution Imaging Spectroradiometer
+    (MODIS) GPP product (GPPMOD) is less well understood over rice–wheat-rotation
+    cropland. To improve the performance of GPPMOD, a random forest (RF) machine learning
+    model was constructed and employed over the rice–wheat double-cropping fields
+    of eastern China. The RF-derived GPP (GPPRF) agreed well with the eddy covariance
+    (EC)-derived GPP (GPPEC), with a coefficient of determination of 0.99 and a root-mean-square
+    error of 0.42 g C m−2 d−1. Therefore, it was deemed reliable to upscale GPPEC
+    to regional scales through the RF model. The upscaled cumulative seasonal GPPRF
+    was higher for rice (924 g C m−2) than that for wheat (532 g C m−2). By comparing
+    GPPMOD and GPPEC, we found that GPPMOD performed well during the crop rotation
+    periods but underestimated GPP during the rice/wheat active growth seasons. Furthermore,
+    GPPMOD was calibrated by GPPRF, and the error range of GPPMOD (GPPRF minus GPPMOD)
+    was found to be 2.5–3.25 g C m−2 d−1 for rice and 0.75–1.25 g C m−2 d−1 for wheat.
+    Our findings suggest that RF-based GPP products have the
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-1080-01431161-2024-2312266
+  title: Uniform upscaling techniques for eddy covariance FLUXes (UFLUX)
+  authors:
+  - Songyan Zhu
+  - Tristan Quaife
+  - Timothy Hill
+  year: 2024
+  venue: International Journal of Remote Sensing
+  identifiers:
+    doi: 10.1080/01431161.2024.2312266
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1080/01431161.2024.2312266
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1111-j-1600-0889-2007-00274-x
+  title: The surface energy, water, carbon flux and their intercorrelated seasonality
+    in a global climate-vegetation coupled model
+  authors:
+  - Li Dan
+  - Jinjun Ji
+  year: 2007
+  venue: 'Tellus B: Chemical and Physical Meteorology'
+  identifiers:
+    doi: 10.1111/j.1600-0889.2007.00274.x
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1111/j.1600-0889.2007.00274.x
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1016-j-ifacsc-2019-100036
+  title: Net Ecosystem Exchange (NEE) simulation in maize using artificial neural
+    networks
+  authors:
+  - Babak Safa
+  - Timothy J. Arkebauer
+  - Qiuming Zhu
+  - Andy Suyker
+  - Suat Irmak
+  year: 2019
+  venue: IFAC Journal of Systems and Control
+  identifiers:
+    doi: 10.1016/j.ifacsc.2019.100036
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/j.ifacsc.2019.100036
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-3334-ornldaac-1315
+  title: 'CMS: Modeled Net Ecosystem Exchange at 3-hourly Time Steps, 2004-2010'
+  authors:
+  - Unknown authors
+  year: 2016
+  venue: null
+  identifiers:
+    doi: 10.3334/ornldaac/1315
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.3334/ornldaac/1315
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1007-s10668-022-02276-9
+  title: 'Prediction of the CO2 emission across grassland and cropland using tower-based
+    eddy covariance flux measurements: a machine learning approach'
+  authors:
+  - Simin Kheradmand
+  - Nima Heidarzadeh
+  - Seyed Hossein Kia
+  year: 2023
+  venue: Environment, Development and Sustainability
+  identifiers:
+    doi: 10.1007/s10668-022-02276-9
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1007/s10668-022-02276-9
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-3390-rs17030426
+  title: Upscaling Tower-Based Net Ecosystem Productivity to 250 m Resolution with
+    Flux Site Distribution Considerations
+  authors:
+  - Qizhi Han
+  - Liangyun Liu
+  - Xinjie Liu
+  year: 2025
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs17030426
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.3390/rs17030426
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: true
+  abstract: Net ecosystem productivity (NEP) is an extremely important flux for terrestrial
+    ecosystems, indicating the value of net ecosystem exchange (NEE) between terrestrial
+    ecosystems and the atmosphere, excluding carbon fluxes from disturbances. Leveraging
+    flux network NEE annual measurements, this study focuses on upscaling the tower-based
+    NEP to a global 250 m resolution dataset with flux site distribution considerations.
+    Firstly, the data augmentation method was presented to address issues related
+    to the uneven spatial distribution of flux sites. Secondly, a random forest model
+    was developed for NEP estimation using the optimized tower-based NEP and remotely
+    sensed and meteorological gridded sample sets, giving an R2 value of 0.73 and
+    an RMSE value of 149.83 gC m−2 yr−1. Finally, a global NEP product at a 250 m
+    resolution was generated (2001–2022, average 13.79 PgC yr−1) and evaluated. In
+    summary, we present a solution to the overestimation of global NEP by data-driven
+    methods, producing a long-time-series, high-resolution NEP dataset that is more
+    comparable to atmospheric inversion results. This dataset enhances comparability
+    with atmospheric inversion results, thereby boosting our co
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-1016-j-agwat-2024-108706
+  title: A coupled hourly water-carbon flux model at plot and field scales for water-saving
+    irrigated rice paddy
+  authors:
+  - Yuping Lv
+  - Linhui Gu
+  - Junzeng Xu
+  - Xiaoyin Liu
+  year: 2024
+  venue: Agricultural Water Management
+  identifiers:
+    doi: 10.1016/j.agwat.2024.108706
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/j.agwat.2024.108706
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-esd-2021-38
+  title: Process-based analysis of terrestrial carbon flux predictability
+  authors:
+  - István Dunkl
+  - Aaron Spring
+  - Pierre Friedlingstein
+  - Victor Brovkin
+  year: 2021
+  venue: null
+  identifiers:
+    doi: 10.5194/esd-2021-38
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/esd-2021-38
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Abstract. Despite efforts to decrease the discrepancy between simulated
+    and observed terrestrial carbon fluxes, the uncertainty in trends and patterns
+    of the land carbon fluxes remains high. This difficulty raises the question to
+    what extent the terrestrial carbon cycle is predictable, and which processes explain
+    the predictability. Here, the perfect model approach is used to assess the potential
+    predictability of net primary production (NPPpred) and heterotrophic respiration
+    (Rhpred) by using ensemble simulations conducted with the Max-Planck-Institute
+    Earth System Model. In order to asses the role of local carbon flux predictability
+    (CFpred) on the predictability of the global carbon cycle, we suggest a new predictability
+    metric weighted by the amplitude of the flux anomalies. Regression analysis is
+    used to determine the contribution of the predictability of different environmental
+    drivers to NPPpred and Rhpred (soil moisture, air temperature and radiation for
+    NPP and soil organic carbon, air temperature and precipitation for Rh). NPPpred
+    is driven to 62 and 30 % by the predictability of soil moisture and temperature,
+    respectively. Rhpred is driven to 52 and 27 % by the predictab
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-31223-x5r957
+  title: 'CEDAR-GPP: spatiotemporally upscaled estimates of gross primary productivity
+    incorporating CO2 fertilization'
+  authors:
+  - Yanghui Kang
+  - Max Gaber
+  - Maoya Bassiouni
+  - Xinchen Lu
+  - Trevor Keenan
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.31223/x5r957
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.31223/x5r957
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: true
+  abstract: 'Gross primary productivity (GPP) is the largest carbon flux in the Earth
+    system, playing a crucial role in removing atmospheric carbon dioxide and providing
+    the sugars and starches needed for ecosystem metabolism. Despite the importance
+    of GPP, however, existing estimates present significant uncertainties and discrepancies.
+    A key issue is the underrepresentation of the CO2 fertilization effect, a major
+    factor contributing to the increased terrestrial carbon sink over recent decades.
+    This omission could potentially bias our understanding of ecosystem responses
+    to climate change.Here, we introduce CEDAR-GPP, the first global upscaled GPP
+    product that incorporates the direct CO2 fertilization effect on photosynthesis.
+    Our product is comprised of monthly GPP estimates and their uncertainty at 0.05º
+    resolution from 1982 to 2020, generated using a comprehensive set of eddy covariance
+    measurements, multi-source satellite observations, climate variables, and machine
+    learning models. Importantly, we used both theoretical and data-driven approaches
+    to incorporate the direct CO2 effects. Our machine learning models effectively
+    predicted monthly GPP (R2 ~ 0.74), the mean seasonal cycles (R2 ~ '
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-1016-j-fecs-2025-100368
+  title: Predicting gross primary productivity of poplar plantations based on solar-induced
+    chlorophyll fluorescence using an improved machine learning model
+  authors:
+  - Yiheng Wang
+  - Zhipeng Li
+  - Jinsong Zhang
+  - Joanna Simms
+  - Xin Wang
+  year: 2025
+  venue: Forest Ecosystems
+  identifiers:
+    doi: 10.1016/j.fecs.2025.100368
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1016/j.fecs.2025.100368
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-15486-ngt-1279968
+  title: Global 4 km resolution monthly gridded Gross Primary Productivity (GPP) data
+    set derived from FLUXNET2015
+  authors:
+  - Unknown authors
+  year: 2016
+  venue: null
+  identifiers:
+    doi: 10.15486/ngt/1279968
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.15486/ngt/1279968
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-egusphere-2025-2517
+  title: Improving Terrestrial Carbon Flux Simulations With Machine Learning and Global
+    Earth Observations
+  authors:
+  - Christian Seiler
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-2025-2517
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-2025-2517
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Abstract. The land carbon cycle can act as both a negative and positive
+    climate feedback. Currently, it serves as a negative feedback, absorbing about
+    one-third of anthropogenic CO2 emissions. However, multi-model studies project
+    a weakening of this sink, with the potential for a future shift to a carbon source.
+    Significant inter-model differences persist, limiting confidence in these projections.
+    Some of these discrepancies may arise from parameter uncertainty. Advances in
+    artificial intelligence, computing, and Earth observations now offer new opportunities
+    to better constrain key model parameters. While previous studies have shown that
+    parameter optimization can substantially improve model performance, they have
+    not explored its impact on the future carbon balance. To address this gap, I use
+    a machine learning algorithm to optimize 28 model parameters based on 13 global
+    Earth observation datasets. The resulting parameter set is then applied in carbon
+    cycle simulations under historical conditions and a high-emissions future scenario.
+    Results show that optimization significantly improves model performance, particularly
+    for gross primary productivity (GPP), leaf area index, and sen
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-1016-j-rsase-2025-101728
+  title: Upscaling CO2 fluxes from agricultural drained lowland peatlands in England
+    using remote sensing and machine learning
+  authors:
+  - Asima Khan
+  - Muhammad Ali
+  - Joerg Kaduk
+  - Ashiq Anjum
+  - Heiko Balzter
+  year: 2025
+  venue: 'Remote Sensing Applications: Society and Environment'
+  identifiers:
+    doi: 10.1016/j.rsase.2025.101728
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/j.rsase.2025.101728
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-3410-f-1028523-341152
+  title: Faculty Opinions recommendation of Estimating diurnal to annual ecosystem
+    parameters by synthesis of a carbon flux model with eddy covariance net ecosystem
+    exchange observations.
+  authors:
+  - Scott Doney
+  year: 2005
+  venue: Faculty Opinions – Post-Publication Peer Review of the Biomedical Literature
+  identifiers:
+    doi: 10.3410/f.1028523.341152
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.3410/f.1028523.341152
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1109-icmlc-2008-4620630
+  title: Spatialization of station measured net ecosystem exchange using artificial
+    neural network
+  authors:
+  - Run-He Shi
+  - Xu-Dong Zhu
+  - Hui-Fang Zhang
+  year: 2008
+  venue: 2008 International Conference on Machine Learning and Cybernetics
+  identifiers:
+    doi: 10.1109/icmlc.2008.4620630
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1109/icmlc.2008.4620630
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-4135-9781446247501-n1783
+  title: GROSS PRIMARY PRODUCTIVITY (GPP)
+  authors:
+  - Unknown authors
+  year: 2014
+  venue: Encyclopedia of Environmental Change
+  identifiers:
+    doi: 10.4135/9781446247501.n1783
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.4135/9781446247501.n1783
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-essd-2016-36-rc2
+  title: Review on 'Understanding the representativeness of FLUXNET for upscaling
+    carbon flux from eddy covariance measurements'
+  authors:
+  - Unknown authors
+  year: 2016
+  venue: null
+  identifiers:
+    doi: 10.5194/essd-2016-36-rc2
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/essd-2016-36-rc2
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1109-igarss-2017-8128126
+  title: Remote estimation of maize carbon sequestration capacity based on eddy covariance
+    flux measurements
+  authors:
+  - Long Huiling
+  - Zhao Chunjiang
+  - Yang Guijun
+  - Feng Haikuan
+  - Wang Yanan
+  year: 2017
+  venue: 2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)
+  identifiers:
+    doi: 10.1109/igarss.2017.8128126
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1109/igarss.2017.8128126
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-33915-etd-7022
+  title: Climatic and Ecohydrologic Linkages of Net Ecosystem Exchanges (NEE) across
+    Diverse Ecosystems
+  authors:
+  - Mohammed Tamim Zaki
+  year: 2019
+  venue: null
+  identifiers:
+    doi: 10.33915/etd.7022
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.33915/etd.7022
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-1109-igarss-2019-8900191
+  title: Updated Data-Driven GPP and NEE Estimation with Remote Sensing and Machine
+    Learning Across Asia
+  authors:
+  - Zhiyan Liu
+  - Kazuhito Ichii
+  - Yusuke Hayashi
+  - Riku Kawase
+  - Kodai Hayashi
+  - Masahito Ueyama
+  - Yuji Kominami
+  - Kireet Kumar
+  year: 2019
+  venue: IGARSS 2019 - 2019 IEEE International Geoscience and Remote Sensing Symposium
+  identifiers:
+    doi: 10.1109/igarss.2019.8900191
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1109/igarss.2019.8900191
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-5194-bg-2020-50-rc1
+  title: A new study on interannual relationships between vegetation LAI and water/energy/carbon
+    fluxes across global ecosystems using flux measurements
+  authors:
+  - Unknown authors
+  year: 2020
+  venue: null
+  identifiers:
+    doi: 10.5194/bg-2020-50-rc1
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/bg-2020-50-rc1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-egusphere-egu2020-19498
+  title: 'Urban carbon dioxide flux monitoring using Eddy Covariance and Earth Observation:
+    An introduction to diFUME project'
+  authors:
+  - Stavros Stagakis
+  - Christian Feigenwinter
+  - Roland Vogt
+  year: 2020
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu2020-19498
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu2020-19498
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: '&amp;lt;p&amp;gt;Monitoring CO&amp;lt;sub&amp;gt;2&amp;lt;/sub&amp;gt;
+    emissions originating from urban areas has become a necessity to support sustainable
+    urban planning strategies and climate change mitigation efforts. Integrative decision
+    support, where net effects of various emission/sink components are considered
+    and compared, is now an increasingly relevant part of urban planning processes.
+    The current emission inventories rely on indirect approaches that use fuel and
+    electricity consumption statistics for determining CO&amp;lt;sub&amp;gt;2&amp;lt;/sub&amp;gt;
+    emissions. The consistency of such approaches is questionable and they usually
+    neglect the contribution of the biogenic components of the urban carbon cycle
+    (i.e. vegetation, soil). Moreover, their spatial and temporal scales are restricted
+    because consumption statistics are often available in coarse spatial scales (national,
+    provincial/state, municipal) and usually scaled down using proxy data (e.g. population
+    density) to city-scale annual estimates. The diFUME project (https://mcr.unibas.ch/difume/)
+    is developing a methodology for mapping and monitoring the actual urban CO&amp;lt;sub&amp;gt;2&amp;lt;/sub&amp;gt;
+    flux '
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-35370-bjost-2020-2-2-06
+  title: Estimation of Gross Primary Productivity (GPP) using Moderate Resolution
+    Imaging Spectroradiometer (MODIS)
+  authors:
+  - Unknown authors
+  year: 2020
+  venue: Borneo Journal of Sciences and Technology
+  identifiers:
+    doi: 10.35370/bjost.2020.2.2-06
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.35370/bjost.2020.2.2-06
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-egusphere-egu22-11111
+  title: Machine learning based estimation of regional Net Ecosystem Exchange (NEE)
+    constrained by atmospheric inversions and ecosystem observations
+  authors:
+  - Samuel Upton
+  - Ana Bastos
+  - Fabian Gans
+  - Basil Kraft
+  - Wouter Peters
+  - Jacob Nelson
+  - Sophia Walther
+  - Martin Jung
+  year: 2022
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu22-11111
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu22-11111
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: '&amp;lt;p&amp;gt;Accurate estimates and predictions of the global carbon
+    fluxes are critical for our understanding of the global carbon cycle and climate
+    change. Reducing the uncertainty of the terrestrial carbon sink and closing the
+    budget imbalance between sources and sinks would improve our ability to accurately
+    project future climate change. Net Ecosystem Exchange (NEE), the net flux of biogenic
+    carbon from the land surface to the atmosphere, is only directly measured at a
+    sparse set of globally distributed eddy-covariance measurement sites. To estimate
+    the terrestrial carbon flux at the regional and global scale, a global gridded
+    estimate of NEE must be accurately upscaled from a model trained at the ecosystem
+    level. In this study, the Fluxcom system* is used to train a site-level model
+    on remotely-sensed and meteorological variables derived from site measurements,
+    MODIS and ECMWF ERA5 atmospheric reanalysis data. The non-representative distribution
+    of these site-level data along with missing disturbance histories impart known
+    biases to current upscaling efforts. Observations of atmospheric carbon may provide
+    important additional information, improving the accuracy of the upsc'
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-5194-egusphere-2022-640-supplement
+  title: Supplementary material to "Synergy between TROPOMI sun-induced chlorophyll
+    fluorescence and MODIS spectral reflectance for understanding the dynamics of
+    gross primary productivity at integrated carbon observatory system (ICOS) ecosystem
+    flux sites"
+  authors:
+  - Hamadou Balde
+  - Gabriel Hmimina
+  - Yves Goulas
+  - Gwendal Latouche
+  - Kamel Soudani
+  year: 2022
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-2022-640-supplement
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-2022-640-supplement
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-egusphere-egu23-16443
+  title: Hybrid machine learning model of coupled carbon and water cycles
+  authors:
+  - Zavud Baghirov
+  - Basil Kraft
+  - Martin Jung
+  - Marco Körner
+  - Markus Reichstein
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu23-16443
+  primary_method: hybrid-numerical-machine-learning
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu23-16443
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: There is evidence for a strong coupling between the terrestrial carbon
+    and water cycles and that these cycles should be studied as an interconnected
+    system (Humphrey et al. 2018). One of the key methods to numerically represent
+    the Earth system is process based modelling, which is, however, still subject
+    to large uncertainties, e.g., due to wrong or incomplete process knowledge (Bonan
+    and Doney 2018). Such models are often rigid and only marginally informed by Earth
+    observations. This is where machine learning (ML) approaches can be advantageous,
+    due to their ability to learn from data in a flexible way. These methods have
+    their own shortcomings, such as their &amp;#8220;black-box&amp;#8221; nature and
+    lack of physical consistency. Recently, it has been suggested by Reichstein et
+    al. (2019) to combine process knowledge with ML algorithms to model environmental
+    processes. The so-called hybrid modelling approach has already been used to model
+    different components of terrestrial water storage (TWS) in a global hydrological
+    model (Kraft et al. 2022). This study follows-up on this work with the objective
+    to improve the parameterization of some processes (e.g., soil moisture) and to
+    coup
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-53846-goediss-9953
+  title: 'Flux measurements at the land-atmosphere interface: Extending the theory
+    and implementation of the true eddy accumulation and eddy covariance measurement
+    techniques'
+  authors:
+  - Anas Emad
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.53846/goediss-9953
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.53846/goediss-9953
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-ems2023-530
+  title: Temporal relationship of solar-Induced chlorophyll fluorescence (SIF) and
+    gross primary productivity (GPP) measured at ground to satellite scale over different
+    ecosystems
+  authors:
+  - Juan Quiros
+  - David Herrera
+  - Bastian Siegmann
+  - Jean Christophe Calvet
+  - Vera Krieger
+  - Roel Van Hoolst
+  - Tarek El-Madany
+  - Mirco Migliavacca
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.5194/ems2023-530
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/ems2023-530
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Plant physiological processes like photosynthesis play a key role in the
+    global carbon cycle, thus, having a significant impact on energy exchanges between
+    vegetation and atmosphere. Nevertheless, current approaches to introduce photosynthesis
+    in Land Surface Models (LSMs) are generally based on the extrapolation of locally
+    measured photosynthetic rates to entire biomes. Therefore, plant physiological
+    information at higher spatiotemporal resolution covering large areas (regional
+    to global) is necessary to improve estimates of the seasonal dynamics of photosynthesis
+    in LSMs. Due to the accelerated development of sensors and methods for vegetation
+    monitoring in the last decades the required spatiotemporal resolution can be provided
+    by remote sensing satellite data and derived products. In this context, compared
+    to reflectance based vegetation indices, information about solar-induced chlorophyll
+    fluorescence (SIF) is particularly interesting because of its direct relationship
+    with photosynthesis. In this study, our goal is to provide information on the
+    temporal relation between remote sensing SIF and photosynthesis data, the latter
+    represented by gross primary productivity (GPP) infor
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-2139-ssrn-4801189
+  title: How Real is the Correlation between Gross Primary Productivity and Ecosystem
+    Respiration?
+  authors:
+  - Junjiong Shao
+  - Nan Li
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.4801189
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.2139/ssrn.4801189
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-22541-essoar-172526720-02219772-v1
+  title: 'Exploring Optimal Complexity for Water Stress Representation in Terrestrial
+    Carbon Models: A Hybrid-Machine Learning Model Approach'
+  authors:
+  - Jianing Fang
+  - Pierre Gentine
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.22541/essoar.172526720.02219772/v1
+  primary_method: hybrid-numerical-machine-learning
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.22541/essoar.172526720.02219772/v1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Terrestrial biosphere models offer a comprehensive view of the global
+    carbon cycle by integrating ecological processes across scales, yet they introduce
+    significant uncertainties in climate and biogeochemical projections due to diverse
+    process representations and parameter variations. For instance, different soil
+    water limitation functions lead to wide productivity ranges across models. To
+    address this, we propose the Differentiable Land Model (DifferLand), a novel hybrid
+    machine learning approach replacing unknown water limitation functions in models
+    with neural networks (NNs) to learn from data. Using automatic differentiation,
+    we calibrated the embedded NN and the physical model parameters against daily
+    observations of evapotranspiration, gross primary productivity, ecosystem respiration,
+    and leaf area index across 16 FLUXNET sites. We evaluated six model configurations
+    where NNs simulate increasingly complex soil water and photosynthesis interactions
+    against test datasets to find the optimal structure-performance tradeoff. Our
+    findings show that a simple hybrid model with a univariate NN effectively captures
+    site-level water and carbon fluxes on a monthly timescale. Across a gl
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-23967-isc-2024-304
+  title: Machine Learning-Based Modeling of Net Ecosystem Exchange Using Numerical
+    Weather Data and Satellite Images
+  authors:
+  - N. Kim
+  - J. Cho
+  - Y. Lee
+  year: 2024
+  venue: 7th International Conference on Geotechnical and Geophysical Site Characterization
+  identifiers:
+    doi: 10.23967/isc.2024.304
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.23967/isc.2024.304
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-5194-egusphere-egu24-13899
+  title: Estimating CO2 Flux at 30 Meter Resolution Using Machine Learning
+  authors:
+  - Robert Granat
+  - Andrey Dara
+  - Oleg Demidov
+  - Geza Toth
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu24-13899
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu24-13899
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: true
+  abstract: We present an approach to using a machine learning based regression model
+    to estimate CO2 fluxes at 30 meter spatial resolution. The method uses eddy covariance
+    measurements of CO2 obtained from in situ stations (FLUXNET) as primary reference
+    data. Multispectral satellite observations collected by Landsat are combined with
+    meteorological information to form feature vectors that are used as predictor
+    variables. The XGBoost machine learning algorithm is used to train the regression
+    models on a per-land cover basis. The resulting models can be used to estimate
+    CO2 fluxes wherever Landsat satellite imagery is available. Moreover, the approach
+    provides a framework that is extensible to other satellite imagery types and will
+    improve in accuracy as more primary reference data becomes available. We present
+    results of the method as applied to examples in the agricultural sector.
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-1201-9781032711126-34
+  title: Global Carbon Cycle Data Assimilation Using Earth Observation
+  authors:
+  - Mathew Williams
+  year: 2024
+  venue: Land Carbon Cycle Modeling
+  identifiers:
+    doi: 10.1201/9781032711126-34
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1201/9781032711126-34
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-2139-ssrn-5352244
+  title: 'Towards Consistent Carbon Monitoring: The Role of Satellite Resolution and
+    Process-Informed Machine Learning in Terrestrial Carbon Cycle Modelling'
+  authors:
+  - Songyan Zhu
+  - Wenquan Dong
+  - Jian Xu
+  - Edward Mitchard
+  - Qiaoyun Xie
+  - Vasileios Myrgiotis
+  - Zhonghua Zheng
+  - Man Chen
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.5352244
+  primary_method: hybrid-numerical-machine-learning
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.2139/ssrn.5352244
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-1109-lgrs-2025-3541893-mm1
+  title: 'UFLUX v2.0: A Process-Informed Machine Learning Framework for Efficient
+    and Explainable Modelling of Terrestrial Carbon Uptake_supp1-3541893.pdf'
+  authors:
+  - Songyan Zhu
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.1109/lgrs.2025.3541893/mm1
+  primary_method: hybrid-numerical-machine-learning
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1109/lgrs.2025.3541893/mm1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: false
+  abstract: ''
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-4018-979-8-3373-2091-5-ch014
+  title: Machine Learning Algorithms for Modeling Carbon Flux in Ecosystems
+  authors:
+  - Ruchi Rai
+  - Abhishek Rai
+  - Ankur Rohilla
+  - Nishu Bhardwaj
+  year: 2025
+  venue: Advanced Systems for Monitoring Carbon Sequestration
+  identifiers:
+    doi: 10.4018/979-8-3373-2091-5.ch014
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.4018/979-8-3373-2091-5.ch014
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: true
+  abstract: Accurately modeling carbon flux in ecosystems is essential for understanding
+    the global carbon cycle and developing effective strategies to combat climate
+    change. Machine learning (ML) algorithms have emerged as powerful tools to address
+    the complexity of carbon flux dynamics. This book chapter explores the application
+    of ML techniques, including regression models, decision trees, random forests,
+    and deep learning, to model critical components of carbon flux, such as gross
+    primary production, ecosystem respiration, and net ecosystem exchange. These algorithms
+    excel in capturing nonlinear relationships and interactions among environmental
+    variables, offering insights into the effects of land-use changes, deforestation,
+    and climate variability. The chapter also addresses key challenges, including
+    data integration, uncertainty quantification, and computational demands, while
+    identifying opportunities for future research. The transformative potential of
+    ML in advancing carbon flux modeling underscores its importance for ecosystem
+    monitoring and sustainable environmental management.
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-5194-egusphere-egu25-4594
+  title: Addressing a sensible heat bias in open-path eddy covariance carbon dioxide
+    flux measurements
+  authors:
+  - Ivan Bogoev
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu25-4594
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu25-4594
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Open-path (OP) infrared gas analyzers (IRGA) are widely used for CO2 eddy
+    covariance flux measurements in diverse ecosystems, including in arid desert environments.
+    These high sensible heat and low CO2 flux conditions can lead to a systematic
+    bias in the estimation of the carbon exchange. Numerous studies using both open-
+    and closed-path IRGAs report large overestimates of CO2 uptake in the OP measurements,
+    which persists for all seasons and is not driven by biological activity, but rather
+    by instrumentation artefacts. Despite the attempts to address these biases, their
+    origin and the appropriate correction approaches remain unresolved. Sensor-path
+    heat exchange has been considered as a potential source of the bias. Consequently,
+    later models OP gas analyzers have eliminated the self-heating effects, yet they
+    still exhibit apparent CO2 uptake. In this study we consider the influence of
+    ambient air temperature on the absorption in the CO2 spectral band typically used
+    in non-dispersive broadband IRGAs as the source of the bias. We show the results
+    from simulations of infrared transmission in the CO2 spectral band using high
+    resolution molecular transmission (HITRAN) database. We eval
+  why_included: Carbon-flux domain record with insufficient physics/AI evidence at
+    title-abstract level.
+- paper_id: paper-10-5194-egusphere-egu25-14398
+  title: Modelling solar-induced chlorophyll fluorescence (SIF) with terrestrial biosphere
+    model QUINCY
+  authors:
+  - Tea Thum
+  - Tristan Quaife
+  - Greg Duveiller
+  - Marika Honkanen
+  - Hannakaisa Lindqvist
+  - Troy Magney
+  - Zoe Pierrat
+  - Sönke Zaehle
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu25-14398
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu25-14398
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Satellite observations provide unique opportunities for the development
+    and evaluation of terrestrial biosphere models (TBMs). Solar-induced chlorophyll
+    fluorescence (SIF) is one of the remotely sensed variables that is directly related
+    to photosynthetic activity. Chlorophyll fluorescence (ChlF) is one of the pathways
+    for the absorbed radiation within leaves, along with photochemistry and non-photochemical
+    quenching (NPQ). However, the relationship between photosynthesis and ChlF depends
+    on environmental conditions and on the level and saturation of NPQ. Therefore
+    having a process-based representation of SIF within a TBM will help to fully exploit
+    the data stream available from the remote sensing in carbon cycle studies. We
+    have implemented a leaf-level model of ChlF in the QUINCY ('QUantifying Interactions
+    between terrestrial Nutrient CYcles and the climate system') TBM. Based on a previous
+    study testing different alternatives for describing the radiative transfer of
+    SIF, we used a radiative transfer model L2SM (developed by T. Quaife) for the
+    SIF signal. Observed leaf level SIF spectra were used to convert the model output
+    to observed units. As data sources we used satellite obse
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-5194-egusphere-2026-3281
+  title: Machine-learning projections of boreal forest gross primary productivity
+    under future climate change
+  authors:
+  - Sandip Varkey George
+  - Cameron F. T. Pope
+  - Stella Jes Varghese
+  - Ron Sunny
+  year: 2026
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-2026-3281
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - empirical_ml_boundary
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/egusphere-2026-3281
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: empirical_ml_boundary
+  abstract_available: true
+  abstract: 'Abstract. Modelling forest productivity under climate variability and
+    change remains a key challenge in terrestrial ecology. The increasing availability
+    of long-term eddy covariance data enables these relationships to be explored using
+    data-driven machine-learning approaches. In this study, we model the relationship
+    between four key environmental variables, namely, photosynthetically active radiation
+    (PAR), atmospheric CO2 concentration, air temperature, and relative humidity,
+    and gross primary productivity (GPP) using linear regression, eXtreme Gradient
+    Boosting (XGBoost), and deep neural networks. To capture variability across temporal
+    scales, the input variables are decomposed into trend, seasonal, and residual
+    components representing long-term, seasonal, and inter-daily fluctuations. The
+    models are trained on seventeen years (2003–2019) of daily observations from the
+    boreal forest monitoring station at Hyytiälä, Finland, and evaluated on an independent
+    five-year period (2020–2025). The trained models are then used to project GPP
+    under four Shared Socioeconomic Pathway (SSP) scenarios from the Intergovernmental
+    Panel on Climate Change using climate forcings derived from Coupled '
+  why_included: 'Borderline: carbon-flux ML, but physics-aware status must be proven
+    in full text.'
+- paper_id: paper-10-5194-egusphere-egu26-9141
+  title: “Take one, get two!” - Spatial flux decomposition for eddy covariance towers
+  authors:
+  - Mark Schlutow
+  - Ray Chew
+  - Mathias Göckede
+  year: 2026
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu26-9141
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu26-9141
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Eddy covariance (EC) measurement sites are often located in heterogeneous
+    terrain where aggregated ecosystem-exchange fluxes are observed originating from
+    a mosaic of structured patches of different land cover types and mixed ecosystems,
+    which may even exhibit sources and sinks simultaneously. This complex spatial
+    heterogeneity makes it challenging to identify controls and processes governing
+    carbon cycle processes of homogeneous sub-units surrounding the tower. As a consequence,
+    for spatiotemporal upscaling of fluxes to large-scale maps any given tower is
+    strictly speaking only representative for the exact same mixture of patches as
+    found in the tower footprint.We present FLUGS, a novel framework that infers land-cover-specific
+    ecosystem-exchange fluxes provided the EC time series of aggregated fluxes and
+    the land cover map of the ecosystem surrounding the EC tower. Using a multitask
+    machine learning approach based on Kernel Ridge Regression combined with high-resolution
+    flux footprints, FLUGS learns the environmental response functions (ERFs) from
+    EC data for each land cover class simultaneously. The approach is versatile, robust
+    to multicollinearity and yields smooth and interpr
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-5194-egusphere-egu26-10329
+  title: 'VODCA2GPP: High Resolution GPP Estimation in the Mediterranean basin from
+    Vegetation Optical Depth Using Machine Learning'
+  authors:
+  - Moritz Müller
+  - Ruxandra Zotta
+  - Pierre Laluet
+  - Wouter Dorigo
+  year: 2026
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu26-10329
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - borderline_fulltext
+  - doi-linked
+  - domain_boundary
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu26-10329
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: true
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: doi_metadata_and_fulltext_access_status
+  screening_decision: borderline_fulltext
+  screening_role: domain_boundary
+  abstract_available: true
+  abstract: Gross Primary Production (GPP) serves as a critical indicator of ecosystem
+    function and its response to climate change. While numerous GPP estimates from
+    different sources (model data, satellite derived, flux tower) exist, discrepancies
+    between these datasets remain, emphasizing the need for new datasets and continuous
+    improvement, particularly in understanding carbon-climate feedbacks and ecosystem
+    resilience.By refining the VODCA2GPP product [Wild et al., 2022], which estimates
+    GPP using Vegetation Optical Depth (VOD) from microwave remote sensing, we present
+    an enhanced version with four key methodological improvements.First, we enhanced
+    the spatial resolution from 0.25° to 0.1°, enabling finer scale detection of spatial
+    heterogeneity in vegetation productivity and improving representation of local
+    ecosystem dynamics. Additionally, we transitioned from X-band to Ku-band VOD observations
+    due to their superior signal to noise ratio in the Mediterranean region, enhancing
+    data quality while maintaining overall model performance.Second, we integrated
+    land cover information to improve model generalizability across different biomes,
+    addressing the imbalanced distribution of in-situ val
+  why_included: 'Borderline: terrestrial carbon-cycle physics-aware ML context, but
+    flux-specific relevance needs full-text verification.'
+- paper_id: paper-10-1175-jhm467-1
+  title: Comparing Aircraft-Based Remotely Sensed Energy Balance Fluxes with Eddy
+    Covariance Tower Data Using Heat Flux Source Area Functions
+  authors:
+  - JoséL. Chávez
+  - Christopher M. U. Neale
+  - Lawrence E. Hipps
+  - John H. Prueger
+  - William P. Kustas
+  year: 2005
+  venue: Journal of Hydrometeorology
+  identifiers:
+    doi: 10.1175/jhm467.1
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1175/jhm467.1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: Abstract In an effort to better evaluate distributed airborne remotely
+    sensed sensible and latent heat flux estimates, two heat flux source area (footprint)
+    models were applied to the imagery, and their pixel weighting/integrating functionality
+    was investigated through statistical analysis. Soil heat flux and sensible heat
+    flux models were calibrated. The latent heat flux was determined as a residual
+    from the energy balance equation. The resulting raster images were integrated
+    using the 2D footprints and were compared to eddy covariance energy balance flux
+    measurements. The results show latent heat flux estimates (adjusted for closure)
+    with errors of (mean ± std dev) −9.2 ± 39.4 W m−2, sensible heat flux estimate
+    errors of 9.4 ± 28.3 W m−2, net radiation error of −4.8 ± 20.7 W m−2, and soil
+    heat flux error of −0.5 ± 24.5 W m−2. This good agreement with measured values
+    indicates that the adopted methodology for estimating the energy balance components,
+    using high-resolution airborne multispectral imagery, is appropriate for modeling
+    latent heat fluxes. The method worked well for the unstable atmospheric conditions
+    of the study. The footprint weighting/integration models tested indic
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-1002-9781119793403-ch17
+  title: Process‐Based Carbon Sequestration Study with Reference to the Energy‐Water‐Carbon
+    Flux in a Forest Ecosystem
+  authors:
+  - Hukum Singh
+  year: 2021
+  venue: Climate Impacts on Sustainable Natural Resource Management
+  identifiers:
+    doi: 10.1002/9781119793403.ch17
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1002/9781119793403.ch17
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-1016-j-agrformet-2014-04-011
+  title: Joint data assimilation of satellite reflectance and net ecosystem exchange
+    data constrains ecosystem carbon fluxes at a high-elevation subalpine forest
+  authors:
+  - J.M. Zobitz
+  - David J.P. Moore
+  - Tristan Quaife
+  - Bobby H. Braswell
+  - Andrew Bergeson
+  - Jeremy A. Anthony
+  - Russell K. Monson
+  year: 2014
+  venue: Agricultural and Forest Meteorology
+  identifiers:
+    doi: 10.1016/j.agrformet.2014.04.011
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1016/j.agrformet.2014.04.011
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-3390-atmos12020281
+  title: Correction of Eddy Covariance Based Crop ET Considering the Heat Flux Source
+    Area
+  authors:
+  - Stuart L. Joy
+  - José L. Chávez
+  year: 2021
+  venue: Atmosphere
+  identifiers:
+    doi: 10.3390/atmos12020281
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.3390/atmos12020281
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: 'Eddy covariance (EC) systems are being used to measure sensible heat
+    (H) and latent heat (LE) fluxes in order to determine crop water use or evapotranspiration
+    (ET). The reliability of EC measurements depends on meeting certain meteorological
+    assumptions; the most important of such are horizontal homogeneity, stationarity,
+    and non-advective conditions. Over heterogeneous surfaces, the spatial context
+    of the measurement must be known in order to properly interpret the magnitude
+    of the heat flux measurement results. Over the past decades, there has been a
+    proliferation of ‘heat flux source area’ (i.e., footprint) modeling studies, but
+    only a few have explored the accuracy of the models over heterogeneous agricultural
+    land. A composite ET estimate was created by using the estimated footprint weights
+    for an EC system in the upwind corner of four fields and separate ET estimates
+    from each of these fields. Three analytical footprint models were evaluated by
+    comparing the composite ET to the measured ET. All three models performed consistently
+    well, with an average mean bias error (MBE) of about −0.03 mm h−1 (−4.4%) and
+    root mean square error (RMSE) of 0.09 mm h−1 (10.9%). The same three '
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-1007-978-1-62703-688-7-21
+  title: Ecophysiological Process-Based Model to Simulate Carbon Fluxes in Plants
+  authors:
+  - Valentina Baldazzi
+  - Nadia Bertin
+  - Hélène Gautier
+  - Michel Génard
+  year: 2014
+  venue: Methods in Molecular Biology Plant Metabolic Flux Analysis
+  identifiers:
+    doi: 10.1007/978-1-62703-688-7_21
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1007/978-1-62703-688-7_21
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-bg-2018-270-rc1
+  title: Norton et al. “Estimating global gross primary productivity using chlorophyll
+    fluorescence and a data assimilation system with the BETHY-SCOPE model”.
+  authors:
+  - Anonymous
+  year: 2018
+  venue: null
+  identifiers:
+    doi: 10.5194/bg-2018-270-rc1
+  primary_method: machine-learning-upscaling
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - other-verified-domains
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/bg-2018-270-rc1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-egusphere-egu23-15533
+  title: Reducing the effects of weather on the sampling bias in tall tower eddy covariance
+    flux measurements
+  authors:
+  - Konstantinos Kissas
+  - Charlotte Scheutz
+  - Andreas Ibrom
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu23-15533
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - climate-geoscience-remote-sensing
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu23-15533
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: 'Tall tower eddy covariance (TTEC) flux measurements are employed to estimate
+    turbulent matter and energy fluxes at landscape scales (e.g. within 1 to 5 km
+    radius around a tower). Virtually all landscapes feature horizontal surface heterogeneity.
+    One main complication for the interpretation of TTEC is the sampling bias by the
+    varying local meteorological conditions. While the wind direction bias can only
+    be considered by the choice of the location of the TTEC, we examine here how the
+    effects of atmospheric stability can be alleviated by sampling from different
+    measurement heights (zm). The objective is to define an optimal set of measurement
+    heights to minimize sampling bias from variation in atmospheric stratification
+    for TTEC long-term flux observation. To our knowledge, this problem has not yet
+    been addressed in the scientific literature.We used a two years&amp;#8217; dataset
+    from the 122 m tall tower at Ris&amp;#248; (Denmark, 55 degrees 41''39.15" N,
+    12 degrees 5''17.93" E) and two flux footprint models to develop an objective
+    statistical approach for the definition of a set of measurement heights for optimal
+    sampling of the landscape heterogeneity. The tower is equipped with 3D '
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-egusphere-egu24-22211
+  title: Optimising the sampling strategy in tall tower eddy covariance flux measurements
+  authors:
+  - Andreas Ibrom
+  - Konstantinos Kissas
+  - Anastasia Gorlenko
+  - Charlotte Scheutz
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu24-22211
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu24-22211
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: Tall tower eddy covariance (EC) measurements can be used to narrow down
+    the gap between the ecosystem and the continental scale observations by capturing
+    greenhouse gas (GHG) fluxes in a landscape scale (>10 km2). Because of the large
+    footprint, tall tower platforms enable monitoring of greenhouse gas net fluxes,
+    integrating over a multitude of diverse GHG sources and sinks within anthropogenic
+    ecosystems. Yet, the temporal variability of atmospheric stability and atmospheric
+    boundary layer affects the size of the flux footprint and the quality of EC flux
+    estimates, respectively, thereby complicating the interpretation of surface flux
+    estimates. The objective of this study is to determine an optimal sampling scheme
+    alternating between different measuring heights (zm) in order to maximise the
+    number of valid flux measurements as well as mitigating the effect of weather
+    fluctuations on the longitudinal position of the footprint.We used a six months&amp;#8217;
+    data set of continuous turbulence data measured from a recently deployed prototype
+    flux observation station in a rural area close to the Danish Capital of Copenhagen,
+    Zealand. The system is mounted on a 200 m telecommunication t
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-egusphere-egu24-9398
+  title: Integrating UAS-based lidar data in eddy covariance flux footprint modelling
+  authors:
+  - Jan Rudolf Karl Lehmann
+  - Visweshwar Arulmozhi Nambi
+  - Laura Giese
+  - Hanna Meyer
+  - Mana Gharun
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu24-9398
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu24-9398
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: Peatlands, covering 3% of the global land area, store twice the carbon
+    of all the world's forests combined, acting as crucial carbon sinks. However,
+    under varying environmental conditions induced by global warming and land cover
+    changes, they can transition into carbon sources. Monitoring gas exchanges in
+    peatland ecosystems involves employing the eddy covariance method, often interpreted
+    using flux footprint models. This study focuses on the application of the FFP
+    model, specifically addressing the influence of spatially varying roughness parameters.Utilizing
+    Unoccupied Aerial Vehicle (UAS)-based high-resolution LIDAR data, we incorporated
+    spatially varying roughness values into the FFP model, comparing the results with
+    traditional scalar roughness length values. Our findings reveal that spatially
+    varying roughness introduces spatial heterogeneity, resulting in more irregular
+    and smaller footprints. The inclusion of spatially varying roughness based on
+    the surface reduced the area contribution to fluxes by 40%, emphasizing the significance
+    of accounting for this spatial variability.Moreover, we investigated the impact
+    of surface and terrain conditions on footprint modeling in a pe
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-egusphere-egu24-7413
+  title: Addressing forest canopy decoupling in eddy covariance flux measurement networks
+  authors:
+  - Georg Jocher
+  - Natalia Kowalska
+  - Heping Liu
+  - Sonia Wharton
+  - Leonardo Montagnani
+  - Dario Papale
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu24-7413
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu24-7413
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: 'The eddy covariance (EC) method is the standard technique for determining
+    forest ecosystem-atmosphere turbulent exchange, however, it encounters a significant
+    challenge: the air masses below the canopy often become decoupled from the air
+    masses above it. Consequently, the EC measurements of scalar fluxes (e.g. H2O
+    and particularly CO2) above the canopy can be biased due to missing signals from
+    below-canopy processes. This decoupling is strongly site dependent and influenced
+    by atmospheric conditions, canopy properties and tower-surrounding topography.
+    Multiple approaches have been developed in the recent decades to address decoupling
+    (e.g. u* filtering, quality flags for flux measurements, storage change evaluations,
+    direct advection measurements), however, all of them appeared to be insufficient
+    to fully tackle the problem. A promising additional approach is based on subsequent
+    EC measurements below and above the canopy. Specifically, examining the correlation
+    of the standard deviation of vertical wind (obtained via sonic anemometers) below
+    and above the canopy provides insight into the coupling state, as this correlation
+    remains linear during fully coupled periods.To date, there '
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-egusphere-egu25-11746
+  title: Evaluating a Flux Footprint Model Using Tracer Release Experiments and Tall
+    Tower Eddy Covariance Measurements
+  authors:
+  - Ziqiong Wang
+  - Konstantinos Kissas
+  - Charlotte Scheutz
+  - Andreas Ibrom
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu25-11746
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu25-11746
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: In complex and heterogeneous landscapes, determining the spatial origin
+    of measured fluxes is critical for interpreting eddy covariance (EC) data accurately.
+    To address this, footprint models are used to simulate the transport of turbulence
+    and quantify the contribution of different areas within the source region. These
+    models rely on theoretical assumptions, such as homogeneous and stationary atmospheric
+    conditions, which often deviate significantly from real-world conditions particularly
+    in terrains with uneven topography or land cover. This discrepancy may lead to
+    substantial uncertainties, as the models may fail to accurately represent the
+    true flux contributions under these non-ideal conditions.To evaluate the reliability
+    of the Flux Footprint Prediction (FFP) model (Kljun et al., 2015) and its performance
+    under real-world conditions, we conducted three tracer release campaigns in the
+    upwind region of a tall tower EC greenhouse gas observation system located at
+    Hove (55.7169 degrees N, 12.2375 degrees E), a rural area west of Copenhagen,
+    Denmark. The experiments utilized acetylene (C&amp;#8322;H&amp;#8322;) as the
+    tracer gas, released at a controlled and precisely known emissi
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-2139-ssrn-5252965
+  title: Can Matching High Spatial Resolution Landsat Data with Eddy-Covariance Flux
+    Footprints Improve the Correlation between Nirv and Gpp?
+  authors:
+  - Shihan Wang
+  - Huihui Feng
+  - Wenxuan Ma
+  - Shu Wang
+  - Bingyu Wang
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.5252965
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.2139/ssrn.5252965
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-5194-icuc12-821
+  title: 'Spatial and temporal variations of carbon dioxide flux to the atmosphere
+    in Krakow, Poland: four years of eddy covariance measurements'
+  authors:
+  - Alina Jasek-Kaminska
+  - Miroslaw Zimnoch
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.5194/icuc12-821
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.5194/icuc12-821
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: true
+  abstract: 'As the European Union policy on reducing fossil fuel consumption progresses,
+    increasing interest is focused on the main emitters of greenhouse gases. Cities
+    are unequivocally considered a net source of CO2: it is estimated that more than
+    70% of global anthropogenic emissions originate in urban areas. On the other hand,
+    the abundance of sources, each with its own dynamically changing emission rate
+    combined with a highly heterogenic source area, is a known source of uncertainty
+    for quantifying net CO2 flux to the atmosphere. Krakow is the second largest city
+    in Poland, located in a river valley in the southern part of the country. The
+    Eddy covariance measurement site has been established at AGH University of Krakow
+    in 2021 as a complementary method for long-term atmospheric monitoring including
+    the concentration of various gases, stable isotopes, vertical profiles and other
+    types of measurements. Since then, CO2 and heat fluxes have been continuously
+    measured at 40 m above ground. Significant green coverage in the source area (60%)
+    resulted in observation of short-term net CO2 assimilation under favourable conditions,
+    however, the overall balance remained positive. Traffic proved to '
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-1109-jstars-2026-3706054-mm1
+  title: Improving High-Resolution GPP Estimation by Incorporating Flux Footprint
+    Weighting with Mechanistic Canopy Partitioning_supp1-3706054.docx
+  authors:
+  - ziti jiao
+  year: 2026
+  venue: null
+  identifiers:
+    doi: 10.1109/jstars.2026.3706054/mm1
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1109/jstars.2026.3706054/mm1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-1109-jstars-2026-3706054
+  title: Improving High-Resolution GPP Estimation by Incorporating Flux Footprint
+    Weighting with Mechanistic Canopy Partitioning
+  authors:
+  - Fangwen Yang
+  - Ziti Jiao
+  - Zhilong Li
+  - Jing Guo
+  - Chenxia Wang
+  - Zheyou Tan
+  - Ge Gao
+  - Sizhe Chen
+  year: 2026
+  venue: IEEE Journal of Selected Topics in Applied Earth Observations and Remote
+    Sensing
+  identifiers:
+    doi: 10.1109/jstars.2026.3706054
+  primary_method: observation-operator-methods
+  secondary_tags:
+  - background_or_methods
+  - doi-linked
+  - physics_context
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - carbon-flux-estimation
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.1109/jstars.2026.3706054
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: background_or_methods
+  screening_role: physics_context
+  abstract_available: false
+  abstract: ''
+  why_included: Potential physics/observation context, not necessarily AI; verify
+    before core synthesis.
+- paper_id: paper-10-1016-j-jcp-2023-112603
+  title: 'NAS-PINN: Neural architecture search-guided physics-informed neural network
+    for solving PDEs'
+  authors:
+  - Yifan Wang
+  - Linlin Zhong
+  year: 2024
+  venue: Journal of Computational Physics
+  identifiers:
+    doi: 10.1016/j.jcp.2023.112603
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - fluids-and-aerodynamics
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1016/j.jcp.2023.112603
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1615-jmachlearnmodelcomput-2024055786
+  title: MULTI-FIDELITY MACHINE LEARNING FOR UNCERTAINTY QUANTIFICATION AND OPTIMIZATION
+  authors:
+  - Ruda Zhang
+  - Negin Alemazkoor
+  year: 2024
+  venue: Journal of Machine Learning for Modeling and Computing
+  identifiers:
+    doi: 10.1615/jmachlearnmodelcomput.2024055786
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1615/jmachlearnmodelcomput.2024055786
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: In system analysis and design optimization, multiple computational models
+    are typically available to represent a given physical system. These models can
+    be broadly classified as high-fidelity models, which provide highly accurate predictions
+    but require significant computational resources, and low-fidelity models, which
+    are computationally efficient but less accurate. Multi-fidelity methods integrate
+    high- and low-fidelity models to balance computational cost and predictive accuracy.
+    This perspective paper provides an in-depth overview of the emerging field of
+    machine learning-based multi-fidelity methods, with a particular emphasis on uncertainty
+    quantification and optimization. For uncertainty quantification, a particular
+    focus is on multi-fidelity graph neural networks, compared with multi-fidelity
+    polynomial chaos expansion. For optimization, our emphasis is on multi-fidelity
+    Bayesian optimization, offering a unified perspective on multi-fidelity priors
+    and proposing an application strategy when the objective function is an integral
+    or a weighted sum. We highlight the current state of the art, identify critical
+    gaps in the literature, and outline key research opportunities in t
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1038-s44287-025-00208-z
+  title: Advancing Earth observation with a multi-modal remote sensing foundation
+    model
+  authors:
+  - Silvia Conti
+  year: 2025
+  venue: Nature Reviews Electrical Engineering
+  identifiers:
+    doi: 10.1038/s44287-025-00208-z
+  primary_method: scientific-foundation-models
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1038/s44287-025-00208-z
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-31223-x5xw61
+  title: Can machine learning improve carbon storage? Synergies of deep learning,
+    uncertainty quantification and intelligent process control
+  authors:
+  - Thilo Wrona
+  - Indranil Pan
+  year: 2021
+  venue: null
+  identifiers:
+    doi: 10.31223/x5xw61
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - robotics-and-embodied-systems
+  - terrestrial-carbon-flux
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.31223/x5xw61
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: 'As we transition from fossil fuel to renewable energy, negative emission
+    technologies, such ascarbon capture and storage (CCS), can help us reduce CO2
+    emissions. Effective CO2 storage requires: (1) detailed site characterization,
+    (2) regular, integrated risk assessment, and (3) flexible design and operation.
+    We believe that recent advances in machine learning coupled with uncertainty quantification
+    and intelligent process control help us with these task and thus im-prove the
+    efficiency and safety of subsurface CO2 storage.'
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-3390-rs17233805
+  title: Physics-Informed Transformer Networks for Interpretable GNSS-R Wind Speed
+    Retrieval
+  authors:
+  - Zao Zhang
+  - Jingru Xu
+  - Guifei Jing
+  - Dongkai Yang
+  - Yue Zhang
+  year: 2025
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs17233805
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.3390/rs17233805
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Global Navigation Satellite System Reflectometry (GNSS-R) provides all-weather,
+    high-resolution ocean wind speed monitoring that offers additional benefits for
+    forecasting tropical cyclones and severe weather events. However, existing GNSS-R
+    wind retrieval models often lack interpretability and suffer accuracy degradation
+    during high wind conditions. To address these limitations, we leverage a mathematical
+    equivalence between Transformers and graph neural networks (GNNs) on complete
+    graphs, which provides a physically grounded interpretation of self-attention
+    as spatiotemporal influence propagation in GNSS-R data. In our model, each GNSS-R
+    footprint is treated as a graph node whose multi-head self-attention weights quantify
+    localized interactions across space and time. This aligns physical influence propagation
+    with the computational efficiency of GPU-accelerated Transformers. Multi-head
+    attention disentangles processes at multiple scales—capturing local (25–100 km),
+    mesoscale (100 km–500 km), and synoptic (>500 km) circulation patterns. When applied
+    to Level 1 Version 3.2 data (2023–2024) from four Asian sea regions, our Transformer–GNN
+    achieves an overall wind speed RMSE reductio
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1016-j-applthermaleng-2026-130757
+  title: Physics-informed Fourier neural operator for surrogate prediction of tunnel
+    fire temperature field
+  authors:
+  - Peng Gao
+  - Yinli Jin
+  year: 2026
+  venue: Applied Thermal Engineering
+  identifiers:
+    doi: 10.1016/j.applthermaleng.2026.130757
+  primary_method: neural-operators
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1016/j.applthermaleng.2026.130757
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-31219-osf-io-p95zn
+  title: 'Scientific Machine Learning (SciML) Surrogates for Industry, Part 1: The
+    Guiding Questions'
+  authors:
+  - Christopher Vincent Rackauckas
+  - Anas Abdelrehim
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.31219/osf.io/p95zn
+  primary_method: theory-optimization-generalization
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.31219/osf.io/p95zn
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Surrogates are rapidly growing in importance as a technique from scientific
+    machine learning for accelerating modeling and simulation. However, much of the
+    current work on surrogate modeling has kept to the domain of academic literature
+    and many techniques have not broadly been adopted in standard industrial practices.
+    What is required for surrogates to become commonplace or standard in industrial
+    design and control? In this position paper we discuss the various challenges associated
+    with translating surrogate techniques of scientific machine learning into a method
+    for industrial usage. We highlight the issues which academic oriented research
+    overlooks that prevent these techniques from scaling to real world applications
+    that are maintained by engineers with no machine learning background. We then
+    motivate a series of requirements that address these issues which allow these
+    techniques to be reliable and usable in those very same environments. This then
+    then become the design basis of a new surrogates-enabled component-based modeling
+    software, JuliaSim which democratizes the process of generating surrogates by
+    engineers without requiring machine learning expertise.
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-5194-egusphere-egu24-1760
+  title: 'EarthPT: a foundation model for Earth Observation'
+  authors:
+  - Michael Smith
+  - Luke Fleming
+  - James Geach
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu24-1760
+  primary_method: scientific-foundation-models
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu24-1760
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: 'We introduce EarthPT -- an Earth Observation (EO) pretrained transformer.
+    EarthPT is a 700 million parameter decoding transformer foundation model trained
+    in an autoregressive self-supervised manner and developed specifically with EO
+    use-cases in mind. We demonstrate that EarthPT is an effective forecaster that
+    can accurately predict future pixel-level surface reflectances across the 400-2300
+    nm range well into the future. For example, forecasts of the evolution of the
+    Normalised Difference Vegetation Index (NDVI) have a typical error of approximately
+    0.05 (over a natural range of -1 -> 1) at the pixel level over a five month test
+    set horizon, out-performing simple phase-folded models based on historical averaging.
+    We also demonstrate that embeddings learnt by EarthPT hold semantically meaningful
+    information and could be exploited for downstream tasks such as highly granular,
+    dynamic land use classification. Excitingly, we note that the abundance of EO
+    data provides us with -- in theory -- quadrillions of training tokens. Therefore,
+    if we assume that EarthPT follows neural scaling laws akin to those derived for
+    Large Language Models (LLMs), there is currently no data-imposed limit '
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-2139-ssrn-5749490
+  title: 'SDD-PINN: Physics-informed neural network for single droplet drying'
+  authors:
+  - Narjes Malekjani
+  - Andreas Bück
+  - Abdolreza Kharaghani
+  - Evangelos Tsotsas
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.5749490
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.2139/ssrn.5749490
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-3390-rs18101529
+  title: Geographic Bias Analysis and Cross-Domain Generalization in Deep Learning-Based
+    Building Damage Assessment
+  authors:
+  - Shruti Kshirsagar
+  - Bharath Chandra
+  - Unaza Tallal
+  - Rajiv Bagai
+  - Atri Dutta
+  year: 2026
+  venue: Remote Sensing
+  identifiers:
+    doi: 10.3390/rs18101529
+  primary_method: theory-optimization-generalization
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.3390/rs18101529
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Automated building damage assessment from satellite imagery has become
+    increasingly critical for rapid disaster response and humanitarian relief operations.
+    However, current state-of-the-art deep learning models exhibit significant generalization
+    challenges when deployed to geographically and environmentally diverse regions.
+    This study investigates the nature and extent of geographic bias in building damage
+    detection systems, revealing that model performance degradation occurs primarily
+    from geographic and structural characteristics rather than insufficient training
+    data representation. Through a systematic evaluation of top-performing xView2
+    competition solutions across 17 disaster locations across multiple climate zones,
+    we found that even state-of-the-art models struggle with generalization under
+    geographic shift, particularly for the minor and major damage classes, and exhibit
+    strong geographic biases toward certain regions. In this work, we explore a six-channel
+    Fusion Augmentation strategy that enriches RGB imagery with auxiliary structural
+    enhancement channels, together with supervised fine-tuning and unsupervised CORAL-based
+    domain adaptation for three unseen regions. The e
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1021-acs-jpca-1c05102-s001
+  title: 'Stiff-PINN: Physics-Informed Neural Network for Stiff Chemical Kinetics'
+  authors:
+  - Unknown authors
+  year: 2021
+  venue: null
+  identifiers:
+    doi: 10.1021/acs.jpca.1c05102.s001
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1021/acs.jpca.1c05102.s001
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1049-sbew552e-ch7
+  title: Machine learning approaches towards uncertainty quantification
+  authors:
+  - Riccardo Trinchero
+  - Flavio Canavero
+  year: 2021
+  venue: Uncertainty Quantification of Electromagnetic Devices, Circuits, and Systems
+  identifiers:
+    doi: 10.1049/sbew552e_ch7
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1049/sbew552e_ch7
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-21203-rs-3-rs-640751-v1
+  title: Time-Series Uncertainty Quantification of Foundation Settlement with Kernel
+    Based Extreme Learning Machine
+  authors:
+  - Honghui Fan
+  - Wei Xiang
+  year: 2021
+  venue: null
+  identifiers:
+    doi: 10.21203/rs.3.rs-640751/v1
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.21203/rs.3.rs-640751/v1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Abstract The dynamic building foundation settlement subsidence are threatening
+    the urban business and residential communities. In the temporal domain, the building
+    foundation settlement often suffers from high level dynamics and needs real-time
+    monitoring. Accurate quantification of the uncertainty of foundation settlement
+    in the near future is essential for the in-advance risk management for buildings.
+    Traditional models for predicting foundation settlement mostly utilizing the point
+    estimates approach which provide a single value that can be close or distant from
+    the actual one. However, such estimation fails to offer the quantification of
+    uncertainties of estimation. The interval prediction, as an alternative, can provide
+    a prediction interval for the ground settlement with high confidence bands. In
+    this paper, a lower upper bound estimation (LUBE) approach integrated with kernel
+    based extreme learning machine (KELM) is proposed to predict the ground settlement
+    levels with prediction intervals in the temporal domain. Comparison with the artificial
+    neural network (ANN) and classical extreme learning machine (ELM) are conducted
+    in this study. Building settlement data collected fro
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-5194-egusphere-egu21-9254
+  title: 'Machine learning-based uncertainty quantification for data assimilation:
+    a simple model experiment'
+  authors:
+  - Juan Ruiz
+  - Maximiliano Sacco
+  - Yicun Zhen
+  - Pierre Tandeo
+  - Manuel Pulido
+  year: 2021
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu21-9254
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu21-9254
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: '&amp;lt;p&amp;gt;Quantifying forecast uncertainty is a key aspect of
+    state-of-the-art data assimilation systems which has a large impact on the quality
+    of the analysis and then the following forecast. In recent years, most operational
+    data assimilation systems incorporate state-dependent uncertainty quantification
+    approaches based on 4-dimensional variational approaches, ensemble-based approaches,
+    or their combination. However, these quantifications of state-dependent uncertainties
+    have a large computational cost. Machine learning techniques consist of trainable
+    statistical models that can represent complex functional dependencies among different
+    groups of variables. In this work, we use a fully connected two hidden layer neural
+    network for the state-dependent quantification of forecast uncertainty in the
+    context of data assimilation. The input to the network is a set of three consecutive
+    forecasted states centered at the desired lead time and the network&amp;amp;#8217;s
+    output is a corrected forecasted state and an estimation of its uncertainty. We
+    train the network using a loss function based on the observation likelihood and
+    a large database of forecasts and their corresponding '
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1007-978-3-030-95231-0-6
+  title: Uncertainty Quantification with Extreme Learning Machine
+  authors:
+  - Fabian Guignard
+  year: 2022
+  venue: Springer Theses On Spatio-Temporal Data Modelling and Uncertainty Quantification
+    Using Machine Learning and Information Theory
+  identifiers:
+    doi: 10.1007/978-3-030-95231-0_6
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1007/978-3-030-95231-0_6
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-53962-yg21-zyxf
+  title: 'Physics-informed Machine Learning: The Next Evolution in Neural Network
+    Development'
+  authors:
+  - Karriem Perry
+  year: 2023
+  venue: ResearchEquals
+  identifiers:
+    doi: 10.53962/yg21-zyxf
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.53962/yg21-zyxf
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Machine Learning (ML) is one of the fastest-growing subsets in artificial
+    intelligence. One of the persistent challenges to ML model development is data
+    quality and availability. Many researchers across a range of disciplines have
+    begun leveraging Partial Differential Equations (PDEs) in the physical, biological,
+    and other hard sciences to answer otherwise intractable problems resulting from
+    the lack of data availability and issues with data quality. This approach is appropriate.
+    While PDEs are not the only answer to all binary or multi-classification problems
+    in ML modeling, they provide a series of physics-inspired ML modeling methods
+    capable of addressing a set of challenges that were previously difficult, if not
+    impossible, to infer. This presentation will focus on PDE utility.
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-2139-ssrn-4527164
+  title: Physics-Informed Invertible Neural Network for the Koopman Operator Learning
+  authors:
+  - Yuhuang Meng
+  - Jianguo Huang
+  - Yue Qiu
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.4527164
+  primary_method: neural-operators
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.2139/ssrn.4527164
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-5194-egusphere-egu23-3276
+  title: A large-scale flood modeling using geometry-adaptive physics-informed neural
+    solver and Earth observation data
+  authors:
+  - Qingsong Xu
+  - Yilei Shi
+  - Jonathan Bamber
+  - Chaojun Ouyang
+  - Xiao Xiang Zhu
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.5194/egusphere-egu23-3276
+  primary_method: scientific-foundation-models
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.5194/egusphere-egu23-3276
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Large-scale hydrodynamic models generally rely on fixed-resolution spatial
+    grids and model parameters as well as incurring a high computational cost. This
+    limits their ability to accurately forecast flood crests and issue time-critical
+    hazard warnings. In this work, we build a fast, stable, accurate, resolution-invariant,
+    and geometry-adaptative flood modeling and forecasting framework that can perform
+    at scales from continental to global. We achieve this by combining continuous
+    flow modeling of a geometry-adaptive physics-informed neural solver (GeoPINS)
+    with the authenticity of Earth observation data. Specifically, the GeoPINS is
+    proposed based on the advantages of no training data in physics-informed neural
+    networks (PINNs), as well as possessing a fast, accurate, and resolution-invariant
+    architecture through the implementation of Fourier neural operators (FNO). In
+    particular, to adapt to complex and irregular geometries that exist in rivers,
+    we reformulate PINNs in a geometry-adaptive space by taking full advantage of
+    coordinate transformations and the efficiency of numerical methods in solving
+    the spatial gradient. We validate our GeoPINS on popular partial differential
+    equati
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-2139-ssrn-4601468
+  title: Uncertainty Quantification Study of the Physics-Informed Machine Learning
+    Models for Critical Heat Flux Prediction
+  authors:
+  - Congshan Ma
+  - Yue Jin
+  year: 2023
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.4601468
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - terrestrial-carbon-flux
+  tasks:
+  - literature-context
+  physics_source:
+  - observation-operator
+  - measurement-support
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - carbon-flux
+  source_urls:
+  - https://doi.org/10.2139/ssrn.4601468
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-17760-d20659778
+  title: Uncertainty quantification in pain assessment through machine learning
+  authors:
+  - Burcu Ozek
+  year: 2024
+  venue: null
+  identifiers:
+    doi: 10.17760/d20659778
+  primary_method: uncertainty-quantification
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.17760/d20659778
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-1021-acs-jctc-5c00090-s001
+  title: Learning Pairwise Interaction for Extrapolative and Interpretable Machine
+    Learning Interatomic Potentials with Physics-Informed Neural Network
+  authors:
+  - Unknown authors
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.1021/acs.jctc.5c00090.s001
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.1021/acs.jctc.5c00090.s001
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-36227-techrxiv-175760430-01088421-v1
+  title: 'Learning to PINN Down PDEs: Lessons from Developing a Physics-Informed Neural
+    Network Framework'
+  authors:
+  - Neelakantan Padmanabhan
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.36227/techrxiv.175760430.01088421/v1
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - fluids-and-aerodynamics
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.36227/techrxiv.175760430.01088421/v1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: In this work, I implement a Physics-Informed Neural Network (PINN) to
+    solve the 1D Burgers' equation. I begin with a simple feed-forward neural network
+    (FFNN), which is trained using the finite-difference solution of the Burgers'
+    equation. I then extend this FFNN into a PINN that learns the governing equation
+    directly by minimizing the residuals of the PDE. I perform parametric evaluations
+    for both the FFNN and PINN models and compare their computational performance.
+    To improve results for simulations with long run times, where the standard PINN
+    struggles, I introduce and apply a Time-Marched PINN approach. Finally, I assess
+    the effectiveness of the method and suggest a few possible directions for improvement.
+    This write-up serves as a practical companion for those beginning their journey
+    with PINNs, particularly readers interested in computational trade-offs, training
+    challenges, and implementation strategies using simple 1D PDEs like the Burgers'
+    equation.
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-21203-rs-3-rs-6880919-v1
+  title: 'HOMO-PINN: Hyperparameter Optimization of a Multi-Output Physics-Informed
+    Neural Network'
+  authors:
+  - Salvatore Cuomo
+  - Maria Pia de Rosa
+  - Laura Pompameo
+  - Alexander Litvienko
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.21203/rs.3.rs-6880919/v1
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.21203/rs.3.rs-6880919/v1
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: true
+  abstract: Abstract The good choice of hyperparameters is crucial for the successful
+    application of Deep Learning (DL) networks in order to find accurate solutions
+    or the best parameter in solving Partial Differential Equations (PDEs), that are
+    sensitive to errors in coefficient estimation. For this purpose, Hyperparameter
+    Optimization of Multi-Output Physics-Informed Neural Networks (HOMO-PINNs) is
+    based on the optimal search of PINN hyperparameters for solving PDEs with uncertain
+    coefficients in the Uncertainty Quantification (UQ) field. By testing this novel
+    methodology on different PDEs, the relationship between activation functions,
+    the number of output neurons, and the degree of coefficient uncertainty can be
+    observed. The experimental results show that adding output neurons to the Neural
+    Network (NN) even if a theoretically incorrect activation function is chosen,
+    keeps the predicted solution accurate.
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.
+- paper_id: paper-10-2139-ssrn-5207041
+  title: 'Pinn-Phase: A Physics-Informed Neural Network Hybrid Framework for Energy-Based
+    Transfer Learning in Diffuse Interface Problems'
+  authors:
+  - Seifallah Elfetni
+  - Reza Darvishi Kamachali
+  year: 2025
+  venue: null
+  identifiers:
+    doi: 10.2139/ssrn.5207041
+  primary_method: physics-constrained-objectives
+  secondary_tags:
+  - algorithm_frontier
+  - computer_science_method_background
+  - doi-linked
+  domains:
+  - climate-geoscience-remote-sensing
+  tasks:
+  - literature-context
+  physics_source:
+  - domain-knowledge
+  physics_integration_stage:
+  - inputs
+  - evaluation-audit
+  survey_sections:
+  - algorithm-frontier
+  source_urls:
+  - https://doi.org/10.2139/ssrn.5207041
+  evidence_level: primary_verified
+  content_status: verified
+  last_verified: '2026-07-17'
+  open_access: false
+  license: unknown
+  code_ids: []
+  dataset_ids: []
+  benchmark_ids: []
+  verification_scope: bibliographic_metadata
+  screening_decision: algorithm_frontier
+  screening_role: computer_science_method_background
+  abstract_available: false
+  abstract: ''
+  why_included: Keep as algorithm-frontier background, not as core carbon-flux evidence.

@@ -1,0 +1,6 @@
+benchmark_id,name,task_definition,split_definition,evidence_level,content_status
+benchmark-carbon-flux-site-blocked,Site-blocked carbon-flux upscaling,Site-blocked carbon-flux upscaling,Defined in benchmark card; verify before comparing scores.,single_source,needs_review
+benchmark-carbon-flux-footprint-support,Footprint-support validation,Footprint-support validation,Defined in benchmark card; verify before comparing scores.,single_source,needs_review
+benchmark-remote-sensing-gpp,Remote-sensing GPP upscaling,Remote-sensing GPP upscaling,Defined in benchmark card; verify before comparing scores.,single_source,needs_review
+benchmark-pde-operator-learning,PDE operator learning,PDE operator learning,Defined in benchmark card; verify before comparing scores.,single_source,needs_review
+benchmark-geoscience-ood,Geoscience out-of-distribution evaluation,Geoscience out-of-distribution evaluation,Defined in benchmark card; verify before comparing scores.,single_source,needs_review

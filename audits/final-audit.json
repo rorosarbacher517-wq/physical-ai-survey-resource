@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "critical_findings": 0,
+  "major_findings": 0,
+  "minor_findings": 0,
+  "advisory_findings": 3,
+  "content_statistics": {
+    "public_papers": 100,
+    "public_code_records": 8,
+    "public_datasets": 8,
+    "public_benchmarks": 5,
+    "glossary_terms": 12,
+    "paper_verification_scope": "bibliographic DOI/Crossref metadata plus local screening notes"
+  }
+}

@@ -1,0 +1,9 @@
+dataset_id,name,provider,official_url,license,evidence_level,content_status
+dataset-fluxnet,FLUXNET,FLUXNET,https://fluxnet.org/,unknown,single_source,needs_review
+dataset-ameriflux,AmeriFlux,AmeriFlux,https://ameriflux.lbl.gov/,unknown,single_source,needs_review
+dataset-neon,NEON Data Portal,NEON,https://data.neonscience.org/,unknown,single_source,needs_review
+dataset-era5-land,ERA5-Land,ECMWF,https://cds.climate.copernicus.eu/,unknown,single_source,needs_review
+dataset-hls,Harmonized Landsat Sentinel-2,NASA,https://hls.gsfc.nasa.gov/,unknown,single_source,needs_review
+dataset-modis,MODIS Land Products,NASA,https://modis.gsfc.nasa.gov/data/,unknown,single_source,needs_review
+dataset-smap,SMAP,NASA,https://smap.jpl.nasa.gov/data/,unknown,single_source,needs_review
+dataset-pdebench,PDEBench,PDEBench,https://github.com/pdebench/PDEBench,unknown,single_source,needs_review
