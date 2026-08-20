@@ -4,6 +4,7 @@ theme:
 nav:
   - Home: README.md
   - Knowledge Base: 01-knowledge-base/index.md
+  - Detailed Knowledge Index: 01-knowledge-base/DETAILED_INDEX.md
   - Learning Paths: 01-knowledge-base/learning-paths/index.md
   - Foundations: 01-knowledge-base/00-foundations/index.md
   - Physical AI Core: 01-knowledge-base/02-physics-ai-core/index.md
