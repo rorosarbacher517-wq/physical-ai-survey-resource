@@ -107,7 +107,7 @@ Then connect to perception, world models, planning, control, sim-to-real and VLA
 
 ## How to study a paper
 
-Do not start by memorizing the method name. Fill this card first:
+Do not start by memorizing the method name. Fill this card before reading implementation details:
 
 | Question | Notes |
 |---|---|
