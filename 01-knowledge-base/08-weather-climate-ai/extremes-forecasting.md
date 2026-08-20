@@ -1,80 +1,84 @@
-# Forecasting Weather Extremes with AI
+# Extreme-event Forecasting
 
-## 1. Why average metrics are insufficient
+## 1. 平均 skill 不能代表 extremes
 
-Weather models can have strong global RMSE/ACC while missing rare high-impact events. Extreme evaluation must be explicit.
+需要单独研究：
+- tropical cyclone；
+- heavy precipitation；
+- heatwave / cold spell；
+- atmospheric river；
+- severe wind；
+- compound hazards。
 
-## 2. Event families
+---
 
-Examples include:
+## 2. Rare-event problem
 
-- tropical cyclones;
-- extreme precipitation;
-- heat/cold extremes;
-- severe convection;
-- atmospheric rivers;
-- strong winds;
-- compound events.
-
-Each event requires a suitable definition and verification dataset.
-
-## 3. Conditional distribution problem
-
-Extreme forecasting is often about tail probability:
+training loss 中 extreme sample 占比低：
 
 ```text
-P(event magnitude > threshold | current state)
+L_mean ≈ dominated by normal weather
 ```
 
-A deterministic conditional-mean forecast can smooth rare peaks even when large-scale evolution is accurate.
+因此 model 可能优化 global RMSE，却 smoothing tail。
 
-## 4. Approaches
+---
 
-- deterministic models with event-specific losses/diagnostics;
-- ensemble forecasting;
-- probabilistic/generative models;
-- calibrated post-processing;
-- specialized high-resolution/nowcasting models;
-- multi-scale models that preserve local extremes.
+## 3. Tropical cyclone
 
-## 5. Spatial and temporal scale
+评价：
+- track error；
+- intensity；
+- central pressure；
+- maximum wind；
+- storm size/structure；
+- genesis probability。
 
-Extremes may be localized relative to a global grid. Track:
+2026-08-06 Google 发布 WeatherNext cyclone research/open-source update，强调 track/intensity/structure 与 scenario forecasting。
 
-- native model grid;
-- verification grid;
-- event-object scale;
-- forecast lead time;
-- temporal accumulation window.
+Official: https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/
 
-Heavy precipitation at 1 h and 24 h are different tasks.
+---
 
-## 6. Evaluation
+## 4. Heavy precipitation
 
-Depending on event type:
+问题：
+- intermittency；
+- skewed distribution；
+- local convective scale；
+- phase/location error。
 
-- threshold-based precision/recall or threat scores;
-- Brier score/reliability;
-- CRPS/tail-weighted probabilistic metrics;
-- quantile error;
-- object track/location error;
-- cyclone track/intensity;
-- peak magnitude/timing;
-- spatial neighborhood/object metrics.
+metrics：
+- threshold CSI；
+- FSS；
+- extreme percentile bias；
+- CRPS / event probability。
+
+---
+
+## 5. Heatwave
+
+需要：
+- duration；
+- spatial extent；
+- threshold exceedance；
+- nighttime temperature；
+- humidity/heat-index-related variables。
+
+---
+
+## 6. Probabilistic importance
+
+extreme decision 关心：
+
+```text
+P(event | current observations)
+```
+
+而不是只有 ensemble mean。
+
+---
 
 ## 7. Distribution shift
 
-A climate-regime shift can change event frequency/intensity beyond the training distribution. Evaluate by time period, region and event intensity.
-
-## 8. Failure modes
-
-- optimizing global RMSE and assuming extremes follow automatically;
-- verifying on an overly coarse grid that smooths event structure;
-- class imbalance hiding poor rare-event recall;
-- unreliable probabilities despite good ensemble mean;
-- event definitions that change between train/test evaluation;
-- post-processing calibrated only for historical climatology.
-
-## 9. Carbon connection
-
-Weather extremes provide forcing for ecosystem carbon responses. See [Carbon-flux AI under climate extremes](../07-carbon-cycle-ai/extremes-climate-response.md).
+climate change 会改变 tail distribution。historical extreme OOD 仍不完全代表 future-climate extremes，因此需要 hybrid/climate-aware evaluation。

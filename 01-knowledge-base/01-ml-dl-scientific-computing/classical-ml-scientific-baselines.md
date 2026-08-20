@@ -1,90 +1,95 @@
-# Classical ML and Scientific Baselines
+# Classical ML Scientific Baselines
 
-Deep learning is not automatically superior in scientific tasks. Sparse sites, tabular drivers and limited labels often make classical models strong baselines.
+## 1. 为什么 baseline 很重要
 
-## 1. Linear models
+Scientific AI 的数据量通常比互联网视觉/语言小，而且存在强空间时间自相关。复杂模型不一定天然占优。
 
-### Ordinary least squares
+一个可信实验应问：
 
-Useful for interpretability and diagnosing whether complex nonlinear modeling is needed.
+> 复杂 architecture 的增益来自 representation、pretraining、physics prior，还是只是更多参数与更强 tuning？
+
+---
+
+## 2. Linear / Ridge / Lasso
+
+```text
+y = Xβ + ε
+```
 
 ### Ridge
 
-Adds `λ||w||²` and stabilizes correlated predictors.
+```text
+L = ||y-Xβ||² + λ||β||²
+```
+
+适合 correlated predictors，常作为稳定 regression baseline。
 
 ### Lasso
 
-Adds `λ||w||₁` and can produce sparse coefficients, though selected features may be unstable under collinearity.
-
-## 2. Tree ensembles
-
-### Random forest
-
-Strengths:
-
-- nonlinear interactions;
-- mixed feature scales;
-- little preprocessing;
-- robust baseline for environmental tabular data.
-
-Limitations:
-
-- weak extrapolation outside training range;
-- feature importance can be misleading under correlated predictors;
-- no built-in physical consistency.
-
-### Gradient-boosted trees
-
-XGBoost/LightGBM-style methods are often strong for structured environmental predictors. Tune depth, learning rate and regularization with blocked validation rather than random sample CV.
-
-## 3. Gaussian processes
-
-Useful when data are limited and uncertainty matters. Kernels encode smoothness/similarity assumptions, but computational cost grows strongly with sample count unless approximations are used.
-
-## 4. Baseline design
-
-A fair baseline should use:
-
-- the same train/test split;
-- the same target/QC;
-- comparable input information;
-- explicit hyperparameter protocol;
-- identical evaluation support.
-
-## 5. Leakage in scientific baselines
-
-Random row splits can leak:
-
-- site identity;
-- neighboring timestamps;
-- seasonal cycle;
-- sensor campaign;
-- simulation trajectory;
-- spatial neighborhood.
-
-A simple RF with leakage can appear stronger than a sophisticated OOD-safe model.
-
-## 6. Interpretability
-
-Useful tools:
-
-- permutation importance;
-- partial dependence;
-- SHAP-style attribution;
-- stratified residual plots;
-- sensitivity analysis.
-
-These explain model associations, not physical causality.
-
-## 7. Baseline ladder
-
 ```text
-mean / climatology
-→ linear model
-→ RF / boosting
-→ shallow MLP
-→ domain architecture
-→ physics-aware/hybrid model
+L = ||y-Xβ||² + λ||β||₁
 ```
 
-A new method should beat relevant simpler levels under the same split and support.
+产生 sparse coefficients，但高度相关变量下解释要谨慎。
+
+---
+
+## 3. Random Forest
+
+优点：
+- nonlinear；
+- 对 scaling 不敏感；
+- tabular environmental variables 强 baseline；
+- 可做 permutation importance。
+
+局限：
+- 不自然表示长时序；
+- high-dimensional imagery 需要先特征化；
+- feature importance 不是 causality。
+
+---
+
+## 4. Gradient Boosting
+
+`XGBoost / LightGBM / CatBoost` 在 tabular Earth data 上常非常强。
+
+适合：
+- flux gap filling；
+- regional regression；
+- environmental driver modeling；
+- mixed continuous/categorical features。
+
+---
+
+## 5. Gaussian Process
+
+```text
+f(x) ~ GP(m(x), k(x,x'))
+```
+
+优势是 uncertainty 与 smoothness prior 清晰；主要限制是大样本计算扩展性。
+
+---
+
+## 6. 公平比较
+
+必须保持：
+- 相同 train/test split；
+- 相同 target definition；
+- 相同 leakage rule；
+- 相同 evaluation samples；
+- comparable preprocessing；
+- paired metrics where possible。
+
+### Earth-specific split
+随机 sample split 往往不够。优先：
+- site-blocked；
+- region-blocked；
+- temporal-blocked；
+- biome/climate OOD。
+
+## Sources
+
+- Breiman (2001), *Random Forests*, Machine Learning.
+- Friedman (2001), *Greedy Function Approximation: A Gradient Boosting Machine*.
+- Rasmussen & Williams (2006), *Gaussian Processes for Machine Learning*: https://gaussianprocess.org/gpml/

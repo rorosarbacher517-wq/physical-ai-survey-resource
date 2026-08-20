@@ -1,66 +1,51 @@
-# Terrestrial Carbon-flux AI Specialty Track
+# Terrestrial Carbon-flux AI 专题路线
 
-This priority track connects **ecosystem process understanding, eddy covariance, flux partitioning, footprints, Earth observation, meteorological forcing, process constraints, deep learning and scale-aware upscaling**.
+## Goal
 
-Main knowledge page: [Carbon-cycle AI](../../../01-knowledge-base/07-carbon-cycle-ai/index.md).
+把 EC、footprint、EO、meteorology、process physics、AI 和 upscaling 放在同一个 observation-aware framework。
 
-## 1. Complete chain
+## 1. Process
 
-```text
-carbon-water-energy processes
-→ EC net exchange
-→ partitioning / target uncertainty
-→ dynamic footprint / observation support
-→ EO + meteorology + 3D structure
-→ data-driven / hybrid / process-constrained model
-→ footprint observation mapping
-→ tower validation
-→ tower-to-grid upscaling
-→ extremes / OOD / uncertainty
-```
+- [Carbon-cycle Processes](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-cycle-processes.md)
+- [Carbon–Water–Energy Coupling](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-water-energy-coupling.md)
 
-## 2. Process and measurement pages
+## 2. Measurement
 
-- [Carbon-cycle processes](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-cycle-processes.md)
-- [Carbon–water–energy coupling](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-water-energy-coupling.md)
-- [Eddy covariance](../../../01-knowledge-base/07-carbon-cycle-ai/eddy-covariance.md)
-- [Flux partitioning and uncertainty](../../../01-knowledge-base/07-carbon-cycle-ai/flux-partitioning-uncertainty.md)
-- [Flux footprints](../../../01-knowledge-base/07-carbon-cycle-ai/flux-footprints.md)
+- [Eddy Covariance](../../../01-knowledge-base/07-carbon-cycle-ai/eddy-covariance.md)
+- [Flux Partitioning](../../../01-knowledge-base/07-carbon-cycle-ai/flux-partitioning-uncertainty.md)
+- [Flux Footprints](../../../01-knowledge-base/07-carbon-cycle-ai/flux-footprints.md)
 
-## 3. Modeling pages
+## 3. Data / AI
 
-- [Carbon data stack](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-data-stack.md)
-- [Carbon modeling methods](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-modeling-methods.md)
-- [Process-constrained carbon AI](../../../01-knowledge-base/07-carbon-cycle-ai/process-constrained-carbon-ai.md)
+- [Carbon Data Stack](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-data-stack.md)
+- [Carbon Modeling Methods](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-modeling-methods.md)
+- [Multimodal Carbon AI](../../../01-knowledge-base/07-carbon-cycle-ai/multimodal-carbon-ai.md)
+
+## 4. Physics-aware learning
+
+- [Process-constrained Carbon AI](../../../01-knowledge-base/07-carbon-cycle-ai/process-constrained-carbon-ai.md)
 - [Footprint-aware AI](../../../01-knowledge-base/07-carbon-cycle-ai/footprint-aware-ai.md)
-- [Multimodal carbon AI](../../../01-knowledge-base/07-carbon-cycle-ai/multimodal-carbon-ai.md)
 
-## 4. Upscaling and stress regimes
-
-- [Tower-to-grid upscaling](../../../01-knowledge-base/07-carbon-cycle-ai/tower-to-grid-upscaling.md)
-- [Climate extremes](../../../01-knowledge-base/07-carbon-cycle-ai/extremes-climate-response.md)
-- [Validation and uncertainty](../../../01-knowledge-base/07-carbon-cycle-ai/validation-uncertainty.md)
-
-## 5. Multimodal predictor stack
+核心结构：
 
 ```text
-2D optical / thermal / SIF / SAR
-+ 3D LiDAR structure
-+ meteorology / soil moisture
-+ static land/soil/topography
-+ dynamic footprint / observation operator
-→ spatiotemporal carbon model
+pixel/field flux
+→ dynamic footprint observation operator
+→ tower-scale supervision
 ```
 
-See [EO multisensor fusion](../../../01-knowledge-base/06-earth-observation-ai/multisensor-fusion.md) and [weather/climate AI](../../../01-knowledge-base/08-weather-climate-ai/index.md).
+## 5. Scale / OOD
 
-## 6. Evaluation hierarchy
+- [Tower-to-grid Upscaling](../../../01-knowledge-base/07-carbon-cycle-ai/tower-to-grid-upscaling.md)
+- [Extremes / Climate Response](../../../01-knowledge-base/07-carbon-cycle-ai/extremes-climate-response.md)
+- [Validation / Uncertainty](../../../01-knowledge-base/07-carbon-cycle-ai/validation-uncertainty.md)
 
-Prefer site-blocked validation, temporal/event stratification, biome/climate transfer, paired ablations, support-aware metrics, uncertainty/calibration and independent spatial validation where available.
+## 6. 截至 2026-08-20 的重点问题
 
-## 7. Repository resources
-
-- [papers by method](../../../02-paper-library/by-method.md)
-- [papers by domain](../../../02-paper-library/by-domain.md)
-- [datasets](../../../04-dataset-library/index.md)
-- [benchmarks](../../../05-benchmarks-and-evaluation/index.md)
+- footprint 作为 observation mapping，而非只作为 feature；
+- joint NEE/GPP/RECO physical consistency；
+- 2D EO + 3D structure + meteorology + SIF/soil moisture；
+- process-model parameter optimization；
+- EO foundation representation 对 continuous ecohydrology/carbon inference 的真实增益；
+- climate/extreme OOD；
+- fine-grid output 的 independent validation gap。

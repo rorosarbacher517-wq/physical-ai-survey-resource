@@ -1,80 +1,98 @@
-# Transformer and GNN for Scientific Data
+# Transformer 与 GNN for Science
 
-## 1. Why Transformer helps
+## 1. Transformer 的 scientific interpretation
 
-Attention can connect distant positions directly, which is useful for atmospheric teleconnections, long temporal dependencies and multimodal fusion.
+对 sequence `X ∈ R^(B×N×D)`：
 
-But a scientific token needs semantics beyond a word token.
+```text
+Q=XW_Q
+K=XW_K
+V=XW_V
+A=softmax(QK^T/√d)
+Y=AV
+```
 
-Possible token meanings:
+这里 `A_ij` 表示 token `i` 对 token `j` 信息的 data-dependent weighting。
 
-- image patch;
-- grid cell;
-- vertical atmospheric column;
-- station;
-- mesh node;
-- time step;
-- sensor observation;
-- latent field block.
+### 在 Earth data 中 token 是什么
+可能是：
+- HLS patch；
+- weather grid patch；
+- vertical column；
+- time step；
+- station；
+- spectral band group。
 
-## 2. Position and geometry
+所以注意力的物理解释取决于 tokenization，而不是 attention 公式本身。
 
-Standard sequence position is insufficient for many Earth tasks. Models may need:
+---
 
-- latitude/longitude;
-- spherical distance;
-- elevation/pressure level;
-- time-of-day/season;
-- sensor geometry;
-- relative spatial displacement.
+## 2. Position / coordinate encoding
 
-Encoding absolute coordinates can also create geographic memorization, so OOD evaluation is required.
+Earth AI 不能只用 generic 1D position。
 
-## 3. Factorized attention
+可编码：
+- latitude / longitude；
+- spherical coordinates；
+- altitude / pressure level；
+- time-of-day；
+- day-of-year；
+- sensor geometry；
+- relative spatial offset。
 
-For tensor `[B,T,N,D]`, full attention over `T×N` can be expensive.
+注意：直接给 absolute geolocation 可能导致 geographic leakage。
 
-Alternatives:
+---
 
-- spatial then temporal attention;
-- temporal then spatial;
-- local windows + global tokens;
-- hierarchical patching;
-- sparse neighborhoods;
-- cross-attention between modalities.
+## 3. GNN 的核心
 
-## 4. GNN for physical fields
+```text
+m_ij = φ_e(h_i,h_j,e_ij)
+h_i' = φ_v(h_i, Σ_j m_ij)
+```
 
-Graphs separate topology from tensor layout.
+- `h_i`：node state；
+- `e_ij`：edge geometry/relationship；
+- `m_ij`：message。
 
-Applications:
+GNN 把 geometry/connectivity 显式放进计算图。
 
-- weather on spherical/icosahedral meshes;
-- river networks;
-- station networks;
-- finite-element meshes;
-- molecular/material graphs.
+---
 
-## 5. Message-passing depth
+## 4. Mesh / graph vs grid
 
-A node receives information from neighbors; multiple layers increase graph receptive field. Too many layers can cause over-smoothing or inefficient propagation over global graphs.
+### Grid
+优点：GPU-friendly；CNN/FFT 易用。
 
-Multi-scale graphs or encoder-process-decode architectures can accelerate long-range interactions.
+### Mesh/graph
+优点：
+- irregular geometry；
+- spherical tessellation；
+- adaptive resolution；
+- physical connectivity。
 
-## 6. Equivariance
+`GraphCast` 是 graph/mesh weather modeling 的代表性例子。
 
-A model is equivariant if transforming the input produces a predictable transformation of the output.
+---
 
-This matters for rotations, translations, permutations and 3D physical systems.
+## 5. Equivariance
 
-## 7. Transformer versus GNN
+如果旋转输入应产生可预测的旋转输出，可以使用 rotation-equivariant representation。
 
-| Question | Transformer | GNN |
-|---|---|---|
-| topology | token sequence/set | explicit edges |
-| global interaction | direct but expensive | usually multi-hop/hierarchical |
-| irregular mesh | possible | natural |
-| multimodal fusion | strong | possible but less standard |
-| geometry | encoded in positions/bias | encoded in graph/edges |
+这比单纯 data augmentation 更强，因为 symmetry 进入 architecture。
 
-Hybrid graph-attention systems are common when both irregular geometry and global context matter.
+---
+
+## 6. Failure modes
+
+- token 数过多导致 attention memory 爆炸；
+- patch 太大丢失小尺度 extremes；
+- positional encoding 让模型记住 location 而不是 process；
+- graph edges 与真实 physical interaction 不一致；
+- attention map 被误解释为 causal mechanism。
+
+## Sources
+
+- Vaswani et al. (2017): https://arxiv.org/abs/1706.03762
+- Battaglia et al. (2018): https://arxiv.org/abs/1806.01261
+- Lam et al. (2023), GraphCast: https://www.science.org/doi/10.1126/science.adi2336

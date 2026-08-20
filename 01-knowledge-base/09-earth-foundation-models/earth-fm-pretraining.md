@@ -1,67 +1,101 @@
-# Earth Foundation-model Pretraining and Adaptation
+# Earth FM Pretraining
 
-## 1. Foundation-model criterion
+## 1. Pretraining data 的五个轴
 
-A large model becomes a useful Earth foundation model when pretraining creates transferable capability across tasks/regions/modalities/variables—not merely because parameter count is large.
+```text
+space × time × sensor × variable × resolution
+```
 
-## 2. Pretraining data axes
+再加上 geography/climate distribution。
 
-Record:
+---
 
-- geography;
-- years/seasons;
-- sensor/provider;
-- spectral/modal variables;
-- resolution;
-- temporal cadence;
-- missing-data policy;
-- sampling balance;
-- license/access.
+## 2. Masked Autoencoding
 
-## 3. Objectives
+```text
+visible patches
+→ encoder
+→ latent
+→ decoder
+→ reconstruct masked patches
+```
 
-### Masked modeling
-Hide spatial/spectral/temporal tokens and reconstruct them.
+EO 中 masking 可以跨：
+- space；
+- spectral bands；
+- time；
+- modality。
 
-### Contrastive learning
-Pull related observations/views/modalities together and separate unrelated examples.
+`Prithvi-EO-2.0` 是 HLS spatiotemporal MAE route 的重要例子。
 
-### Temporal prediction
-Predict future/neighboring observations or latent states.
+---
 
-### Multimodal generation
-Predict one Earth-observation modality from others.
+## 3. Contrastive learning
 
-### Forecast pretraining
-Predict future physical fields across broad geophysical datasets.
+目标是让 related views/observations embedding 接近：
 
-## 4. Tokenization
+```text
+sim(z_i,z_j) high for positive pair
+```
 
-Possible tokens:
+Earth-specific positive pair 可以来自：
+- same location different time；
+- same location different sensor；
+- augmented views。
 
-- image patches;
-- spectral groups;
-- time steps;
-- atmospheric grid cells/levels;
-- modality-specific latent tokens.
+风险：season/change 本身可能是 task signal，不应被全部强制 invariant。
 
-Token design determines compute and what scale is preserved.
+---
 
-## 5. Adaptation
+## 4. Multimodal generative pretraining
 
-- frozen embeddings;
-- linear probe;
-- task head;
-- LoRA/parameter-efficient tuning;
-- full fine-tuning;
-- multi-task fine-tuning.
+```text
+subset of modalities
+→ shared representation/generator
+→ reconstruct/generate other modalities
+```
 
-Report which protocol produced each result.
+`TerraMind` 使用 multimodal generative route，并结合 token-level 与 pixel-level representations。
 
-## 6. Geolocation leakage
+---
 
-Location/time embeddings can aid Earth modeling but can also let a model memorize regional priors. Evaluate held-out geography/time.
+## 5. Pixel-wise annual embedding
 
-## 7. Physics after pretraining
+目标不是输出 patch feature，而是生成：
 
-Task adaptation can add observation operators, conservation losses, process modules or DA rather than assuming pretraining already encodes all required physical constraints.
+```text
+E(year, x, y) ∈ R^D
+```
+
+适合全球 geospatial embedding products。
+
+`AlphaEarth Foundations` 与 `TESSERA` 代表该 interface。
+
+---
+
+## 6. Time / location metadata
+
+可加入：
+- DoY / timestamp；
+- latitude/longitude；
+- sensor ID。
+
+但 absolute location 带来 geographic memorization/leakage 风险。
+
+Prithvi-EO-2.0 提供 temporal/location embedding variants，并在 pretraining 中设计 metadata dropout 以处理 metadata 缺失。
+
+---
+
+## 7. Scaling 不只看 training loss
+
+`TESSERA v2` 2026 preprint 报告的 controlled scaling study 强调：pretraining loss 与 downstream performance 的相关性可能很弱，因此 model selection 应加入 downstream evaluation，而不只是最低 pretraining objective。
+
+Preprint: https://arxiv.org/abs/2607.03949
+
+---
+
+## Sources
+
+- Prithvi-EO-2.0 official: https://github.com/NASA-IMPACT/Prithvi-EO-2.0
+- TerraMind: https://openaccess.thecvf.com/content/ICCV2025/html/Jakubik_TerraMind_Large-Scale_Generative_Multimodality_for_Earth_Observation_ICCV_2025_paper.html
+- TESSERA v2 preprint: https://arxiv.org/abs/2607.03949

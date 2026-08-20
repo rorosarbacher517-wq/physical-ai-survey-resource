@@ -1,61 +1,89 @@
-# Multiscale and Multimodal Fusion
+# Multiscale 与 Multimodal Fusion
 
-## 1. The core difficulty
-
-Different modalities observe different physics at different supports.
-
-Example:
+## 1. Fusion 之前先对齐
 
 ```text
-30 m optical every few days
-+ coarse hourly meteorology
-+ sparse tower flux every 30 min
-+ LiDAR structure from occasional campaigns
+modality A
+modality B
+modality C
+→ spatial/temporal/physical alignment
+→ representation
+→ fusion
 ```
 
-Fusion is not just channel concatenation.
+如果 observation support 不一致，直接 concat 只是把 mismatch 交给网络。
 
-## 2. Early fusion
+---
 
-Resample/align modalities and concatenate before the encoder.
+## 2. Early Fusion
 
-Pros: simple. Risks: forces a common grid/time, can hide support differences.
+原始/浅层 feature concat：
 
-## 3. Late fusion
+```text
+X = concat(X_A,X_B,...)
+```
 
-Encode each modality separately, then combine latent features.
+简单，但要求 resolution/time/geometry 已较好对齐。
 
-Useful when modalities have different native structures.
+---
+
+## 3. Late Fusion
+
+各 modality 独立 encoder：
+
+```text
+z_A=f_A(X_A)
+z_B=f_B(X_B)
+→ fuse(z_A,z_B)
+```
+
+适合 sensing physics 差异大的 modality。
+
+---
 
 ## 4. Cross-attention
 
-One modality queries another in latent/token space. Flexible for asynchronous observations and variable modality availability.
+一个 modality 用 query 选择另一 modality 信息：
 
-## 5. Hierarchical fusion
+```text
+Q=z_A, K/V=z_B
+```
 
-Fuse at multiple scales: local image features, regional context, temporal drivers and global/static context.
+适合异构 token，但要处理 missing modality 与 compute。
 
-## 6. Missing modalities
+---
 
-Training should consider missing sensors/campaigns:
+## 5. Hierarchical Fusion
 
-- modality dropout;
-- masks;
-- conditional encoders;
-- robust fallback paths;
-- uncertainty increase when evidence is absent.
+不同尺度分别融合：
+- pixel/patch；
+- object/region；
+- temporal sequence；
+- global context。
 
-## 7. Super-resolution/downscaling
+---
 
-A coarse variable can guide high-resolution prediction, but the fine pattern must be supported by additional predictors/priors. Upsampling alone creates no new physical information.
+## 6. Missing modality
 
-## 8. Fusion evaluation
+真实 Earth data 常出现：
+- optical cloud；
+- LiDAR only one campaign；
+- sensor outage；
+- missing station data。
 
-Ablate each modality under identical splits and report where it helps:
+训练时应测试：
+- modality dropout；
+- mask-aware fusion；
+- graceful degradation。
 
-- ecosystem/land-cover type;
-- weather regime;
-- season;
-- spatial heterogeneity;
-- OOD sites;
-- missing-data conditions.
+---
+
+## 7. Negative transfer
+
+多 modality 不保证提升。额外 modality 可能：
+- temporal mismatch；
+- noisy；
+- redundant；
+- sample size 太小导致 overfit。
+
+因此必须做 paired ablation。

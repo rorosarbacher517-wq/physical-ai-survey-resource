@@ -1,20 +1,21 @@
 # Active plan
 
-## Phase 13 — Scientific / Physical AI knowledge-base v2
+## Phase 15 — Chinese-first systematic Earth/Scientific AI knowledge base
 
 Status: `IN_PROGRESS`
 
-Objective: transform the repository from a survey/resource database with sparse knowledge pages into a bottom-up Scientific/Physical AI knowledge base while preserving the canonical metadata/resource layer.
+Date: 2026-08-20
+
+Objective: 在保持 canonical metadata、taxonomy 和已有路径兼容的前提下，将知识层重构为“中文解释 + 英文专业术语”的 bottom-up Scientific/Physical/Earth AI 知识体系，并系统补强 Earth Observation、terrestrial carbon、weather/climate 与 Earth foundation models。
 
 Scope:
 
-1. add a dependency-based knowledge roadmap from foundations to domain systems;
-2. make Earth observation, terrestrial carbon and weather/climate the priority domain tracks;
-3. add physics-integration taxonomy in educational form;
-4. add neural-operator, DA/inverse/UQ, spatiotemporal, foundation-model, HPC/evaluation and cross-domain modules;
-5. add a dated fast-moving 2026 snapshot based on primary/official sources;
-6. add maintenance policy separating stable fundamentals from fast-moving releases;
-7. update MkDocs navigation and domain case-study entry pages;
-8. run repository CI and external-link verification before marking the phase PASS.
-
-No canonical resource metadata or taxonomy labels are changed in this phase.
+1. 重写根 README、knowledge index、learning paths 与 detailed index，使真实学习顺序从 fundamentals → Scientific ML → inverse/DA/UQ → spatiotemporal/multimodal → Earth domains → foundation models → systems/evaluation；
+2. 建立统一 Chinese-first content standard；
+3. 将知识页解释性正文改为中文，同时保留 model/paper/dataset/code/metric/variable/equation 等英文；
+4. 系统补强 Earth Observation：observation physics、Optical/SAR/LiDAR/Thermal/SIF、time series、multisensor、retrieval、foundation models、OOD；
+5. 系统补强 terrestrial carbon：processes、EC、partitioning、footprint、process constraints、multimodal、tower-to-grid、extremes、uncertainty；
+6. 系统补强 weather/climate：NWP、observations/DA、AI forecast families、data-to-forecast、hybrid、ensemble、nowcasting、downscaling、extremes、coupled climate、verification；
+7. 用截至 2026-08-20 的 primary/official sources 更新 fast-moving snapshot；
+8. 不修改 canonical resource metadata 和 taxonomy labels；
+9. CI、internal links、generated-file consistency 与 external links 全部通过后才标记 PASS。

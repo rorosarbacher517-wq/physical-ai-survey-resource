@@ -1,57 +1,98 @@
-# Eddy Covariance for Carbon-flux AI
+# Eddy Covariance (EC)
 
-## 1. Measurement principle
+## 1. EC 测量的核心
 
-Eddy covariance estimates turbulent vertical flux from covariance between fluctuations in vertical wind and scalar concentration.
+EC 利用 turbulent covariance 估计垂直 scalar flux。CO₂ flux 的概念形式：
 
-A simplified scalar-flux form:
+```text
+F_c = ρ · overline(w' c')
+```
 
-`F ≈ ρ · covariance(w', c')`
+其中：
+- `w'`：vertical wind fluctuation；
+- `c'`：CO₂ concentration/mixing-ratio fluctuation；
+- averaging 常为约 30 min（network/site processing may vary）。
 
-where `w'` is vertical-wind fluctuation and `c'` scalar-concentration fluctuation, with processing conventions depending on the flux variable/system.
+真实 processing 还涉及 coordinate rotation、time lag、frequency response、density corrections、QC 等。
 
-## 2. Typical time support
+---
 
-Flux networks commonly distribute half-hourly or hourly processed products. Each record integrates turbulent exchange over the averaging period and a dynamic upwind source area.
+## 2. 为什么 EC 不是 point measurement
 
-## 3. EC does not directly measure every carbon component
+turbulence 把 upwind surface exchange 搬运到 sensor。
 
-NEE is derived from turbulent CO₂ exchange processing (with storage/quality considerations depending on site/product). GPP and RECO are obtained through partitioning methods/assumptions.
+因此 observation 对应动态 source area，而不是 tower base coordinate。
 
-Therefore GPP/RECO should not be described as directly observed tower fluxes.
+```text
+surface flux field
+→ turbulent transport
+→ instrument
+→ half-hourly integrated flux
+```
 
-## 4. Quality control
+source area 由 footprint model 描述。
 
-Potential issues include:
+---
 
-- low turbulence;
-- instrument failure;
-- spikes;
-- coordinate rotation;
-- density corrections;
-- storage flux;
-- gap filling;
-- friction-velocity filtering;
-- non-stationarity.
+## 3. NEE、GPP、RECO 的关系
 
-Use the official network/product QC variables rather than inventing thresholds.
+EC CO₂ exchange 经 processing 得到 NEE-like net ecosystem exchange quantity（具体 convention 依 network/product）。
 
-## 5. Sign convention
+`GPP` 与 `RECO` 通常通过 partitioning method 推断。
 
-Always confirm whether positive NEE means atmosphere-to-ecosystem or ecosystem-to-atmosphere in the specific dataset.
+所以训练 AI 时应区分：
 
-## 6. Spatial support
+```text
+measured/processed net flux
+vs
+partitioned component targets
+```
 
-The tower coordinate is only the sensor location. The flux measurement integrates an upwind footprint that changes with wind and turbulence.
+---
 
-## 7. Machine-learning sample design
+## 4. 常见 QC / gap 问题
 
-Avoid random splitting of half-hours from the same site across train/test when evaluating spatial generalization. Site-blocked splits prevent direct site leakage.
+- instrument failure；
+- precipitation / condensation；
+- low turbulence；
+- stationarity；
+- advection；
+- footprint contamination；
+- missing meteorology。
 
-## 8. Target uncertainty
+Flux networks 通常提供 QC flag 和 gap-filled/partitioned products；不同字段不能混用。
 
-Prediction error contains both model error and uncertainty in processed/partitioned flux targets. Interpret small component-level improvements in that context.
+---
 
-## 9. Primary data sources
+## 5. u* 与 low-turbulence filtering
 
-Use verified records in the repository dataset library for FLUXNET/AmeriFlux and follow their data policies/documentation.
+弱湍流条件下，夜间 flux measurement 可能无法充分代表 surface exchange。常见 workflow 会用 friction velocity `u*` threshold 做过滤/uncertainty analysis。
+
+这会影响：
+- NEE time series；
+- partitioned RECO/GPP；
+- long-term carbon balance。
+
+---
+
+## 6. AI 配对前必须记录
+
+```text
+site ID
+measurement height
+averaging interval
+flux variable/version
+QC flag
+u* filtering convention
+partitioning method
+footprint inputs
+local time/UTC
+```
+
+---
+
+## Sources
+
+- Baldocchi (2003), Global Change Biology.
+- Aubinet et al., *Eddy Covariance: A Practical Guide to Measurement and Data Analysis*.
+- Pastorello et al. (2020), FLUXNET2015: https://doi.org/10.1038/s41597-020-0534-3

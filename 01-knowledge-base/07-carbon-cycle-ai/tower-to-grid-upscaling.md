@@ -1,121 +1,119 @@
-# Tower-to-grid Carbon-flux Upscaling
+# Tower-to-grid Upscaling：从稀疏 EC 到 Spatial Carbon Field
 
-## 1. The task
+## 1. 为什么需要 upscaling
 
-Flux towers provide dense temporal observations at sparse locations. Upscaling learns relationships between tower observations and spatially continuous predictors, then applies them across grids/regions.
+Flux towers：
+- temporal resolution 高；
+- local process information 丰富；
+- spatial coverage 稀疏且不均匀。
 
-## 2. Core support problem
+Earth Observation / meteorology：
+- spatially continuous；
+- temporal/resolution 各异。
 
-The tower target and predictor grid do not automatically represent the same area.
+upscaling 的目标是学习：
 
 ```text
-gridded predictors
-→ support/footprint mapping around tower
-→ tower training target
+local flux observations + spatial predictors
+→ regional/global flux field
 ```
 
-During regional inference, the desired output may instead be a pixel/grid-cell flux estimate.
+---
 
-## 3. Two modeling designs
-
-### Tower-representation model
+## 2. 传统 feature-based upscaling
 
 ```text
-pixels → aggregate predictors → tower model → tower flux
+satellite/meteorology at tower
+→ RF/XGBoost/NN
+→ tower flux
+→ apply model to every grid cell
 ```
 
-Good for tower prediction but does not inherently produce a fine spatial latent field.
+关键假设：tower training relationship 可以 transfer 到 unsampled grid cells。
 
-### Spatial-field model with tower observation operator
+---
+
+## 3. Support-aware upscaling
+
+训练时：
 
 ```text
-pixels → pixel/field predictions
-→ footprint-weight aggregation
+pixel predictions
+→ observation operator
 → tower loss
 ```
 
-This preserves spatially explicit latent predictions while supervising them through tower support.
-
-## 4. Training tensor example
+推理时：
 
 ```text
-EO patch:      [B,T,C,H,W]
-meteo:         [B,T,M]
-footprint:     [B,T,H,W]
-tower target:  [B,T,F]
+pixel predictions → spatial map
 ```
 
-A field model may output:
+这解决了 training observation support mismatch，但**不自动提供 pixel-level reference**。
+
+---
+
+## 4. Spatial extrapolation risk
+
+tower network 通常存在 sampling bias：
+- biome coverage 不均；
+- temperate regions 更多；
+- disturbance/management type 不均；
+- climate extremes 样本少。
+
+因此 global map 可能在 tower-sparse regions 依赖强 extrapolation。
+
+---
+
+## 5. Evaluation hierarchy
+
+### Level 1: held-out observations
+site-blocked tower metrics。
+
+### Level 2: regional/biome OOD
+unseen ecological/climate regions。
+
+### Level 3: independent spatial product/field campaign
+与其他 observations 比较，但要匹配 support。
+
+### Level 4: process / budget consistency
+annual balance、seasonal cycle、climate response、spatial pattern。
+
+---
+
+## 6. Pixel resolution ≠ validated resolution
+
+如果模型输出 30 m：
 
 ```text
-flux field: [B,T,F,H,W]
+output grid = 30 m
 ```
 
-Then apply normalized footprint weights to obtain `[B,T,F]` tower predictions.
-
-## 5. Regional inference
-
-For gridded prediction define:
-
-- required meteorology;
-- EO observation/reconstruction schedule;
-- static context;
-- output cadence;
-- uncertainty;
-- domain mask;
-- OOD diagnostics.
-
-Regional prediction should not rely on tower-only variables unavailable away from towers unless a replacement is defined.
-
-## 6. Validation hierarchy
-
-### Tower held-out validation
-
-Tests transfer to unseen sites.
-
-### Regional/biome blocking
-
-Tests stronger spatial extrapolation.
-
-### Independent field/grid validation
-
-When available, checks spatial predictions beyond the tower observation support.
-
-A fine output pixel size should not be described as independently validated at that scale without suitable observations.
-
-## 7. Coverage bias
-
-Flux towers are not uniformly distributed across climate, land cover and management regimes. Training data density can shape apparent regional skill.
-
-Track:
-
-- biome coverage;
-- climate coverage;
-- geographic density;
-- management/disturbance representation;
-- extreme-event representation.
-
-## 8. Uncertainty propagation
-
-Regional uncertainty can include:
+但 supervision 是几百米尺度动态 footprint：
 
 ```text
-measurement/partitioning
-+ predictor/retrieval
-+ footprint/support
-+ model parameter/ensemble
-+ domain shift
+validation support ≠ 30 m
 ```
 
-## 9. Failure modes
+论文应写：
+- “30 m predictions/output grid”；
+- 不直接写“30 m validated flux”除非存在同尺度 independent measurement。
 
-- random tower-time splitting;
-- using site identity shortcuts;
-- claiming pixel-scale validation from tower-scale supervision alone;
-- training with unavailable regional predictors;
-- ignoring representativeness gaps;
-- confusing resampling with added information.
+---
 
-## 10. Related pages
+## 7. Uncertainty map
 
-See [Footprint-aware AI](footprint-aware-ai.md), [geospatial validation](../06-earth-observation-ai/geospatial-validation.md) and [validation/uncertainty](validation-uncertainty.md).
+理想 upscaling 除 mean map 外还应包含：
+- ensemble spread；
+- OOD indicator；
+- data-density / distance-to-training；
+- observation uncertainty；
+- support uncertainty。
+
+---
+
+## Sources
+
+- FLUXCOM/upscaling literature；
+- Pastorello et al. (2020), FLUXNET2015；
+- 2025 physics-constrained North America mapping: https://doi.org/10.1016/j.isprsjprs.2025.06.033

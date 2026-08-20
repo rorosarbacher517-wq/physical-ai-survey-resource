@@ -1,114 +1,135 @@
-# Audit & Update Policy
+# Audit & Update Policy · 知识审核与更新规则
 
-> Knowledge baseline: **2026-08-20**.
-
-This repository is maintained by **knowledge stability + scientific value + verifiability**, not by continuously appending model names.
-
-## 1. Three freshness classes
+## 1. 三种知识生命周期
 
 ### Stable fundamentals
-Math, probability, optimization, PDE/ODE basics, numerical discretization, conservation, classical ML/DL and core remote-sensing physics.
+包括数学、概率、优化、PDE、numerical methods、Bayesian inference 等。更新频率低，重点是准确性和教学清晰度。
 
-Update when a factual error, conceptual gap, or clearer explanation is identified.
-
-### Evolving scientific-AI methods
-PINNs, neural operators, hybrid numerical-ML methods, differentiable simulation, data assimilation, UQ, scientific foundation-model design and multimodal Earth AI.
-
-Update when a method changes the modeling assumptions, training objective, representation, or evaluation practice.
+### Evolving methods
+包括 neural operators、PINN training、multimodal fusion、foundation-model adaptation、hybrid solvers 等。方法会演化，但基本问题相对稳定。
 
 ### Fast-moving systems
-Operational weather AI, geospatial foundation-model releases, new pretrained checkpoints and rapidly changing software stacks.
+包括 operational AI weather、最新 EO foundation model、model version、official service、benchmark release。必须带具体日期。
 
-These belong primarily in `01-knowledge-base/13-2026-snapshot/`. Stable principles must be moved back into the relevant foundation module instead of being duplicated indefinitely.
+---
 
-## 2. Evidence levels for prose
+## 2. 来源优先级
 
-- **Confirmed**: directly supported by original paper, publisher page, official repository/model card, official institution or dataset provider.
-- **Implementation inference**: can be reasonably derived from open source; must be labeled as inference.
-- **Unknown**: not publicly disclosed or not verified. Do not guess.
+1. original paper / DOI / publisher / arXiv / OpenReview；
+2. official project page / institutional page；
+3. official GitHub / model card / dataset provider；
+4. author-maintained project page；
+5. trusted bibliographic database；
+6. secondary article 只用于发现，不单独支持核心事实。
 
-Canonical resource records continue to use the stricter metadata evidence levels defined in `AGENTS.md` and `metadata/taxonomy.yaml`.
+---
 
-## 3. Source hierarchy
+## 3. 内容语言
 
-Prefer:
+- explanation：中文；
+- model / paper / dataset / code / metric / variable / equation：英文或原始形式；
+- 首次出现可用 `中文解释（English term）`；
+- 不强行翻译专业缩写。
 
-1. original paper / DOI / publisher / arXiv / OpenReview;
-2. official organization repository or documentation;
-3. official dataset/provider page;
-4. author project page;
-5. secondary material only for discovery.
+---
 
-Do not use press coverage or blog summaries as the sole source for architecture, training data, benchmark or scientific-result claims.
+## 4. 事实与解释分开
 
-## 4. What deserves a fast-moving entry?
+### Source-stated fact
+来源明确声明的事实，如发布日期、输入变量、grid、training data、operational status。
 
-At least one must be true:
+### Repository synthesis
+本知识库根据多来源形成的结构化总结，例如“ready-made geospatial embedding product 与 downloadable encoder 的使用接口不同”。
 
-- changes the scientific modeling paradigm;
-- becomes operational or broadly deployable;
-- introduces a meaningful new representation, objective, coupling or evaluation method;
-- opens weights/code/data that materially improve reproducibility;
-- is especially relevant to Earth observation, carbon cycle, weather/climate or another core Physical-AI domain.
+### Interpretation
+需要推理的判断必须写清这是 interpretation，不写成来源原话。
 
-A version bump or leaderboard-only improvement does not automatically deserve a new section.
+### Unknown
+公开资料没有说明的内部实现：`unknown / not publicly disclosed`。
 
-## 5. Scientific claim checklist
+---
 
-Before adding a claim, ask:
+## 5. Remote Sensing 特殊规则
 
-1. What is the physical variable and unit?
-2. What exactly is observed versus derived?
-3. What is the spatial/temporal support?
-4. What physics or prior is actually encoded?
-5. What is learned and what remains numerical/analytical?
-6. What validation split was used?
-7. Is the comparison resolution/support fair?
-8. Are uncertainty and failure modes reported?
-9. Is the claim source-stated or repository synthesis?
+任何精度或模型比较至少检查：
+- sensor / modality；
+- native spatial resolution；
+- spectral/polarization/geometry；
+- temporal sampling；
+- preprocessing / resampling；
+- label support；
+- region split；
+- downstream task；
+- frozen / linear probe / PEFT / full fine-tune。
 
-## 6. Earth-system special rules
+不能因为 model output 为 10 m/30 m 就声称“10 m/30 m ground-truth accuracy”。
 
-### Remote sensing
-Never equate a satellite signal with the target process without the retrieval/observation chain. Record sensor, band/modalities, resolution, revisit, preprocessing and support.
+---
 
-### Carbon flux
-Keep EC observation support, footprint weighting, NEE sign convention, GPP/RECO partitioning assumptions and tower-to-pixel/grid scale mismatch explicit.
+## 6. Carbon-flux 特殊规则
 
-### Weather/climate
-Separate analysis/reanalysis, data assimilation, deterministic forecast, probabilistic ensemble, nowcasting, downscaling and climate simulation. Do not compare headline scores without matching variable, lead time, grid and verification data.
+- 区分 measured/processed `NEE` 与 partitioned `GPP/RECO`；
+- 明确 sign convention；
+- EC tower 不是 point support；
+- footprint 用作 predictor weighting、output observation operator、disaggregation、representativeness analysis 或 feature 时必须区分；
+- random half-hour/day split 不能代替 site-blocked generalization；
+- tower-scale accuracy 不自动验证 fine-resolution flux map；
+- feature importance 不自动证明 process causality。
 
-## 7. Update cadence
+---
 
-- Scheduled CI already verifies repository integrity and external links weekly.
-- Fast-moving snapshot: review at least monthly when actively maintained.
-- Core modules: review quarterly or when a major conceptual change occurs.
-- Canonical metadata: update only after primary-source verification.
+## 7. Weather / Climate 特殊规则
 
-Every snapshot must carry an explicit audit date.
+每个 forecast claim 必须配套：
+- initialization / analysis source；
+- forecast lead；
+- variable；
+- vertical level；
+- grid/resolution；
+- deterministic / ensemble；
+- verification reference；
+- metric；
+- operational / research status。
 
-## 8. Anti-duplication rule
+`ERA5 hindcast skill`、`operational analysis-initialized forecast`、`real-time service` 不能混为同一种证据。
 
-A concept has one primary home. Domain modules may link back to it, but should explain only the domain-specific interpretation.
+---
 
-Examples:
+## 8. Foundation-model 特殊规则
 
-- FNO math lives in neural operators; weather module explains how operator-style models interact with spherical/global grids.
-- uncertainty fundamentals live in UQ; carbon module explains flux-partition and footprint uncertainty.
-- Transformer basics belong in ML/DL; EO module explains patch, spectral, temporal and geospatial tokenization.
+至少区分：
+- pretraining modality；
+- pretrained weights vs hosted embeddings；
+- spatial/temporal coverage；
+- frozen encoder / linear probe / PEFT / full FT；
+- label efficiency；
+- geographic leakage；
+- temporal leakage；
+- task mismatch；
+- process-sensitive regression vs simple classification。
 
-## 9. Repository checks
+“foundation model”不是自动优于 task-specific supervised model 的保证。
 
-Mandatory deterministic checks remain:
+---
+
+## 9. 时间基线
+
+本仓库当前 fast-moving cutoff：**2026-08-20**。
+
+新增 2026-08-20 之后的信息时：
+1. 先进入 dated snapshot；
+2. 验证 primary/official source；
+3. 只有当知识已经稳定后，才写入 stable concept pages。
+
+---
+
+## 10. CI / audit
+
+内容更新后必须运行：
 
 ```bash
 python -m scripts.full_check
-```
-
-Network verification remains separate:
-
-```bash
 python -m scripts.verify_external_links --respect-cache --report
 ```
 
-Broken internal links, generated-file drift, fabricated citations, unsupported claims or hidden uncertainty are release blockers.
+不通过时不标记 phase `PASS`，也不通过删除规则、跳过检查或修改 schema 来掩盖失败。

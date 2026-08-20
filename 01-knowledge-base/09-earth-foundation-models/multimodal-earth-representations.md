@@ -1,103 +1,101 @@
 # Multimodal Earth Representations
 
-## 1. Goal
+## 1. Representation 的目标
 
-A multimodal Earth representation should encode complementary observations and physical context while preserving modality identity, time, location, scale and uncertainty.
-
-It should not simply concatenate every available channel onto one image tensor.
-
-## 2. Modalities
-
-Possible sources include:
-
-- optical/hyperspectral;
-- SAR/microwave;
-- thermal;
-- LiDAR/3D;
-- SIF;
-- weather/reanalysis fields;
-- topography/soil/land cover;
-- station/tower observations;
-- text/metadata where scientifically useful.
-
-## 3. Representation choices
-
-### Shared-grid tokens
+把不同 sensor/time/scale 的 observations 映射到可复用 latent space：
 
 ```text
-X: [B,T,C,H,W]
+{optical, SAR, temporal, terrain, ...}
+→ E(x,y,t) or tokens Z
+```
+
+但 latent alignment 必须保留 downstream 所需的 physical information。
+
+---
+
+## 2. Patch representation
+
+```text
+X [B,T,C,H,W]
 → patchify
-→ [B,T,P,D]
+→ tokens [B,N,D]
 ```
 
-Works when modalities can be meaningfully aligned to a common grid.
+适合 ViT-style FM。
 
-### Modality-specific encoders
+---
+
+## 3. Pixel-wise representation
 
 ```text
-EO optical → z_opt
-SAR        → z_sar
-3D         → z_3d
-weather    → z_met
-→ shared latent space / cross-attention
+multi-sensor time series at pixel/area
+→ embedding vector E ∈ R^D
 ```
 
-This preserves sensor-specific structure before fusion.
+优势：
+- 易于作为普通 raster features 使用；
+- global dataset 可预计算；
+- downstream compute 低。
 
-### Query-based representation
+局限：
+- embedding dimension 缺少直接 physical interpretation；
+- annual compression 可能丢失 sub-seasonal detail；
+- fine process target 仍需 task-specific variables。
 
-A decoder/query requests information for a location, time or variable from a shared latent state.
+---
 
-Useful when downstream tasks have different output supports.
+## 4. AlphaEarth Foundations
 
-## 4. Metadata embeddings
+截至 2026-08-20，official GCS dataset：
+- annual embeddings 2017–2025；
+- 64 channels；
+- COG files / UTM zones；
+- CC-BY 4.0 dataset license；
+- Earth Engine / GCS access。
 
-Earth tokens often need more than position in an image:
+官方 data catalog 还说明当前 embedding collection 由 `AlphaEarth Foundations v2.1` 生成，并记录了 training-data更新。
 
-- latitude/longitude or spherical coordinates;
-- acquisition time/day-of-year;
-- sensor/modality identity;
-- spectral wavelength/band metadata;
-- vertical level;
-- spatial resolution/support;
-- quality/missingness.
+Sources:
+- https://developers.google.com/earth-engine/guides/aef_on_gcs_readme
+- https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL
 
-## 5. Pretraining objectives
+---
 
-- masked reconstruction;
-- cross-modal prediction;
-- temporal prediction;
-- contrastive alignment;
-- cross-modal generation;
-- variable-conditioned prediction;
-- multi-scale reconstruction.
+## 5. TESSERA
 
-A cross-modal objective should preserve physical differences rather than forcing every modality into identical features.
+`TESSERA` 将 Sentinel-1/2 temporal observations 压缩成 annual pixel-wise embeddings。
 
-## 6. Missing modalities
+`TESSERA v2` 2026 preprint 进一步研究：
+- encoder/data scaling；
+- distillation；
+- Matryoshka representation；
+- embedding storage/serving efficiency。
 
-Real coverage is incomplete. Models should define behavior when a modality is absent through masking, modality dropout, conditional routing or sparse experts.
+Preprint: https://arxiv.org/abs/2607.03949
 
-## 7. Process-sensitive transfer
+---
 
-Semantic mapping is not enough to establish scientific usefulness. Evaluate transfer to:
+## 6. Multimodal generation
 
-- carbon/water/energy fluxes;
-- soil moisture/hydrology;
-- weather/extremes;
-- vegetation function;
-- disturbance/recovery;
-- geophysical retrieval.
+`TerraMind` 的 any-to-any formulation 让模型可用某些 modalities 生成/辅助另一些 modalities。
 
-## 8. Observation physics
+对 downstream 来说，要区分：
+- real observation；
+- model-generated modality；
+- shared latent representation。
 
-A multimodal model should know which variables are observations, retrieved products, model/reanalysis fields or latent targets. See [Observation operators](../02-physics-ai-core/observation-operators.md) and [multisensor EO fusion](../06-earth-observation-ai/multisensor-fusion.md).
+生成出来的数据不是新增 independent observation。
 
-## 9. Failure modes
+---
 
-- location/season shortcut dominates the learned representation;
-- resampling erases modality support differences;
-- one dense modality overwhelms sparse modalities;
-- missing-modality behavior is never tested;
-- pretraining data overlap with benchmark regions/times;
-- representation quality is judged only on land-cover classification.
+## 7. Process-sensitive representation
+
+对于 carbon/water/energy task，需要测试 embedding 是否保留：
+- phenology；
+- moisture；
+- canopy structure；
+- disturbance；
+- continuous biophysical gradients；
+- extreme response。
+
+这通常比 land-cover classification 更严格。

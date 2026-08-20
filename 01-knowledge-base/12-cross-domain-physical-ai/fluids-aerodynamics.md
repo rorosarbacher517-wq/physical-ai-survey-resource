@@ -1,58 +1,71 @@
-# Fluids and Aerodynamics AI
+# Fluids / Aerodynamics AI
 
-## 1. Physical backbone
+## 1. Governing structure
 
-Fluid problems involve conservation of mass/momentum/energy and often Navier–Stokes-like dynamics.
+Fluid dynamics 核心来自 mass/momentum/energy conservation。
 
-Key regimes depend on dimensionless ratios such as Reynolds number.
+不可压 Navier–Stokes 概念形式：
 
-## 2. AI task families
+```text
+∂u/∂t + u·∇u = -∇p/ρ + ν∇²u + f
+∇·u = 0
+```
 
-- flow-field surrogate;
-- turbulence closure;
-- super-resolution/reconstruction;
-- drag/lift prediction;
-- inverse parameter/boundary inference;
-- geometry optimization;
-- flow control.
+---
 
-## 3. Representations
+## 2. AI task
 
-- structured CFD grid;
-- finite-element/volume mesh;
-- point cloud;
-- graph;
-- signed-distance/geometry field.
+- CFD surrogate；
+- flow-field reconstruction；
+- turbulence closure；
+- aerodynamic coefficient prediction；
+- inverse parameter/geometry；
+- flow control；
+- mesh acceleration。
 
-## 4. Physics-informed routes
+---
 
-- PINN for inverse/sparse-observation tasks;
-- neural operator for repeated PDE solutions;
-- GNN/mesh model for geometry variation;
-- learned turbulence closure inside solver;
-- differentiable simulation for design/control.
+## 3. Representation
 
-## 5. Turbulence challenge
+- structured grid `[B,C,H,W]` / `[B,C,D,H,W]`；
+- unstructured mesh graph；
+- point cloud/surface mesh；
+- spectral coefficients。
 
-Unresolved scales and broad spectra make naive regression difficult. A learned closure must be tested in closed-loop simulation because small tendency errors can destabilize dynamics.
+---
 
-## 6. Generalization
+## 4. Neural Operator
 
-Test across:
+适合 parameter/initial/boundary condition → field solution。
 
-- Reynolds regime;
-- geometry;
-- boundary conditions;
-- grid/resolution;
-- transient flow states.
+应测试：
+- geometry OOD；
+- Reynolds-number OOD；
+- resolution transfer；
+- conservation；
+- force/drag integrated quantities。
 
-## 7. Evaluation
+---
 
-Beyond RMSE:
+## 5. Turbulence closure
 
-- conservation;
-- force coefficients;
-- spectra;
-- coherent structures;
-- stability;
-- computational speedup.
+```text
+resolved solver
++ learned subgrid/Reynolds-stress closure
+→ rollout
+```
+
+offline stress prediction 好不等于 coupled CFD stable。
+
+---
+
+## 6. Control
+
+流场 state estimation + differentiable/RL control 可用于 drag reduction、mixing 等。
+
+需要 safety/stability constraint，而不是只优化 reward。
+
+## Sources
+
+- Brunton, Noack & Koumoutsakos, machine learning for fluid mechanics review.
+- FNO/operator-learning literature。

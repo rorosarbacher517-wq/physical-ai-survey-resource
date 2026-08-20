@@ -1,84 +1,87 @@
-# Flux Partitioning and Target Uncertainty
+# Flux Partitioning 与 Target Uncertainty
 
-## 1. EC target hierarchy
+## 1. 为什么需要 partitioning
 
-Eddy covariance provides a net turbulent CO2 exchange estimate after processing/QC. GPP and ecosystem respiration are then inferred through partitioning assumptions rather than observed as independent direct tower measurements.
-
-A common sign convention is:
+EC observation 给出的是 net CO₂ exchange，而生态研究常需要：
 
 ```text
 NEE = RECO - GPP
 ```
 
-Always verify the convention used by the specific product.
+因此需要从 NEE 推断 `GPP` 与 `RECO`。
 
-## 2. Why partitioning matters for AI
+---
 
-If a model is trained on partitioned GPP/RECO, the target already contains:
+## 2. 常见思路
 
-- EC measurement uncertainty;
-- gap-filling assumptions;
-- partitioning model assumptions;
-- nighttime/daytime method differences;
-- environmental-response parameter uncertainty.
-
-Therefore model error and target uncertainty are not the same quantity.
-
-## 3. Latent-variable view
-
-A useful abstraction is:
+### Nighttime partitioning
+夜间 photosynthesis 近似为 0，在符合条件的夜间 observations 上拟合 respiration-temperature relationship，再外推 daytime RECO：
 
 ```text
-latent ecosystem processes
-→ net CO2 exchange
-→ EC measurement/QC
-→ partitioning algorithm
-→ supervised GPP / RECO target
+night NEE ≈ RECO
 ```
 
-The supervised label is downstream of several transformations.
-
-## 4. Train-time implications
-
-Possible approaches:
-
-- train NEE only and derive components through a process model;
-- multi-task NEE/GPP/RECO learning with a balance constraint;
-- model target uncertainty through heteroscedastic likelihoods;
-- train against alternative partitioning products;
-- use weak/latent supervision for components.
-
-## 5. Multi-task consistency
-
-For predictions `ŷ_NEE`, `ŷ_GPP`, `ŷ_RECO`, a soft balance term can be written as:
+之后：
 
 ```text
-L_balance = ||ŷ_NEE - (ŷ_RECO - ŷ_GPP)||²
+GPP = RECO - NEE
 ```
 
-This enforces internal consistency only under the chosen sign convention. It does not make partitioned targets exact.
+### Daytime partitioning
+同时利用 daytime light-response 与 respiration relationships 估计 components。
 
-## 6. Evaluation
+不同 network/product 有具体实现与 uncertainty framework。
 
-Report component performance separately because the predictability and label uncertainty differ.
+---
 
-Useful analyses:
+## 3. 为什么 partitioned target 不是 ground truth
 
-- NEE/GPP/RECO paired metrics;
-- daytime/nighttime stratification;
-- season/phenology;
-- alternative partitioning methods if available;
-- residual balance error;
-- uncertainty/calibration.
+`GPP/RECO` 依赖：
+- partitioning assumptions；
+- u* filtering；
+- meteorological inputs；
+- temporal window；
+- response-function form；
+- missing-data handling。
 
-## 7. Failure modes
+因此 AI 对 `GPP` 的误差包含：
 
-- describing GPP/RECO as directly measured by EC;
-- interpreting disagreement with one partitioning product as pure model error;
-- applying a carbon-balance penalty with the wrong sign convention;
-- leaking partitioning variables that encode the target construction;
-- comparing studies using different partitioning products without noting it.
+```text
+measurement/process noise
++ partitioning uncertainty
++ model error
+```
 
-## 8. Related pages
+---
 
-See [Eddy covariance](eddy-covariance.md), [carbon-cycle processes](carbon-cycle-processes.md), [process-constrained carbon AI](process-constrained-carbon-ai.md) and [validation/uncertainty](validation-uncertainty.md).
+## 4. Joint learning 的意义
+
+如果分别训练三个独立 model，可能得到：
+
+```text
+NEE_hat ≠ RECO_hat - GPP_hat
+```
+
+joint model 可：
+- shared representation；
+- balance constraint；
+- multi-task regularization。
+
+但它不能消除 target partitioning uncertainty。
+
+---
+
+## 5. Evaluation 建议
+
+- 明确 target product/version；
+- 如果有多个 partitioning product，做 sensitivity；
+- 报告 NEE/GPP/RECO separately；
+- 检查 balance residual；
+- 按 day/night、season、drought 分层；
+- 不把 partitioned quantity 描述为 direct independent measurement。
+
+## Sources
+
+- Reichstein et al. (2005), nighttime partitioning framework.
+- Lasslop et al. (2010), daytime partitioning approach.
+- Pastorello et al. (2020), FLUXNET2015 data product.

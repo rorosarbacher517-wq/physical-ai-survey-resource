@@ -1,53 +1,43 @@
-# Geospatial / Earth Foundation Models Specialty Track
+# Geospatial / Earth Foundation Models 专题
 
-Main knowledge page: [Earth & Scientific Foundation Models](../../../01-knowledge-base/09-earth-foundation-models/index.md).
+## 1. 不按参数量分类，按接口分类
 
-## 1. What makes an Earth foundation model useful?
+```text
+A. downloadable encoder
+   Prithvi-EO-2.0 / TerraMind / MaRS
 
-It should transfer reusable representations or forecasting/generation capability across some combination of:
+B. ready-made embedding field
+   AlphaEarth Foundations / TESSERA
 
-- regions;
-- times;
-- sensors/modalities;
-- resolutions;
-- tasks;
-- geophysical variables.
+C. dynamical Earth-system FM
+   Aurora
+```
 
-Large parameter count alone is not enough.
+## 2. 学习顺序
 
-## 2. Model families to distinguish
+1. [Earth FM Pretraining](../../../01-knowledge-base/09-earth-foundation-models/earth-fm-pretraining.md)
+2. [Multimodal Earth Representations](../../../01-knowledge-base/09-earth-foundation-models/multimodal-earth-representations.md)
+3. [Model-family Guide](../../../01-knowledge-base/09-earth-foundation-models/model-family-guide.md)
+4. [Earth FM Evaluation](../../../01-knowledge-base/09-earth-foundation-models/earth-fm-evaluation.md)
 
-### EO encoders
-Reusable spatial/spectral/temporal representations for mapping and retrieval tasks.
+## 3. 评测重点
 
-### Multimodal EO generation
-Cross-modal representation and generation, e.g. optical/radar/land-cover style modality translation.
+- pretraining overlap；
+- geography/time OOD；
+- sensor transfer；
+- frozen vs PEFT/full FT；
+- label efficiency；
+- process-sensitive regression；
+- scale/support；
+- compute/storage。
 
-### Global embedding fields
-Precomputed planetary embeddings that downstream users query as geospatial features.
+## 4. 当前趋势
 
-### Earth-system forecast foundation models
-Pretrain on broad geophysical datasets, then fine-tune to weather/atmospheric/Earth-system tasks.
+截至 2026-08-20：
+- `AlphaEarth Foundations` 已提供 2017–2025 annual 64-d Satellite Embedding dataset；
+- `TESSERA v2` 是 2026-07 preprint，聚焦 pixel-wise FM scaling/distillation；
+- `MaRS` 是 AAAI 2026 SAR–optical multimodal FM；
+- `WorldTensor` 2026 将 Earth-system FM data 扩展到 environmental + socioeconomic variables；
+- ecohydrology/carbon 开始出现专门讨论 EOFM process inference 的 2026 preprint。
 
-## 3. Current primary-source examples
-
-- Prithvi-EO-2.0: https://github.com/NASA-IMPACT/Prithvi-EO-2.0
-- TerraMind: https://github.com/IBM/terramind
-- AlphaEarth Foundations: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/ <!-- manual-review: official source URL path -->
-- Aurora: https://www.microsoft.com/en-us/research/publication/aurora-a-foundation-model-for-the-earth-system/
-
-See [2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md) for dated claims.
-
-## 4. Evaluation questions
-
-- pretraining/benchmark overlap?
-- zero-shot vs linear probe vs full fine-tune?
-- region/time/sensor OOD?
-- label efficiency?
-- resolution robustness?
-- physical-process targets versus semantic mapping?
-- compute/data cost?
-
-## 5. Priority research question
-
-Can general Earth representations improve **process-sensitive targets** such as GPP/NEE, hydrology, extremes and atmosphere-land coupling while preserving observation physics and scale? This is more scientifically demanding than standard land-cover classification alone.
+详见 [Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md)。

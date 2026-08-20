@@ -1,151 +1,100 @@
-# Multisensor and Multimodal Fusion in Earth Observation
+# Multisensor Fusion：不是简单 Channel Concatenation
 
-## 1. Why fusion is difficult
-
-Different Earth-observation modalities do not provide redundant copies of the same information. They measure different physical responses at different spatial, temporal and vertical supports.
-
-Examples:
-
-- optical: surface/canopy spectral reflectance;
-- SAR: microwave scattering sensitive to structure, roughness and dielectric properties;
-- thermal: emitted radiance/temperature information;
-- LiDAR: 3D geometry and vertical structure;
-- SIF: weak fluorescence signal related to vegetation photosynthetic functioning;
-- meteorology: environmental forcing rather than surface imagery.
-
-## 2. Alignment problem
-
-Before model fusion, align:
+## 1. 先写 observation operators
 
 ```text
-coordinate reference
-pixel/grid support
-time stamp / compositing interval
-sensor geometry
-quality mask
-units / normalization
+state x
+├─ H_optical → reflectance
+├─ H_SAR     → backscatter
+├─ H_LiDAR   → point/height
+├─ H_thermal → emitted radiance/LST
+└─ H_SIF     → fluorescence observation
 ```
 
-A model cannot recover physical consistency that was destroyed by incorrect co-registration.
+不同 `H` 决定不同 modality 的 information content。
 
-## 3. Common fusion levels
+---
+
+## 2. 五种对齐
+
+### Spatial
+10 m、30 m、1 km、footprint/polygon 如何匹配？
+
+### Temporal
+same day、nearest date、window composite、asynchronous sequence？
+
+### Geometric
+optical/SAR parallax、terrain、view angle、LiDAR geolocation。
+
+### Statistical
+value range、noise distribution、missingness。
+
+### Physical
+modality 表达的是 structure、state、energy、moisture 还是 scattering？
+
+---
+
+## 3. Fusion architecture
 
 ### Early fusion
 
-Resample modalities to a shared grid/time and concatenate channels.
-
 ```text
-X = concat(X_optical, X_sar, X_thermal, ...)
+concat channels → shared encoder
 ```
 
-Simple, but assumes alignment and compatible support.
-
-### Feature-level fusion
-
-Separate encoders produce embeddings:
-
-```text
-z_opt = E_opt(X_opt)
-z_sar = E_sar(X_sar)
-z_3d  = E_3d(X_3d)
-→ fusion(z_opt,z_sar,z_3d)
-```
-
-This allows modality-specific processing before interaction.
-
-### Cross-attention
-
-One modality queries another:
-
-```text
-Q = z_target
-K,V = z_context
-→ cross-attention
-```
-
-Useful when token counts/resolutions differ.
+适合高度共注册、同尺度 modality。
 
 ### Late fusion
 
-Independent predictions are combined by stacking, weighting or probabilistic aggregation.
-
-## 4. Missing modalities
-
-Real Earth data are incomplete. Training should distinguish:
-
-- cloud-induced missing optical data;
-- unavailable sensor coverage;
-- irregular revisit times;
-- missing 3D acquisitions;
-- station data gaps.
-
-Approaches include modality dropout, masked modeling, mixture-of-experts routing and conditional encoders.
-
-## 5. Shape example: 2D + 3D + meteorology
-
 ```text
-optical patch: [B,T,C,H,W]
-LiDAR points:  [B,N,C3d]
-meteorology:   [B,T,M]
+encoder_A → z_A
+encoder_B → z_B
+→ fusion head
 ```
 
-A possible system:
+适合 physics 差异较大的 modality。
+
+### Cross-attention
 
 ```text
-optical → 2D encoder → [B,T,P,D]
-LiDAR   → point/voxel encoder → [B,P3,D]
-meteo   → MLP/temporal encoder → [B,T,D]
-        → spatial/temporal fusion
-        → prediction head
+Q from A, K/V from B
 ```
 
-The spatial correspondence between `P` and `P3` must be defined explicitly.
+适合 heterogeneous tokens。
 
-## 6. Physics-aware fusion
+### Gated / modality-aware fusion
+learn gate 控制每个 modality contribution，可减轻 noisy modality negative transfer。
 
-Useful physical structure includes:
+---
 
-- sensor-specific observation operators;
-- radiometric/geometry metadata;
-- energy/water/carbon constraints;
-- known vertical relationships;
-- temporal causality of environmental forcing;
-- footprint/support weighting for field observations.
-
-## 7. Training objectives
-
-Possible combinations:
+## 4. 2D + 3D + Time 示例
 
 ```text
-L = L_task
-  + λ_align L_cross_modal
-  + λ_recon L_masked_reconstruction
-  + λ_phys L_physical_consistency
+Optical [B,T,C,H,W] → 2D encoder ─┐
+LiDAR  [B,N,D]       → 3D encoder ├→ fusion → temporal model → target
+Mete    [B,T,P]       → MLP/encoder┘
 ```
 
-Alignment loss should not force physically different modalities to become identical representations.
+如果 LiDAR 是 static campaign，可先编码为 structural latent，再广播/条件化时序，而不是假装它每个 timestep 都更新。
 
-## 8. Evaluation
+---
 
-Report:
+## 5. Negative transfer
 
-- single-modality baselines;
-- fusion gain with identical splits;
-- missing-modality robustness;
-- cross-region/time transfer;
-- sensor-specific ablations;
-- calibration/uncertainty;
-- compute and storage cost.
+多模态模型必须做：
+- modality-only baselines；
+- paired fusion ablation；
+- missing-modality test；
+- temporal-mismatch sensitivity；
+- noise robustness。
 
-## 9. Failure modes
+---
 
-- fusion gain caused by leakage from one modality;
-- resampling artifacts mistaken for information;
-- temporal mismatch between acquisitions;
-- one modality dominating due to scale/normalization;
-- evaluating only scenes where every sensor is available;
-- using static structural data as if it changed at every time step.
+## 6. 2026 context
 
-## 10. Carbon connection
+`TerraMind`、`MaRS`、`AlphaEarth Foundations` 等表明 EO foundation modeling 正从 optical-only 向 multimodal representation 扩展，但 multimodality 仍需要 downstream task-specific evaluation。
 
-Continue to [Multimodal carbon AI](../07-carbon-cycle-ai/multimodal-carbon-ai.md), where 2D EO, 3D structure, meteorology and EC observations are connected through support-aware learning.
+## Sources
+
+- TerraMind, ICCV 2025: https://openaccess.thecvf.com/content/ICCV2025/html/Jakubik_TerraMind_Large-Scale_Generative_Multimodality_for_Earth_Observation_ICCV_2025_paper.html
+- MaRS, AAAI 2026: https://ojs.aaai.org/index.php/AAAI/article/view/38153

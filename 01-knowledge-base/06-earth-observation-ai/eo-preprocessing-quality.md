@@ -1,78 +1,88 @@
-# Earth-observation Preprocessing and Quality Control
+# EO Preprocessing、Quality Control 与 Data Leakage
 
-## 1. Data-quality pipeline
+## 1. 一个标准 preprocessing chain
 
 ```text
-raw/product access
-→ calibration/product-level checks
-→ QA masks
-→ cloud/shadow/snow/water handling
-→ atmospheric/terrain correction as applicable
-→ reprojection/resampling
-→ spatial crop/tiling
-→ temporal pairing/compositing
-→ missing-data mask
-→ sample construction
+source product
+→ QA / cloud / shadow / snow / fill handling
+→ calibration/correction check
+→ reprojection
+→ resampling
+→ spatial crop
+→ temporal alignment
+→ normalization
+→ sample manifest
 ```
 
-## 2. QA flags are data
+---
 
-Do not convert all invalid observations to zero without a mask. Zero may be a physically meaningful value.
+## 2. QA 不应只当“删坏像素”
 
-Track:
+QA 本身包含 observation uncertainty 信息。
 
-- cloud;
-- cloud shadow;
-- snow/ice;
-- saturation;
-- fill values;
-- water if excluded by task;
-- sensor-specific artifacts.
+需要记录：
+- valid mask；
+- cloud probability / QA bit；
+- snow/water flag；
+- saturation；
+- fill value；
+- acquisition geometry。
 
-## 3. Reprojection
+---
 
-A CRS change involves resampling. The correct method depends on variable type:
+## 3. Reprojection / Resampling
 
-- continuous reflectance/temperature;
-- categorical land cover;
-- extensive totals;
-- probability/fraction.
+### Continuous variable
+可用 bilinear/cubic，但会改变高频结构。
 
-## 4. Multi-sensor harmonization
+### Categorical label
+通常用 nearest neighbor。
 
-Landsat/Sentinel-style combined series require attention to:
+### Extensive quantity
+可能需要 area/conservative aggregation。
 
-- spectral-response differences;
-- spatial resolution;
-- acquisition geometry;
-- product processing version;
-- duplicate/near-synchronous acquisitions.
+---
 
-## 5. Temporal compositing
+## 4. Temporal compositing
 
-Composites reduce clouds/noise but alter temporal support. A monthly median is not an instantaneous measurement.
+mean/median/max-NDVI/quality-prioritized composite 含义不同。
 
-## 6. Normalization
+Composite 会改变 temporal support，因此不能把 composite date 简单当 instantaneous observation。
 
-Options:
+---
 
-- global train-set mean/std;
-- per-band robust scaling;
-- physically defined transforms;
-- log transform for skewed positive variables.
+## 5. Normalization leakage
 
-Compute statistics from training data only to avoid leakage.
+错误：先用全 dataset 计算 mean/std，再 split。
 
-## 7. Patch quality
+正确：
 
-For patch-based learning record:
+```text
+train split → compute μ,σ
+val/test → reuse train μ,σ
+```
 
-- valid-pixel percentage;
-- center validity if required;
-- mask propagation;
-- spatial extent;
-- whether all time steps share the same spatial mask.
+---
 
-## 8. Data lineage
+## 6. Spatial leakage
 
-Every sample should be traceable to sensor/product/date/tile/version and preprocessing code. This is essential when EO products are reprocessed over time.
+随机 pixel split 可能把同一 scene/field/tile 的邻近像元分到 train/test。
+
+应根据任务用：
+- tile/block split；
+- region split；
+- scene split；
+- site split。
+
+---
+
+## 7. Provenance
+
+至少保存：
+- product ID；
+- processing version；
+- acquisition time；
+- source URL；
+- preprocessing code version；
+- resampling；
+- split assignment。

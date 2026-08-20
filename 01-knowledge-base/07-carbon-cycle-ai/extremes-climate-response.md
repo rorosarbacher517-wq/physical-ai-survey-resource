@@ -1,96 +1,93 @@
-# Carbon-flux AI under Climate Extremes
+# Extremes、Climate Response 与 Carbon OOD
 
-## 1. Why extremes need separate evaluation
+## 1. 为什么 extremes 单独评估
 
-A model trained to minimize average error can perform poorly during heat, drought, flooding, disturbance or compound events. These periods are scientifically important and often underrepresented.
+overall RMSE 被大量 normal conditions 主导；而 carbon-cycle scientific interest 常集中在：
+- drought；
+- heatwave；
+- compound hot–dry event；
+- fire/disturbance；
+- anomalous wet period；
+- freeze/thaw；
+- phenological transition。
 
-## 2. Regime definition
+---
 
-Define an event using explicit variables and thresholds, for example combinations of:
+## 2. Drought response 不是单变量
 
-- temperature anomaly;
-- VPD/relative humidity;
-- soil moisture;
-- precipitation deficit;
-- radiation;
-- disturbance/fire/flood indicators.
-
-Avoid defining an extreme using information unavailable at prediction time.
-
-## 3. Carbon response pathways
-
-Extremes can alter:
-
-- photosynthesis;
-- respiration;
-- stomatal behavior;
-- canopy condition/phenology;
-- soil moisture and thermal state;
-- mortality/disturbance;
-- source-area heterogeneity sampled by EC.
-
-The relative response of GPP, RECO and NEE can differ.
-
-## 4. Temporal structure
-
-Separate:
+需要区分：
 
 ```text
-pre-event baseline
-→ onset
-→ peak event
-→ recovery
-→ possible legacy effect
+soil drought      → low soil moisture
+atmospheric drought → high VPD
+heat stress       → high temperature
+radiation anomaly → light/energy forcing
 ```
 
-A model that captures event onset but not recovery has a different failure mode from one that misses peak magnitude.
+它们共同影响 stomata、photosynthesis、respiration 与 energy balance。
 
-## 5. OOD learning problem
+---
 
-Extremes often lie in low-density regions of feature space. Useful approaches include:
+## 3. Compound extremes
 
-- regime-balanced sampling;
-- event-aware validation splits;
-- probabilistic models;
-- process constraints;
-- domain adaptation;
-- ensembles;
-- explicit uncertainty/OOD scores.
+例如 hot + dry：
 
-## 6. Multimodal observations
+```text
+high T + high VPD + low soil moisture
+→ stomatal limitation / thermal stress
+→ GPP change
+→ respiration response
+→ NEE anomaly
+```
 
-Different modalities can respond at different times:
+response 可能 nonlinear，因此独立变量 importance 不能完整描述 mechanism。
 
-- meteorology detects forcing immediately;
-- thermal observations capture temperature/stress;
-- optical/SIF respond to canopy function/condition;
-- SAR/microwave can inform moisture/structure;
-- LiDAR mainly captures slower structural state unless repeated frequently.
+---
 
-## 7. Footprint interaction
+## 4. Event definition
 
-During heterogeneous conditions, dynamic source-area sampling can change which stressed/unstressed patches contribute to tower observations. Event diagnostics should therefore separate environmental forcing from support mismatch.
+必须预先定义：
+- percentile threshold；
+- climatology baseline；
+- duration；
+- compound rule；
+- recovery period。
 
-## 8. Evaluation
+避免看完结果再选择“最有提升”的 event threshold。
 
-Report:
+---
 
-- event-specific RMSE/MAE/bias;
-- peak magnitude/timing;
-- recovery error;
-- component-specific GPP/RECO/NEE behavior;
-- calibration/coverage;
-- site/biome transfer;
-- paired error relative to non-event periods.
+## 5. OOD types
 
-## 9. Failure modes
+### Temporal OOD
+unseen year / future period。
 
-- extrapolating smooth seasonal patterns through an event;
-- treating rare extremes as noise and removing them during QC;
-- using global normalization that hides event magnitude;
-- interpreting feature importance as causal mechanism;
-- claiming climate robustness from IID random splits.
+### Spatial OOD
+unseen site/region。
 
-## 10. Connections
+### Ecological OOD
+unseen biome / management。
 
-See [carbon-water-energy coupling](carbon-water-energy-coupling.md), [weather/climate AI](../08-weather-climate-ai/index.md) and [uncertainty/calibration](../10-data-assimilation-inverse-uq/uncertainty-calibration.md).
+### Climate OOD
+temperature/VPD/soil-moisture regime 超出 training range。
+
+---
+
+## 6. Metrics
+
+除 RMSE/R²：
+- anomaly correlation；
+- event-specific bias；
+- peak timing；
+- cumulative carbon anomaly；
+- recovery time；
+- calibration / coverage；
+- sign correctness for anomaly。
+
+---
+
+## 7. Future climate
+
+未来 climate prediction 属于 distribution shift。一个模型在 historical held-out sites 表现好，不代表可以可靠 extrapolate 到未来 CO₂/climate regime。
+
+hybrid process–ML 与 uncertainty-aware ensembles 在这类问题中尤其重要。

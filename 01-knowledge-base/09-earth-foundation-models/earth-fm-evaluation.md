@@ -1,100 +1,118 @@
-# Evaluating Earth and Scientific Foundation Models
+# Earth Foundation Model Evaluation
 
-## 1. Core principle
-
-A foundation model should be evaluated by **transfer and reuse**, not only by the accuracy of one downstream task.
-
-## 2. Adaptation protocols must be separated
-
-Report whether evaluation uses:
+## 1. 先区分 adaptation protocol
 
 ```text
-frozen embedding + shallow head
+frozen embedding + classical model
 linear probe
-parameter-efficient tuning
+MLP head
+adapter / LoRA / PEFT
+partial fine-tuning
 full fine-tuning
-continued pretraining + fine-tuning
-zero-shot / retrieval-style use
 ```
 
-These protocols have different compute and data requirements.
+protocol 不同，performance 不应直接横比。
 
-## 3. Transfer axes
+---
 
-A useful benchmark matrix spans:
+## 2. Label efficiency curve
 
-- task;
-- sensor/modality;
-- region;
-- time period;
-- spatial resolution;
-- temporal resolution;
-- climate/ecological regime;
-- label quantity.
+foundation model 的价值之一是 low-label regime：
 
-## 4. Leakage audit
+```text
+1% labels
+5%
+10%
+50%
+100%
+```
 
-Check overlap between pretraining and downstream evaluation at the level of:
+应与从头训练 supervised baseline 比曲线，而不是只比 full-data endpoint。
 
-- imagery/scenes;
-- coordinates;
-- acquisition dates;
-- derived labels;
-- benchmark datasets;
-- repeated tiles/time series.
+---
 
-Global pretraining makes naive geographic holdout insufficient if the same location/time was already seen during pretraining.
+## 3. Geographic OOD
 
-## 5. Label efficiency
+建议：
+- train continents / test continent；
+- biome holdout；
+- country/region holdout；
+- spatial block。
 
-A reusable representation should be tested under decreasing labeled-data budgets rather than only full-data fine-tuning.
+如果 pretraining 已覆盖 test region，需要明确这是 representation transfer，而不是“never-seen geography”。
 
-## 6. OOD evaluation
+---
 
-Useful splits include:
+## 4. Temporal OOD
 
-- held-out continent/region;
-- held-out biome/climate regime;
-- held-out sensor;
-- held-out time period;
-- extreme/disturbance events;
-- resolution shift.
+- unseen year；
+- future period；
+- disturbance year；
+- climate anomaly year。
 
-## 7. Scientific metrics
+annual embedding product 还要注意 input year 与 label year 是否一致。
 
-In addition to task error, evaluate:
+---
 
-- physical consistency;
-- calibration/uncertainty;
-- event/extreme behavior;
-- scale/support correctness;
-- long-rollout stability for forecasting models.
+## 5. Sensor OOD
 
-## 8. Compute accounting
+一个 optical-pretrained model 不应在未测试情况下声称能自然 transfer 到 SAR/hyperspectral。
 
-Report:
+multimodal FM 也要报告缺失 modality 时性能。
 
-- pretraining compute/data scale when disclosed;
-- downstream adaptation compute;
-- inference latency/memory;
-- token/pixel/grid count;
-- storage cost for global embeddings if relevant.
+---
 
-A representation that requires expensive full fine-tuning for every task should be compared fairly with task-specific baselines.
+## 6. Task hierarchy
 
-## 9. Baselines
+从较容易到更 process-sensitive：
 
-Compare against:
+```text
+scene classification
+→ segmentation
+→ object/change mapping
+→ biophysical regression
+→ flux/process prediction
+→ dynamical forecasting
+```
 
-- simple task-specific ML/DL;
-- domain-pretrained encoders;
-- same architecture trained without broad pretraining;
-- physically informed/task-specific models where appropriate.
+后面的任务对 continuous/physical information 保留要求更高。
 
-## 10. Process-sensitive benchmark question
+---
 
-For this repository, a high-value test is whether Earth representations improve carbon, water, weather and extreme-event tasks under site/region/regime blocking rather than only semantic mapping.
+## 7. PANGAEA
 
-## 11. Related pages
+`PANGAEA` 的意义在于统一：
+- datasets；
+- tasks；
+- sensors；
+- resolutions；
+- geography；
+- evaluation protocols。
 
-See [Geospatial validation](../06-earth-observation-ai/geospatial-validation.md), [weather foundation models](../08-weather-climate-ai/weather-foundation-models.md) and [evaluation/benchmarking](../11-data-hpc-evaluation/evaluation-benchmarking.md).
+公开结果提醒：geospatial FMs 在所有 downstream conditions 上并不稳定超过 supervised baselines，因此 baseline 不能省略。
+
+Sources:
+- https://arxiv.org/abs/2412.04204
+- https://github.com/yurujaja/pangaea-bench
+
+---
+
+## 8. Embedding-as-data 的额外评测
+
+`AlphaEarth/TESSERA` 这类 embedding products 应比较：
+- embedding + RF/XGBoost/MLP；
+- raw EO + same downstream model；
+- task-specific handcrafted features；
+- different embedding dimensions；
+- storage/I/O cost；
+- year mismatch。
+
+---
+
+## 9. Carbon / weather transfer
+
+### Carbon
+site-blocked、biome/climate OOD、quantitative GPP/NEE regression、footprint support。
+
+### Weather
+forecast rollout 与 DA problem 并不是普通 static embedding benchmark，应使用 weather-specific verification。

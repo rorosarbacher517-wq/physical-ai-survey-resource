@@ -1,80 +1,102 @@
-# Numerical Weather Prediction Basics
+# NWP Basics · AI Weather 的物理与数值基线
 
-## 1. Forecasting problem
-
-Weather forecasting evolves an atmospheric state forward in time from an analyzed initial condition.
-
-A simplified state contains fields such as:
+## 1. Operational NWP pipeline
 
 ```text
-wind components
-temperature
-pressure / geopotential
-humidity
-surface variables
+observations
+→ QC
+→ Data Assimilation
+→ analysis
+→ numerical model
+→ time integration
+→ ensemble / deterministic forecast
+→ post-processing
 ```
 
-with vertical levels and a global/regional spatial grid.
+AI weather 常替换 numerical model，但不一定替换上游 DA 或下游 post-processing。
 
-## 2. Governing structure
+---
 
-Operational NWP is built around discretized equations for:
+## 2. Discretization
 
-- momentum;
-- mass continuity;
-- thermodynamics/energy;
-- moisture/constituents;
-- equation of state;
-- surface/land/ocean coupling.
+continuous atmosphere：
 
-Processes below grid scale are parameterized.
+```text
+PDEs on sphere
+```
 
-## 3. Initial condition
+变成：
 
-The atmosphere is not observed everywhere. Data assimilation combines heterogeneous observations with a background forecast/model to estimate the initial state.
+```text
+discrete grid/mesh + vertical levels + timestep
+```
 
-Forecast skill therefore depends on both model dynamics and analysis quality.
+需要满足 numerical stability、conservation、resolution 与 compute trade-off。
 
-## 4. Resolved versus parameterized scales
+---
 
-A model grid does not resolve every cloud/turbulent process. Parameterizations represent effects such as:
+## 3. Dynamical core
 
-- convection;
-- cloud microphysics;
-- radiation;
-- boundary-layer turbulence;
-- land-surface exchange.
+负责 resolved large-scale atmospheric dynamics。
 
-AI can replace the complete forecast model or learn selected components.
+可能使用：
+- spectral；
+- finite-volume；
+- finite-difference；
+- semi-Lagrangian 等 numerical approaches。
 
-## 5. Time stepping
+---
 
-Numerical models repeatedly update the state. Stability, conservation and balance matter because small errors can grow over many steps.
+## 4. Physical parameterizations
 
-## 6. Vertical coordinate
+无法 resolve 的 process 用 parameterization：
+- convection；
+- cloud microphysics；
+- radiation；
+- boundary-layer turbulence；
+- land-surface coupling。
 
-Weather tensors often include pressure/model levels:
+AI 可学习 parameterization，而不是替代整个 NWP。
 
-`[B,T,V,L,H,W]`
+---
 
-where `V` variables and `L` vertical levels. A model that collapses vertical structure too aggressively can lose important dynamics.
+## 5. Initial condition
 
-## 7. Boundary conditions
+forecast 可以写：
 
-Regional models need lateral boundaries; global models need spherical/periodic geometry handling.
+```text
+X_{t+Δt}=M(X_t)
+```
 
-## 8. Deterministic versus ensemble
+但 `X_t` 不是直接 observation，而是 DA 得到的 analysis。
 
-A deterministic run provides one trajectory. An ensemble samples uncertainty in initial conditions/model/learned stochasticity and supports probabilistic forecasts.
+这就是为什么“ERA5-initialized AI forecast”与“observation-to-forecast model”必须分开。
 
-## 9. AI connection
+---
 
-Before studying an AI weather model, identify:
+## 6. Boundary / coupling
 
-- input analysis/reanalysis;
-- variable list and levels;
-- grid;
-- forecast step;
-- autoregressive/direct horizon;
-- deterministic/probabilistic objective;
-- verification dataset.
+global atmosphere forecast 还依赖：
+- SST / sea ice；
+- land-surface state；
+- soil moisture/snow；
+- atmospheric composition（任务依系统而异）。
+
+coupled prediction 会进一步加入 ocean/land/wave/chemistry dynamics。
+
+---
+
+## 7. Deterministic vs Ensemble NWP
+
+### Deterministic
+高分辨率的一条 trajectory。
+
+### Ensemble
+通过 initial-condition/model uncertainty 生成 members，估计 forecast distribution。
+
+AI ensemble 必须与 ensemble NWP 按 probabilistic metrics 比较，而不只比较 ensemble mean RMSE。
+
+## Sources
+
+- ECMWF Forecast User Guide / IFS documentation: https://www.ecmwf.int/en/forecasts/documentation-and-support
+- Kalnay, *Atmospheric Modeling, Data Assimilation and Predictability*.

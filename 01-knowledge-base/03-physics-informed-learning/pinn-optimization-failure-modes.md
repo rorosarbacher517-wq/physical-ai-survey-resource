@@ -1,68 +1,101 @@
-# PINN Optimization and Failure Modes
+# PINN Optimization 与 Failure Modes
 
-## 1. Multi-objective imbalance
+PINN 最大问题往往不是 formula，而是 optimization。
 
-Data, PDE, boundary and initial losses can have different magnitudes and gradient scales.
+## 1. Loss imbalance
 
-Symptoms:
+```text
+L = λ_data L_data + λ_pde L_pde + λ_bc L_bc
+```
 
-- data fit improves while PDE residual stalls;
-- boundary conditions are ignored;
-- one loss dominates total objective.
+三个 loss 数值相近，不代表 gradient contribution 相近。
 
-Diagnostics: log each term and gradient norm separately.
+检查：
+- `||∇L_data||`；
+- `||∇L_pde||`；
+- `||∇L_bc||`；
+- per-variable scale。
+
+可尝试 dynamic weighting、gradient balancing，但不能把 weighting 当作 universal fix。
+
+---
 
 ## 2. Spectral bias
 
-Neural networks often learn smooth/low-frequency structure more easily than high-frequency components. Sharp fronts, turbulence and oscillatory solutions can be difficult.
+标准 neural network 通常更容易先学习低频 smooth component，高频或 sharp gradient 更难。
 
-Possible remedies include Fourier features, adaptive sampling, multi-scale networks or domain decomposition.
+影响：
+- multiscale PDE；
+- turbulence；
+- wave/high-frequency solution；
+- boundary layer。
 
-## 3. Collocation sampling
+可用 Fourier features、multi-scale network、domain decomposition 等缓解。
 
-Uniform random sampling may waste capacity in easy regions.
+---
 
-Strategies:
+## 3. Stiffness
 
-- residual-based adaptive sampling;
-- boundary-focused sampling;
-- regime/feature-aware sampling;
-- temporal curriculum.
+不同时间/空间尺度相差很大时，PDE 与 optimization 都可能 stiff。
 
-## 4. Long-time domains
+表现：
+- loss 降不动；
+- 某一项先满足、另一项长期不满足；
+- gradient magnitude 极不平衡。
 
-Learning an entire long trajectory simultaneously can be hard.
+---
 
-Approaches:
+## 4. Long-time domain
 
-- time-window decomposition;
-- curriculum over temporal horizon;
-- causal weighting;
-- sequential/solver-coupled training.
+直接在很长时间域上拟合可能失败。
 
-## 5. Stiffness
+策略：
+- time marching；
+- causal training；
+- sequential windows；
+- curriculum。
 
-Fast and slow dynamics create gradients on different scales. Standard optimizers may struggle even if the PDE formulation is correct.
+---
 
-## 6. Noisy observations
+## 5. Boundary / discontinuity
 
-A strict PDE residual can conflict with noisy real observations or imperfect equations.
+shock、contact discontinuity、sharp front 会让 smooth network 很难表示。
 
-Model uncertainty and equation discrepancy rather than assuming both are exact.
+需要考虑：
+- weak formulation；
+- domain decomposition；
+- shock-aware sampling；
+- conservative discretization/hybrid solver。
 
-## 7. Inverse identifiability
+---
 
-Low residual does not prove recovered parameters are unique/correct. Check posterior/sensitivity and synthetic-recovery experiments.
+## 6. Inverse parameter failure
 
-## 8. Evaluation
+即使 state fit 很好，parameter 也可能错，因为：
+- observations insufficient；
+- parameter compensation；
+- noise；
+- model discrepancy；
+- wrong boundary condition。
 
-Report:
+因此 inverse PINN 必须报告 parameter uncertainty/sensitivity。
 
-- data error;
-- PDE residual;
-- boundary/initial error;
-- conserved quantities;
-- parameter recovery;
-- error across space/time;
-- sensitivity to random seed/collocation design;
-- compute cost.
+---
+
+## 7. 诊断顺序
+
+```text
+units/normalization
+→ BC/IC
+→ residual distribution
+→ gradient balance
+→ sampling
+→ spectral content
+→ long-time stability
+→ identifiability
+```
+
+## Sources
+
+- Wang, Teng & Perdikaris, gradient-pathology work on PINNs.
+- Krishnapriyan et al. (2021), *Characterizing possible failure modes in physics-informed neural networks*.

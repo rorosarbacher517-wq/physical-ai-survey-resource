@@ -1,61 +1,78 @@
 # Temporal Modeling
 
-## 1. Task types
+## 1. 任务类型
 
 ### Sequence-to-one
-Past observations → current/aggregate target.
+过去序列 → 一个 target。
 
 ### Sequence-to-sequence
-Input trajectory → output trajectory.
+过去/当前序列 → 同步或未来序列。
 
 ### Autoregressive forecast
-Predict next state and feed it back.
+
+```text
+x_t → x_{t+1} → x_{t+2} → ...
+```
 
 ### Direct multi-horizon
-Predict several lead times without recursive feedback.
+一次输出多个 lead times。
 
-### Continuous-time
-Model derivatives or latent dynamics instead of fixed discrete steps.
+---
 
-## 2. Time encoding
+## 2. Irregular Earth observations
 
-Useful features:
+EO 很少是完美 regular sequence：
+- cloud；
+- revisit interval；
+- sensor availability；
+- orbit；
+- quality mask。
 
-- absolute timestamp;
-- cyclic hour/day/year encodings;
-- elapsed time;
-- irregular time gap;
-- lead time;
-- acquisition/sensor timestamp.
+因此模型应显式考虑：
+- timestamp；
+- time gap；
+- validity mask；
+- sensor ID；
+- acquisition geometry。
 
-## 3. Missing observations
+---
 
-Earth observation time series are often irregular because of clouds/orbits. Options:
+## 3. Seasonal / cyclic time
 
-- masks;
-- gap-aware attention;
-- interpolation with uncertainty;
-- latent state models;
-- cross-sensor fusion.
+DoY、hour 可用周期 encoding：
 
-Do not treat imputed values as independently observed truth.
+```text
+sin(2πt/P), cos(2πt/P)
+```
 
-## 4. Autoregressive drift
+避免把 Dec 31 与 Jan 1 当作数值距离很远。
 
-During training, a model may see true states; during inference, it sees its own imperfect predictions.
+---
 
-Mitigations:
+## 4. Teacher forcing vs rollout
 
-- multi-step training;
-- noise/perturbation training;
-- scheduled/self-conditioning variants;
-- stable physical constraints;
-- direct multi-horizon outputs.
+训练 one-step：
 
-## 5. Multi-timescale signals
+```text
+true x_t → predict x_{t+1}
+```
 
-Separate fast weather/turbulence from slow seasonality/climate/structure using hierarchical temporal features or modules when appropriate.
+推理时：
 
-## 6. Evaluation
+```text
+pred x_t → pred x_{t+1}
+```
 
-Report error versus lead time, season/regime/event, and check phase timing/extreme amplitude—not only pooled error.
+distribution 不一致会导致 exposure bias / rollout drift。
+
+---
+
+## 5. Extreme events
+
+如果 loss 由大量 normal conditions 主导，模型可能对 rare extremes 学得差。
+
+可考虑：
+- stratified sampling；
+- tail-aware metric；
+- event-based evaluation；
+- probabilistic forecast。

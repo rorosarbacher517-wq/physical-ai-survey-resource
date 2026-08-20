@@ -1,93 +1,72 @@
-# 10 · Data Assimilation, Inverse Problems and Uncertainty Quantification
+# 10 · Inverse Problems、Data Assimilation 与 UQ
 
-These topics connect models to incomplete/noisy observations and are central to physical science.
+> 虽然目录编号是 10，但**学习顺序应在 Earth Observation / Carbon / Weather 之前。**
 
-## 1. Forward versus inverse problem
+这层解决一个共同问题：
 
 ```text
-forward:
-state/parameters x → model/observation operator H → y
-
-inverse:
-observations y → infer state/parameters x
+真实 state 不可完全观测
+→ observations 稀疏/有噪声/间接
+→ 如何推断 state / parameter / uncertainty？
 ```
 
-Inverse problems can be non-unique, ill-conditioned and sensitive to prior assumptions.
+## 1. 统一形式
 
-## 2. Data assimilation
+```text
+y = H(x) + ε
+```
 
-Goal: combine a dynamical model/prior with observations to estimate the evolving state.
+我们想求：
 
-Core ideas to know:
+```text
+p(x|y) ∝ p(y|x)p(x)
+```
 
-- background/prior state;
-- observation operator;
-- observation error;
-- model error;
-- covariance;
-- filtering versus smoothing;
-- variational versus ensemble methods.
+如果 `x` 随时间演化：
 
-Classical anchors include Kalman filtering, EnKF and variational DA. Modern AI may learn components or replace parts of the pipeline.
+```text
+x_{t+1}=M(x_t)+η_t
+y_t=H_t(x_t)+ε_t
+```
 
-## 3. AI roles in DA
+这就是 state-space / DA 的核心结构。
 
-- learned observation operator;
-- learned background/error covariance;
-- learned surrogate forecast model;
-- observation-to-state encoder;
-- differentiable end-to-end DA;
-- generative posterior/state estimation.
+---
 
-For weather, DA determines the initial state. For carbon/ecosystem models, DA can constrain parameters and latent states from flux/remote-sensing observations.
+## 2. 三个分支
 
-## 4. Uncertainty types
+### Inverse Problems
+从 observation 反推 parameter/state。
 
-### Aleatoric
-Measurement/process variability that remains even with infinite data.
+### Data Assimilation
+随时间不断融合 forecast/model 与 new observations。
 
-### Epistemic
-Model/parameter uncertainty due to limited knowledge/data.
+### Uncertainty Quantification
+描述 observation、model、parameter、prediction 不确定性。
 
-### Structural
-Misspecified equations, model form or observation operator.
+---
 
-### Scale/support uncertainty
-Mismatch between what is observed and what the model/pixel/grid represents.
-
-## 5. Methods
-
-- ensembles;
-- Bayesian models;
-- Monte Carlo/dropout approximations;
-- Gaussian processes;
-- quantile/probabilistic regression;
-- deep ensembles;
-- diffusion/generative ensembles;
-- conformal prediction where assumptions are appropriate.
-
-## 6. Calibration
-
-A sharp predictive distribution is not useful if it is systematically overconfident.
-
-Check:
-
-- coverage;
-- reliability;
-- calibration curves;
-- CRPS/Brier for probabilistic forecasts;
-- interval width versus empirical error;
-- calibration under OOD regimes.
-
-## 7. Domain-specific uncertainty
-
-### Carbon
-EC measurement error, gap filling, GPP/RECO partitioning, footprint uncertainty, satellite retrieval errors and cross-site transfer.
-
-### Weather
-initial-condition uncertainty, model uncertainty, ensemble spread, extremes and observation verification uncertainty.
+## 3. Earth AI 为什么必须懂
 
 ### Remote sensing
-sensor noise, atmospheric correction, cloud masking, retrieval inversion and label uncertainty.
+很多 retrieval 本质是 inverse problem。
 
-Next: [11 Data/HPC/Evaluation](../11-data-hpc-evaluation/index.md).
+### Weather
+forecast quality 高度依赖 analysis / initial condition；DA 是 operational NWP 的核心。
+
+### Carbon
+EC measurement、partitioning、footprint、satellite retrieval、process parameters 都有 uncertainty。
+
+---
+
+## 页面
+
+- [Inverse Problems](inverse-problems.md)
+- [Data Assimilation](data-assimilation.md)
+- [Uncertainty / Calibration](uncertainty-calibration.md)
+
+## Sources
+
+- Tarantola, *Inverse Problem Theory*.
+- Evensen, *Data Assimilation: The Ensemble Kalman Filter*.
+- Kalnay, *Atmospheric Modeling, Data Assimilation and Predictability*.

@@ -1,91 +1,92 @@
-# Optical and Hyperspectral Earth Observation
+# Optical Multispectral 与 Hyperspectral
 
-## 1. Measurement chain
+## 1. Multispectral
 
-Optical remote sensing records reflected solar radiation after interaction with the atmosphere and surface.
-
-```text
-solar irradiance
-→ atmosphere
-→ surface/canopy interaction
-→ atmosphere
-→ sensor spectral response
-→ digital number / radiance
-→ calibrated reflectance product
-```
-
-A reflectance band is therefore an observation of electromagnetic response, not a direct measurement of biomass, GPP or soil moisture.
-
-## 2. Radiance and reflectance
-
-### Radiance
-Energy received by the sensor per area, solid angle and wavelength interval.
-
-### Reflectance
-A normalized measure of reflected radiation. Surface-reflectance products attempt to remove major atmospheric effects, but residual uncertainty remains.
-
-## 3. Spectral behavior
-
-Vegetation signals commonly involve:
-
-- visible absorption by pigments;
-- strong near-infrared scattering by leaf/canopy structure;
-- shortwave-infrared sensitivity to water and biochemical/structural properties.
-
-Hyperspectral sensors sample many narrow bands, enabling richer spectral signatures but increasing dimensionality, calibration demands and data volume.
-
-## 4. Spectral indices
-
-Examples include NDVI and NIRv-like constructs.
-
-Important distinction:
+典型输入：
 
 ```text
-index = nonlinear function of bands
+X [B,C,H,W]
 ```
 
-Averaging an index is generally not equivalent to computing the index from averaged bands. This matters for footprint-weighted aggregation and mixed pixels.
+`C` 不是 RGB，而可能是 Blue / Green / Red / NIR / SWIR1 / SWIR2 等具有不同 spectral response 的 band。
 
-## 5. Atmosphere and geometry
+---
 
-Optical observations vary with:
+## 2. 为什么 NIR / SWIR 有用
 
-- aerosols/water vapor;
-- cloud and cloud shadow;
-- solar zenith/azimuth;
-- view geometry;
-- BRDF;
-- topographic illumination;
-- adjacency effects.
+### NIR
+受 leaf internal scattering 与 canopy structure 影响，对 vegetation state 很敏感。
 
-AI can learn some systematic effects, but preprocessing and geometry metadata should remain explicit.
+### SWIR
+与 water content、dry matter、soil/mineral properties 等有关。
 
-## 6. Spatial resolution
+但“某 band 与某 process 相关”不等于“一一对应”。
 
-A nominal 10 m or 30 m grid is not identical to an independent ground truth at that scale. Sensor point-spread function, resampling and geolocation contribute to effective support.
+---
 
-## 7. Temporal sampling
+## 3. Vegetation indices
 
-Cloud-free optical observations are intermittent. A daily ecosystem target may need temporal interpolation, multi-sensor harmonization or latent state reconstruction.
-
-## 8. AI representations
-
-Possible input shape:
+### NDVI
 
 ```text
-single image:      [B,C,H,W]
-time series:       [B,T,C,H,W]
-patch tokens:      [B,T,N,D]
-hyperspectral cube:[B,Bands,H,W]
+NDVI = (NIR-Red)/(NIR+Red)
 ```
 
-Models should preserve band semantics and acquisition time rather than blindly treating spectral bands as RGB channels.
+### NIRv
+常用于增强 vegetation contribution 的表征。
 
-## 9. Physical-AI opportunities
+### 重要非线性问题
 
-- radiative-transfer-informed features/losses;
-- BRDF/illumination-aware normalization;
-- spectral-response-aware transfer between sensors;
-- cloud uncertainty;
-- phenology-aware temporal modeling;
-- support-aware aggregation for field/tower observations.
+一般：
+
+```text
+Σ_i w_i NDVI_i ≠ NDVI(Σ_i w_i bands_i)
+```
+
+因此 footprint/polygon aggregation 时要先明确 scientific meaning。
+
+---
+
+## 4. Hyperspectral
+
+高 spectral resolution：
+
+```text
+X [B,C_hyper,H,W], C_hyper >> multispectral C
+```
+
+挑战：
+- high-dimensional；
+- spectral redundancy；
+- sensor noise；
+- atmospheric absorption bands；
+- limited labels。
+
+常用：
+- spectral CNN；
+- 3D CNN；
+- spectral-spatial Transformer；
+- masked spectral pretraining。
+
+---
+
+## 5. Spectral response function
+
+不同 sensor 即使 band 名相同，response function 也不同。跨 sensor fusion 必须考虑：
+- central wavelength；
+- bandwidth；
+- response curve；
+- calibration/harmonization。
+
+---
+
+## 6. Time series
+
+Optical time series 的 missingness 不是 random：cloud、season、solar angle 会造成结构性缺测。
+
+因此 reconstruction/phenology model 要输入 mask 与 timestamp，而不是简单 zero-fill。
+
+## Sources
+
+- Claverie et al. (2018), HLS description, Remote Sensing of Environment.
+- NASA HLS: https://www.earthdata.nasa.gov/data/projects/hls

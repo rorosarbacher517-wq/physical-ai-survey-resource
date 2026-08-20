@@ -1,62 +1,82 @@
-# Surrogates and Hybrid Solvers
+# Surrogate Modeling 与 Hybrid Solvers
 
-## 1. Surrogate goal
+## 1. Surrogate 是什么
 
-Approximate an expensive mapping so repeated inference becomes cheaper.
+用便宜模型近似 expensive simulator：
 
-Examples:
+```text
+x / parameter / forcing
+→ expensive simulator
+→ y
+```
 
-- CFD parameter sweep;
-- atmospheric forecast step;
-- radiative transfer emulator;
-- land-surface process module;
-- material-property simulation.
+训练后：
 
-## 2. Training domain
+```text
+x → surrogate f_θ(x) ≈ y
+```
 
-Define the valid domain explicitly:
+---
 
-- parameter ranges;
-- initial/boundary conditions;
-- geometry;
-- forcing;
-- resolution;
-- regime/extremes.
+## 2. Surrogate 类型
 
-A surrogate is unsafe outside an untested domain simply because inputs have the same shape.
+### Parameter-to-output
+例如 material parameter → scalar response。
 
-## 3. Residual surrogate
+### Field-to-field
+initial/forcing field → solution field。
 
-`y = solver(x) + NN(x)`
+### Temporal surrogate
+state_t → state_{t+Δt}。
 
-The network learns systematic solver discrepancy rather than the whole process.
+### Emulator for parameter search
+用于 Bayesian optimization、calibration、sensitivity analysis。
 
-## 4. Closure model
+---
 
-Unresolved subgrid effect is predicted from resolved state.
+## 3. Learned residual
 
-The learned closure enters the dynamics and changes future inputs, so offline accuracy is insufficient.
+```text
+ŷ = solver(x) + residual_θ(x)
+```
 
-## 5. Emulator inside inverse/optimization loop
+优点：保留 solver baseline；
+风险：residual 可能只学 training-regime bias。
 
-A differentiable/fast surrogate can enable parameter estimation, uncertainty propagation or design optimization that would be too expensive with the original simulator.
+---
 
-## 6. Fidelity levels
+## 4. Learned closure
 
-Multi-fidelity learning combines cheap/low-resolution simulations with fewer expensive/high-resolution simulations or observations.
+resolved dynamics 已知，小尺度 unresolved process 由 ML 学：
 
-## 7. Evaluation
+```text
+large-scale solver
++ learned subgrid closure
+→ next state
+```
 
-Report:
+核心风险是 closed-loop stability。
 
-- predictive error;
-- speed/memory;
-- physical residual/conservation;
-- parameter/regime OOD;
-- rollout stability;
-- uncertainty;
-- failure boundaries.
+---
 
-## 8. Coupling test
+## 5. Multi-fidelity
 
-For a learned component embedded in a solver, evaluate the entire coupled system—not only the isolated component.
+组合：
+- cheap coarse simulation；
+- sparse expensive high-fidelity simulation；
+- observations。
+
+目标是在 compute budget 下最大化 generalization。
+
+---
+
+## 6. 评测
+
+不能只看 test-set RMSE，还要看：
+- parameter OOD；
+- geometry OOD；
+- long rollout；
+- conservation；
+- spectrum；
+- rare/extreme regime；
+- wall-clock speedup。

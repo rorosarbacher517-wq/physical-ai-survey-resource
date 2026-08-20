@@ -1,97 +1,68 @@
-# EO Super-resolution, Downscaling and Reconstruction
+# Super-resolution、Downscaling 与 Time-series Reconstruction
 
-## 1. Separate three problems
+## 1. 三个问题要分开
 
-### Spatial super-resolution
+### Image super-resolution
+低分辨率 observation → 高分辨率 image-like field。
 
-Infer a finer grid from coarse observations.
-
-### Statistical/physical downscaling
-
-Estimate fine-scale variables conditioned on coarse fields plus high-resolution covariates.
+### Statistical/dynamical downscaling
+coarse environmental/climate field → local/high-resolution target distribution。
 
 ### Temporal reconstruction
+稀疏/缺测时间序列 → dense time series。
 
-Fill or infer missing times using neighboring observations and auxiliary data.
+它们都“变细”，但 scientific meaning 不同。
 
-These tasks can use similar neural architectures but have different scientific meanings.
+---
 
-## 2. Observation-limit principle
-
-A finer output grid does not create new independent observations. The product's nominal pixel size must be separated from its validated information scale.
-
-## 3. Typical mapping
+## 2. Spatial SR
 
 ```text
-coarse dynamic field: [B,T,C,Hc,Wc]
-high-res covariates:  [B,T?,K,Hf,Wf]
-→ fusion / upsampling model
-→ fine prediction:    [B,T,Y,Hf,Wf]
+X_lr [B,C,H,W]
+→ model
+→ X_hr [B,C,sH,sW]
 ```
 
-## 4. Architectures
+必须问：高频细节来自真实 information，还是 learned prior/hallucination？
 
-- CNN/U-Net upsampling;
-- residual super-resolution networks;
-- Transformer-based image restoration;
-- implicit neural representations;
-- diffusion/score reconstruction;
-- physics-guided statistical downscaling.
+---
 
-## 5. Training targets
+## 3. Multi-sensor SR
 
-Targets may come from:
-
-- higher-resolution sensors;
-- simulated degradation pairs;
-- station/field observations;
-- physical-model output;
-- self-supervised masking.
-
-Synthetic degradation should approximate the real sensor point-spread/sampling process when possible.
-
-## 6. Multi-resolution fusion
-
-A useful Earth-science case is combining high-frequency coarse data with sparse high-resolution observations:
+可以用 high-temporal coarse sensor + low-temporal high-resolution sensor：
 
 ```text
-coarse/high-frequency sequence
-+ fine/sparse observations
-+ static fine-scale context
-→ reconstructed fine/high-frequency field
+coarse dense time series
++ sparse high-res observations
+→ high-res dense reconstruction
 ```
 
-This is attractive for cloud-prone optical time series, soil moisture, temperature and ecosystem monitoring.
+适用于 HLS 与更高频 coarse product 的融合思路。
 
-## 7. Physical constraints
+---
 
-Depending on the variable:
+## 4. Generative reconstruction
 
-- preserve spatial averages/integrals;
-- conserve mass/water/energy where appropriate;
-- enforce nonnegative quantities where definitions require it;
-- maintain temporal consistency;
-- respect land/water masks and topography.
+Diffusion/generative model 能生成 realistic fine detail，但 scientific task 必须评估：
+- conditional consistency；
+- conservation/aggregate consistency；
+- uncertainty；
+- event/extreme preservation。
 
-## 8. Evaluation
+---
 
-Report:
+## 5. Carbon/eco 应用
 
-- fine-grid pixel metrics;
-- aggregated consistency back to coarse observations;
-- spectral/texture statistics;
-- event/extreme preservation;
-- independent field/station validation;
-- OOD region/time transfer.
+高时频 coarse reflectance/biophysical product 可帮助填补 HLS clear-sky gaps，但重建后的 canopy state 仍是 model estimate，不能当真实 acquisition。
 
-## 9. Failure modes
+---
 
-- visually plausible texture without physical information;
-- leakage from a fine-resolution target available near prediction time;
-- comparing against resampled labels rather than independent observations;
-- smoothing extremes;
-- hallucinating boundaries that cannot be supported by input sensors.
+## 6. Evaluation
 
-## 10. Carbon connection
-
-For carbon-flux applications, reconstructed EO time series should be treated as uncertain predictors. They do not remove the need to match EC measurement support or validate flux estimates independently.
+除了 PSNR/SSIM，还应检查：
+- spectral consistency；
+- aggregate conservation；
+- downstream flux/task impact；
+- temporal phase/phenology；
+- extreme change；
+- unseen region/year。

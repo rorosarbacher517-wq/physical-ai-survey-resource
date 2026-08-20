@@ -1,47 +1,54 @@
-# Weather and Climate AI Specialty Track
+# Weather & Climate AI 专题路线
 
-Main knowledge page: [Weather & Climate AI](../../../01-knowledge-base/08-weather-climate-ai/index.md).
+## Goal
 
-## 1. Learn the whole forecasting system
+不背模型榜单，而是掌握整个 forecast system：
 
 ```text
-observations
-→ QC / observation operators
-→ data assimilation
-→ initial state / analysis
-→ AI or hybrid forecast
-→ deterministic / ensemble rollout
-→ extremes / nowcasting
-→ post-processing / downscaling
-→ coupled Earth-system use
+atmospheric dynamics
+→ observing system
+→ DA / analysis
+→ forecast backbone
+→ rollout
+→ ensemble/probabilistic
+→ data-to-forecast
+→ nowcasting/downscaling
+→ extremes
+→ climate/coupling
 → verification
 ```
 
-## 2. Core pages
+## 1. Physical/NWP layer
 
-- [NWP basics](../../../01-knowledge-base/08-weather-climate-ai/nwp-basics.md)
-- [Weather data assimilation](../../../01-knowledge-base/08-weather-climate-ai/weather-data-assimilation.md)
-- [AI weather-model families](../../../01-knowledge-base/08-weather-climate-ai/ai-weather-models.md)
-- [Hybrid physics–ML weather](../../../01-knowledge-base/08-weather-climate-ai/physics-hybrid-weather.md)
-- [Probabilistic/ensemble weather](../../../01-knowledge-base/08-weather-climate-ai/probabilistic-ensemble-weather.md)
+- [Atmospheric State & Dynamics](../../../01-knowledge-base/08-weather-climate-ai/atmospheric-state-dynamics.md)
+- [NWP Basics](../../../01-knowledge-base/08-weather-climate-ai/nwp-basics.md)
+
+## 2. Observation / DA
+
+- [Weather Observing System](../../../01-knowledge-base/08-weather-climate-ai/weather-observing-system.md)
+- [Weather Data Assimilation](../../../01-knowledge-base/08-weather-climate-ai/weather-data-assimilation.md)
+- [Data-to-Forecast](../../../01-knowledge-base/08-weather-climate-ai/data-to-forecast.md)
+
+## 3. Forecast model
+
+- [AI Weather-model Families](../../../01-knowledge-base/08-weather-climate-ai/ai-weather-models.md)
+- [Weather Rollout & Training](../../../01-knowledge-base/08-weather-climate-ai/rollout-training.md)
+- [Physics–ML Hybrid Weather](../../../01-knowledge-base/08-weather-climate-ai/physics-hybrid-weather.md)
+
+## 4. Uncertainty / extremes
+
+- [Probabilistic / Ensemble Weather](../../../01-knowledge-base/08-weather-climate-ai/probabilistic-ensemble-weather.md)
+- [Extreme-event Forecasting](../../../01-knowledge-base/08-weather-climate-ai/extremes-forecasting.md)
+
+## 5. Scale / climate
+
 - [Nowcasting](../../../01-knowledge-base/08-weather-climate-ai/nowcasting.md)
-- [Weather extremes](../../../01-knowledge-base/08-weather-climate-ai/extremes-forecasting.md)
-- [Downscaling/super-resolution](../../../01-knowledge-base/08-weather-climate-ai/downscaling-super-resolution.md)
-- [Weather/Earth foundation models](../../../01-knowledge-base/08-weather-climate-ai/weather-foundation-models.md)
-- [Coupled Earth-system AI](../../../01-knowledge-base/08-weather-climate-ai/earth-system-coupling.md)
+- [Downscaling](../../../01-knowledge-base/08-weather-climate-ai/downscaling-super-resolution.md)
 - [Climate AI](../../../01-knowledge-base/08-weather-climate-ai/climate-ai.md)
-- [Weather evaluation](../../../01-knowledge-base/08-weather-climate-ai/weather-evaluation.md)
+- [Earth-system Coupling](../../../01-knowledge-base/08-weather-climate-ai/earth-system-coupling.md)
 
-## 3. Method map
+## 6. Current systems
 
-Forecast backbones include graph/mesh networks, Transformer-style models, neural/spectral operators and hybrid numerical–ML systems. Probabilistic systems additionally require ensemble calibration and distributional verification.
+截至 2026-08-20 应知道：`AIFS Single v2`, `AIFS ENS v2`, `WeatherNext 2`, `Aurora 1.5`, `NVIDIA Earth-2`, `Aardvark Weather`, `FuXi Weather`, `NeuralGCM`, `GenCast`。
 
-## 4. Connection to remote sensing and carbon
-
-Meteorological forcing drives ecosystem fluxes, radar/satellite observations feed state estimation, and land-surface processes couple water, energy and carbon.
-
-See [EO AI](../../../01-knowledge-base/06-earth-observation-ai/index.md) and [Carbon–water–energy coupling](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-water-energy-coupling.md).
-
-## 5. Current operational developments
-
-Use the dated [2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md) rather than copying release-specific claims into stable concept pages.
+具体日期：[2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md)。

@@ -1,57 +1,118 @@
 # Carbon-flux Modeling Methods
 
-## 1. Process and light-use-efficiency models
+## 1. Empirical / process-inspired baseline
 
-Represent photosynthesis/respiration using mechanistic or semi-empirical process relationships.
+### Light-use-efficiency
 
-Strengths: interpretable process structure. Limitations: parameters and unresolved processes can introduce bias.
+```text
+GPP ≈ APAR × ε(environment)
+```
 
-## 2. Classical ML upscaling
+优点：过程含义清楚；
+限制：复杂 ecosystem response 被简化。
 
-Random forest, boosted trees and related methods map environmental/remote-sensing predictors to tower fluxes.
+---
 
-They are strong baselines but often operate on aggregated features and can struggle with extrapolation.
+## 2. Process-based ecosystem / land-surface models
 
-## 3. Deep temporal models
+显式模拟：
+- photosynthesis；
+- respiration；
+- phenology；
+- soil carbon；
+- water/energy balance；
+- vegetation dynamics。
 
-RNN/Transformer-style models can learn sub-daily/seasonal dynamics from meteorology and remote-sensing state.
+优势：process consistency 与 future scenario coupling；
+挑战：parameter uncertainty、structural error、compute、equifinality。
 
-## 4. Spatial models
+---
 
-CNN/ViT encoders preserve pixel patterns around towers instead of collapsing a patch to mean statistics.
+## 3. Classical ML upscaling
 
-## 5. Hybrid process–ML
+- Random Forest；
+- XGBoost / Gradient Boosting；
+- Gaussian Process。
 
-Options:
+输入通常是 tower-matched meteorology + EO features。
 
-- process model + residual network;
-- learned parameterization;
-- process-derived features;
-- differentiable process layer;
-- carbon/water/energy coupling.
+2026 Agricultural and Forest Meteorology 的研究展示了 XGBoost 结合 remote sensing / environmental / SIF information 改进 EC flux gap filling：
+https://doi.org/10.1016/j.agrformet.2025.110987
 
-## 6. Physics-constrained models
+---
 
-Possible constraints:
+## 4. Deep temporal model
 
-- carbon balance relationship;
-- nighttime/photosynthesis rules when scientifically justified;
-- positivity/bounds;
-- radiation/water stress priors;
-- observation-operator matching.
+```text
+EO + meteorology sequence
+→ LSTM / Transformer / TCN
+→ flux sequence
+```
 
-Constraint assumptions should be ablated and checked across regimes.
+适合 phenology 与 delayed response。
 
-## 7. Footprint-aware models
+---
 
-Use dynamic source-area weights either on predictors, latent classes or model outputs.
+## 5. Spatial / graph model
 
-The placement of footprint weighting changes what spatial quantity the model learns.
+显式建模 footprint 内 spatial heterogeneity。
 
-## 8. Foundation representations
+2025 RSE 研究使用 footprint-weighted spatial features 与 `DeeperGCN` residual correction 研究 vegetation heterogeneity：
+https://doi.org/10.1016/j.rse.2025.114952
 
-EO foundation-model embeddings can replace/augment hand-crafted spectral features, but they still need meteorological forcing, support alignment and OOD evaluation for flux tasks.
+---
 
-## 9. Comparison design
+## 6. Physics-constrained joint model
 
-Use identical split/targets/QC and hold model/training constant when testing one method contribution.
+共同预测：
+
+```text
+[NEE, GPP, RECO]
+```
+
+并加入：
+
+```text
+NEE = RECO - GPP
+```
+
+2025 ISPRS JPRS 代表工作：
+https://doi.org/10.1016/j.isprsjprs.2025.06.033
+
+---
+
+## 7. Footprint-aware field model
+
+```text
+EO pixel field
+→ pixel flux prediction
+→ dynamic footprint operator
+→ tower supervision
+```
+
+它与“先把所有 pixels average 成 feature”不同，因为保留 spatial latent field。
+
+---
+
+## 8. Hybrid process–ML
+
+AI 可以：
+- optimize process parameters；
+- learn residual；
+- emulate expensive process model；
+- learn uncertain submodule。
+
+2026 ESD 工作使用 global Earth observations + optimization + Gaussian-process emulator 研究 land-carbon model parameter uncertainty：
+https://doi.org/10.5194/esd-17-651-2026
+
+---
+
+## 9. Foundation representation
+
+```text
+EO foundation embedding
++ meteorology/process context
+→ carbon task head
+```
+
+真正要测试的是：label efficiency、quantitative regression、biome/climate OOD，而不只是 classification transfer。

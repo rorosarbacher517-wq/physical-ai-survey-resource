@@ -1,4 +1,4 @@
-current_phase: 14-deep-knowledge-units
+current_phase: 15-cn-systematic-earth-ai
 phases:
   '00': PASS
   '01': PASS
@@ -15,4 +15,5 @@ phases:
   '12': PASS
   '13': PASS
   '14': PASS
-updated: '2026-08-20T13:20:00+00:00'
+  '15': PASS
+updated: '2026-08-20T15:00:00+00:00'

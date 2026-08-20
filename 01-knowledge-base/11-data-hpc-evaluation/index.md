@@ -1,106 +1,109 @@
-# 11 · Data Engineering, HPC, Evaluation and Reproducibility
+# 11 · Scientific Data Engineering、HPC 与 Evaluation
 
-Scientific AI often fails because of data/support/split issues rather than architecture.
-
-## 1. Data pipeline
+一个 Scientific AI 项目能否可信，往往不是由 architecture 决定，而是由：
 
 ```text
-source discovery
-→ download/access
-→ provenance + version
-→ QC
-→ coordinate/time harmonization
-→ unit normalization
-→ resampling / observation mapping
+data lineage
 → sample construction
-→ split definition
-→ sharding/cache
-→ training
-→ prediction archive
-→ evaluation/audit
+→ split
+→ scalable training
+→ reproducible inference
+→ evaluation
+→ audit
 ```
 
-## 2. Data engineering principles
+决定。
 
-Track:
+---
 
-- source URL/provider;
-- version/date;
-- coordinate reference system;
-- units;
-- missing-data semantics;
-- QC flags;
-- native resolution;
-- resampling;
-- temporal aggregation;
-- sample identifiers;
-- leakage-safe split membership.
+## 1. Data Engineering
 
-## 3. Large-scale compute
+Scientific data 常见特性：
+- TB–PB 级；
+- NetCDF / HDF5 / Zarr / GeoTIFF；
+- 多变量、多分辨率、多时间尺度；
+- missing / QA；
+- CRS/coordinate；
+- versioned products。
 
-Know the practical bottlenecks:
+→ [Scientific Data Engineering](data-engineering.md)
 
-- remote I/O and chunking;
-- raster/time-series sharding;
-- CPU preprocessing versus GPU starvation;
-- mixed precision;
-- gradient checkpointing;
-- distributed data/model parallelism;
-- communication cost;
-- checkpoint/restart;
-- deterministic experiment configuration.
+---
 
-Scientific models may be input-bandwidth bound before they are FLOP bound.
+## 2. HPC / Distributed Scientific ML
 
-## 4. Evaluation hierarchy
+主要瓶颈可能是：
+- GPU memory；
+- all-reduce communication；
+- storage bandwidth；
+- decompression；
+- random spatial I/O；
+- dataloader；
+- checkpoint size；
+- long rollout inference。
 
-### Predictive metrics
-RMSE, MAE, R²/correlation where appropriate.
+→ [Distributed Scientific ML](distributed-scientific-ml.md)
 
-### Probabilistic metrics
-NLL, CRPS, Brier, coverage/calibration.
+---
 
-### Physical metrics
-conservation, balance error, spectral behavior, stability, constraint violation.
+## 3. Evaluation / Benchmarking
 
-### Generalization
-site/region/time/regime/event/OOD.
+Scientific benchmark 不只比较一个 score，还要固定：
+- data version；
+- support/resolution；
+- split；
+- initialization；
+- adaptation protocol；
+- metric convention；
+- compute；
+- uncertainty；
+- physical diagnostics。
 
-### Efficiency
-training cost, inference latency, memory, energy/compute and speedup versus numerical baseline.
+→ [Evaluation / Benchmarking](evaluation-benchmarking.md)
 
-## 5. Paired comparisons
+---
 
-When testing one scientific design choice, hold all other components fixed where possible.
+## 4. Reproducibility levels
 
-Examples:
+### Level A · Result provenance
+能知道结果对应哪个 data/model/code version。
 
-- dynamic footprint weighting versus uniform aggregation;
-- HLS only versus HLS + LiDAR;
-- physics constraint on versus off;
-- same architecture and split, different observation operator.
+### Level B · Re-runnable
+给定环境和数据可重新运行 inference/evaluation。
 
-Use paired error differences and uncertainty/statistical testing where appropriate.
+### Level C · Re-trainable
+训练脚本、split、seed、hyperparameters 完整。
 
-## 6. Reproducibility checklist
+### Level D · Reproduced
+独立运行实际成功，metrics 被记录并与报告一致。
 
-- exact data versions;
-- preprocessing scripts;
-- random seeds;
-- split manifests;
-- model/config commit;
-- software environment;
-- hardware;
-- training epochs/steps;
-- checkpoint selection;
-- metric implementation;
-- failure/bad-case logs.
+**“代码公开”不等于“结果已复现”。**
 
-## 7. Repository resource layer
+---
 
-Use the canonical libraries instead of duplicating resources:
+## 5. Earth-system 特殊要求
 
-- [datasets](../../04-dataset-library/index.md)
-- [benchmarks](../../05-benchmarks-and-evaluation/index.md)
-- [code](../../03-code-library/index.md)
-- [papers](../../02-paper-library/index.md)
+- geospatial split；
+- temporal cutoff；
+- sensor/product version；
+- observation support；
+- reanalysis vs observation；
+- climate/extreme OOD；
+- foundation pretraining overlap。
+
+---
+
+## 6. 推荐工具栈
+
+```text
+NumPy / pandas
+xarray / Dask
+Zarr / NetCDF / HDF5 / GeoTIFF
+PyTorch / JAX
+CUDA / NCCL
+SLURM / Kubernetes where appropriate
+Weights & Biases / MLflow or simple structured logs
+Git + environment lock
+```
+
+工具只是手段，核心是 provenance 与 deterministic sample definition。

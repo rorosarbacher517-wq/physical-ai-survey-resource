@@ -1,89 +1,112 @@
-# PyTorch, JAX and HPC Basics for Scientific AI
+# PyTorch、JAX 与 HPC Basics
 
-## 1. Tensor pipeline
+## 1. Automatic Differentiation
 
-A scientific training job is a systems pipeline:
+Scientific ML 很多方法依赖 gradient：
+- training；
+- PINN derivatives；
+- inverse problem；
+- differentiable simulation；
+- adjoint-like sensitivity。
+
+### PyTorch
+动态图 + autograd，生态成熟。
+
+### JAX
+函数式 transformations：`grad`, `jit`, `vmap`, `pmap/pjit`，适合高性能 scientific computing 与 differentiable programming。
+
+---
+
+## 2. Tensor layout
+
+常见 shape：
 
 ```text
-storage
-→ CPU decode/QC/reprojection
-→ batch construction
-→ host-to-device transfer
-→ forward
-→ loss
-→ backward
-→ optimizer
-→ checkpoint
+image:       [B,C,H,W]
+time series: [B,T,D]
+video/EO:    [B,T,C,H,W]
+weather:     [B,C,L,H,W]
+point:       [B,N,D]
 ```
 
-The bottleneck may be I/O or preprocessing rather than GPU compute.
+要明确：
+- contiguous / stride；
+- channels-leading vs channels-trailing layout；
+- dtype；
+- device；
+- mask shape；
+- broadcasting。
 
-## 2. Autograd
+---
 
-Automatic differentiation records operations and computes gradients by the chain rule.
+## 3. GPU memory
 
-Physics-informed models may differentiate outputs with respect to coordinates. This can require higher-order derivatives and substantially increase memory/compute.
+训练显存大致来自：
+- parameters；
+- gradients；
+- optimizer states；
+- activations；
+- attention matrix；
+- temporary buffers。
 
-## 3. Memory accounting
+常用手段：
+- mixed precision；
+- gradient checkpointing；
+- accumulation；
+- activation recomputation；
+- sharding；
+- chunked inference。
 
-GPU memory includes:
+---
 
-- parameters;
-- gradients;
-- optimizer states;
-- activations;
-- temporary kernels;
-- input batches;
-- attention matrices.
+## 4. Distributed Training
 
-Mixed precision and gradient checkpointing reduce some components but add trade-offs.
+### DDP
+每 GPU 一份 model，data parallel。
 
-## 4. PyTorch
+### FSDP / ZeRO
+切分 parameters / gradients / optimizer states。
 
-Important concepts:
+### Tensor / Pipeline Parallelism
+超大模型进一步切 model computation。
 
-- Dataset/DataLoader;
-- tensor device/dtype/layout;
-- autograd graph;
-- `no_grad` / inference mode;
-- distributed data parallel;
-- checkpoint state;
-- deterministic/reproducible configuration.
+Scientific fields 的额外瓶颈往往是 **I/O**：大规模 NetCDF/Zarr/HDF5/GeoTIFF 读取可能比 GPU 本身更慢。
 
-## 5. JAX
+---
 
-Important concepts:
+## 5. Data pipeline
 
-- pure functions;
-- transformations such as `jit`, `grad`, `vmap`;
-- XLA compilation;
-- device sharding;
-- functional state handling.
+Earth data 推荐关注：
+- chunk size；
+- compression；
+- lazy loading；
+- `xarray` / `Dask` / `Zarr`；
+- spatial window sampling；
+- temporal sequence sampling；
+- deterministic preprocessing；
+- train-only normalization statistics。
 
-JAX is widely used in scientific/large-scale modeling because transformations compose naturally, but compilation and shape discipline matter.
+---
 
-## 6. Large arrays
+## 6. Reproducibility
 
-Earth data often exceed RAM. Common strategies:
+至少记录：
 
-- xarray/Dask-style lazy access;
-- Zarr/cloud-optimized chunking;
-- spatial-temporal shards;
-- streaming batches;
-- caching frequently used metadata;
-- preprocessing once when scientifically safe.
+```text
+code commit
+random seed
+environment / package versions
+data version
+split manifest
+normalization statistics
+hyperparameters
+checkpoint
+hardware
+```
 
-## 7. Distributed training
+## Sources
 
-Distinguish:
-
-- data parallelism;
-- tensor/model parallelism;
-- pipeline parallelism;
-- domain/spatial decomposition.
-
-Scientific models with huge fields may need spatial partitioning in addition to standard model parallelism.
-
-## 8. Reproducibility
-
-Record code commit, environment, GPU/accelerator type, random seed, exact data split, preprocessing version and checkpoint selection.
+- PyTorch docs: https://pytorch.org/docs/stable/
+- JAX docs: https://docs.jax.dev/
+- xarray docs: https://docs.xarray.dev/
+- Zarr docs: https://zarr.readthedocs.io/

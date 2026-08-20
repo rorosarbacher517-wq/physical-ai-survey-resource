@@ -1,97 +1,87 @@
-# 01 · Machine Learning, Deep Learning and Scientific Computing
+# 01 · ML / DL 与 Scientific Computing
 
-This module contains the AI fundamentals needed before adding physical priors.
+这一层不是重新学一遍“通用 AI”，而是建立 Scientific AI 需要的模型语言：**baseline、representation、optimization、autograd、GPU 与 evaluation discipline。**
 
-## 1. Classical ML
+## 1. 从 baseline 开始
 
-- linear/ridge/lasso regression;
-- logistic regression;
-- random forest and gradient boosting;
-- SVM;
-- clustering and dimensionality reduction;
-- Gaussian processes;
-- calibration and uncertainty basics.
+复杂模型必须与合理 baseline 比：
+- Linear / Ridge / Lasso；
+- Random Forest；
+- Gradient Boosting / XGBoost / CatBoost；
+- Gaussian Process；
+- simple MLP / CNN / temporal model。
 
-Scientific relevance: strong baselines are often more informative than a large network when data are sparse, tabular or site-limited.
+如果 foundation model + fine-tuning 只和弱 baseline 比，很难判断 pretraining 真正带来什么。
 
-## 2. Deep-learning building blocks
+---
 
-### Tensor and representation
-Always track shape and semantics.
-
-Examples:
+## 2. Deep Learning 基本模块
 
 ```text
-remote-sensing patch: [B, T, C, H, W]
-weather field:        [B, T, V, H, W]
-mesh/graph:           [B, N, D]
-flux time series:     [B, T, D]
-point cloud:          [B, N, C]
+Linear / Conv
+→ activation
+→ normalization
+→ residual connection
+→ attention / message passing
+→ output head
 ```
 
-### Core architectures
+需要理解的不只是名字，而是：
+- receptive field；
+- parameter sharing；
+- inductive bias；
+- memory complexity；
+- variable resolution；
+- missingness；
+- rollout behavior。
 
-- MLP: point/tabular nonlinear mapping;
-- CNN/U-Net: local spatial hierarchy and dense prediction;
-- RNN/LSTM/GRU: recurrent temporal state;
-- Transformer: content-dependent global interactions;
-- GNN: irregular topology / mesh / relational structure;
-- encoder-decoder: field-to-field mapping;
-- diffusion/score models: probabilistic generation and ensembles.
+---
 
-## 3. Training
+## 3. Representation 决定 architecture
 
-Know:
+### Raster / image
+`[B,C,H,W]` → CNN / ViT / U-Net。
 
-- supervised/self-supervised/semi-supervised learning;
-- MSE/MAE/Huber/cross-entropy/likelihood;
-- optimizer and learning-rate schedules;
-- normalization and residual connections;
-- regularization;
-- mixed precision;
-- gradient accumulation/clipping;
-- checkpoint/resume and reproducibility.
+### Time series
+`[B,T,D]` → RNN / TCN / Transformer / state-space model。
 
-## 4. Generalization in scientific data
+### Spatiotemporal field
+`[B,T,C,H,W]` → ConvLSTM / 3D CNN / factorized attention / operator。
 
-Random sample splitting is often invalid when nearby samples share location, time, sensor, campaign or simulation trajectory.
+### Graph / mesh
+`nodes [B,N,D]` + `edges` → GNN / mesh processor。
 
-Important split axes:
+### Point cloud
+`[B,N,D]` → PointNet-style / sparse convolution / point Transformer。
 
-- site/location blocked;
-- time blocked;
-- region/biome/climate regime blocked;
-- simulation parameter blocked;
-- event/extreme blocked;
-- sensor/domain blocked.
+---
 
-## 5. Scientific computing stack
+## 4. Scientific Computing 能力
 
-Understand the practical relationship:
+至少掌握：
+- `NumPy` / `xarray`；
+- `PyTorch` 或 `JAX`；
+- automatic differentiation；
+- mixed precision；
+- GPU memory；
+- distributed data parallel；
+- chunking / sharding；
+- reproducible seed / environment；
+- profiler。
 
-```text
-NumPy/xarray/raster/geospatial arrays
-→ PyTorch/JAX/TensorFlow
-→ GPU kernels / CUDA
-→ distributed data + model parallelism
-→ checkpoint / experiment tracking
-```
+---
 
-The repository does not require one framework, but every reproducible workflow should track software versions, hardware, random seeds, data lineage and exact split definitions.
+## 5. 本模块页面
 
-## 6. Model complexity questions
+- [Classical ML Scientific Baselines](classical-ml-scientific-baselines.md)
+- [Deep Learning Architectures](deep-learning-architectures.md)
+- [Transformer / GNN for Science](transformer-gnn-for-science.md)
+- [PyTorch / JAX / HPC Basics](pytorch-jax-hpc-basics.md)
 
-For any architecture ask:
+## 6. Sources
 
-1. How does compute scale with spatial points/tokens?
-2. How does memory scale with sequence/grid size?
-3. Can it preserve local and global interactions?
-4. Is the representation resolution-dependent?
-5. Can it roll out stably?
-6. Is the model equivariant/invariant to relevant transformations?
-
-## 7. Minimum pass standard
-
-You should be able to explain a CNN, Transformer and GNN at tensor-shape level; choose meaningful scientific splits; distinguish interpolation from extrapolation; and estimate the primary compute/memory bottleneck.
-
-Next: [02 Physical AI Core](../02-physics-ai-core/index.md).
+- Goodfellow, Bengio & Courville, *Deep Learning*: https://www.deeplearningbook.org/
+- Vaswani et al. (2017), *Attention Is All You Need*: https://arxiv.org/abs/1706.03762
+- Battaglia et al. (2018), *Relational inductive biases, deep learning, and graph networks*: https://arxiv.org/abs/1806.01261
+- PyTorch docs: https://pytorch.org/docs/stable/
+- JAX docs: https://docs.jax.dev/

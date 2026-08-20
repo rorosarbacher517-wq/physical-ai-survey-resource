@@ -1,61 +1,53 @@
-# Earth Observation / Remote Sensing AI Specialty Track
+# Earth Observation / Remote Sensing AI 专题路线
 
 ## Goal
 
-Build a chain from **sensor/observation physics → preprocessing → spatial-spectral-temporal representation → multimodal AI → geophysical/ecological target → scale-aware validation**.
-
-Main knowledge page: [Earth Observation AI](../../../01-knowledge-base/06-earth-observation-ai/index.md).
-
-## 1. Observation physics
-
-Start with [Radiative transfer and observation physics](../../../01-knowledge-base/06-earth-observation-ai/radiative-transfer-observation-physics.md).
-
-Study by modality:
-
-- [optical/hyperspectral](../../../01-knowledge-base/06-earth-observation-ai/optical-hyperspectral.md);
-- [SAR/microwave](../../../01-knowledge-base/06-earth-observation-ai/sar-microwave.md);
-- [LiDAR/3D](../../../01-knowledge-base/06-earth-observation-ai/lidar-3d.md);
-- [thermal/SIF](../../../01-knowledge-base/06-earth-observation-ai/thermal-sif.md).
-
-## 2. Data and representation
-
-- [preprocessing/QC](../../../01-knowledge-base/06-earth-observation-ai/eo-preprocessing-quality.md);
-- [time-series learning](../../../01-knowledge-base/06-earth-observation-ai/remote-sensing-time-series.md);
-- [multisensor fusion](../../../01-knowledge-base/06-earth-observation-ai/multisensor-fusion.md);
-- [super-resolution/reconstruction](../../../01-knowledge-base/06-earth-observation-ai/super-resolution-reconstruction.md).
-
-## 3. AI problem families
-
-Classification/segmentation/detection, retrieval/regression, change detection, temporal forecasting, reconstruction/downscaling, multimodal fusion, cross-modal generation and geospatial embeddings.
-
-See [EO models and tasks](../../../01-knowledge-base/06-earth-observation-ai/eo-models-tasks.md).
-
-## 4. Physical-AI integration points
-
-- observation/retrieval operators;
-- spectral-response and radiative-transfer priors;
-- geometry-aware representations;
-- temporal/phenological structure;
-- multi-resolution consistency;
-- sensor uncertainty;
-- process-sensitive downstream evaluation.
-
-## 5. Foundation-model path
+完整掌握：
 
 ```text
-task-specific model
-→ self-supervised EO encoder
-→ global/temporal pretraining
-→ multimodal Earth representation
-→ foundation-model transfer / geospatial embeddings
+sensor physics
+→ product/data stack
+→ preprocessing/QA
+→ spatial-spectral-temporal representation
+→ retrieval/inversion
+→ multisensor AI
+→ foundation models
+→ geospatial/OOD evaluation
 ```
 
-See [EO foundation models](../../../01-knowledge-base/06-earth-observation-ai/eo-foundation-models.md), [Earth foundation models](../../../01-knowledge-base/09-earth-foundation-models/index.md) and [2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md).
+## 1. 先学 observation physics
 
-## 6. Validation safeguards
+- [Radiative Transfer / Observation Physics](../../../01-knowledge-base/06-earth-observation-ai/radiative-transfer-observation-physics.md)
+- [Optical / Hyperspectral](../../../01-knowledge-base/06-earth-observation-ai/optical-hyperspectral.md)
+- [SAR / Microwave](../../../01-knowledge-base/06-earth-observation-ai/sar-microwave.md)
+- [LiDAR / 3D](../../../01-knowledge-base/06-earth-observation-ai/lidar-3d.md)
+- [Thermal / SIF](../../../01-knowledge-base/06-earth-observation-ai/thermal-sif.md)
 
-Use [Geospatial validation/OOD](../../../01-knowledge-base/06-earth-observation-ai/geospatial-validation.md). Always record native resolution, resampling, label support, temporal aggregation, split axis and independent validation support.
+## 2. 再学 data pipeline
 
-## 7. Repository resources
+- [EO Data Stack](../../../01-knowledge-base/06-earth-observation-ai/eo-data-stack.md)
+- [Preprocessing / QA](../../../01-knowledge-base/06-earth-observation-ai/eo-preprocessing-quality.md)
+- [Remote-sensing Time Series](../../../01-knowledge-base/06-earth-observation-ai/remote-sensing-time-series.md)
 
-Use the [dataset library](../../../04-dataset-library/index.md), [paper library](../../../02-paper-library/index.md) and [benchmark library](../../../05-benchmarks-and-evaluation/index.md) for canonical records.
+## 3. 再学 inference / fusion
+
+- [Retrieval / Inverse](../../../01-knowledge-base/06-earth-observation-ai/retrieval-inversion.md)
+- [Multisensor Fusion](../../../01-knowledge-base/06-earth-observation-ai/multisensor-fusion.md)
+- [Super-resolution / Reconstruction](../../../01-knowledge-base/06-earth-observation-ai/super-resolution-reconstruction.md)
+
+## 4. Foundation route
+
+- [EO Foundation Models](../../../01-knowledge-base/06-earth-observation-ai/eo-foundation-models.md)
+- [Earth Foundation Models](../../../01-knowledge-base/09-earth-foundation-models/index.md)
+- [Geospatial Validation / OOD](../../../01-knowledge-base/06-earth-observation-ai/geospatial-validation.md)
+
+截至 2026-08-20 的重点接口：`Prithvi-EO-2.0`, `TerraMind`, `AlphaEarth Foundations`, `TESSERA`, `MaRS`。
+
+## 5. 最终应该能回答
+
+- sensor 真正测到什么？
+- product level / correction 做了什么？
+- resolution 与 support 是什么？
+- modality 为什么互补？
+- embedding 保留的是 semantic 还是 quantitative process information？
+- geography/time/sensor OOD 怎么验证？

@@ -1,105 +1,63 @@
-# 05 · Spatiotemporal, Multiscale and Multimodal AI
+# 05 · Spatiotemporal、Multiscale 与 Multimodal AI
 
-Earth and physical systems combine space, time, multiple variables, multiple sensors and multiple scales. This layer connects generic AI to those structures.
-
-## 1. Representation choices
-
-### Regular grid
-Efficient for CNN/U-Net and many vision-style models.
-
-### Sequence / patch tokens
-Useful for Transformer models, but token count can explode with high spatial resolution and long time series.
-
-### Graph / mesh
-Useful for irregular sampling, spherical geometry, stations and numerical meshes.
-
-### Point set / point cloud
-Useful for LiDAR, particles and sparse observations.
-
-### Spectral representation
-Useful for global/smooth fields and operator models, but local extremes and discontinuities require care.
-
-## 2. Temporal modeling
-
-Distinguish:
-
-- static regression;
-- sequence-to-one;
-- sequence-to-sequence;
-- autoregressive forecast;
-- continuous-time dynamics;
-- event-based prediction.
-
-A satellite acquisition sequence, a half-hourly EC time series and a six-hourly global weather rollout are different temporal problems.
-
-## 3. Multi-resolution data
-
-Common issue:
+Earth data 的复杂性来自四个维度同时存在：
 
 ```text
-high spatial / low temporal resolution sensor
-+ low spatial / high temporal resolution forcing
-+ sparse point/footprint observations
+space × time × variable/modality × scale
 ```
 
-Solutions include:
+## 1. 常见 representation
 
-- resampling with explicit uncertainty;
-- hierarchical encoders;
-- super-resolution/downscaling;
-- latent fusion;
-- cross-attention;
-- operator-based aggregation;
-- data assimilation.
+- raster/grid；
+- sphere；
+- graph/mesh；
+- point cloud；
+- station network；
+- patch/token；
+- spectral representation。
 
-Never assume that resampling creates new physical information.
+---
 
-## 4. Spatial support mismatch
+## 2. 时间问题
 
-A central Earth-system issue:
+- regular sequence；
+- irregular observation；
+- missing time step；
+- multi-rate sensor；
+- seasonal cycle；
+- event/extreme；
+- autoregressive forecast。
 
-```text
-prediction grid ≠ sensor footprint ≠ station support ≠ validation support
-```
+---
 
-Examples:
+## 3. Multiscale
 
-- EC tower footprint changes with turbulence/wind;
-- satellite pixel integrates area and point-spread effects;
-- weather station is local while model grid is areal;
-- radar/radiometer retrievals have instrument-specific footprints.
+必须区分：
+- sensor resolution；
+- process scale；
+- model grid；
+- observation support；
+- label scale；
+- validation scale。
 
-Support-aware observation operators are often more scientifically important than adding another backbone layer.
+---
 
-## 5. Geospatial inductive biases
+## 4. Multimodal
 
-Potential information:
+不同 modality 的差异不仅是 channels：
+- imaging physics 不同；
+- sampling time 不同；
+- uncertainty 不同；
+- missing pattern 不同；
+- resolution 不同。
 
-- latitude/longitude/projection;
-- elevation/topography;
-- solar geometry;
-- season/time-of-day;
-- land-cover/ecoregion;
-- neighborhood/flow connectivity;
-- spherical distance;
-- periodic longitude.
+因此 fusion 前先做 semantic/physical alignment。
 
-Use them only when the scientific task justifies them and check for location leakage.
+---
 
-## 6. Evaluation splits
+## 5. 页面
 
-At minimum report whether validation is blocked by:
-
-- site;
-- spatial region;
-- time;
-- event/extreme;
-- climate/biome regime;
-- sensor;
-- simulation parameter range.
-
-## 7. Priority applications
-
-- [Earth Observation AI](../06-earth-observation-ai/index.md)
-- [Carbon-cycle AI](../07-carbon-cycle-ai/index.md)
-- [Weather & Climate AI](../08-weather-climate-ai/index.md)
+- [Spatial Representations](spatial-representations.md)
+- [Temporal Modeling](temporal-modeling.md)
+- [Multiscale / Multimodal Fusion](multiscale-multimodal-fusion.md)
+- [Support-aware Learning](support-aware-learning.md)

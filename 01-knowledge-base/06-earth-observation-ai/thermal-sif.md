@@ -1,68 +1,79 @@
-# Thermal Infrared and Solar-induced Fluorescence
+# Thermal Infrared 与 Solar-induced Chlorophyll Fluorescence (SIF)
 
-## 1. Thermal infrared
+## 1. Thermal IR
 
-Thermal sensors observe emitted radiation related to surface temperature and emissivity.
+Observed thermal radiance 主要受：
+- surface temperature；
+- emissivity；
+- atmosphere；
+- view geometry。
 
-Retrieval is affected by:
-
-- atmospheric absorption/emission;
-- surface emissivity;
-- viewing geometry;
-- mixed pixels;
-- cloud contamination.
-
-Land-surface temperature can inform evapotranspiration, energy balance and heat/water stress, but it is not identical to air temperature or canopy temperature in every situation.
-
-## 2. Energy-balance connection
-
-A simplified surface-energy budget:
+简化：
 
 ```text
-Rn = H + LE + G + storage terms
+L_λ ≈ ε_λ B_λ(T_s) + atmospheric contribution
 ```
 
-where net radiation is partitioned among sensible heat, latent heat, ground heat and storage. Thermal observations can constrain parts of this system when combined with meteorology and surface properties.
+Land Surface Temperature (LST) 是 retrieval product，不是 sensor 直接“测温计式”的 measurement。
 
-## 3. Solar-induced chlorophyll fluorescence
+---
 
-SIF is a weak radiative signal emitted by chlorophyll after absorption of sunlight.
+## 2. Thermal 与 ecosystem
 
-It is related to photosynthetic processes but depends on multiple steps:
+可提供：
+- canopy/soil temperature；
+- evapotranspiration constraints；
+- water stress；
+- surface energy balance information。
+
+但空间尺度与 overpass time 很关键。
+
+---
+
+## 3. SIF
+
+SIF 是 chlorophyll 在吸收光能后释放的一部分 fluorescence signal。
+
+过程链：
 
 ```text
-incident light
-→ absorption by chlorophyll
-→ photochemical / non-photochemical / fluorescence pathways
-→ canopy escape / radiative transfer
-→ sensor observation
+incoming PAR
+→ absorbed PAR
+→ photochemistry + heat dissipation + fluorescence
+→ canopy radiative transfer
+→ top-of-canopy / satellite SIF
 ```
 
-Therefore SIF and GPP can be strongly related without being identical quantities.
-
-## 4. Scale and retrieval
-
-Satellite SIF products often have coarser native footprints than high-resolution optical imagery. Regridding does not create fine-scale independent SIF observations.
-
-## 5. AI uses
-
-- GPP estimation;
-- drought/heat response;
-- crop stress;
-- energy-water-carbon coupling;
-- data assimilation;
-- multimodal representation learning.
-
-## 6. Fusion
-
-A useful carbon stack can combine:
+因此：
 
 ```text
-reflectance → canopy state/phenology
-SIF         → photosynthesis-related radiative signal
-thermal     → surface energy/stress
-meteorology → environmental forcing
-LiDAR       → structure
+SIF ≠ GPP
 ```
 
-Each modality should retain its observation meaning and native support.
+但二者共享 photosynthetic energy partitioning 和 APAR 相关信息。
+
+---
+
+## 4. SIF + EC / GPP learning
+
+可用于：
+- GPP constraint；
+- transfer learning；
+- drought/heat response；
+- sub-daily photosynthesis diagnostics。
+
+2025 的 transfer-learning 工作展示了 combined SIF + EC information 用于 GPP estimation 的路线。
+
+---
+
+## 5. Failure modes
+
+- coarse SIF footprint 与 tower support mismatch；
+- cloud/quality filtering；
+- fluorescence yield 与 GPP relationship regime-dependent；
+- canopy structure / reabsorption；
+- seasonal correlation 被误当直接 causality。
+
+## Sources
+
+- Ma et al. (2025), *GPP estimation by transfer learning with combined solar-induced chlorophyll fluorescence and eddy covariance data*, Int. J. Applied Earth Observation and Geoinformation, DOI: 10.1016/j.jag.2025.104503.

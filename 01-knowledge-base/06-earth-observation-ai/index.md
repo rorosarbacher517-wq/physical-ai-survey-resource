@@ -1,130 +1,194 @@
 # 06 · Earth Observation / Remote Sensing AI
 
-Remote-sensing AI should start from **what the sensor measures**, then move through preprocessing, representation, fusion and model architecture.
-
-## Knowledge path
+Remote Sensing AI 的正确学习顺序不是“CNN → ViT → foundation model”，而是：
 
 ```text
-Observation physics
-→ sensor modality
-→ calibration / QC / retrieval
-→ spatial-spectral-temporal representation
-→ multisensor fusion
-→ task model / foundation model
-→ reconstruction/downscaling if needed
-→ scale-aware geospatial validation
+physical state
+→ electromagnetic / ranging interaction
+→ atmosphere / geometry / sensor response
+→ measured signal
+→ calibration / correction / retrieval / QA
+→ spatiotemporal representation
+→ AI model
+→ geophysical/ecological inference
+→ scale-aware / OOD validation
 ```
 
-## 1. Observation chain
+## 1. 五类核心 sensing modality
+
+| Modality | 主要 measurement | 关键 physics | 典型 AI representation |
+|---|---|---|---|
+| Optical / Hyperspectral | radiance / reflectance | absorption, scattering, atmosphere, BRDF | raster / spectral-spatial tokens |
+| SAR / Microwave | backscatter / brightness temperature | scattering, dielectric property, roughness, polarization | complex/real raster, multi-pol channels |
+| LiDAR | range / waveform / return | time-of-flight, geometry | point cloud / voxel / height raster |
+| Thermal IR | emitted radiance / temperature-related signal | Planck emission, emissivity, atmosphere | raster / temporal field |
+| SIF | weak fluorescence radiance | photosynthesis-linked fluorescence + canopy/atmosphere transfer | spectral retrieval / raster/time series |
+
+这些 modality **不能简单理解成多几个 channel**，因为 observation operator 不同。
+
+---
+
+## 2. 统一 observation chain
+
+### Optical
 
 ```text
-surface / atmosphere state
-→ electromagnetic interaction
-→ sensor response + geometry
-→ radiance / backscatter / waveform
-→ calibration / correction / retrieval
-→ ML-ready representation
-→ geophysical/ecological target
+solar irradiance
+→ atmosphere
+→ canopy/surface interaction
+→ atmosphere
+→ sensor spectral response
+→ radiance
+→ atmospheric correction
+→ surface reflectance
 ```
 
-Start with [Radiative transfer and observation physics](radiative-transfer-observation-physics.md).
-
-## 2. Modalities
-
-- [Optical and hyperspectral](optical-hyperspectral.md): radiance, reflectance, spectral response, atmosphere, BRDF.
-- [SAR and microwave](sar-microwave.md): scattering, polarization, geometry, moisture/structure sensitivity.
-- [LiDAR and 3D](lidar-3d.md): ranging, point clouds, canopy/terrain structure.
-- [Thermal and SIF](thermal-sif.md): emitted radiation, temperature/emissivity and fluorescence observations.
-
-These modalities measure different physical responses; they are not interchangeable image channels.
-
-## 3. Data quality and preprocessing
-
-See [EO preprocessing and quality control](eo-preprocessing-quality.md).
-
-For every dataset record track:
-
-1. native sensor resolution;
-2. projection/grid;
-3. resampling;
-4. temporal acquisition/composite interval;
-5. cloud/quality mask;
-6. spectral response;
-7. label/support resolution;
-8. validation scale.
-
-## 4. Temporal learning
-
-Satellite sequences are often irregular because of orbit, cloud and sensor availability.
-
-See [Remote-sensing time-series learning](remote-sensing-time-series.md).
-
-Typical representations include:
+### SAR
 
 ```text
-image sequence: [B,T,C,H,W]
-patch tokens:   [B,T,P,D]
-quality mask:   [B,T,H,W]
-metadata:       [B,T,G]
+transmitted microwave
+→ surface/volume scattering
+→ polarization + incidence geometry
+→ returned complex signal
+→ calibration / terrain correction
+→ backscatter representation
 ```
 
-## 5. Multisensor / multimodal fusion
-
-See [Multisensor fusion](multisensor-fusion.md).
-
-Important fusion questions:
-
-- are modalities aligned in space/time/support?
-- early, feature, cross-attention or late fusion?
-- how are missing modalities handled?
-- does one sensor dominate because of normalization/data density?
-- are modality gains tested with paired ablations?
-
-## 6. Core AI tasks and architectures
-
-See [EO models and tasks](eo-models-tasks.md).
-
-Tasks include classification, segmentation, detection, change detection, retrieval/regression, forecasting, reconstruction, downscaling and cross-modal generation.
-
-Architectures include CNN/U-Net, ViT/Swin-style encoders, temporal models, GNNs, self-supervised encoders and generative models.
-
-## 7. Reconstruction and resolution enhancement
-
-See [Super-resolution, downscaling and reconstruction](super-resolution-reconstruction.md).
-
-Always distinguish output pixel spacing from independently validated information scale.
-
-## 8. Foundation models
-
-See [EO foundation models](eo-foundation-models.md) and [Earth/scientific foundation models](../09-earth-foundation-models/index.md).
-
-Key design axes are modality, spectral flexibility, time, geolocation, spatial scale, pretraining objective and transfer protocol.
-
-## 9. Physics + AI opportunities
-
-- radiative-transfer-aware learning;
-- spectral-response-aware encoders;
-- cloud/atmospheric uncertainty;
-- BRDF/illumination normalization;
-- SAR scattering priors;
-- geometry-aware LiDAR fusion;
-- support-aware observation operators;
-- physically constrained temporal reconstruction.
-
-## 10. Validation
-
-See [Geospatial validation and OOD evaluation](geospatial-validation.md).
-
-A 10–30 m prediction is not automatically validated at 10–30 m. Explicitly record the support of ground truth and how it maps to model output.
-
-## 11. Priority downstream connections
+### LiDAR
 
 ```text
-EO sensing / representation
-├→ terrestrial carbon-cycle AI
-├→ weather/climate observation and downscaling
-├→ hydrology/agriculture/disaster mapping
-└→ Earth foundation models
+laser pulse
+→ target interaction
+→ return time / waveform
+→ range
+→ point cloud
+→ height/profile/structure
 ```
 
-Continue to [Carbon-cycle AI](../07-carbon-cycle-ai/index.md) and the [EO specialty track](../../06-case-studies/geoscience-remote-sensing/earth-observation/index.md).
+---
+
+## 3. Data stack
+
+Earth Observation learning system通常包含：
+
+```text
+Level-1 measurement
+→ Level-2 geophysical product / surface reflectance
+→ QA mask
+→ reprojection / resampling
+→ temporal alignment
+→ spatial crop / tile
+→ feature/label pairing
+→ train/val/test split
+```
+
+需要记录：sensor、product level、processing baseline/version、CRS、native resolution、revisit、quality flags。
+
+→ [EO Data Stack](eo-data-stack.md)
+
+---
+
+## 4. AI task map
+
+### Perception / mapping
+- classification；
+- semantic / instance segmentation；
+- object detection；
+- change detection。
+
+### Quantitative retrieval / regression
+- LAI / biomass / soil moisture；
+- LST；
+- atmospheric variables；
+- ecological variables。
+
+### Temporal tasks
+- gap filling；
+- reconstruction；
+- forecasting；
+- phenology/event detection。
+
+### Generative / foundation
+- masked reconstruction；
+- cross-modal generation；
+- representation learning；
+- geospatial embedding；
+- zero/few-shot / PEFT transfer。
+
+---
+
+## 5. Multisensor 的真正难点
+
+不是 concat，而是五种 mismatch：
+
+```text
+spatial resolution mismatch
+temporal acquisition mismatch
+observation-physics mismatch
+geometry mismatch
+uncertainty / missingness mismatch
+```
+
+例如 optical + SAR 可互补 cloud/weather，但 backscatter 与 reflectance 的物理含义完全不同；LiDAR 可能多年只飞一次，而 flux/meteorology 每 30 min–1 h 变化。
+
+---
+
+## 6. Foundation-model 转变
+
+截至 2026-08-20，需要区分两种接口：
+
+### Downloadable encoder / weights
+例如 `Prithvi-EO-2.0`, `TerraMind`, `MaRS`。
+
+### Ready-made embedding field / embedding-as-data
+例如 `AlphaEarth Foundations`, `TESSERA`。
+
+第二种情况下，使用者可能根本不运行 foundation encoder，而是直接读取全球 embedding product。
+
+---
+
+## 7. 当前重点页面
+
+- [Radiative Transfer / Observation Physics](radiative-transfer-observation-physics.md)
+- [EO Data Stack](eo-data-stack.md)
+- [Optical / Hyperspectral](optical-hyperspectral.md)
+- [SAR / Microwave](sar-microwave.md)
+- [LiDAR / 3D](lidar-3d.md)
+- [Thermal / SIF](thermal-sif.md)
+- [Preprocessing / QA](eo-preprocessing-quality.md)
+- [Remote-sensing Time Series](remote-sensing-time-series.md)
+- [Multisensor Fusion](multisensor-fusion.md)
+- [Retrieval / Inverse](retrieval-inversion.md)
+- [Super-resolution / Reconstruction](super-resolution-reconstruction.md)
+- [EO Tasks / Models](eo-models-tasks.md)
+- [EO Foundation Models](eo-foundation-models.md)
+- [Geospatial Validation / OOD](geospatial-validation.md)
+
+---
+
+## 8. 统一 evaluation checklist
+
+任何 EO claim 至少问：
+
+1. native sensor resolution？
+2. input product level？
+3. spatial/temporal resampling？
+4. cloud/QA/missingness？
+5. label 来源与 support？
+6. geographic split？
+7. temporal split？
+8. unseen sensor/region/biome？
+9. frozen / linear probe / PEFT / full fine-tune？
+10. output resolution 是否真的有同尺度 independent reference？
+
+---
+
+## 9. 当前 primary / official anchors
+
+- Prithvi-EO-2.0 official repo: https://github.com/NASA-IMPACT/Prithvi-EO-2.0
+- TerraMind, ICCV 2025: https://openaccess.thecvf.com/content/ICCV2025/html/Jakubik_TerraMind_Large-Scale_Generative_Multimodality_for_Earth_Observation_ICCV_2025_paper.html
+- AlphaEarth Foundations official: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/ <!-- manual-review: official source URL path -->
+- TESSERA project: https://geotessera.org/
+- PANGAEA benchmark: https://arxiv.org/abs/2412.04204
+
+最新版本和日期见 [2026 Snapshot](../13-2026-snapshot/index.md)。

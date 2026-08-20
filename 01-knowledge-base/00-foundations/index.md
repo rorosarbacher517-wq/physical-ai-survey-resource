@@ -1,114 +1,98 @@
-# 00 · Math, Physics and Numerical Foundations
+# 00 · 数学、物理与数值基础
 
-This layer supplies the language needed by every later module.
+这一层回答一个最基本的问题：**Scientific AI 里的 tensor、loss、PDE、solver、observation operator 到底在数学上是什么。**
 
-## 1. Mathematics
+如果这层不扎实，后面很容易出现两个问题：一是只会背模型；二是无法判断一个 physics constraint、forecast rollout 或 inverse problem 为什么有效/失效。
 
-### Linear algebra
-Vectors, matrices, tensors, basis changes, eigenvalues/eigenvectors, SVD, low-rank approximation, positive-definite matrices and quadratic forms.
-
-Scientific-AI relevance:
-
-- state vectors and covariance matrices;
-- spectral methods and Fourier bases;
-- PCA/EOF decomposition;
-- attention and tensor contractions;
-- reduced-order modeling.
-
-### Calculus
-Gradient, Jacobian, Hessian, chain rule, multivariable differentiation, automatic differentiation, vector calculus, divergence, gradient, curl and Laplacian.
-
-### Probability and statistics
-Conditional probability, likelihood, Bayes rule, Gaussian distributions, covariance, Monte Carlo, bias/variance, confidence intervals, hypothesis tests, calibration and probabilistic scores.
-
-### Optimization
-Gradient descent, momentum, Adam/AdamW, constrained optimization, Lagrange multipliers, multi-objective optimization and ill-conditioning.
-
-## 2. Dynamical systems
-
-Understand the difference between:
+## 1. 核心知识图
 
 ```text
-state x(t)
-→ dynamics dx/dt = f(x,t,θ)
-→ observations y = H(x) + ε
+Linear Algebra
+├─ vector / matrix / tensor
+├─ eigen / SVD / low rank
+└─ linear operator
+
+Probability / Statistics
+├─ random variable / distribution
+├─ likelihood / prior / posterior
+├─ covariance / correlation
+└─ uncertainty / calibration
+
+Optimization
+├─ gradient / Jacobian / Hessian
+├─ SGD / AdamW
+├─ constrained optimization
+└─ conditioning
+
+Dynamical Systems / PDE
+├─ state / tendency / forcing
+├─ ODE / PDE
+├─ conservation law
+└─ boundary / initial condition
+
+Numerical Methods
+├─ discretization
+├─ interpolation / integration
+├─ finite difference / volume / element / spectral
+└─ consistency / stability / convergence
+
+Scale / Support
+├─ spatial resolution
+├─ temporal resolution
+├─ observation support
+└─ validation support
 ```
 
-Key ideas:
+## 2. 为什么 Earth AI 特别需要这些基础
 
-- initial-value and boundary-value problems;
-- stability and attractors;
-- chaotic sensitivity;
-- state-space models;
-- linearization and Jacobians;
-- conservation and invariants.
+### Remote sensing
+一个 raster 可以写成 `X ∈ R^(C×H×W)`，但每个 channel 对应的物理意义、单位、空间响应和 noise model 不一样。
 
-## 3. ODE/PDE foundations
+### Weather
+大气状态不是 RGB image，而是多变量、多层、球面上的 field：
 
-Know what the equation expresses before learning a neural surrogate.
+```text
+X ∈ R^(C × L × H × W)
+```
 
-Common forms:
+其中 `L` 可能是 pressure/model levels。
 
-- advection;
-- diffusion;
-- advection-diffusion;
-- wave equations;
-- Navier-Stokes;
-- reaction-diffusion;
-- energy/water/carbon balance equations.
+### Carbon flux
+塔观测常见关系可写成：
 
-For each equation identify:
+```text
+NEE = RECO - GPP
+```
 
-1. state variables and units;
-2. spatial and temporal derivatives;
-3. parameters;
-4. forcing;
-5. initial/boundary conditions;
-6. conservation/invariants.
+但同时还需要 observation support：
 
-## 4. Numerical methods
+```text
+Y_t = Σ_i w_{i,t} F_{i,t} + ε_t
+```
 
-### Discretization
-Finite difference, finite volume, finite element, spectral methods and particle/mesh-free ideas.
+这里真正重要的是 `w_{i,t}` 表示什么，而不只是公式本身。
 
-### Numerical quality
-Consistency, stability, convergence, truncation error, CFL-like constraints, stiffness and error accumulation.
+## 3. 推荐学习顺序
 
-A learned model can have low test RMSE and still violate the numerical/physical structure needed for stable rollout.
+1. [Linear Algebra / Probability / Optimization](linear-algebra-probability-optimization.md)
+2. [Dynamical Systems / ODE / PDE](dynamical-systems-pde.md)
+3. [Numerical Methods](numerical-methods.md)
+4. [Dimensional Analysis / Scale / Support](dimensional-analysis-scale-support.md)
 
-## 5. Spatial geometry
+## 4. 学完后应该能回答
 
-Earth and physical systems are not always flat regular images.
+- 为什么 matrix 可以表示 derivative、interpolation 或 observation operator？
+- covariance 为什么是 Data Assimilation 的核心？
+- PDE residual 小是否等于解一定正确？
+- discretization error 与 model error 有什么区别？
+- 30 m output resolution 与 30 m validation support 为什么不是同一件事？
+- 为什么 autoregressive rollout 会累积误差？
 
-Know:
+## 5. Sources
 
-- Cartesian versus spherical coordinates;
-- latitude-longitude distortion;
-- map projections;
-- grids, meshes, graphs and point clouds;
-- neighborhood and adjacency;
-- interpolation/resampling;
-- spatial autocorrelation.
+- Gilbert Strang, *Linear Algebra and Learning from Data*.
+- Steven L. Brunton & J. Nathan Kutz, *Data-Driven Science and Engineering*.
+- Randall J. LeVeque, *Finite Volume Methods for Hyperbolic Problems*.
+- Goodfellow, Bengio & Courville, *Deep Learning*: https://www.deeplearningbook.org/
 
-## 6. Units, scale and support
-
-Three different concepts must not be mixed:
-
-- **resolution**: nominal grid/pixel spacing;
-- **support**: area/time interval physically represented by an observation;
-- **accuracy/validation scale**: scale at which predictions are actually verified.
-
-This distinction is critical for remote sensing, EC carbon flux and weather verification.
-
-## 7. Minimum pass standard
-
-You should be able to:
-
-- derive gradient/divergence/Laplacian meanings;
-- explain why numerical stability matters in autoregressive ML;
-- distinguish state, forcing, parameter and observation;
-- explain grid/mesh/graph differences;
-- inspect units and dimensions for an equation;
-- identify whether a model predicts a field, scalar, trajectory or operator.
-
-Next: [01 ML/DL & Scientific Computing](../01-ml-dl-scientific-computing/index.md).
+这些来源用于稳定基础；Earth-domain 具体观测物理在各专题页引用对应 primary sources。
