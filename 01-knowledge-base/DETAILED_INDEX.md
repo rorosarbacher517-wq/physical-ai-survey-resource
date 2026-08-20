@@ -130,7 +130,8 @@
 - [Evaluation / Safety / Deployment](12-cross-domain-physical-ai/embodied-robotics/10-evaluation-safety.md)
 
 ## XII. Current Knowledge
-- [2026-08-20 Fast-moving Snapshot](13-2026-snapshot/index.md)
+- [2026-08-20 Earth / Scientific AI Snapshot](13-2026-snapshot/index.md)
+- [2026-08-20 Embodied / Robotics Snapshot](13-2026-snapshot/embodied-robotics.md)
 - [Audit & Update Policy](../AUDIT_AND_UPDATE_POLICY.md)
 
 ---

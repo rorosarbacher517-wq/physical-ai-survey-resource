@@ -59,7 +59,9 @@ nav:
       - Safety / Evaluation: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/10-evaluation-safety.md
   - Data / HPC / Evaluation: 01-knowledge-base/11-data-hpc-evaluation/index.md
   - Cross-domain Physical AI: 01-knowledge-base/12-cross-domain-physical-ai/index.md
-  - 2026-08-20 Snapshot: 01-knowledge-base/13-2026-snapshot/index.md
+  - 2026-08-20 Snapshot:
+      - Earth / Scientific AI: 01-knowledge-base/13-2026-snapshot/index.md
+      - Embodied / Robotics: 01-knowledge-base/13-2026-snapshot/embodied-robotics.md
   - Evidence Layer:
       - Papers: 02-paper-library/index.md
       - Code: 03-code-library/index.md
