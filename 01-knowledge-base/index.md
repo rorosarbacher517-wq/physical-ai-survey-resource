@@ -2,6 +2,8 @@
 
 > Goal: build a **bottom-up knowledge dependency graph**, not a flat list of papers or model names.
 
+**Fine-grained navigation:** [Detailed Knowledge Index](DETAILED_INDEX.md) contains the full second-level topic map beneath the 00–13 modules.
+
 ## Knowledge map
 
 ```text
