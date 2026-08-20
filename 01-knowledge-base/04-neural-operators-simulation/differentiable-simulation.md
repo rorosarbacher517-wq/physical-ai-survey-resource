@@ -1,48 +1,62 @@
 # Differentiable Simulation
 
-## 1. Definition
+## 1. 基本思想
 
-A simulator is differentiable when gradients of outputs/objectives can be computed with respect to parameters, controls or inputs.
+如果 simulator `S` 可微：
 
 ```text
-θ → simulator S(θ) → y → loss L(y)
-               ↑ gradient flows backward
+x = S(θ)
+L = L(x,y)
+∂L/∂θ = ∂L/∂x · ∂S/∂θ
 ```
 
-## 2. Uses
+可直接做 gradient-based inverse / control / optimization。
 
-- inverse parameter estimation;
-- system identification;
-- control/trajectory optimization;
-- learned closure training;
-- sensor/design optimization;
-- end-to-end hybrid modeling.
+---
 
-## 3. Differentiation strategies
+## 2. Autodiff vs adjoint
 
-- automatic differentiation through solver operations;
-- adjoint methods;
-- implicit differentiation;
-- differentiable surrogate when the original solver is not differentiable/practical.
+### Automatic differentiation
+记录 computation graph，直接反传。
 
-## 4. Memory challenge
+### Adjoint method
+对长时间 dynamics 更节省 memory 的经典 sensitivity 方法之一。
 
-Backpropagating through many time steps can require storing a large trajectory. Checkpointing, recomputation or adjoint methods trade compute for memory.
+实际系统可能组合 checkpointing、custom VJP/JVP、adjoint。
 
-## 5. Numerical gradient quality
+---
 
-A gradient can be mathematically produced but still be noisy/unstable because of discontinuities, iterative solver tolerances, chaos or ill-conditioning.
+## 3. 用途
 
-Validate gradients when they drive scientific inference.
+- inverse parameter estimation；
+- PDE-constrained optimization；
+- optimal control；
+- learned closure；
+- differentiable rendering / radiative model；
+- hybrid weather/climate models。
 
-## 6. Discrete versus continuous gradient
+---
 
-Differentiating the discretized solver is not always identical to deriving a continuous adjoint then discretizing it. The distinction matters in precise inverse/control applications.
+## 4. 难点
 
-## 7. Hybrid learning
+- chaotic system gradient 爆炸/失真；
+- long rollout memory；
+- discontinuous/non-differentiable operators；
+- solver tolerance；
+- implicit solve；
+- gradient correctness。
 
-A neural component can be optimized by downstream physical loss through the simulator, enabling learning without direct labels for the component output.
+---
 
-## 8. Evaluation
+## 5. 验证 gradient
 
-Check forward accuracy, gradient accuracy/sensitivity, optimization convergence, robustness to solver settings and computational overhead.
+不要只相信 autograd。可用：
+- finite-difference check；
+- manufactured solution；
+- analytic gradient on toy problem；
+- sensitivity sanity check。
+
+## Earth example
+
+`NeuralGCM` 展示了 differentiable dynamical core 与 learned components 组合用于 weather/climate 的代表路线：
+https://www.nature.com/articles/s41586-024-07744-y

@@ -1,101 +1,78 @@
-# 04 · Neural Operators, Surrogates and Differentiable Simulation
+# 04 · Neural Operators、Surrogates 与 Differentiable Simulation
 
-A standard neural network often learns a mapping between fixed-dimensional tensors. **Operator learning** aims to learn mappings between functions/fields, which is central to repeated PDE and Earth-system prediction.
-
-## 1. Problem view
+如果任务不是“给一个 coordinate 求一个 solution value”，而是 repeatedly 学习：
 
 ```text
-input field / forcing / parameters a(x)
-        ↓
-operator G
-        ↓
-solution field u(x)
+input field/function → output field/function
 ```
 
-Examples:
+Neural Operator 往往比 pointwise PINN 更自然。
 
-- initial atmospheric state → future state;
-- boundary/forcing field → fluid solution;
-- material properties → stress/temperature field;
-- environmental drivers → flux field.
+## 1. Operator learning
 
-## 2. Major approaches
+传统 neural network：
+
+```text
+R^n → R^m
+```
+
+Neural Operator 试图学习：
+
+```text
+G: function space → function space
+```
+
+例如：
+
+```text
+initial condition field
+→ future PDE solution field
+```
+
+---
+
+## 2. 代表方法
 
 ### DeepONet
-Represents an operator through branch/trunk networks that encode input functions and query locations.
+用 branch net 表示 input function，用 trunk net 表示 query location。
 
-### Fourier Neural Operator (FNO)
-Learns global interactions in Fourier space through spectral convolution/operator layers.
+### FNO
+在 Fourier space 学 global convolution/operator mapping。
 
-Important questions:
+### Graph / Mesh Operator
+在 irregular mesh 上做 message passing/operator approximation。
 
-- how modes are truncated;
-- grid/resolution dependence;
-- periodic/spherical/irregular geometry;
-- local high-frequency information;
-- rollout stability.
+---
 
-### Graph / mesh neural operators
-Useful for irregular meshes, spherical grids and changing geometry.
+## 3. 与 surrogate 的关系
 
-### Local/global operator mixtures
-Combine local convolutions with long-range spectral/attention interactions.
+Neural Operator 是 surrogate modeling 的一个重要分支，但 surrogate 不一定是 operator。一个 MLP 也可以做 parameter-to-scalar surrogate。
 
-## 3. Surrogate modeling
+---
 
-A surrogate replaces an expensive simulator for repeated inference, optimization, uncertainty analysis or ensemble generation.
+## 4. Differentiable Simulation
 
-A good surrogate should report more than speedup:
-
-- domain of validity;
-- parameter ranges;
-- conservation/physical error;
-- extrapolation behavior;
-- uncertainty;
-- inference cost versus original solver.
-
-## 4. Hybrid numerical + ML
-
-Common patterns:
+如果 solver 可微：
 
 ```text
-numerical core + learned closure
-numerical core + learned parameterization
-physics model + learned residual correction
-learned surrogate inside optimization/DA
-ML forecast + physical post-processing
+θ → simulator → output → loss
 ```
 
-This is often more robust than replacing the entire simulator.
+gradient 可直接穿过 simulation，用于：
+- parameter estimation；
+- control；
+- inverse design；
+- learned parameterization。
 
-## 5. Differentiable simulation
+---
 
-If a simulation/observation operator is differentiable, gradients can flow through it for:
+## 5. 页面
 
-- parameter estimation;
-- control;
-- inverse problems;
-- learning closures;
-- end-to-end calibration.
+- [Neural Operator Family](neural-operator-family.md)
+- [Surrogates / Hybrid Solvers](surrogates-hybrid-solvers.md)
+- [Differentiable Simulation](differentiable-simulation.md)
 
-Automatic differentiation does not guarantee numerically stable or physically meaningful gradients; solver conditioning still matters.
+## Primary sources
 
-## 6. Rollout failure
-
-Autoregressive field prediction can accumulate error:
-
-```text
-x_t → model → x_{t+1}
-             ↓
-          reused input
-             ↓
-          distribution drift
-```
-
-Evaluate long-horizon stability, spectra, conservation and extreme events, not just one-step error.
-
-## 7. Read next
-
-- [Spatiotemporal & Multiscale AI](../05-spatiotemporal-multiscale-ai/index.md)
-- [Data Assimilation / Inverse / UQ](../10-data-assimilation-inverse-uq/index.md)
-- [Weather & Climate AI](../08-weather-climate-ai/index.md)
+- Lu et al., DeepONet: https://arxiv.org/abs/1910.03193
+- Li et al., Fourier Neural Operator: https://arxiv.org/abs/2010.08895

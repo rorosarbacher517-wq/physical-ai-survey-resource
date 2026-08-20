@@ -1,66 +1,82 @@
-# Neural-operator Family
+# Neural Operator Family
 
-## 1. Operator-learning target
+## 1. DeepONet
 
-Instead of one fixed vector mapping, learn a mapping between functions/fields:
-
-`G: a(x) → u(x)`
-
-The same learned operator should handle many input functions/initial conditions within its training domain.
-
-## 2. DeepONet
-
-Conceptual form:
+输入 function `u` 通过 branch net 编码；query coordinate `y` 通过 trunk net 编码：
 
 ```text
-branch network: samples of input function a
-trunk network: query coordinate x
-→ combine
-→ u(x)
+G(u)(y) ≈ Σ_k b_k(u) t_k(y)
 ```
 
-Useful mental model: one network encodes the input function, another encodes where the solution is queried.
+适合 parameterized PDE/operator learning。
 
-Primary: Lu et al., *Nature Machine Intelligence* (2021): https://doi.org/10.1038/s42256-021-00302-5
+---
 
-## 3. Fourier Neural Operator
+## 2. Fourier Neural Operator (FNO)
 
-FNO alternates pointwise transforms with learned spectral convolution.
-
-Conceptual layer:
+核心 layer 可概括为：
 
 ```text
-x-space field
-→ FFT
-→ learned transform on selected modes
-→ inverse FFT
-→ nonlinear mixing
+v_{l+1}(x)=σ(Wv_l(x)+F^{-1}(R·F(v_l))(x))
 ```
 
-Global receptive field is efficient on regular grids, while high-frequency/local details and non-periodic/irregular geometry need care.
+`R` 学习 selected Fourier modes。
 
-Primary: Li et al. (2021): https://arxiv.org/abs/2010.08895
+优势：
+- global receptive field；
+- grid field 高效；
+- 可做 resolution transfer（但需实际验证）。
 
-## 4. Graph/mesh operators
+---
 
-Represent the domain as nodes/edges and learn field propagation on irregular geometry. Useful for spherical weather grids and finite-element meshes.
+## 3. Graph / Mesh Operator
 
-## 5. Resolution transfer
+适合：
+- unstructured mesh；
+- adaptive geometry；
+- sphere/icosahedral graph；
+- irregular domains。
 
-Operator learning is often motivated by resolution flexibility, but practical performance can still depend on discretization, training resolution, coordinate encoding and spectral truncation.
+---
 
-Always test cross-resolution behavior rather than assuming invariance.
+## 4. Resolution transfer 要谨慎
 
-## 6. One-step versus rollout
+“operator 可以跨 resolution”不意味着：
+- 任意 resolution 都同样准确；
+- high-frequency detail 自动恢复；
+- discretization change 没影响。
 
-A learned operator may map current state to future state repeatedly. Multi-step errors accumulate, so stability and spectral behavior matter.
+必须测试：
+- train grid vs test grid；
+- interpolation method；
+- spectral truncation；
+- conservation；
+- boundary behavior。
 
-## 7. Comparison axes
+---
 
-- regular vs irregular geometry;
-- local vs global interaction;
-- spectral vs spatial computation;
-- fixed vs variable resolution;
-- deterministic vs probabilistic;
-- one-shot field solution vs temporal rollout;
-- physics-constrained vs purely data-driven.
+## 5. Shape 示例
+
+```text
+input field:  [B,C_in,H,W]
+latent:       [B,D,H,W]
+output field: [B,C_out,H,W]
+```
+
+3D/atmosphere 可扩展到：
+
+```text
+[B,C,L,H,W]
+```
+
+---
+
+## 6. 与 weather AI 的关系
+
+`FourCastNet` 使用 spectral/operator-inspired computation，是 operator route 在 global weather 中的重要代表之一；但实际 weather system 还涉及 initial state、rollout、probabilistic uncertainty 与 verification。
+
+## Sources
+
+- DeepONet: https://arxiv.org/abs/1910.03193
+- FNO: https://arxiv.org/abs/2010.08895
+- FourCastNet: https://arxiv.org/abs/2202.11214

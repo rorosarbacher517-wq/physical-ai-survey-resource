@@ -1,63 +1,73 @@
 # Inverse Problems
 
-## 1. Forward model
+## 1. Forward vs Inverse
 
-`y = H(x, θ) + ε`
+Forward：
 
-Given state/parameters, predict observations.
+```text
+x → H(x) → y
+```
 
-## 2. Inverse problem
+Inverse：
 
-Given observations `y`, infer hidden state `x` or parameters `θ`.
+```text
+y → infer x
+```
 
-Examples:
+例如：
+- radiance → atmospheric profile；
+- waveform → canopy structure；
+- flux observation → ecosystem parameter；
+- scattering observation → soil moisture/structure。
 
-- atmospheric state from radiances;
-- soil moisture from microwave signals;
-- ecosystem parameters from flux observations;
-- material properties from response fields;
-- source/emission estimation.
+---
 
-## 3. Ill-posedness
+## 2. Ill-posedness
 
-An inverse problem can be:
+Inverse problem 可能：
+- 无解；
+- 多解；
+- 对 noise 极敏感。
 
-- non-unique;
-- noise-sensitive;
-- underdetermined;
-- poorly conditioned.
+因此需要 prior / regularization。
 
-A neural network can hide these issues but does not remove them.
+### Regularized objective
 
-## 4. Regularization
+```text
+x* = argmin_x ||H(x)-y||² + λR(x)
+```
 
-Add prior structure:
+---
 
-- smoothness;
-- sparsity;
-- physical bounds;
-- Bayesian prior;
-- governing equation;
-- learned prior/generative model.
+## 3. Bayesian inverse
 
-## 5. Bayesian view
+```text
+posterior ∝ likelihood × prior
+```
 
-`p(x|y) ∝ p(y|x) p(x)`
+它不只给 point estimate，还可给 uncertainty。
 
-A posterior distribution is more informative than one point estimate when multiple solutions are plausible.
+---
 
-## 6. Amortized inference
+## 4. Amortized inference
 
-Train a network to map many observations to approximate posterior/state estimates quickly. This shifts expensive optimization into training.
+训练 neural network：
 
-## 7. Physics-informed inverse learning
+```text
+y → q_θ(x|y)
+```
 
-Use PDE/process residuals or differentiable simulators to constrain latent parameters while fitting observations.
+一次训练后可快速处理大量 observations，但 distribution shift 时可能失效。
 
-## 8. Identifiability
+---
 
-A low reconstruction error `||H(x)-y||` does not guarantee the inferred parameter/state is physically correct if different solutions produce similar observations.
+## 5. Identifiability
 
-## 9. Validation
+如果多个 `x` 产生相似 `H(x)`，单纯提高 network capacity 不能解决不可辨识问题。
 
-Use synthetic recovery when possible, independent observations, parameter sensitivity and posterior coverage/calibration.
+需要：
+- additional modality；
+- stronger prior；
+- temporal information；
+- experimental design；
+- uncertainty reporting。

@@ -1,52 +1,70 @@
 # Spatial Representations
 
-## 1. Raster/grid
+## 1. Regular raster
 
-Tensor `[B,C,H,W]` or `[B,T,C,H,W]`.
+```text
+X [B,C,H,W]
+```
 
-Natural for satellite imagery and latitude-longitude fields. CNNs are efficient, but Earth geometry and varying cell area require care.
+适合 EO、regional weather、land-surface fields。
 
-## 2. Spherical grid
+优点：卷积/FFT/GPU 高效。
 
-Global data have periodic longitude and polar distortion. Options include spherical harmonics, mesh grids, cubed-sphere/icosahedral representations and geometry-aware positional encoding.
+---
 
-## 3. Graph/mesh
+## 2. Latitude–longitude grid
 
-`nodes [N,D]`, edges encode adjacency/geometry.
+global Earth 常用，但存在：
+- pole distortion；
+- cell area 随 latitude 变化；
+- longitude periodicity。
 
-Useful for irregular numerical meshes, station networks, river networks and global spherical graphs.
+metric 计算时常需要 area weighting。
 
-## 4. Point set
+---
 
-LiDAR or particle data:
+## 3. Sphere / mesh
 
-`[B,N,C]`
+例如 icosahedral/multiresolution mesh，可减弱 lat-lon distortion，并支持 graph message passing。
 
-Order should not change the physical meaning. PointNet-style pooling, local neighborhoods or sparse voxelization can be used.
+`GraphCast` 是重要示例。
 
-## 5. Patch/token
+---
 
-Split a large field/image into patches and map each to an embedding.
+## 4. Point cloud
 
-Token count scales with area/resolution. High-resolution global data require hierarchical/sparse/token-compression strategies.
+```text
+P [B,N,D]
+```
 
-## 6. Spectral representation
+LiDAR 中 `D` 可含：
+- xyz；
+- intensity；
+- return number；
+- classification；
+- waveform-derived attributes。
 
-Fourier/spherical-harmonic modes describe large-scale smooth structure compactly. High-frequency local extremes may require spatial/local pathways.
+---
 
-## 7. Coordinate encoding
+## 5. Station network
 
-Potential coordinates:
+station 不规则分布，且 sampling density spatially biased。
 
-- x/y/z;
-- lat/lon;
-- elevation;
-- pressure level;
-- time;
-- sensor geometry.
+可用：
+- graph；
+- set encoder；
+- cross-attention；
+- interpolation + grid model。
 
-Coordinate features help geometry but can leak location identity.
+---
 
-## 8. Representation choice
+## 6. Patch/token
 
-Choose based on topology, resolution, periodicity, local/global interactions, invariance and computational budget.
+ViT 将 raster 切成 patch：
+
+```text
+[B,C,H,W]
+→ [B,N,D]
+```
+
+patch size 越大，token 越少、compute 越低，但 small-scale detail 可能损失。

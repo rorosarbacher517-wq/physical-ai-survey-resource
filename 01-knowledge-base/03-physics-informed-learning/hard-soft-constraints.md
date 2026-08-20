@@ -1,53 +1,83 @@
-# Hard and Soft Physical Constraints
+# Hard Constraints 与 Soft Constraints
 
 ## 1. Soft constraint
 
-Add a penalty:
-
-`L = L_data + λ L_physics`
-
-Pros: flexible under noisy/imperfect physics. Cons: constraint can be violated and λ selection matters.
-
-## 2. Hard constraint by parameterization
-
-Construct output so the constraint is satisfied automatically.
-
-Example for a boundary value `u(a)=u_a`:
+把 physics violation 放进 loss：
 
 ```text
-u(x) = u_a + (x-a) N_θ(x)
+L = L_data + λ L_physics
 ```
 
-At `x=a`, the network contribution vanishes.
+优点：实现简单、允许 noisy/inexact physics。
+
+缺点：
+- constraint 不保证严格满足；
+- λ 很敏感；
+- gradient 冲突。
+
+---
+
+## 2. Hard parameterization
+
+通过 output construction 直接保证 constraint。
+
+例如 positivity：
+
+```text
+y = softplus(z)
+```
+
+boundary condition 也可通过特定 parameterization 强制满足。
+
+---
 
 ## 3. Projection
 
-Predict an unconstrained field, then project to a constraint-satisfying space.
+先预测 unconstrained state：
 
-Useful for divergence-free, normalization or conservation constraints when an efficient projection exists.
+```text
+x_raw = f_θ(z)
+```
 
-## 4. Conservation layer
+再投影到可行集合：
 
-Represent transfer as fluxes between cells/nodes so internal transfers cancel, preserving totals except explicit sources/sinks/boundaries.
+```text
+x = P_C(x_raw)
+```
 
-## 5. Positivity
+适用于某些 conservation / geometry constraints。
 
-Use positive-valued output parameterizations when the variable is physically nonnegative.
+---
 
-## 6. Choosing constraint strength
+## 4. Constraint layer / conservative formulation
 
-Ask:
+让网络输出 flux 而非直接输出 state，再通过 divergence/update 构造 conserved field，是更结构化的方法。
 
-- Is the relation exact or approximate?
-- Are parameters known?
-- Does observation noise conflict with it?
-- Does it hold across all regimes?
-- Will strict enforcement amplify another modeling error?
+---
 
-## 7. Hybrid strategy
+## 5. 什么时候不要 hard constraint
 
-Hard-enforce robust identities/bounds while softly regularizing uncertain process relationships.
+如果关系：
+- 只是 approximate；
+- target 有 measurement bias；
+- process model 有结构误差；
+- regime-dependent；
 
-## 8. Ablation
+hard constraint 可能把模型强行压到错误 manifold。
 
-A physics constraint should be tested against the same model without it, under identical splits/training budget, and evaluated both predictively and physically.
+---
+
+## 6. Carbon 示例
+
+如果 dataset convention 是：
+
+```text
+NEE = RECO - GPP
+```
+
+可以：
+- soft balance loss；
+- 只预测 GPP/RECO，再计算 NEE；
+- 预测三者后 projection。
+
+三种方法的 flexibility 与 consistency 不同。

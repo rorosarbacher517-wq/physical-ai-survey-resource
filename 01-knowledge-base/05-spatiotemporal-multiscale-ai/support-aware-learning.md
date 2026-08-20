@@ -1,47 +1,70 @@
 # Support-aware Learning
 
-## 1. The support problem
+## 1. 核心问题
 
-Supervised learning assumes input and target describe compatible phenomena. In Earth systems, their spatial/temporal supports often differ.
+很多 Scientific AI label 不是 point value，而是某个 support 上的 aggregation：
 
 ```text
-latent fine field F(x,t)
+latent field F(x,t)
 → observation operator H_t
 → observed target y_t
 ```
 
-Instead of forcing `F` to equal `y` at one arbitrary pixel, compare `H_t(F)` with `y_t`.
+---
 
-## 2. Weighted aggregation
+## 2. 离散形式
 
-Discrete operator:
+```text
+ŷ_t = Σ_i w_{i,t} F̂_{i,t}
+```
 
-`ŷ_t = Σ_i w_{i,t} F_{i,t}`
+要求：
 
-Dynamic `w` can represent a moving footprint; fixed weights can represent static sensor response.
+```text
+w_i ≥ 0
+Σ_i w_i = 1
+```
 
-## 3. Point-to-area mismatch
+是否需要满足这两个条件取决于实际 operator definition，但 normalized spatial weights 常见。
 
-A station coordinate does not imply the measurement represents an infinitesimal point. Instrument exposure, atmospheric transport and aggregation determine support.
+---
 
-## 4. Area-to-area mismatch
+## 3. Input aggregation vs Output aggregation
 
-Satellite products at different resolutions may represent different native point-spread functions and retrieval assumptions. Regridding to identical cell size does not guarantee identical support.
+### Input-side
 
-## 5. Time-support mismatch
+```text
+pixels → weighted predictors → model → y
+```
 
-Daily predictor, instantaneous overpass and half-hour target can be aligned only with explicit assumptions about persistence/interpolation.
+### Output-side
 
-## 6. Learning designs
+```text
+pixels → field model → weighted outputs → y
+```
 
-- aggregate predictors to observation support before model;
-- predict fine field then aggregate outputs with `H`;
-- latent disaggregation with class fractions;
-- operator-aware loss;
-- probabilistic support uncertainty.
+后者保留 latent spatial field，更接近 observation mapping。
 
-Each design answers a different scientific question.
+---
 
-## 7. Validation
+## 4. Nonlinear transformation
 
-Evaluate at the support actually observed, while separately labeling any finer-resolution output as model resolution rather than independently verified resolution.
+一般：
+
+```text
+Σ_i w_i g(x_i) ≠ g(Σ_i w_i x_i)
+```
+
+因此“先算 NDVI 再 footprint-weight”和“先 weight bands 再算 NDVI”含义不同。
+
+---
+
+## 5. Validation
+
+如果 supervision 是 coarse/area support，就不能仅凭 model latent output grid 声称 fine-scale field 已被独立验证。
+
+这条原则同时适用于：
+- EC footprint；
+- coarse satellite product；
+- station/grid matching；
+- polygon labels。

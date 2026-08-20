@@ -1,63 +1,79 @@
 # Data Assimilation
 
-## 1. State-estimation problem
+## 1. 目标
 
-At time `t`:
+给定 background/forecast 与 observations，得到更合理的 state estimate：
 
 ```text
-background/model forecast xb
-observations y
-observation operator H
-error models
-→ analysis xa
+forecast/background x_b
++ observations y
++ error statistics
+→ analysis x_a
 ```
 
-Then the model advances the analysis to the next cycle.
+---
 
-## 2. Kalman-filter idea
+## 2. Variational DA
 
-For linear-Gaussian systems, update background using an innovation:
+典型 3D/4D-Var objective：
 
-`innovation = y - H xb`
+```text
+J(x)=1/2(x-x_b)^T B^{-1}(x-x_b)
+    +1/2(y-H(x))^T R^{-1}(y-H(x))
+```
 
-weighted by uncertainty/covariance.
+- `B`：background-error covariance；
+- `R`：observation-error covariance；
+- `H`：observation operator。
 
-## 3. Extended/ensemble methods
+4D-Var 进一步通过 forecast model 连接时间窗口。
 
-Nonlinear/high-dimensional systems require approximations such as extended, ensemble or variational methods.
+---
 
-## 4. EnKF intuition
+## 3. Kalman / Ensemble route
 
-An ensemble approximates state uncertainty and cross-variable covariance. Observations update variables that co-vary with the observed quantity.
+线性 Gaussian 情况 Kalman Filter 给出递推 posterior。
 
-## 5. Variational DA
+Ensemble Kalman Filter 用 ensemble sample 近似 covariance。
 
-Optimize a cost function over state/trajectory using background and observation misfits, often requiring model/adjoint gradients.
+核心直觉：
 
-## 6. ML integration
+> observation 只在观测位置出现，但 covariance 决定它如何更新其他位置和变量。
 
-- surrogate forecast model;
-- observation operator emulator;
-- learned covariance/localization;
-- learned correction;
-- neural analysis map;
-- differentiable DA;
-- generative state posterior.
+---
 
-## 7. Sparse Earth observations
+## 4. ML 在 DA 中的角色
 
-DA naturally handles observation-space mismatch when `H` and errors are explicit. This connects weather radiances, EC tower footprints and satellite retrievals under one mathematical framework.
+- learned observation operator；
+- learned covariance；
+- learned analysis update；
+- neural state estimator；
+- end-to-end observation-to-forecast；
+- surrogate forecast model；
+- bias correction。
 
-## 8. Cycle stability
+---
 
-A model that produces a good one-time analysis can still drift over repeated assimilation/forecast cycles. Evaluate cycling behavior.
+## 5. Weather 里的关键区别
 
-## 9. Diagnostics
+很多 AI weather models 仍依赖 NWP analysis/reanalysis 初始化；这不等于“从 raw observations 端到端预测”。
 
-- innovation statistics;
-- analysis increment;
-- forecast impact;
-- observation-space residual;
-- ensemble spread;
-- balance/conservation;
-- computational latency.
+`Aardvark Weather` 与 `FuXi Weather` 之所以重要，是因为它们把 observation/data-to-state/data-to-forecast 链条纳入 ML system。
+
+---
+
+## 6. Evaluation
+
+DA 不能只看 analysis RMSE；还要看：
+- forecast impact；
+- observation-space residual；
+- bias；
+- calibration；
+- sparse-region performance；
+- robustness to missing sensors。
+
+## Sources
+
+- Evensen, *The Ensemble Kalman Filter*.
+- ECMWF DA overview/workshop materials: https://www.ecmwf.int/en/newsletter/184/news/data-assimilation-workshop-probes-traditional-and-machine-learning-methods
+- Aardvark Weather: https://www.nature.com/articles/s41586-025-08897-0

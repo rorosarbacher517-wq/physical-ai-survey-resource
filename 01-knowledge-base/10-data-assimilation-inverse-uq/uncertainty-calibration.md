@@ -1,60 +1,79 @@
-# Uncertainty and Calibration
+# Uncertainty Quantification 与 Calibration
 
-## 1. Sources of uncertainty
+## 1. 不确定性来源
 
 ### Aleatoric
-Noise/irreducible variability in observations/processes.
+observation/process intrinsic variability。
 
 ### Epistemic
-Uncertainty from limited data/model knowledge.
+model/parameter knowledge 不足。
 
 ### Structural
-Wrong/incomplete equations, architecture or observation operator.
+model form 错误或遗漏 process。
 
-### Parameter
-Uncertain physical/model parameters.
+### Observation / Retrieval
+sensor noise、retrieval assumptions、partitioning uncertainty。
 
-### Support/representativeness
-Mismatch between observation and model scale/location.
+### Support / Scale
+不同 spatial-temporal support 引入 representativeness uncertainty。
 
-## 2. Predictive distributions
+---
 
-A model can output:
+## 2. Predictive distribution
 
-- mean + variance;
-- quantiles;
-- mixture distribution;
-- ensemble members;
-- samples from diffusion/generative model.
+不要只输出：
 
-## 3. Proper scoring
+```text
+ŷ
+```
 
-Probabilistic models should be evaluated with scores that reward both calibration and sharpness, e.g. NLL/CRPS/Brier where appropriate.
+也可输出：
 
-## 4. Coverage
+```text
+p(y|x)
+```
 
-For a nominal 90% predictive interval, empirical coverage should be near 90% under the evaluated distribution.
+或 ensemble：
 
-Coverage alone is insufficient if intervals are extremely wide.
+```text
+y^(1),...,y^(M)
+```
 
-## 5. Deep ensembles
+---
 
-Train multiple independently initialized models. Effective practical baseline for epistemic variation, but compute-heavy and not a full Bayesian posterior.
+## 3. Calibration
 
-## 6. Conformal prediction
+如果预测 90% interval，长期来看约 90% observations 应落入 interval（具体定义依 setting）。
 
-Can provide finite-sample coverage under exchangeability-type assumptions. Spatial/temporal/OOD scientific data can violate these assumptions, so calibration design matters.
+常用：
+- reliability diagram；
+- coverage；
+- PIT / rank histogram；
+- spread-skill；
+- Brier score；
+- CRPS。
 
-## 7. OOD uncertainty
+---
 
-A useful uncertainty system should often become less confident in unseen regimes, but many neural predictors are overconfident. Test by site/region/extreme/sensor shift.
+## 4. Ensemble 不等于 calibrated
 
-## 8. Error propagation
+多个 neural models / perturbations 产生 spread，不代表 uncertainty 正确。必须和 observation distribution 比较。
 
-For carbon or EO, propagate upstream uncertainty where possible:
+---
 
-`measurement → retrieval/QC → spatial support → model → product`.
+## 5. Conformal Prediction
 
-## 9. Calibration is task-specific
+可在较弱分布假设下构造 finite-sample coverage，但 Earth data 的 spatial/temporal dependence 与 distribution shift 会影响 naive exchangeability assumption。
 
-A model can be calibrated globally and miscalibrated for rare extremes or one biome. Report stratified reliability.
+---
+
+## 6. OOD uncertainty
+
+真正重要的问题是：
+- new biome；
+- new climate；
+- unseen extreme；
+- new sensor；
+- future climate。
+
+IID calibration 好不代表 OOD calibration 好。
