@@ -1,10 +1,15 @@
 # Physical AI / Scientific AI / Earth AI 系统知识库
 
-> 面向 **Scientific Machine Learning、Physical AI、Earth Observation、Terrestrial Carbon Cycle、Weather & Climate AI** 的系统学习与研究知识库。  
+> 面向 **Scientific Machine Learning、Physical AI、Earth Observation、Terrestrial Carbon Cycle、Weather & Climate AI、Embodied AI / Robotics** 的系统学习与研究知识库。  
 > **知识基线：2026-08-20。**  
 > 写作规则：**中文负责解释，英文负责不可替代的专业名称。** 模型名、论文标题、数据集名、变量名、公式、tensor shape、代码/API、标准缩写保留英文。
 
-这个仓库不是“论文列表”，也不是“把 PINN、GraphCast、Prithvi、碳通量放在一起”。它的目标是建立一条可以从底层一路推到 Earth-system AI 的**知识依赖链**，并把每个知识点连接到可核实的 paper / code / dataset / benchmark / official source。
+这个仓库不是论文列表，也不按热门模型名称组织。目标是从数学、数值计算、观测与动力学出发，建立两条相互连接的 Physical AI 主干：
+
+1. **Scientific / Earth AI**：理解、反演、模拟和预测物理/地球系统；
+2. **Embodied Physical AI / Robotics**：感知真实物理环境、估计状态、预测后果、规划并执行动作。
+
+每个知识点尽量连接到可核实的 paper / code / dataset / benchmark / official source。
 
 ---
 
@@ -23,36 +28,54 @@ Observation Operator / Inverse Problems / Data Assimilation / UQ
         ↓
 Spatiotemporal / Multiscale / Multimodal Learning
         ↓
-┌──────────────────────────┬──────────────────────────┬──────────────────────────┐
-│ Earth Observation / RS   │ Terrestrial Carbon AI   │ Weather & Climate AI     │
-│ Optical/SAR/LiDAR/SIF    │ EC/Footprint/GPP/NEE    │ NWP/DA/Forecast/Ensemble │
-└──────────────────────────┴──────────────────────────┴──────────────────────────┘
-        ↓
-Earth / Geospatial / Scientific Foundation Models
-        ↓
-Data Engineering / HPC / Evaluation / Reproducibility
-        ↓
-Cross-domain Physical AI / Digital Twins / Embodied Systems
-        ↓
-2026-08-20 Fast-moving Snapshot
+┌──────────────────────────────────────┴──────────────────────────────────────┐
+↓                                                                             ↓
+Scientific / Earth AI                                             Embodied Physical AI
+↓                                                                             ↓
+┌────────────────────┬────────────────────┬────────────────────┐     Sensor / Perception
+│ Earth Observation  │ Carbon-cycle AI    │ Weather/Climate AI │              ↓
+│ RS / Retrieval     │ EC / Footprint     │ NWP / DA / Forecast│     Geometry / 3D / SE(3)
+└────────────────────┴────────────────────┴────────────────────┘              ↓
+↓                                                                    State Estimation / SLAM
+Earth / Geospatial Foundation Models                                          ↓
+                                                                     Kinematics / Dynamics
+                                                                              ↓
+                                                                   World Models / Reasoning
+                                                                              ↓
+                                                                    Planning / Control
+                                                                              ↓
+                                                                     Robot Learning / VLA
+                                                                              ↓
+                                                                   Simulation / Sim-to-Real
+                                                                              ↓
+                                                                    Safety / Real Feedback
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       ↓
+                    Data Engineering / HPC / Evaluation / Reproducibility
+                                       ↓
+                    Cross-domain Physical AI / Digital Twins
+                                       ↓
+                         2026-08-20 Fast-moving Snapshot
 ```
 
-核心原则只有一句：
+核心原则：
 
-> **先弄清 physical state、observation、support 和 governing process，再谈 neural network。**
+> **先弄清 physical state、observation、dynamics、support/coordinate frame，以及 action 是否会反过来改变系统，再谈 neural network。**
 
 ---
 
-## 2. 为什么重新这样组织
+## 2. 为什么这样组织
 
-Scientific AI 与普通视觉/语言任务最容易混淆的地方，不在于网络结构，而在于“标签到底代表什么”。例如：
+Physical AI 中最容易出错的地方往往不是 network layer，而是 system boundary：
 
-- satellite pixel 不是地面真实状态本身，而是经过 radiative transfer、sensor response、geometry 与 preprocessing 后得到的 observation；
-- eddy-covariance flux 不是 tower point value，而是动态 upwind footprint 上的 turbulence-weighted integral；
-- weather forecast 不是单个 network 的输出问题，而是 `observation → data assimilation → initial state → forecast → ensemble → post-processing → verification` 的系统；
-- 一个 10 m / 30 m prediction 并不自动意味着存在同尺度的独立 ground truth。
+- satellite pixel 是经过 radiative transfer、sensor response、geometry 与 preprocessing 后的 observation；
+- eddy-covariance flux 是动态 upwind footprint 上的 turbulence-weighted integral；
+- weather forecast 是 `observation → DA → initial state → forecast → ensemble → verification` 的系统；
+- robot camera/LiDAR/IMU 只提供 partial observations，不等于完整 world state；
+- VLA 输出 action 后，真实 robot dynamics、contact 与 controller 决定实际 state transition；
+- prediction resolution、simulation success 或 offline action accuracy 都不自动等于真实部署有效性。
 
-因此，本仓库把 **observation physics、support/scale、inverse/DA/UQ、OOD evaluation** 作为横穿所有 Earth AI 模块的主线。
+所以本仓库把 **observation physics、state estimation、dynamics、scale/support、OOD、uncertainty 与 closed-loop evaluation** 作为跨领域主线。
 
 ---
 
@@ -65,33 +88,34 @@ Scientific AI 与普通视觉/语言任务最容易混淆的地方，不在于�
 | [02 Physical AI Core](01-knowledge-base/02-physics-ai-core/index.md) | ③ | Observation operators、conservation、symmetry、dimensional priors、hybrid design |
 | [03 Physics-informed Learning](01-knowledge-base/03-physics-informed-learning/index.md) | ④ | PINN、hard/soft constraints、optimization failure modes |
 | [04 Neural Operators & Simulation](01-knowledge-base/04-neural-operators-simulation/index.md) | ④ | FNO、DeepONet、surrogates、hybrid solvers、differentiable simulation |
-| [10 DA / Inverse / UQ](01-knowledge-base/10-data-assimilation-inverse-uq/index.md) | ⑤ | Bayesian inverse、state estimation、4D-Var/EnKF、uncertainty/calibration |
+| [10 DA / Inverse / UQ](01-knowledge-base/10-data-assimilation-inverse-uq/index.md) | ⑤ | Bayesian inverse、state estimation、DA、uncertainty/calibration |
 | [05 Spatiotemporal / Multiscale AI](01-knowledge-base/05-spatiotemporal-multiscale-ai/index.md) | ⑥ | grid/mesh/point/sequence、multiresolution、multimodality、support-aware learning |
 | [06 Earth Observation AI](01-knowledge-base/06-earth-observation-ai/index.md) | ⑦ | sensing physics、Optical、SAR、LiDAR、Thermal、SIF、multisensor、EO FM |
 | [07 Carbon-cycle AI](01-knowledge-base/07-carbon-cycle-ai/index.md) | ⑧ | EC、flux footprint、GPP/RECO/NEE、process constraints、tower-to-grid |
-| [08 Weather & Climate AI](01-knowledge-base/08-weather-climate-ai/index.md) | ⑧ | NWP、DA、AI forecast、probabilistic ensemble、nowcasting、downscaling、climate |
+| [08 Weather & Climate AI](01-knowledge-base/08-weather-climate-ai/index.md) | ⑧ | NWP、DA、AI forecast、ensemble、nowcasting、downscaling、climate |
 | [09 Earth Foundation Models](01-knowledge-base/09-earth-foundation-models/index.md) | ⑨ | EO FM、geospatial embeddings、Earth-system FM、pretraining/adaptation/evaluation |
+| [12 Embodied Physical AI / Robotics](01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/index.md) | ⑨ | perception、3D、SLAM、dynamics、world model、planning/control、VLA、sim-to-real、safety |
 | [11 Data/HPC/Evaluation](01-knowledge-base/11-data-hpc-evaluation/index.md) | ⑩ | data lineage、distributed training、benchmarking、reproducibility |
-| [12 Cross-domain Physical AI](01-knowledge-base/12-cross-domain-physical-ai/index.md) | ⑪ | fluids、energy/materials、digital twins、embodied systems |
-| [13 2026 Snapshot](01-knowledge-base/13-2026-snapshot/index.md) | ⑫ | 只记录截至 2026-08-20 可由 primary/official source 确认的快速变化 |
+| [12 Cross-domain Physical AI](01-knowledge-base/12-cross-domain-physical-ai/index.md) | ⑪ | fluids、energy/materials、biomedical、digital twins、cross-domain synthesis |
+| [13 2026 Snapshot](01-knowledge-base/13-2026-snapshot/index.md) | ⑫ | 截至 2026-08-20 的 fast-moving knowledge |
 
-> 文件夹编号为了保持已有链接兼容；**真正学习顺序以上表和 Learning Paths 为准。**
+> 文件夹编号用于保持已有链接兼容；真正学习顺序以 [Learning Paths](01-knowledge-base/learning-paths/index.md) 为准。
 
 ---
 
-## 4. 三条重点 Earth-system 主线
+## 4. 四条重点路线
 
 ### 4.1 Earth Observation / Remote Sensing
 
 ```text
-Electromagnetic radiation / ranging
-→ atmosphere + surface/canopy interaction
-→ sensor geometry / response
-→ radiance / reflectance / backscatter / waveform / SIF
-→ calibration / correction / retrieval / QA
+radiation / ranging
+→ atmosphere + surface interaction
+→ sensor response / geometry
+→ radiance / reflectance / backscatter / point cloud / SIF
+→ calibration / retrieval / QA
 → spatial-spectral-temporal representation
-→ multisensor fusion / foundation representation
-→ downstream geophysical or ecological inference
+→ multisensor / foundation representation
+→ geophysical/ecological inference
 → geospatial/OOD/scale-aware validation
 ```
 
@@ -100,16 +124,14 @@ Electromagnetic radiation / ranging
 ### 4.2 Terrestrial Carbon Cycle / Carbon Flux
 
 ```text
-photosynthesis / respiration / disturbance
+photosynthesis / respiration
 → GPP / RECO / NEE
-→ turbulent transport
-→ eddy-covariance measurement
+→ EC measurement
 → dynamic flux footprint
-→ EO + meteorology + soil moisture + structure
+→ EO + meteorology + structure
 → process-aware / multimodal learning
 → observation operator
-→ tower-scale supervision
-→ tower-to-grid upscaling
+→ tower supervision / upscaling
 → uncertainty / extremes / OOD
 ```
 
@@ -120,62 +142,76 @@ photosynthesis / respiration / disturbance
 ```text
 observing system
 → QC / observation operator
-→ data assimilation / state estimation
-→ analysis / initial condition
+→ data assimilation
+→ initial state
 → forecast dynamics
 → deterministic / probabilistic rollout
-→ ensemble / post-processing / downscaling
-→ extremes / impact-relevant diagnostics
+→ ensemble / downscaling
+→ extremes / coupled climate
 → verification / calibration
-→ coupled Earth-system / climate
 ```
 
 入口：[Weather & Climate AI](01-knowledge-base/08-weather-climate-ai/index.md)
 
+### 4.4 Embodied Physical AI / Robotics
+
+```text
+robot + environment
+→ RGB / Depth / LiDAR / IMU / Tactile / Proprioception
+→ geometry / 3D representation
+→ state estimation / SLAM
+→ kinematics / dynamics / contact
+→ world model / physical reasoning
+→ task & motion planning
+→ feedback control / MPC
+→ imitation / RL / generative policy
+→ VLA / robot foundation model
+→ simulation / sim-to-real
+→ safety / real-world feedback
+```
+
+入口：[Embodied Physical AI / Robotics](01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/index.md)
+
 ---
 
-## 5. 每个知识点统一回答什么
+## 5. 统一知识单元模板
 
-每一篇核心知识页尽量回答以下问题：
+每篇核心知识页尽量回答：
 
-1. **问题是什么**：physical system 与 target 是什么？
-2. **观测是什么**：sensor/tower/model product 真正测到什么？
-3. **输入输出与 shape**：`[B,T,C,H,W]`、`[B,N,D]`、grid/mesh/point 如何变化？
-4. **数学与物理**：equation、conservation、symmetry、boundary condition、observation operator 是什么？
-5. **模型结构**：CNN / Transformer / GNN / operator / hybrid 分别在做什么？
-6. **训练**：label、loss、mask、sampling、normalization、split 如何定义？
-7. **推理/rollout**：train 与 inference 有什么区别？误差如何传播？
-8. **scale/support**：native resolution、prediction grid、observation support、validation support 是否一致？
-9. **evaluation**：IID、site/region/time blocked、OOD、extreme、probabilistic、physical diagnostics 怎么做？
-10. **failure modes**：哪些情况下“指标好”但科学结论仍不可信？
-11. **来源**：优先给 original paper、DOI、official repo/model card/dataset provider。
+1. physical system / task 是什么？
+2. state、observation、action 分别是什么？
+3. input/output shape、unit、coordinate frame 是什么？
+4. governing process / dynamics / observation model 是什么？
+5. model architecture 在解决什么表示问题？
+6. training label/loss/reward/sampling 怎么定义？
+7. inference/rollout/control loop 如何运行？
+8. scale/support/time frequency/latency 是否匹配？
+9. IID/OOD/blocked/closed-loop evaluation 怎么做？
+10. uncertainty / calibration / safety 怎么处理？
+11. failure modes 与 evidence boundary 是什么？
 
 完整模板：[Knowledge-unit Standard](01-knowledge-base/KNOWLEDGE_UNIT_STANDARD.md)
 
 ---
 
-## 6. 2026-08-20 当前应知道的前沿
+## 6. 2026-08-20 当前前沿入口
 
-截至本知识基线，Earth AI 需要特别关注：
+Earth-system fast-moving 内容见 [2026 Snapshot](01-knowledge-base/13-2026-snapshot/index.md)。
 
-- **operational AI weather**：ECMWF `AIFS Single v2` 与 `AIFS ENS v2` 已于 2026-05-12 operational；
-- **probabilistic weather**：`GenCast`、`AIFS ENS`、generative ensemble 与 calibration 已成为独立问题，而不是 deterministic RMSE 的附属项；
-- **end-to-end data-to-forecast**：`Aardvark Weather`、`FuXi Weather` 把 raw/near-raw observations 到 forecast 的链条纳入学习系统；
-- **hybrid weather/climate**：`NeuralGCM` 代表 differentiable dynamics + learned components 的路线；
-- **Earth-system FM**：`Aurora` 以跨 geophysical tasks 的 pretraining/adaptation 为核心；
-- **EO multimodal FM**：`TerraMind`、`Prithvi-EO-2.0`、`MaRS` 等推动 optical/SAR/time/multimodal representation；
-- **ready-to-use geospatial embeddings**：`AlphaEarth Foundations`、`TESSERA` 代表“预计算 embedding field”这一与传统 downloadable encoder 不同的使用接口；
-- **EO FM evaluation**：`PANGAEA` 强调跨 sensor、resolution、task、geography 的统一评测，且 foundation models 并非在所有 downstream tasks 上都必然优于 supervised baselines；
-- **carbon observation support**：2026 年 footprint synthesis 再次强调 flux footprint 是连接 EC、remote sensing 与 models 的关键 observation mapping；
-- **carbon + multimodal/process AI**：footprint-aware spatial modeling、physics-constrained joint NEE/GPP/RECO、SIF/soil-moisture/EO integration 与 extreme/OOD evaluation 正在汇合。
+Embodied / Robotics 当前快照见 [2026 Robotics Snapshot](01-knowledge-base/13-2026-snapshot/embodied-robotics.md)，重点包括：
+- `Gemini Robotics 2` official release（2026-07-30）；
+- `GR00T N1.6` 与 open simulation/evaluation stack（2026-01-05）；
+- `V-JEPA 2` action-conditioned world-model route；
+- 2026 video-world-model physics interpretability；
+- current VLA / robot-foundation-model evaluation boundary。
 
-所有快速变化的版本号、发布日期和官方链接统一放在 [2026 Snapshot](01-knowledge-base/13-2026-snapshot/index.md)，避免把易过时信息散落到基础知识页。
+快速变化内容只记录可由 primary/official source 确认的版本和论文状态；closed system details 未公开时保持 `unknown / not publicly disclosed`。
 
 ---
 
 ## 7. Evidence / Resource layer
 
-知识层负责“理解”；资源层负责“证据与可追溯性”。
+知识层负责理解；资源层负责证据与可追溯性。
 
 - [Paper Library](02-paper-library/index.md)
 - [Code Library](03-code-library/index.md)
@@ -199,12 +235,13 @@ Generated from canonical metadata. Do not edit manually.
 
 ## 8. 更新与可信度规则
 
-- 基础数学/物理：以 textbook-level 共识与经典论文为主，不追版本。
-- 方法：优先 original paper + official code。
-- fast-moving model/system：必须带**日期**，优先 official institutional page / model card / paper。
-- closed-source capability 不等于 internal architecture 已公开；未知就写 `unknown / not publicly disclosed`。
-- preprint 与 peer-reviewed publication 分开标注。
-- 不把 output resolution 等价为 independent validation resolution。
+- 基础数学/物理/robotics mechanics：以 textbook-level 共识与经典论文为主；
+- 方法：优先 original paper + official code；
+- fast-moving system/model：必须带日期，优先 official institutional page / model card / paper；
+- vendor demo/report 与 independent scientific evidence 分开；
+- closed-source capability 不等于 internal architecture 已公开；
+- preprint 与 peer-reviewed publication 分开；
+- simulation benchmark 与 real-robot deployment 分开；
 - 不把 feature importance / correlation 直接写成 causal mechanism。
 
 详细规则：[Audit & Update Policy](AUDIT_AND_UPDATE_POLICY.md)
@@ -218,4 +255,4 @@ python -m scripts.full_check
 python -m scripts.verify_external_links --respect-cache --report
 ```
 
-生成视图、canonical metadata 与 taxonomy 继续遵守 [AGENTS.md](AGENTS.md) 和 [CONTRIBUTING.md](CONTRIBUTING.md)。
+Canonical metadata 与 taxonomy 继续遵守 [AGENTS.md](AGENTS.md) 和 [CONTRIBUTING.md](CONTRIBUTING.md)。
