@@ -45,7 +45,7 @@ QA 本身包含 observation uncertainty 信息。
 
 ## 4. Temporal compositing
 
-mean/median/max-NDVI/best-quality composite 含义不同。
+mean/median/max-NDVI/quality-prioritized composite 含义不同。
 
 Composite 会改变 temporal support，因此不能把 composite date 简单当 instantaneous observation。
 
