@@ -53,7 +53,7 @@ Useful when theory strongly supports directionality, but dangerous when the rela
 ### Balance relationships
 Examples include coupled component relationships such as carbon balance. Sign conventions and measurement definitions must be explicit.
 
-## 4. When PINNs are not the best tool
+## 4. When PINNs may be a poor fit
 
 PINNs can be inefficient when high-quality simulation data already exist, the PDE is high-dimensional/stiff, the geometry is complex, or the main task is repeated field-to-field prediction over many initial conditions.
 
