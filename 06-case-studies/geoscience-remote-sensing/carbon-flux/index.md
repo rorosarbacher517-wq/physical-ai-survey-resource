@@ -1,42 +1,79 @@
-# Carbon-flux resource map
+# Terrestrial Carbon-flux AI Specialty Track
 
-This track connects terrestrial carbon-flux estimation with observation physics and scale-aware AI. It is organized around a practical chain from measurement to model evaluation.
+This priority track connects **eddy covariance, flux footprints, Earth observation, meteorological forcing, process constraints, deep learning and scale-aware upscaling**.
 
-## Scientific question
+Main knowledge page: [Carbon-cycle AI](../../../01-knowledge-base/07-carbon-cycle-ai/index.md).
 
-How can AI estimate GPP, ecosystem respiration and NEE while preserving process meaning, measurement support and validation scope?
+## 1. Scientific question
 
-## Measurement and observation process
+How can AI estimate terrestrial carbon exchange while preserving:
 
-- Eddy covariance estimates net turbulent exchange over a dynamic footprint.
-- EC does not directly measure GPP or ecosystem respiration; component fluxes require partitioning assumptions.
-- Satellite observations provide radiance, reflectance, fluorescence, temperature or microwave signals, not carbon exchange itself.
-- A fixed pixel and a tower footprint are different supports.
+- the physical meaning of NEE/GPP/RECO;
+- the actual source area represented by tower observations;
+- the spatial-temporal support of satellite/meteorological predictors;
+- process relationships and uncertainty;
+- valid transfer to new sites/biomes/climate regimes?
 
-## Physical priors and observation operators
+## 2. Observation chain
 
-- Process priors: radiation absorption, phenology, water stress, respiration sensitivity and carbon-water coupling.
-- Observation priors: EC footprint weighting, satellite retrieval physics, SIF-GPP interpretation and data-assimilation constraints.
-- Scale priors: site-blocked validation, biome extrapolation, resolution compatibility and uncertainty propagation.
+```text
+surface carbon exchange
+→ turbulent transport
+→ EC measurement
+→ footprint / source-area weighting
+→ tower-scale NEE
+→ partitioned GPP / RECO
+```
 
-## End-to-end verified resource chain
+Satellite observations then provide spatially explicit predictors, not direct replacements for this measurement chain.
 
-- Scientific question: support-aware carbon-flux estimation.
-- Measurement process: `dataset-fluxnet` and `dataset-ameriflux`.
-- Physical prior: footprint support and carbon-water coupling.
-- Model integration: `observation-operator-methods`, `machine-learning-upscaling`, `hybrid-numerical-machine-learning`.
-- Code: `code-repo-examples`, `code-ffp`, `code-google-earth-engine`.
-- Datasets: `dataset-hls`, `dataset-era5-land`, `dataset-modis`, `dataset-smap`.
-- Benchmarks: `benchmark-carbon-flux-site-blocked`, `benchmark-carbon-flux-footprint-support`, `benchmark-remote-sensing-gpp`.
-- Limitations: site leakage, footprint-pixel mismatch, uncertain partitioning and limited independent field-scale validation.
+## 3. Multimodal predictor stack
 
-## Navigation views
+```text
+2D optical / thermal / SIF / SAR
++ 3D LiDAR structure
++ meteorology / soil moisture
++ static land/soil/topography
++ dynamic footprint / observation operator
+→ spatiotemporal carbon model
+```
 
-- [Carbon-flux papers](../../../02-paper-library/by-domain.md)
-- [Papers by method](../../../02-paper-library/by-method.md)
-- [Dataset library](../../../04-dataset-library/index.md)
-- [Benchmark library](../../../05-benchmarks-and-evaluation/index.md)
+## 4. Physics-informed opportunities
 
-## Safeguards
+- footprint-weighted observation mapping;
+- carbon balance consistency;
+- light/water/temperature process priors;
+- hybrid process-model residual learning;
+- carbon-water-energy coupling;
+- data assimilation;
+- uncertainty propagation.
 
-Repository synthesis: claims about 30 m or field-scale products should distinguish prediction resolution from validation resolution. Optical observability should not be treated as causal process control without additional evidence. Sign conventions and units must be recorded in benchmark cards before comparing scores.
+## 5. Evaluation hierarchy
+
+Prefer:
+
+1. site-blocked validation;
+2. temporal/event/extreme stratification;
+3. biome/climate-region transfer;
+4. paired ablations for each physics component;
+5. measurement/support-aware metrics;
+6. uncertainty/calibration;
+7. independent spatial validation where available.
+
+## 6. End-to-end resource chain
+
+- datasets: `dataset-fluxnet`, `dataset-ameriflux`, HLS, ERA5-Land, MODIS, SMAP;
+- method views: `machine-learning-upscaling`, `observation-operator-methods`, `hybrid-numerical-machine-learning`;
+- code/resources: FFP and geospatial preprocessing records where available;
+- benchmarks: site-blocked and support-aware carbon-flux definitions.
+
+Browse:
+
+- [papers by method](../../../02-paper-library/by-method.md)
+- [papers by domain](../../../02-paper-library/by-domain.md)
+- [datasets](../../../04-dataset-library/index.md)
+- [benchmarks](../../../05-benchmarks-and-evaluation/index.md)
+
+## 7. Research frontier
+
+Dynamic footprint-aware learning, multimodal 2D+3D fusion, dense temporal reconstruction, process-aware foundation representations, OOD climate/biome transfer and calibrated uncertainty are priority directions.
