@@ -1,41 +1,46 @@
-# Geoscience, Remote Sensing and Earth-system AI
+# Geoscience / Remote Sensing / Earth-system AI 专题
 
-This is the repository's priority specialty track. It connects **observation physics, Earth-system processes, spatial-temporal AI, foundation models and scale-aware evaluation**.
+这是仓库的重点应用入口，用于把底层 Scientific AI 知识重新组合成 Earth-system workflow。
 
-## Knowledge dependency
+## 1. 总依赖图
 
 ```text
-Scientific foundations
-→ spatiotemporal/multiscale AI
-→ Earth observation physics
-      ├→ terrestrial carbon cycle
-      ├→ weather/climate
-      └→ geospatial foundation models
-→ data assimilation / UQ
-→ Earth-system evaluation
+Math / PDE / Numerical Methods
+→ ML/DL / Scientific Computing
+→ Observation Operator / Inverse / DA / UQ
+→ Spatiotemporal / Multiscale / Multimodal AI
+→ Earth Observation
+      ├→ Carbon Cycle / Carbon Flux
+      ├→ Weather / Climate
+      └→ Geospatial Foundation Models
+→ Data / HPC / OOD Evaluation
 ```
 
-## Priority tracks
+## 2. 四条专题
 
 - [Earth Observation / Remote Sensing](earth-observation/index.md)
 - [Terrestrial Carbon Flux](carbon-flux/index.md)
-- [Weather and Climate](weather-and-climate/index.md)
+- [Weather & Climate](weather-and-climate/index.md)
 - [Geospatial Foundation Models](geospatial-foundation-models/index.md)
 
-## Core knowledge modules
+---
+
+## 3. 六条共同 scientific principles
+
+1. **Observation ≠ state**：sensor/retrieval/footprint physics 必须明确。
+2. **Resolution ≠ support**：output grid 与 observation/validation support 分开。
+3. **Space × time 不可拆开**：revisit、composite、moving footprint、rollout 都改变问题。
+4. **Random split 通常不够**：site/region/time/event/climate blocking 是核心设计。
+5. **Physics 有多种入口**：input、architecture、loss、operator、solver、DA、evaluation 不混写。
+6. **Uncertainty 是结果的一部分**：measurement、retrieval、partitioning、model、support、OOD uncertainty 都应考虑。
+
+---
+
+## 4. 主知识入口
 
 - [Earth Observation AI](../../01-knowledge-base/06-earth-observation-ai/index.md)
 - [Carbon-cycle AI](../../01-knowledge-base/07-carbon-cycle-ai/index.md)
 - [Weather & Climate AI](../../01-knowledge-base/08-weather-climate-ai/index.md)
 - [Earth Foundation Models](../../01-knowledge-base/09-earth-foundation-models/index.md)
-- [Spatiotemporal & Multiscale AI](../../01-knowledge-base/05-spatiotemporal-multiscale-ai/index.md)
-- [Data Assimilation / Inverse / UQ](../../01-knowledge-base/10-data-assimilation-inverse-uq/index.md)
-
-## Shared scientific principles
-
-1. **Observation is not state.** Sensor/retrieval/footprint physics matters.
-2. **Resolution is not support.** A 30 m output can still be supervised by a much larger/variable observation footprint.
-3. **Space and time are coupled.** Revisit, temporal aggregation and moving source areas can change the learning problem.
-4. **Random splits are often invalid.** Site, region, event and time blocking are core design choices.
-5. **Physics can enter at multiple layers.** Inputs, architecture, loss, operator, simulator, DA and evaluation should be distinguished.
-6. **Uncertainty is part of the prediction.** Measurement, retrieval, model and scale uncertainty should be tracked.
+- [DA / Inverse / UQ](../../01-knowledge-base/10-data-assimilation-inverse-uq/index.md)
+- [2026-08-20 Snapshot](../../01-knowledge-base/13-2026-snapshot/index.md)

@@ -1,10 +1,10 @@
 # Detailed Knowledge Index · 细粒度知识导航
 
-> 这里按“学习依赖”组织，而不是按目录编号组织。
+> 按真实学习依赖组织；目录编号只用于路径兼容。
 
 ## I. 数学、物理与数值基础
 
-- [Foundations 总览](00-foundations/index.md)
+- [Foundations](00-foundations/index.md)
 - [Linear Algebra / Probability / Optimization](00-foundations/linear-algebra-probability-optimization.md)
 - [Dynamical Systems / ODE / PDE](00-foundations/dynamical-systems-pde.md)
 - [Numerical Methods](00-foundations/numerical-methods.md)
@@ -33,9 +33,9 @@
 - [Surrogates / Hybrid Solvers](04-neural-operators-simulation/surrogates-hybrid-solvers.md)
 - [Differentiable Simulation](04-neural-operators-simulation/differentiable-simulation.md)
 
-## IV. Inverse / DA / UQ
+## IV. Inverse / Data Assimilation / UQ
 
-- [Data Assimilation / Inverse / UQ](10-data-assimilation-inverse-uq/index.md)
+- [DA / Inverse / UQ](10-data-assimilation-inverse-uq/index.md)
 - [Inverse Problems](10-data-assimilation-inverse-uq/inverse-problems.md)
 - [Data Assimilation](10-data-assimilation-inverse-uq/data-assimilation.md)
 - [Uncertainty / Calibration](10-data-assimilation-inverse-uq/uncertainty-calibration.md)
@@ -50,14 +50,16 @@
 
 ## VI. Earth Observation / Remote Sensing
 
-- [Earth Observation AI 总览](06-earth-observation-ai/index.md)
+- [Earth Observation AI](06-earth-observation-ai/index.md)
 - [Radiative Transfer / Observation Physics](06-earth-observation-ai/radiative-transfer-observation-physics.md)
+- [EO Data Stack](06-earth-observation-ai/eo-data-stack.md)
 - [Optical / Hyperspectral](06-earth-observation-ai/optical-hyperspectral.md)
 - [SAR / Microwave](06-earth-observation-ai/sar-microwave.md)
 - [LiDAR / 3D](06-earth-observation-ai/lidar-3d.md)
 - [Thermal / SIF](06-earth-observation-ai/thermal-sif.md)
 - [EO Preprocessing / QA](06-earth-observation-ai/eo-preprocessing-quality.md)
 - [Remote-sensing Time Series](06-earth-observation-ai/remote-sensing-time-series.md)
+- [Retrieval / Inverse](06-earth-observation-ai/retrieval-inversion.md)
 - [Multisensor Fusion](06-earth-observation-ai/multisensor-fusion.md)
 - [Super-resolution / Reconstruction](06-earth-observation-ai/super-resolution-reconstruction.md)
 - [EO Tasks / Models](06-earth-observation-ai/eo-models-tasks.md)
@@ -66,7 +68,7 @@
 
 ## VII. Terrestrial Carbon-cycle / Carbon Flux
 
-- [Carbon-cycle AI 总览](07-carbon-cycle-ai/index.md)
+- [Carbon-cycle AI](07-carbon-cycle-ai/index.md)
 - [Carbon-cycle Processes](07-carbon-cycle-ai/carbon-cycle-processes.md)
 - [Eddy Covariance](07-carbon-cycle-ai/eddy-covariance.md)
 - [Flux Partitioning / Uncertainty](07-carbon-cycle-ai/flux-partitioning-uncertainty.md)
@@ -83,12 +85,16 @@
 
 ## VIII. Weather & Climate AI
 
-- [Weather & Climate AI 总览](08-weather-climate-ai/index.md)
+- [Weather & Climate AI](08-weather-climate-ai/index.md)
+- [Atmospheric State & Dynamics](08-weather-climate-ai/atmospheric-state-dynamics.md)
 - [NWP Basics](08-weather-climate-ai/nwp-basics.md)
+- [Weather Observing System](08-weather-climate-ai/weather-observing-system.md)
 - [Weather Data Assimilation](08-weather-climate-ai/weather-data-assimilation.md)
 - [AI Weather-model Families](08-weather-climate-ai/ai-weather-models.md)
+- [Weather Rollout & Training](08-weather-climate-ai/rollout-training.md)
 - [Physics–ML Hybrid Weather](08-weather-climate-ai/physics-hybrid-weather.md)
 - [Probabilistic / Ensemble Weather](08-weather-climate-ai/probabilistic-ensemble-weather.md)
+- [Data-to-Forecast](08-weather-climate-ai/data-to-forecast.md)
 - [Nowcasting](08-weather-climate-ai/nowcasting.md)
 - [Downscaling / Super-resolution](08-weather-climate-ai/downscaling-super-resolution.md)
 - [Extreme-event Forecasting](08-weather-climate-ai/extremes-forecasting.md)
@@ -99,7 +105,7 @@
 
 ## IX. Earth / Geospatial Foundation Models
 
-- [Earth Foundation Models 总览](09-earth-foundation-models/index.md)
+- [Earth Foundation Models](09-earth-foundation-models/index.md)
 - [Earth FM Pretraining](09-earth-foundation-models/earth-fm-pretraining.md)
 - [Multimodal Earth Representations](09-earth-foundation-models/multimodal-earth-representations.md)
 - [Model-family Guide](09-earth-foundation-models/model-family-guide.md)
@@ -107,24 +113,35 @@
 
 ## X. Data / HPC / Evaluation
 
-- [Data/HPC/Evaluation 总览](11-data-hpc-evaluation/index.md)
+- [Data/HPC/Evaluation](11-data-hpc-evaluation/index.md)
 - [Scientific Data Engineering](11-data-hpc-evaluation/data-engineering.md)
 - [Distributed Scientific ML](11-data-hpc-evaluation/distributed-scientific-ml.md)
 - [Evaluation / Benchmarking](11-data-hpc-evaluation/evaluation-benchmarking.md)
 
 ## XI. Cross-domain Physical AI
 
-- [Cross-domain 总览](12-cross-domain-physical-ai/index.md)
+- [Cross-domain Physical AI](12-cross-domain-physical-ai/index.md)
 - [Fluids / Aerodynamics](12-cross-domain-physical-ai/fluids-aerodynamics.md)
 - [Energy / Materials](12-cross-domain-physical-ai/energy-materials.md)
+- [Biomedical Mechanics](12-cross-domain-physical-ai/biomedical-mechanics.md)
 - [Digital Twins / Embodied](12-cross-domain-physical-ai/digital-twins-embodied.md)
 
-## XII. Current Snapshot
+## XII. Current Knowledge
 
-- [2026-08-20 Snapshot](13-2026-snapshot/index.md)
+- [2026-08-20 Fast-moving Snapshot](13-2026-snapshot/index.md)
+- [Audit & Update Policy](../AUDIT_AND_UPDATE_POLICY.md)
 
 ---
 
-### 使用方式
+## 使用规则
 
-遇到一个新模型时，先在本页找到它对应的**稳定知识层**；只有版本、release、operational status、最新 benchmark 等内容才去 Snapshot。这样可以避免“知识库被模型名字绑架”。
+遇到新模型/论文：
+
+```text
+先定位 stable concept
+→ 再补 tensor/math/physics/training/evaluation
+→ 最后把 version/date 放 Snapshot
+→ paper/code/dataset 进入 evidence layer
+```
+
+这样知识库不会随着模型名称越来越多而失去结构。
