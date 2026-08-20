@@ -27,7 +27,7 @@ Couple the network with a numerical solver, differentiable simulator, parameteri
 ### G. Physics in evaluation
 Check conservation, spectra, extremes, stability, regime transfer and physically meaningful consistency—not only average RMSE.
 
-## 2. Observation physics is first-class
+## 2. Observation physics is a core modeling layer
 
 Many Earth-system tasks are measurement problems before they are prediction problems.
 
