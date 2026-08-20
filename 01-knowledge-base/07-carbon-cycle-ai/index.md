@@ -1,130 +1,152 @@
 # 07 · Terrestrial Carbon-cycle / Carbon-flux AI
 
-This is a priority track of the repository. The organizing principle is the complete chain from **measurement physics → multimodal predictors → model → scale-aware validation**.
+This is a priority track of the repository. The organizing principle is the complete chain from **ecosystem processes → measurement physics → multimodal observations → model → observation operator → scale-aware validation**.
 
-## 1. Carbon-flux targets
+## Knowledge path
 
-Common tower-scale quantities:
+```text
+Carbon-cycle processes
+→ EC measurement
+→ flux partitioning / target uncertainty
+→ flux footprint / observation support
+→ EO + meteorology + structure data stack
+→ carbon-water-energy coupling
+→ data-driven / hybrid / process-constrained model
+→ footprint-aware observation mapping
+→ tower validation
+→ tower-to-grid upscaling
+→ extremes / climate-regime OOD
+→ uncertainty propagation
+```
 
-- **NEE**: net ecosystem exchange measured/estimated from EC processing;
-- **GPP**: gross primary productivity, usually obtained through partitioning/model assumptions rather than direct EC measurement;
-- **RECO**: ecosystem respiration, also partitioned/estimated.
+## 1. Process foundation
 
-A commonly used balance convention is:
+Start with [Carbon-cycle processes](carbon-cycle-processes.md).
+
+Common tower-scale quantities are NEE, GPP and RECO. Under one common sign convention:
 
 ```text
 NEE = RECO - GPP
 ```
 
-but sign conventions must always be checked against the dataset/product definition.
+Always verify the product convention.
 
-## 2. Eddy covariance is an area-support observation
+Then study [carbon–water–energy coupling](carbon-water-energy-coupling.md) to understand why radiation, temperature, water availability and atmospheric demand interact with carbon exchange.
 
-A half-hourly EC measurement is not a point sample. It integrates turbulent contributions from an upwind **flux footprint** whose position and weighting vary with atmospheric conditions.
+## 2. Eddy covariance and targets
 
-Therefore:
+- [Eddy covariance](eddy-covariance.md): what EC measures and key QC/measurement assumptions.
+- [Flux partitioning and target uncertainty](flux-partitioning-uncertainty.md): why GPP/RECO are inferred labels rather than independent direct measurements.
+- [Flux footprints](flux-footprints.md): dynamic spatial support of the tower observation.
 
-```text
-satellite pixels around tower
-        ↓
-footprint / observation operator
-        ↓
-area-weighted representation
-        ↓
-tower-scale supervision
-```
+A half-hourly EC record should be treated as an area-support observation, not a point label automatically aligned with a center pixel.
 
-is scientifically different from simply pairing a tower value with one center pixel or a uniformly averaged fixed window.
+## 3. Data stack
 
-## 3. Input modalities
+See [Carbon data stack](carbon-data-stack.md).
 
-### Remote sensing
-- optical reflectance / vegetation indices;
-- thermal data;
-- SIF;
-- SAR/microwave;
-- LiDAR/3D canopy structure;
-- land cover and disturbance.
-
-### Meteorology / environment
-- radiation;
-- air/soil temperature;
-- humidity/VPD;
-- precipitation;
-- soil moisture;
-- wind and turbulence;
-- boundary-layer/stability variables.
-
-### Static context
-- biome/land cover;
-- soil;
-- topography;
-- management where available.
-
-## 4. Modeling hierarchy
+Typical inputs:
 
 ```text
-empirical / LUE / process model
-→ classical ML upscaling
-→ deep spatiotemporal models
-→ hybrid process-ML
-→ physics-constrained learning
-→ footprint-aware observation operators
-→ foundation-model embeddings + task-specific heads
+EO patch:       [B,T,C,H,W]
+meteorology:    [B,T,M]
+static context: [B,S]
+3D structure:   [B,N,C3d] or raster features
+footprint:      [B,T,H,W]
+target:         [B,T,F]
 ```
 
-No single level dominates every task. Data volume, scale, interpretability, process fidelity and transfer determine the appropriate design.
+Related EO foundations: [Earth Observation AI](../06-earth-observation-ai/index.md) and [multisensor fusion](../06-earth-observation-ai/multisensor-fusion.md).
 
-## 5. Where physics can enter
+## 4. Modeling families
 
-- carbon-balance constraints;
-- light/water/temperature process priors;
-- positivity/bounds where scientifically valid;
-- phenology and radiation geometry;
-- EC footprint as observation operator;
-- process-model residual learning;
-- carbon-water coupling;
-- data assimilation.
+See [Carbon modeling methods](carbon-modeling-methods.md).
 
-## 6. Major scientific traps
+The hierarchy includes empirical/process models, classical ML upscaling, deep spatiotemporal learning, hybrid process-ML, physics/process constraints and foundation-model representations.
 
-### Target uncertainty
-GPP/RECO partitioning uncertainty can be comparable to modeling differences.
+For explicit physical integration see [Process-constrained carbon AI](process-constrained-carbon-ai.md).
 
-### Scale mismatch
-Tower footprints, satellite pixels and gridded products represent different spatial supports.
+## 5. Footprint-aware learning
 
-### Site leakage
-Nearby dates from the same tower are highly dependent. Random half-hour/day splitting can overstate generalization.
+See [Footprint-aware AI](footprint-aware-ai.md).
 
-### Optical observability
-Strong predictive correlation with vegetation indices does not prove that reflectance is the causal controller of carbon exchange.
+Distinguish:
 
-### Temporal mismatch
-Fluxes vary sub-daily; clear-sky optical observations may be intermittent.
+- input-side predictor aggregation;
+- output-side observation-operator aggregation;
+- flux disaggregation;
+- representativeness analysis;
+- footprint descriptors as model features.
 
-## 7. Validation hierarchy
+These placements are scientifically different.
 
-Prefer reporting:
+## 6. Multimodal carbon AI
 
-- site-blocked cross-validation;
-- biome/climate-region transfer;
+See [Multimodal carbon AI](multimodal-carbon-ai.md).
+
+A high-value design combines:
+
+```text
+2D optical/SAR/thermal/SIF
++ 3D canopy structure
++ meteorological forcing
++ static context
++ EC observation support
+→ spatiotemporal model
+→ flux field / tower prediction
+```
+
+## 7. Tower-to-grid upscaling
+
+See [Tower-to-grid upscaling](tower-to-grid-upscaling.md).
+
+Separate:
+
+- tower-scale predictive validation;
+- spatial prediction resolution;
+- independent spatial validation scale;
+- regional OOD coverage.
+
+## 8. Extremes and climate response
+
+See [Carbon-flux AI under climate extremes](extremes-climate-response.md).
+
+Evaluate onset, peak and recovery under heat/drought/compound events rather than relying only on average seasonal metrics.
+
+## 9. Validation and uncertainty
+
+See [Validation and uncertainty](validation-uncertainty.md).
+
+Prefer:
+
+- site-blocked CV;
+- region/biome/climate transfer;
 - temporal/event blocking;
-- extreme heat/drought performance;
-- tower-scale metrics;
-- scale-aware independent validation where available;
-- uncertainty and physical consistency.
+- component-specific NEE/GPP/RECO metrics;
+- support-aware evaluation;
+- uncertainty/calibration;
+- process-consistency diagnostics.
 
-## 8. Research frontier
+## 10. Major scientific traps
 
-High-value directions include:
+- describing partitioned GPP/RECO as direct EC measurements;
+- random date splitting within the same sites;
+- treating optical predictors as causal controllers of carbon exchange;
+- ignoring footprint/pixel mismatch;
+- using a fine output grid as evidence of fine-scale validation;
+- interpreting one feature-importance ranking as process mechanism;
+- ignoring measurement/partitioning uncertainty.
 
-- dynamic footprint-aware learning;
-- 2D optical + 3D LiDAR + meteorology fusion;
-- reconstruction of dense optical/biophysical time series;
-- process-informed multimodal foundation models;
-- causal/process diagnostics beyond feature importance;
-- uncertainty propagation from measurements/partitioning to gridded flux products;
-- cross-site and cross-biome OOD evaluation.
+## 11. Research frontier
+
+Priority directions include:
+
+- dynamic observation-operator learning;
+- 2D EO + 3D structure + meteorology fusion;
+- dense time-series reconstruction with uncertainty;
+- coupled carbon-water-energy objectives;
+- process-informed Earth foundation models;
+- event/extreme/OOD evaluation;
+- uncertainty propagation from measurement to regional product.
 
 See the [Carbon-flux specialty track](../../06-case-studies/geoscience-remote-sensing/carbon-flux/index.md) and [papers by method](../../02-paper-library/by-method.md).
