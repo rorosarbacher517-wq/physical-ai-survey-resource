@@ -33,7 +33,7 @@ Pretrain on broad geophysical datasets, then fine-tune to weather/atmospheric/Ea
 
 - Prithvi-EO-2.0: https://github.com/NASA-IMPACT/Prithvi-EO-2.0
 - TerraMind: https://github.com/IBM/terramind
-- AlphaEarth Foundations: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/
+- AlphaEarth Foundations: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/ <!-- manual-review: official source URL path -->
 - Aurora: https://www.microsoft.com/en-us/research/publication/aurora-a-foundation-model-for-the-earth-system/
 
 See [2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md) for dated claims.
