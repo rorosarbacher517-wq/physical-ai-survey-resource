@@ -1,67 +1,121 @@
-# Weather-model Evaluation
+# Weather Evaluation / Verification
 
-## 1. Match the verification setup
+## 1. 比较前先对齐六件事
 
-Before comparing models, match:
+```text
+variable
+vertical level
+lead time
+initialization
+verification reference
+grid/resolution
+```
 
-- variable;
-- vertical level;
-- lead time;
-- initialization time;
-- grid/resolution;
-- verification dataset/analysis;
-- interpolation/regridding;
-- geographic weighting.
+少一个都可能让 headline comparison 失真。
 
-## 2. Deterministic metrics
+---
 
-### RMSE
-Measures average magnitude of error.
+## 2. Latitude-weighted RMSE
 
-### MAE
-Less sensitive to large outliers than RMSE.
+全球 lat-lon grid cell area 随 latitude 变化，所以常使用 latitude weighting。
 
-### Anomaly correlation
-Measures pattern skill relative to climatological anomaly definition.
+概念：
 
-## 3. Area weighting
+```text
+RMSE = sqrt(Σ_i w_i (f_i-o_i)^2 / Σ_i w_i)
+w_i ∝ cos(latitude_i)
+```
 
-Latitude-longitude cells have different physical areas. Global scores often require cosine-latitude or exact-area weighting.
+---
 
-## 4. Lead-time curves
+## 3. ACC
 
-Weather error grows with lead time. Report skill as a function of forecast horizon instead of one pooled number.
+Anomaly Correlation Coefficient 比较 forecast anomaly 与 observed/reference anomaly 的 pattern correlation。
 
-## 5. Probabilistic metrics
+需要明确 climatology definition。
 
-- CRPS;
-- Brier score;
-- reliability;
-- rank histogram;
-- spread-skill.
+---
 
-## 6. Extreme-event evaluation
+## 4. Probabilistic metrics
 
-Global average RMSE can hide hazard skill. Evaluate:
+- CRPS；
+- Brier Score；
+- reliability；
+- rank histogram；
+- spread–skill；
+- ensemble coverage。
 
-- tropical cyclones;
-- heat/cold extremes;
-- heavy precipitation;
-- severe wind;
-- atmospheric rivers or other event classes when relevant.
+不能用 deterministic RMSE 代替 probabilistic evaluation。
 
-## 7. Physical diagnostics
+---
 
-- global budgets;
-- balance relationships;
-- kinetic-energy/spectral distribution;
-- conservation drift;
-- long-rollout stability.
+## 5. Extreme metrics
 
-## 8. Fair baseline
+- cyclone track/intensity；
+- precipitation threshold CSI/FSS；
+- heat threshold probability；
+- tail quantile error；
+- event timing/duration。
 
-Compare with the appropriate operational/reanalysis baseline using the same verification protocol. Avoid mixing different initial conditions or post-processing.
+---
 
-## 9. Compute and latency
+## 6. Spectral / structural metrics
 
-Operational value also depends on forecast generation time, accelerator requirements, ensemble cost and data-assimilation latency.
+- power spectrum；
+- kinetic-energy spectrum；
+- spatial gradient；
+- object displacement；
+- precipitation structure。
+
+用于识别 blurry/smoothing forecast。
+
+---
+
+## 7. Reference matters
+
+### ERA5 verification
+适合 benchmark/hindcast consistency，但 ERA5 本身是 reanalysis。
+
+### Operational analysis
+更接近 real-time forecast verification context。
+
+### Stations / radar / satellite
+更接近 observations，但 support/error/operator 各异。
+
+所以“对 ERA5 更准”不能自动等价为“对 independent observations 更准”。
+
+---
+
+## 8. Hindcast vs real-time
+
+应区分：
+- archived ERA5-initialized hindcast；
+- operational analysis initialization；
+- raw-observation data-to-forecast；
+- real-time service output。
+
+---
+
+## 9. WeatherBench 2
+
+WeatherBench 2 为 data-driven global weather models 提供统一 benchmark infrastructure，并推动 standardized evaluation。
+
+Source: https://research.google/blog/weatherbench-2-a-benchmark-for-the-next-generation-of-data-driven-weather-models/
+
+---
+
+## 10. Reporting template
+
+```text
+model/version
+initialization
+verification period
+reference dataset
+variables/levels
+lead times
+grid/regridding
+metrics
+ensemble size
+compute
+operational/research status
+```

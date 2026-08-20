@@ -1,55 +1,71 @@
-# Climate AI
+# Climate AI：从 Forecast Skill 到 Long-term Statistics
 
-## 1. Weather versus climate
+## 1. Weather 与 Climate task 不同
 
-Weather forecasting predicts a specific evolving state from an initial condition. Climate modeling focuses on distributions, forced response, variability and long-term statistics under external forcing.
+Weather：给定 initial condition，预测具体 trajectory。
 
-## 2. Climate applications of AI
+Climate：关注 external forcing 下的长期 distribution / statistics / variability。
 
-- emulator of expensive climate simulations;
-- parameterization/closure;
-- bias correction;
-- downscaling;
-- extreme-event statistics;
-- detection/attribution support;
-- surrogate for scenario ensembles;
-- Earth-system component coupling.
+```text
+weather: X(t0) → X(t0+τ)
+climate: forcing → p(long-term states/statistics)
+```
 
-## 3. Emulator challenge
+---
 
-A climate emulator must reproduce more than short-horizon RMSE. It should represent:
+## 2. Climate emulator
 
-- mean climatology;
-- variability;
-- trends/forced response;
-- teleconnections;
-- extremes;
-- spatial spectra;
-- conservation/balance;
-- regime transitions.
+ML 可近似 expensive climate/ESM response：
+- global temperature/precipitation fields；
+- scenario response；
+- parameter ensemble；
+- subgrid process。
 
-## 4. Distribution shift
+---
 
-Future forcing can move the system beyond the historical training distribution. Extrapolation should be tested using held-out scenarios, climates or parameter regimes.
+## 3. Long-run stability
 
-## 5. Coupled components
+一个 weather model 15-day skill 强，不代表 multi-year rollout 有正确 climate。
 
-Climate involves atmosphere, ocean, land, cryosphere and biogeochemistry. Component-wise accuracy does not guarantee stable coupled behavior.
+必须检查：
+- mean climatology；
+- seasonal cycle；
+- variability spectrum；
+- extremes；
+- teleconnections；
+- energy/water balance；
+- drift。
 
-## 6. Carbon-climate connection
+---
 
-Terrestrial carbon responds to radiation, temperature, water stress, CO₂, disturbance and ecosystem structure; carbon changes can feed back to atmospheric composition/climate at larger scales.
+## 4. Forced response
 
-## 7. Uncertainty
+future climate 受：
+- greenhouse gases；
+- aerosols；
+- land use；
+- solar/volcanic forcing；
+- ocean/ice feedback。
 
-Separate:
+ML training 必须明确 forcing variables，否则只能学习 historical dynamics。
 
-- internal variability;
-- scenario/forcing uncertainty;
-- model structural uncertainty;
-- parameter uncertainty;
-- emulator error.
+---
 
-## 8. Evaluation
+## 5. Hybrid route
 
-Use long simulations/statistics when claiming climate fidelity. Short weather-style test windows are insufficient for many climate properties.
+`NeuralGCM` 说明 hybrid dynamics + learned physics 可跨 weather forecast 与 longer climate simulation 使用；但 climate evaluation 标准必须独立于 weather RMSE。
+
+---
+
+## 6. Downscaling
+
+climate downscaling 还面临：
+- future covariate shift；
+- bias correction stationarity assumption；
+- extreme tail extrapolation。
+
+---
+
+## 7. Causal / attribution boundary
+
+ML association 不自动提供 climate attribution。attribution 通常需要 counterfactual forcing experiments / causal/physical framework。

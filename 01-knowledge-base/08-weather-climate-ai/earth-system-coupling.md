@@ -1,104 +1,82 @@
 # Coupled Earth-system AI
 
-## 1. Motivation
-
-Atmosphere, land, ocean, sea ice, hydrology and biogeochemistry exchange energy, water, momentum and carbon. A model that predicts only atmospheric variables can ignore feedbacks important on longer timescales or for coupled applications.
-
-## 2. Component view
+## 1. 大气不是孤立系统
 
 ```text
-Atmosphere
-↕ momentum / heat / moisture / radiation
-Land
-↕ runoff / heat / carbon / moisture
-Ocean / sea ice
-↕ heat / momentum / freshwater
-Biogeochemistry
-↕ carbon / ecosystem processes
+atmosphere
+↕
+ocean
+↕
+land / vegetation / soil
+↕
+cryosphere
+↕
+waves / chemistry / carbon
 ```
 
-## 3. Modeling approaches
+medium-range weather 某些系统可使用 prescribed boundary variables，但 seasonal/climate/Earth-system prediction 需要更强 coupling。
 
-### Separate component models + coupling
+---
 
-Each component has its own model and exchange interface.
+## 2. Atmosphere–Ocean
 
-### Unified multi-component model
+coupling 影响：
+- SST；
+- heat flux；
+- tropical variability；
+- subseasonal/seasonal predictability。
 
-One network processes a combined state with variable/component embeddings.
+---
 
-### Hybrid physical–ML coupling
+## 3. Atmosphere–Land
 
-Numerical components are retained while selected components or exchange terms are learned.
+land state：
+- soil moisture；
+- snow；
+- vegetation；
+- surface temperature；
+- albedo
 
-## 4. Representation challenge
+影响 boundary-layer development、heatwave、precipitation feedback。
 
-Different components have different:
+---
 
-- grids;
-- vertical coordinates;
-- time steps;
-- state variables;
-- observation density;
-- conservation requirements.
+## 4. Weather–Carbon
 
-A unified tensor is convenient but can hide these differences.
+meteorological forcing 调节：
+- GPP；
+- respiration；
+- drought stress；
+- fire/disturbance；
+- turbulent footprint/source area。
 
-## 5. Coupling frequency
+因此 carbon AI 与 weather/climate AI 应共享 forcing representation 与 extreme diagnostics。
 
-Fast atmospheric dynamics and slower land/ocean/carbon states evolve on different timescales.
+---
 
-Possible designs:
+## 5. Foundation-model route
 
-```text
-fast atmosphere step × k
-→ exchange update
-→ slower component step
-```
+`Aurora` 的价值之一是跨 weather、air quality、ocean waves 等 Earth-system tasks 做 pretraining/adaptation，而不是为每个 domain 从零训练独立模型。
 
-or asynchronous/multi-rate learned integration.
+---
 
-## 6. Physical constraints
+## 6. Coupled training 难点
 
-Coupling interfaces should track flux sign, units and conservation. Examples:
+- variables/units 差异；
+- timescale separation；
+- resolution mismatch；
+- conservation；
+- interface flux；
+- sparse observations；
+- error propagation between components。
 
-- surface energy exchange;
-- freshwater balance;
-- momentum flux;
-- carbon exchange.
+---
 
-## 7. Training data
+## 7. Evaluation
 
-Sources may include:
-
-- coupled-model simulations;
-- reanalysis;
-- satellite observations;
-- in-situ networks;
-- land/ocean analysis products.
-
-Observation support and bias differ across sources.
-
-## 8. Evaluation
-
-Check both component skill and coupled behavior:
-
-- atmosphere forecast;
-- land/ocean state;
-- cross-component fluxes;
-- long-term drift;
-- conservation;
-- extremes;
-- climate distribution.
-
-## 9. Failure modes
-
-- component skill improves while coupled fluxes become inconsistent;
-- mismatched time scales cause instability;
-- learned coupling violates units/sign conventions;
-- observationally sparse components inherit simulator bias;
-- short forecast evaluation misses slow drift.
-
-## 10. Connections
-
-This page connects [weather/climate AI](index.md), [carbon–water–energy coupling](../07-carbon-cycle-ai/carbon-water-energy-coupling.md), [hybrid weather](physics-hybrid-weather.md) and [Earth foundation models](../09-earth-foundation-models/index.md).
+除了单 component RMSE，还要检查：
+- interface flux balance；
+- phase relationships；
+- coupled extremes；
+- long-run drift；
+- seasonal/interannual variability。

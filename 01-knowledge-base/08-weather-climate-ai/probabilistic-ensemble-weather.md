@@ -1,58 +1,110 @@
-# Probabilistic and Ensemble Weather
+# Probabilistic / Ensemble Weather
 
-## 1. Why probability is necessary
+## 1. 为什么单条 forecast 不够
 
-Atmospheric dynamics are sensitive to initial conditions and model uncertainty. A single trajectory cannot represent the full range of plausible futures.
+大气 chaotic，initial/model uncertainty 随 lead time 放大。
 
-## 2. Ensemble concept
+目标应从：
 
-Generate members:
+```text
+X_hat_T
+```
 
-`x_t^(1), x_t^(2), ..., x_t^(M)`
+扩展为：
 
-from perturbed initial conditions, model stochasticity or a learned generative distribution.
+```text
+p(X_T | observations/initial state)
+```
 
-## 3. Desired properties
+---
 
-### Accuracy
-Ensemble central tendency should be useful.
+## 2. Ensemble
 
-### Spread
-Members should represent forecast uncertainty.
+```text
+X^(1), X^(2), ..., X^(M)
+```
 
-### Reliability/calibration
-Events predicted with probability `p` should occur near frequency `p` under appropriate grouping.
+ensemble 可来自：
+- perturbed initial conditions；
+- stochastic model；
+- parameter perturbation；
+- diffusion/generative sampling；
+- multiple models。
 
-### Sharpness
-Forecast should be as concentrated as possible subject to calibration.
+---
 
-## 4. Deep ensembles
+## 3. Ensemble mean 不是全部
 
-Train/use multiple models or checkpoints. Simple but expensive and may not capture all sources of uncertainty.
+如果只看 ensemble mean RMSE，会丢失：
+- spread；
+- tail risk；
+- multimodality；
+- event probability。
 
-## 5. Generative ensembles
+---
 
-Diffusion/score/generative models learn conditional distributions and can generate many coherent spatial fields.
+## 4. CRPS
 
-The model should preserve physical/spatial correlations, not merely pointwise variance.
+Continuous Ranked Probability Score 比较 predictive CDF 与 observation；越低通常越好。
 
-## 6. Metrics
+它同时考虑 location 与 distribution sharpness/calibration。
 
-- CRPS;
-- Brier score for events;
-- reliability diagrams;
-- rank histograms;
-- spread-skill relationship;
-- probabilistic extreme-event scores.
+---
 
-## 7. Ensemble size
+## 5. Brier Score
 
-More members improve sampling of the predictive distribution but increase compute/storage. Report member count when comparing systems.
+对 binary event：
 
-## 8. Extreme events
+```text
+BS = mean((p_i-o_i)^2)
+```
 
-Tail behavior matters more than average global metrics for hazards. Evaluate threshold exceedance, spatial footprint, timing and intensity.
+适合：heavy rain、heat threshold、storm event probability。
 
-## 9. Calibration under shift
+---
 
-A model calibrated on historical weather can become overconfident under rare regimes/climate shift. Stratified/OOD calibration is important.
+## 6. Reliability / Rank
+
+- reliability diagram；
+- rank histogram；
+- spread–skill relation；
+- coverage。
+
+ensemble spread 太窄 → underdispersive；太宽 → overdispersive。
+
+---
+
+## 7. 代表 AI ensemble routes
+
+### GenCast
+conditional generative distribution。
+
+### FengWu-Ensemble
+conditional diffusion from deterministic forecasts。
+
+### AIFS ENS
+ECMWF operational AI ensemble。
+
+### WeatherNext 2
+FGN probabilistic scenario generation。
+
+### Aurora 1.5
+2026 extension 增加 probabilistic ensemble functionality。
+
+---
+
+## 8. Extremes
+
+probabilistic model 的价值尤其体现在 rare event：
+- cyclone path/intensity；
+- heavy precipitation；
+- heatwave；
+- renewable-energy risk。
+
+必须评估 event probability，而不只是 deterministic trajectory distance。
+
+## Sources
+
+- GenCast: https://doi.org/10.1038/s41586-024-08252-9
+- AIFS ENS v2: https://confluence.ecmwf.int/spaces/FCST/pages/620418893/Implementation+of+AIFS+ENS+v2
+- WeatherNext: https://deepmind.google/science/weathernext/

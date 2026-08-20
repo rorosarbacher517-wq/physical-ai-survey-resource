@@ -1,62 +1,82 @@
-# Weather Downscaling and Super-resolution
+# Weather Downscaling 与 Super-resolution
 
-## 1. Goal
-
-Map coarse atmospheric/climate fields to finer spatial detail using high-resolution static/dynamic predictors and learned conditional structure.
+## 1. 问题
 
 ```text
-coarse field
-+ topography / land / fine predictors
-→ high-resolution conditional field
+coarse global forecast
+→ local/high-resolution field
 ```
 
-## 2. Statistical downscaling
+可能同时需要：
+- spatial refinement；
+- bias correction；
+- local topography；
+- probabilistic detail。
 
-Learn relationships between large-scale circulation and local observations/climate variables.
+---
 
-## 3. Dynamical downscaling
+## 2. Dynamical downscaling
 
-Run a regional numerical model nested inside coarse boundary conditions. More physically explicit but computationally expensive.
+用 regional numerical model 嵌套 coarse boundary conditions。
 
-## 4. ML downscaling
+优点：保留 regional physics；
+代价：compute 高。
 
-CNN/U-Net/Transformer/generative models learn coarse-to-fine mappings.
+---
 
-## 5. Deterministic super-resolution
+## 3. Statistical / ML downscaling
 
-Produces one fine field. Pixel losses may smooth extremes.
+```text
+coarse field + static terrain + context
+→ fine field
+```
 
-## 6. Generative downscaling
+模型：CNN/U-Net/Transformer/GNN。
 
-Samples fine-scale fields conditioned on coarse context, allowing unresolved variability and uncertainty.
+---
 
-## 7. Conservation and consistency
+## 4. Generative downscaling
 
-Fine-grid output should remain consistent with coarse constraints where relevant.
+Diffusion/generative method 适合恢复 plausible fine-scale variability：
 
-Examples:
+```text
+p(X_high | X_coarse, static)
+```
 
-- area-mean precipitation consistency;
-- mass/energy-related aggregation;
-- large-scale atmospheric state.
+但生成 realistic texture 不等于真实 event reconstruction。
 
-## 8. Static features
+---
 
-Topography, coastlines, land cover and urban structure can explain systematic local patterns.
+## 5. CorrDiff / Earth-2
 
-## 9. Evaluation
+NVIDIA `CorrDiff` 是 generative regional downscaling route 的代表，Earth-2 将 global forecast、nowcasting/downscaling 组织为更完整的 weather AI stack。
 
-Check:
+Official Earth-2: https://www.nvidia.com/en-us/high-performance-computing/earth-2/
 
-- mean bias;
-- spatial spectra;
-- extremes/tails;
-- event structure;
-- station-level skill;
-- cross-region transfer;
-- coarse-to-fine consistency;
-- probabilistic calibration.
+---
 
-## 10. Key caution
+## 6. Orography / coast
 
-A fine output grid does not guarantee fine-scale independent truth. Verification must match station/radar/high-resolution reference support.
+高分辨率 temperature/wind/precipitation 强依赖：
+- elevation；
+- slope/aspect；
+- coast；
+- land cover；
+- urban effects。
+
+static features 应与 high-res grid 对齐。
+
+---
+
+## 7. Evaluation
+
+不仅 RMSE：
+- precipitation distribution；
+- extremes；
+- spectra；
+- spatial correlation；
+- topographic gradients；
+- station verification；
+- probabilistic calibration。
+
+downscaled output resolution 也不自动等于 independent observation resolution。

@@ -1,53 +1,67 @@
-# Weather Nowcasting
+# Nowcasting
 
-## 1. Task
+## 1. 时间尺度
 
-Nowcasting predicts weather over short horizons using high-frequency observations, commonly radar and satellite imagery plus numerical/other context.
+Nowcasting 通常关注 minutes 到 several hours 的短时天气演变，尤其：
+- precipitation；
+- convection；
+- storm cells；
+- cloud evolution。
 
-## 2. Radar sequence view
+它和 1–15 day global medium-range forecasting 是不同 problem。
 
-Input can be represented as:
+---
 
-`[B,T,C,H,W]`
+## 2. Inputs
 
-where channels encode reflectivity/rain-rate-related products and auxiliary variables.
+- weather radar sequence；
+- geostationary satellite imagery；
+- lightning；
+- stations；
+- short-range NWP context。
 
-## 3. Baseline approaches
+典型：
 
-- optical-flow/advection extrapolation;
-- ConvLSTM;
-- U-Net/video prediction;
-- Transformer;
-- generative/diffusion methods.
+```text
+X [B,T,C,H,W]
+→ future fields [B,T_future,C_out,H,W]
+```
 
-## 4. Core challenge
+---
 
-Pure extrapolation can move existing precipitation but cannot create/decay convection realistically. Learned models aim to capture evolution, while uncertainty increases quickly for convective storms.
+## 3. Methods
 
-## 5. Loss design
+- optical-flow / extrapolation；
+- ConvLSTM；
+- U-Net / encoder-decoder；
+- Transformer；
+- diffusion/generative models。
 
-Pixel MSE can blur intense rain because conditional mean smooths uncertain locations.
+---
 
-Alternatives/complements:
+## 4. 为什么 generative useful
 
-- threshold-weighted losses;
-- probabilistic/generative objectives;
-- perceptual/structural terms;
-- event-centric verification.
+强对流未来存在多个 plausible evolutions。deterministic MSE 容易生成 blurry precipitation field。
 
-## 6. Evaluation
+generative model 可以 sample multiple scenarios，但必须 calibration。
 
-Use lead-time curves and threshold/event metrics:
+---
 
-- CSI-like skill for precipitation thresholds;
-- FSS-like neighborhood scores;
-- calibration/probability for severe thresholds;
-- displacement/intensity diagnostics.
+## 5. NVIDIA Earth-2 context
 
-## 7. Observation issues
+2026-01 NVIDIA Earth-2 open weather stack 包含 nowcasting model，使用 satellite/radar information 预测 clouds/rainfall evolution。
 
-Radar coverage, beam blockage, attenuation, clutter and conversion from reflectivity to rain rate introduce uncertainty.
+Official: https://blogs.nvidia.com/blog/nvidia-earth-2-open-models/
 
-## 8. Multi-source nowcasting
+---
 
-Satellite, lightning, surface stations, NWP and radar can be fused. Different latency and spatial support must be recorded.
+## 6. Metrics
+
+- CSI / FSS；
+- thresholded precipitation skill；
+- CRPS / ensemble metrics；
+- object/storm tracking；
+- displacement error；
+- heavy-rain tail。
+
+pixel RMSE 往往不能完整评价 storm structure。
