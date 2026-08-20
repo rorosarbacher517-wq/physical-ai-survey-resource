@@ -1,47 +1,82 @@
-# Energy and Materials AI
+# Energy / Materials AI
 
-## 1. Energy systems
+## 1. Materials representation
 
-Applications:
+材料不是普通 tabular feature，可表示为：
+- crystal graph；
+- atomic graph；
+- 3D coordinates；
+- composition；
+- electron/field descriptors。
 
-- renewable power forecasting;
-- grid load/state estimation;
-- battery state/health;
-- building/thermal control;
-- combustion/heat transfer;
-- power-system optimization.
+---
 
-Physics can enter through circuit/network equations, conservation, thermal dynamics and control constraints.
+## 2. GNN / Equivariance
 
-## 2. Materials
+原子系统应尊重：
+- permutation invariance；
+- translation；
+- rotation/equivariance。
 
-Applications:
+能量通常要求 invariant，force 与 rotation 具有 vector equivariance。
 
-- property prediction;
-- atomistic potentials;
-- molecular/crystal generation;
-- phase/structure modeling;
-- mechanics/fracture;
-- inverse design.
+---
 
-## 3. Graph/equivariant models
+## 3. Task
 
-Atoms or components form graphs. Rotational/translational symmetry can be encoded through invariant/equivariant architectures.
+- energy / force prediction；
+- property prediction；
+- molecular/material generation；
+- inverse design；
+- reaction/transition prediction；
+- battery/catalyst/material discovery。
 
-## 4. Surrogate simulation
+---
 
-Learn expensive quantum/atomistic/continuum calculations over a bounded domain.
+## 4. Interatomic potential
 
-Validation must include configuration/chemistry/temperature/pressure regimes not merely random structures.
+```text
+atomic structure
+→ learned potential energy
+→ forces = -∇_r E
+```
 
-## 5. Design optimization
+如果能量模型可微，可通过 gradient 得到 forces。
 
-A differentiable/generative model can propose materials/configurations, but candidates require physical constraints and downstream simulation/experimental validation.
+---
 
-## 6. Uncertainty
+## 5. Active Learning
 
-High extrapolation risk means uncertainty/active learning are central: identify states where the surrogate lacks training support and request new simulations/measurements.
+高精度 quantum calculation 贵，可循环：
 
-## 7. Connection to Earth AI
+```text
+train surrogate
+→ identify high-uncertainty candidate
+→ expensive simulation/experiment
+→ add data
+→ retrain
+```
 
-Shared methods include graph learning, operator surrogates, differentiable solvers, uncertainty, multi-fidelity data and physically constrained optimization.
+---
+
+## 6. Energy systems
+
+另一类问题包括：
+- load / renewable forecasting；
+- power-grid state estimation；
+- optimization/control；
+- weather-to-energy coupling。
+
+这与 Weather AI 的 probabilistic forecast 有直接联系。
+
+---
+
+## 7. Evaluation
+
+除了 test MAE：
+- composition/structure OOD；
+- force consistency；
+- physical stability；
+- downstream MD rollout；
+- uncertainty；
+- discovery hit rate。

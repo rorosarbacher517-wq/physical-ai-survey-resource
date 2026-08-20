@@ -1,63 +1,114 @@
-# Distributed Scientific ML
+# Distributed Scientific ML / HPC
 
-## 1. Scaling dimensions
+## 1. 为什么 Scientific ML 特别吃 I/O
 
-Scientific models scale along:
+语言模型通常 token stream 结构相对统一；Earth/scientific data 常需要：
+- 解压大 raster；
+- 多文件时空配准；
+- random patch crop；
+- interpolation；
+- mask；
+- multi-source join。
 
-- sample count;
-- spatial resolution;
-- temporal length;
-- number of variables/levels;
-- ensemble size;
-- model parameters.
+所以瓶颈可能是 CPU/storage，而不是 GPU FLOPs。
 
-## 2. Data parallelism
+---
 
-Each device processes different samples, gradients are synchronized.
+## 2. Data Parallel
 
-Works well when each sample fits on one device.
+`DDP`：每个 rank 一份 model，不同 batch shard。
 
-## 3. Model/tensor parallelism
+```text
+GPU0: batch0
+GPU1: batch1
+...
+→ gradient all-reduce
+```
 
-Split model weights/operations across devices when the model itself is too large.
+适合 model 能放进单 GPU。
 
-## 4. Spatial/domain parallelism
+---
 
-Split a huge physical field/domain across devices. Communication at boundaries/global operations can dominate.
+## 3. Parameter / Optimizer Sharding
 
-## 5. Pipeline parallelism
+`FSDP / ZeRO`：切分 parameters、gradients、optimizer states。
 
-Split layers/stages across devices; useful for large sequential architectures but introduces scheduling bubbles/complexity.
+适合 larger FM / weather model。
 
-## 6. Communication
+---
 
-Global attention, FFTs, graph exchange and distributed normalization can require substantial all-to-all/all-reduce communication.
+## 4. Model Parallel
 
-Compute FLOPs alone do not predict runtime.
+### Tensor parallel
+切矩阵计算。
 
-## 7. I/O
+### Pipeline parallel
+切 layers/stages。
 
-A training cluster can starve accelerators when remote raster/netCDF/Zarr data are decoded/reprojected on demand.
+### Spatial/Domain parallel
+scientific grids 还可按 spatial domain 切分，但边界通信与 global operators 需要特别处理。
 
-Mitigations:
+---
 
-- precomputed aligned shards;
-- local caching;
-- asynchronous loaders;
-- compressed/chunked formats;
-- parallel preprocessing.
+## 5. Attention / Grid memory
 
-## 8. Checkpointing
+如果 token 数 `N`：
 
-Large runs need:
+```text
+standard attention memory ~ O(N²)
+```
 
-- periodic checkpoints;
-- optimizer/scheduler state;
-- RNG state;
-- data position/epoch;
-- config and code commit;
-- robust resume.
+global weather / high-res EO 中 N 很大，因此常用：
+- patching；
+- window attention；
+- factorized space/time attention；
+- graph/mesh；
+- spectral operator；
+- hierarchical resolution。
 
-## 9. Efficiency metrics
+---
 
-Report throughput, memory, training wall time, device count and inference latency alongside scientific accuracy.
+## 6. Mixed precision
+
+`FP16/BF16` 可降低 memory/提高吞吐，但 scientific variables dynamic range 大时要检查：
+- underflow/overflow；
+- loss scaling；
+- physical residual precision；
+- reduction precision。
+
+---
+
+## 7. Rollout inference
+
+weather/climate inference 成本不仅是 single forward：
+
+```text
+cost ≈ steps × ensemble members × resolution × variables
+```
+
+probabilistic 100-member forecast 与单 deterministic forecast 不是同一 compute budget。
+
+---
+
+## 8. Profiling
+
+分开测：
+- data wait；
+- H2D transfer；
+- forward；
+- backward；
+- communication；
+- checkpoint I/O；
+- evaluation/regridding。
+
+---
+
+## 9. Reproducibility
+
+多 GPU 训练需记录：
+- world size；
+- global/local batch；
+- gradient accumulation；
+- precision；
+- distributed seed；
+- checkpoint resumption semantics。

@@ -1,63 +1,97 @@
-# Scientific Evaluation and Benchmarking
+# Evaluation 与 Benchmarking
 
-## 1. Benchmark definition
+## 1. Benchmark 的真正作用
 
-A meaningful benchmark fixes:
+一个 benchmark 应固定：
 
-- dataset version;
-- preprocessing;
-- sample unit;
-- split;
-- target definition;
-- metrics;
-- evaluation support;
-- baseline protocol.
+```text
+data + preprocessing + split + task + metric + protocol
+```
 
-## 2. IID versus OOD
+否则不同论文数字不具可比性。
 
-Random IID tests measure interpolation under a familiar distribution. Scientific deployment often requires new regions, sites, regimes, parameters or extremes.
+---
 
-Both can be useful but answer different questions.
+## 2. Evaluation hierarchy
 
-## 3. Physical diagnostics
+### IID / interpolation
+测试基本拟合能力。
 
-Add to prediction metrics:
+### Temporal OOD
+unseen year / future period。
 
-- conservation/balance error;
-- boundary/constraint violations;
-- spectral behavior;
-- long-rollout stability;
-- extreme-event error;
-- uncertainty calibration.
+### Spatial OOD
+unseen site/region/domain。
 
-## 4. Paired ablation
+### Regime OOD
+unseen climate/parameter/operating condition。
 
-To test a component, hold dataset/split/backbone/training fixed and vary one design choice.
+### Extreme
+tail/event conditions。
 
-## 5. Statistical uncertainty
+### Physical
+conservation、balance、spectrum、stability。
 
-Report confidence intervals or bootstrap/site-wise variability when sample dependence makes one pooled number misleading.
+---
 
-## 6. Site-level reporting
+## 3. Paired ablation
 
-For multi-site Earth data, pooled metrics can be dominated by large sites. Report site distributions and macro summaries when appropriate.
+比较一个 physics/module 是否有效时：
 
-## 7. Compute-normalized evaluation
+```text
+same data
+same split
+same backbone
+same optimizer
+same random protocol
+only change target component
+```
 
-A small accuracy gain at much larger compute may or may not be worthwhile. Include parameter count, training/inference cost and memory when the claim is efficiency-related.
+然后在同一样本上比较 paired errors。
 
-## 8. Reproducibility level
+---
 
-Distinguish:
+## 4. Statistical uncertainty
 
-- paper claim only;
-- code released;
-- data/split available;
-- checkpoint available;
-- result independently reproduced.
+报告 mean metric 不够。可提供：
+- bootstrap CI；
+- site-level distribution；
+- multiple seeds；
+- paired significance / effect size；
+- subgroup sample count。
 
-Do not call a result reproduced without running the documented experiment.
+---
 
-## 9. Repository benchmark layer
+## 5. Compute-normalized evaluation
 
-Use [benchmark library](../../05-benchmarks-and-evaluation/index.md) for canonical cards rather than copying benchmark definitions into multiple modules.
+同时记录：
+- parameter count；
+- FLOPs/estimated compute；
+- training GPU hours；
+- inference latency；
+- ensemble member count；
+- memory。
+
+不同 compute scale 的 model 只比一个 RMSE 不完整。
+
+---
+
+## 6. Domain-specific benchmark
+
+### EO
+`PANGAEA` 等跨 sensor/task/geography benchmark。
+
+### Weather
+`WeatherBench 2` + operational verification protocols。
+
+### Carbon
+site-blocked / biome OOD + support-aware evaluation；目前仍缺统一覆盖 fine-scale footprint-aware carbon modeling 的公共 benchmark，这应明确写成 gap，而不是假装已有标准答案。
+
+---
+
+## 7. Reproducibility vs Replication
+
+- rerun same code：reproducibility；
+- independent implementation/data pipeline 得到相近结论：更强的 replication evidence。
+
+仓库只有在实际运行 commands 并记录 outputs 后才能写“reproduced”。

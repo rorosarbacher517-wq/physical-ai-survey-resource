@@ -1,69 +1,111 @@
-# Digital Twins and Embodied Physical Systems
+# Digital Twins 与 Embodied Physical AI
 
-## 1. Digital-twin loop
-
-A digital twin is a continuously updated model-system loop:
+## 1. Digital Twin 的闭环
 
 ```text
 physical system
-→ sensors/observations
+→ sensors
 → state estimation
-→ model/surrogate
-→ forecast/scenario
-→ decision/control
+→ digital model
+→ forecast / simulation
+→ decision / control
 → physical system
+→ new observations
 ```
 
-The synchronization/state-estimation loop distinguishes it from a static simulator dashboard.
+如果只有一个静态 simulator，没有 observation update/control loop，通常不应把它泛化成完整 digital twin。
 
-## 2. Components
+---
 
-- sensor ingestion;
-- observation model;
-- state/parameter estimation;
-- physics/process model;
-- ML surrogate/residual;
-- uncertainty;
-- decision/control;
-- monitoring/audit.
+## 2. 与 Data Assimilation 的关系
+
+Digital twin 需要持续校正 state：
+
+```text
+model forecast + observations → updated state
+```
+
+这与 DA 有直接数学共性。
+
+---
 
 ## 3. Embodied intelligence
 
-An embodied agent additionally perceives and acts in a physical environment.
-
-Core stack:
+典型链：
 
 ```text
 perception
-→ world/state representation
-→ dynamics/world model
-→ planning/policy
+→ localization/state estimation
+→ world model
+→ planning
 → control/action
 → new observation
 ```
 
-## 4. Connection to Scientific AI
+---
 
-Shared foundations:
+## 4. Physical perception
 
-- system identification;
-- differentiable simulation;
-- uncertainty;
-- model predictive control;
-- 3D/geometry;
-- multi-sensor fusion;
-- physical constraints.
+- RGB / depth；
+- LiDAR；
+- tactile；
+- proprioception；
+- audio；
+- force/torque。
 
-## 5. Sim-to-real
+与 EO 一样，sensor modality 有 observation physics，不应只视作 generic tokens。
 
-A policy/model trained in simulation faces mismatch in dynamics, sensors, contacts and environment.
+---
 
-Approaches include domain randomization, adaptation, system identification and real-world fine-tuning with safety constraints.
+## 5. World Model
 
-## 6. Safety
+学习：
 
-Physical actions create real consequences. Reliable systems need bounds, monitors, fallback controllers, uncertainty/OOD detection and auditable action interfaces.
+```text
+state + action → future state/observation
+```
 
-## 7. Earth-system analogy
+需要：
+- dynamics；
+- uncertainty；
+- multimodal prediction；
+- long-horizon consistency。
 
-Earth digital twins use similar observe→estimate→simulate→update loops, but action/control may be replaced by scenario analysis, forecasting or decision support.
+---
+
+## 6. Planning / Control
+
+- model predictive control；
+- reinforcement learning；
+- trajectory optimization；
+- vision-language-action (VLA) systems。
+
+Physical AI 需要考虑 constraints、contact、stability 与 safety。
+
+---
+
+## 7. Sim-to-real
+
+simulation 与 real world 存在：
+- dynamics gap；
+- sensor gap；
+- appearance gap；
+- contact/friction uncertainty。
+
+策略包括 domain randomization、system identification、online adaptation。
+
+---
+
+## 8. 与 Scientific AI 的桥
+
+Scientific AI 更关注“理解/模拟/反演 physical system”；Embodied AI 更关注“感知/决策/行动”。
+
+两者在：
+- state estimation；
+- world/dynamics model；
+- uncertainty；
+- differentiable simulation；
+- observation operator；
+- control
+
+处汇合。

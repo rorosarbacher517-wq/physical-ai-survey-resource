@@ -1,68 +1,122 @@
 # Scientific Data Engineering
 
-## 1. Data is part of the model
+## 1. Raw → Analysis-ready → ML-ready
 
-Scientific ML quality depends on provenance, coordinate/time alignment, units, QC and sampling as much as architecture.
-
-## 2. Canonical pipeline
+建议分层：
 
 ```text
-source registry
-→ raw access/version
-→ validation/QC
-→ coordinate harmonization
-→ temporal harmonization
-→ physical-unit conversion
-→ observation/support mapping
+raw immutable source
+→ calibrated/quality-controlled product
+→ harmonized analysis-ready data
 → sample manifest
-→ split manifest
-→ shards/cache
-→ training/evaluation
+→ model-ready shards/batches
 ```
 
-## 3. Immutable raw layer
+不要把 downloaded raw data 与处理后 training array 混在同一个不可追溯目录。
 
-Preserve original product identifiers/versions and avoid silent in-place modification. Derived datasets should record transformation lineage.
+---
 
-## 4. Sample manifest
+## 2. Sample Manifest
 
-For each sample store enough identifiers to reconstruct inputs/targets:
+每个样本至少能追到：
 
-- site/tile/grid;
-- timestamp/time interval;
-- source product/version;
-- sensor;
-- QC status;
-- split;
-- preprocessing version.
+```text
+sample_id
+source IDs
+space/time bounds
+variables
+units
+QA/mask
+processing version
+label source/support
+split group
+checksum/provenance
+```
 
-## 5. Chunking
+---
 
-Large Earth arrays are read by chunks. Chunk shape should match access patterns:
+## 3. Chunking
 
-- spatial tiles;
-- time windows;
-- variable groups.
+Zarr/NetCDF chunk 应根据 access pattern 设计。
 
-Poor chunking can make GPU training I/O-bound.
+例如：
+- time-series training：time chunk 不能过碎；
+- random spatial patches：spatial chunk 要减少读放大；
+- global forecast：常按 time/variable 分片并做 parallel I/O。
 
-## 6. Missing data
+错误 chunking 会让 GPU 等数据。
 
-Use masks and explicit missing semantics. Distinguish:
+---
 
-- not observed;
-- invalid/QC rejected;
-- outside coverage;
-- physically zero.
+## 4. Missing values
 
-## 7. Reprocessing
+区分：
+- true physical zero；
+- missing；
+- fill value；
+- invalid QA；
+- outside domain。
 
-Satellite/reanalysis products can be reprocessed. Pin versions/dates and record changes when rebuilding datasets.
+不要全部填 0 而不提供 mask。
 
-## 8. Leakage-safe splits
+---
 
-Generate split manifests before normalization/statistics. Site/time/region boundaries must be reproducible.
+## 5. Coordinate / CRS
 
-## 9. Data audits
+Earth data 必须保存：
+- CRS；
+- affine transform；
+- latitude/longitude；
+- vertical coordinate；
+- calendar/time zone；
+- grid cell convention。
 
-Check distributions by split, site, sensor, season, label and missingness. Many apparent model improvements are sampling differences.
+---
+
+## 6. Units
+
+建议在 ingestion 层统一 canonical units，并在 metadata 保存原单位。
+
+尤其注意：
+- Kelvin vs Celsius；
+- Pa vs hPa；
+- accumulated precipitation vs rate；
+- carbon flux sign/unit；
+- radiation energy accumulation vs flux。
+
+---
+
+## 7. Split manifest
+
+split 是 data artifact：
+
+```text
+sample_id → train/val/test/fold
+```
+
+应 version-control，而不是每次 runtime 随机生成。
+
+---
+
+## 8. Foundation-model data overlap
+
+下游 benchmark 还应记录：
+- pretraining time range；
+- geography overlap；
+- sensor overlap；
+- target-label overlap if known。
+
+---
+
+## 9. Data lineage
+
+最终一个 metric 应能反向追踪：
+
+```text
+metric
+→ predictions
+→ checkpoint
+→ training manifest
+→ processed samples
+→ raw source/product version
+```
