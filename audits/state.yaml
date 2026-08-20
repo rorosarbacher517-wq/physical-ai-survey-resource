@@ -1,4 +1,4 @@
-current_phase: 15-cn-systematic-earth-ai
+current_phase: 16-embodied-physical-ai
 phases:
   '00': PASS
   '01': PASS
@@ -16,4 +16,5 @@ phases:
   '13': PASS
   '14': PASS
   '15': PASS
-updated: '2026-08-20T15:00:00+00:00'
+  '16': IN_PROGRESS
+updated: '2026-08-20T15:25:00+00:00'
