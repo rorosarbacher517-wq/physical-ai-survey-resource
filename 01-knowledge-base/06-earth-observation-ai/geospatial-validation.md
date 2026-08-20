@@ -1,82 +1,85 @@
-# Geospatial Validation and OOD Evaluation
+# Geospatial Validation、OOD 与 Foundation-model Evaluation
 
-## 1. Why random splitting often fails
+## 1. Random pixel split 为什么危险
 
-Nearby pixels, dates and sites share climate, land cover, sensor conditions and spatial context. Random splits can place highly correlated samples in both train and test sets.
-
-## 2. Split axes
-
-Choose the axis that matches the scientific claim:
-
-- held-out site;
-- held-out region;
-- held-out biome/ecoregion;
-- held-out year/time block;
-- held-out event/disturbance;
-- held-out sensor;
-- held-out climate regime.
-
-## 3. Interpolation versus extrapolation
-
-A model can perform strongly when filling gaps inside the training domain while failing at spatial or climate extrapolation. State explicitly which regime the evaluation represents.
-
-## 4. Spatial support
-
-Validation data may represent:
-
-- a point;
-- plot;
-- footprint;
-- pixel;
-- polygon;
-- coarse grid cell.
-
-Do not compare values without defining how supports are mapped.
-
-## 5. Hierarchical metrics
-
-Useful reporting levels:
+相邻 pixel 高度相关：
 
 ```text
-sample/pixel
-→ site/scene
-→ biome/region
-→ global aggregate
+train pixel ── 30 m ── test pixel
 ```
 
-A global metric can hide severe regional bias.
+模型可能只是在 spatial interpolation，而不是真正 generalization。
 
-## 6. Paired comparisons
+---
 
-When testing one modeling change, keep data/splits/training fixed and compare paired predictions on identical held-out samples.
+## 2. Split hierarchy
 
-## 7. Uncertainty and calibration
+从容易到困难：
 
-For probabilistic outputs, evaluate coverage/calibration by region and regime, not only globally.
+```text
+random samples
+→ spatial blocks
+→ unseen scenes/tiles
+→ unseen regions
+→ unseen biomes/climates
+→ unseen years/events
+→ future distribution shift
+```
 
-## 8. Error stratification
+---
 
-Stratify by:
+## 3. Foundation-model transfer protocols
 
-- cloud/data quality;
-- land-cover heterogeneity;
-- observation density;
-- topography;
-- season;
-- climate/extreme state;
-- sensor.
+必须明确：
+- frozen embeddings；
+- linear probe；
+- shallow MLP；
+- adapter/PEFT；
+- full fine-tune。
 
-## 9. Leakage checklist
+参数更新程度不同，结果不能直接放在同一列比较。
 
-Check whether the test target is indirectly accessible through:
+---
 
-- neighboring labels;
-- temporal smoothing using future values;
-- global normalization fitted on all data;
-- duplicate/overlapping tiles;
-- pretraining data containing evaluation labels or imagery;
-- site identity encoded through static variables.
+## 4. Geographic leakage
 
-## 10. Related pages
+如果 pretraining 已覆盖 downstream test region/time，zero-shot/frozen performance 并不等价于“完全未见过该 geography”。
 
-See [Evaluation and benchmarking](../11-data-hpc-evaluation/evaluation-benchmarking.md), [support-aware learning](../05-spatiotemporal-multiscale-ai/support-aware-learning.md) and [carbon validation](../07-carbon-cycle-ai/validation-uncertainty.md).
+应尽可能记录：
+- pretraining coverage；
+- temporal cutoff；
+- geolocation metadata；
+- downstream overlap。
+
+---
+
+## 5. Regression 比分类更难
+
+Land-cover classification 主要测 semantic separability；
+biomass、soil moisture、GPP 等 quantitative regression 更要求 representation 保留 continuous physical information。
+
+2026-08 的 emerging biomass benchmarking 进一步强调 embedding-as-data 与 downloadable encoders 在 quantitative regression 上可能表现不同；这类结果仍应结合具体 benchmark、pretraining overlap 与 reference uncertainty 阅读。
+
+---
+
+## 6. Scale-aware metrics
+
+不要只报告 overall RMSE/F1，还可按：
+- biome；
+- land cover；
+- region；
+- sensor；
+- resolution；
+- season；
+- cloudiness；
+- label density；
+- extreme/event；
+- object size。
+
+---
+
+## 7. PANGAEA
+
+PANGAEA 提供跨 datasets/tasks/sensors/resolutions 的标准化 EO FM evaluation framework，是截至 2026-08-20 最值得持续跟踪的 GFM benchmark 之一。
+
+Source: https://arxiv.org/abs/2412.04204

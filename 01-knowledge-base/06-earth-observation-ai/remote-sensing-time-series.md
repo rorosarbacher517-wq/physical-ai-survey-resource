@@ -1,120 +1,78 @@
 # Remote-sensing Time-series Learning
 
-## 1. Earth observation is irregular in time
+## 1. EO time series 为什么特殊
 
-Satellite sequences differ from evenly sampled video. Acquisitions depend on orbit, clouds, sensor availability and compositing rules.
+它不是规则 video：
+- revisit irregular；
+- cloud missingness；
+- multi-sensor cadence；
+- seasonal cycle；
+- geometry variation；
+- disturbance/event abrupt change。
 
-Represent each observation as:
+---
 
-```text
-(x_t, timestamp_t, sensor_t, quality_t)
-```
+## 2. 输入设计
 
-rather than assuming an implicit constant frame rate.
-
-## 2. Temporal signals to separate
-
-A sequence can contain:
-
-- diurnal variation;
-- phenology/seasonality;
-- weather-driven anomalies;
-- disturbance;
-- long-term trend;
-- sensor/geometry artifacts;
-- missing-observation patterns.
-
-## 3. Input representations
-
-### Regularized sequence
-
-Interpolate/composite to a fixed interval:
+推荐显式保留：
 
 ```text
-[B,T,C,H,W]
+X      [B,T,C,H,W]
+mask   [B,T,1,H,W] or [B,T]
+time   [B,T,*]
+sensor [B,T]
 ```
 
-Convenient, but interpolation assumptions become part of the data-generating process.
+必要时还包括 sun/view geometry。
 
-### Irregular-event sequence
+---
 
-Use actual acquisition times and masks:
+## 3. Temporal models
 
-```text
-features: [B,T,D]
-times:    [B,T]
-mask:     [B,T]
-```
+### RNN / GRU / LSTM
+适合小样本和 compact sequence。
 
-### Patch-token sequence
+### Temporal CNN / TCN
+高效 local temporal receptive field。
 
-```text
-[B,T,P,D]
-```
+### Transformer
+适合 long-range temporal interaction，但需要处理 missingness 和 token cost。
 
-where `P` is the number of spatial tokens.
+### State-space / continuous-time ideas
+适合 irregular time gap 的某些场景。
 
-## 4. Model families
+---
 
-- temporal CNN;
-- RNN/LSTM/GRU;
-- temporal Transformer;
-- spatial-temporal attention;
-- state-space sequence models;
-- latent ODE/state-space models;
-- masked sequence reconstruction.
+## 4. Gap filling vs Forecasting
 
-## 5. Time encoding
-
-Useful signals include:
-
-- elapsed time between observations;
-- day-of-year;
-- local solar time;
-- sensor identifier;
-- acquisition geometry;
-- event/management metadata where available.
-
-Do not let day-of-year become a shortcut that replaces actual environmental response when OOD climate transfer matters.
-
-## 6. Reconstruction versus prediction
-
-### Reconstruction/gap filling
-
-Estimate missing observations within a sequence.
+### Gap filling
+利用前后 context 重建已发生但缺测的 observation。
 
 ### Forecasting
+只允许使用 forecast origin 之前的信息。
 
-Predict future state using only information available before the forecast origin.
+若 gap-filling model 在训练/评测中使用 future observation，就不能把结果当 real forecast。
 
-### Smoothing
+---
 
-Use observations before and after a target time.
+## 5. Phenology
 
-These are different tasks and require different leakage rules.
+seasonal vegetation dynamics 可用：
+- DoY encoding；
+- harmonic features；
+- temporal attention；
+- learned seasonal latent。
 
-## 7. Multi-sensor densification
+但 extreme/drought/disturbance 可能偏离正常 phenological cycle。
 
-Harmonized or fused records can improve temporal coverage, but cross-sensor calibration and spectral-response differences must be tracked.
+---
 
-## 8. Evaluation
+## 6. Evaluation
 
-Use splits that test the intended generalization:
-
-- future time blocks;
-- held-out regions/sites;
-- held-out sensors;
-- disturbance/extreme periods;
-- long missing intervals.
-
-## 9. Failure modes
-
-- interpolation using future data in a forecasting task;
-- random date splitting that leaks seasonal signatures from the same site;
-- cloud masks correlated with target conditions;
-- treating reconstructed values as independent observations;
-- ignoring sensor changes in long records.
-
-## 10. Related pages
-
-See [Temporal modeling](../05-spatiotemporal-multiscale-ai/temporal-modeling.md), [EO preprocessing](eo-preprocessing-quality.md) and [super-resolution/reconstruction](super-resolution-reconstruction.md).
+建议分别测：
+- random missing；
+- long cloud gaps；
+- seasonal gaps；
+- unseen year；
+- unseen region；
+- disturbance/extreme periods。

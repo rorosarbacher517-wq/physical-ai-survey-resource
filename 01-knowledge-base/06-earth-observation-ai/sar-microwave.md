@@ -1,68 +1,87 @@
-# SAR and Microwave Remote Sensing
+# SAR / Microwave AI
 
-## 1. Why microwave is different
+## 1. SAR 测到什么
 
-Synthetic-aperture radar is an active sensor: it transmits microwave energy and measures returned backscatter. The signal depends on surface/volume scattering rather than reflected sunlight.
+Synthetic Aperture Radar 主动发射 microwave 并接收 backscatter。
 
-This gives major advantages for cloud-covered regions and day/night acquisition, while introducing speckle and geometry-specific interpretation.
+与 optical 最大区别：
+- 主动 sensing；
+- all-weather / day-night capability；
+- phase / coherence 可提供额外信息；
+- scattering mechanism 与 optical reflectance 完全不同。
 
-## 2. Key physical controls
+---
 
-Backscatter depends on:
+## 2. 关键变量
 
-- wavelength/frequency;
-- polarization;
-- incidence angle;
-- dielectric properties;
-- surface roughness;
-- vegetation/water structure;
-- moisture;
-- orientation and geometry.
+### Wavelength
+X/C/L/P band 对 vegetation penetration 与 scattering sensitivity 不同。
 
-The same land cover can produce different signals under different moisture or viewing conditions.
+### Polarization
+`HH`, `HV`, `VV`, `VH` 等反映不同 scattering path。
 
-## 3. Common polarizations
+### Incidence angle
+同一 surface 在不同 incidence angle 下 backscatter 会变化。
 
-Examples: VV, VH, HH, HV.
+### Dielectric property
+water strongly affects dielectric constant，因此 soil/vegetation moisture 与 microwave signal 强相关。
 
-Co- and cross-polarized responses encode different scattering behavior. Do not merge polarization channels without understanding their acquisition/product definitions.
+### Surface roughness / structure
+roughness、orientation、canopy architecture 都会改变 scattering。
 
-## 4. Speckle
+---
 
-Coherent imaging produces multiplicative-looking granular variation. Processing may use multi-looking, filters, temporal averaging or models trained to exploit the statistical structure.
+## 3. Speckle
 
-Over-smoothing can remove real fine-scale information.
+SAR coherent imaging 产生 speckle。它不是普通 additive Gaussian noise。
 
-## 5. Geometry
+处理选择：
+- filtering；
+- log transform；
+- multi-look；
+- network learned representation。
 
-SAR-specific effects include:
+过度滤波会损失 edges/small objects。
 
-- foreshortening;
-- layover;
-- radar shadow;
-- terrain effects;
-- orbit/view direction differences.
+---
 
-Terrain correction and accurate geolocation are critical before fusion with optical data.
+## 4. Preprocessing
 
-## 6. Passive microwave
+常见：
 
-Radiometers measure naturally emitted microwave brightness temperatures. They often have coarse spatial resolution but can provide moisture/temperature-related information with frequent temporal coverage.
+```text
+radiometric calibration
+→ speckle-aware processing
+→ terrain correction
+→ geocoding
+→ incidence/geometry handling
+```
 
-## 7. AI tasks
+如果与 optical fusion，还要 co-registration。
 
-- crop/forest/land-cover mapping;
-- flood/wetland monitoring;
-- soil-moisture-related retrieval;
-- biomass/structure estimation;
-- change detection;
-- optical-SAR fusion;
-- gap filling under clouds.
+---
 
-## 8. Multimodal fusion
+## 5. AI representation
 
-Optical and SAR contain complementary physics. Useful designs include modality-specific encoders followed by latent fusion or cross-attention instead of forcing the channels to behave identically.
+- amplitude/backscatter channels；
+- multi-polarization；
+- complex-valued representation（特定任务）；
+- interferometric coherence/phase；
+- multi-temporal SAR sequence。
 
-## 9. Carbon relevance
+---
 
-SAR/microwave can add information on canopy structure, moisture and inundation that optical data may miss, especially in cloudy or wet environments. Their contribution should be tested with paired ablations and support-aware validation.
+## 6. 2026 foundation-model context
+
+截至 2026-08-20，SAR foundation modeling 已形成独立研究线：
+- SAR-only self-supervised pretraining；
+- SAR–optical multimodal pretraining；
+- vision-language；
+- generative cross-modal modeling。
+
+`MaRS`（AAAI 2026）是 VHR SAR–optical multimodal foundation model 的代表之一；2026 年的 SAR foundation-model review 进一步系统化了 visual/multimodal/generative taxonomy。
+
+## Sources
+
+- MaRS, AAAI 2026: https://ojs.aaai.org/index.php/AAAI/article/view/38153
+- Hou et al. (2026), *SAR foundation models: a comprehensive review of data, models, and applications*, Science China Information Sciences.

@@ -1,114 +1,117 @@
-# Radiative Transfer and Observation Physics for EO AI
+# Radiative Transfer 与 Remote-sensing Observation Physics
 
-## 1. Core idea
+## 1. 为什么要从这里学
 
-Remote-sensing AI learns from sensor observations produced by radiation interacting with the atmosphere and surface. The model therefore sees an observation of the physical state, not the state itself.
+AI 看到的 `reflectance`、`backscatter`、`brightness temperature`、`SIF` 并不是 surface state 本身，而是经过 observation process 的结果。
 
-## 2. Observation chain
-
-```text
-source radiation
-→ atmosphere
-→ surface/canopy interaction
-→ atmosphere
-→ sensor spectral/spatial response
-→ digital measurement
-→ calibration/correction
-→ ML tensor
-```
-
-For passive optical sensing the source is commonly sunlight; thermal sensing includes emitted radiation. Active systems such as radar and LiDAR provide their own transmitted energy.
-
-## 3. Radiance versus reflectance
-
-Radiance is sensor-observed radiant energy in a viewing geometry. Surface reflectance is a retrieved property intended to reduce illumination/atmospheric effects.
-
-A generic retrieval can be viewed as an inverse problem:
+统一形式：
 
 ```text
-sensor radiance y = H(surface, atmosphere, geometry, sensor) + ε
-→ estimate surface quantity x
+y = H(x; geometry, atmosphere, sensor) + ε
 ```
 
-The retrieval is not exact; uncertainty propagates into downstream AI.
+---
 
-## 4. BRDF and geometry
+## 2. Optical radiative transfer
 
-Reflectance changes with solar zenith, view zenith and relative azimuth because real surfaces are anisotropic.
-
-Implications for AI:
-
-- repeated observations can change even when the surface state is similar;
-- angular metadata can be useful input;
-- cross-sensor harmonization should consider geometry, not only band names;
-- temporal models can learn geometry artifacts unless explicitly controlled.
-
-## 5. Spectral response functions
-
-Two sensors labeled with similar bands can integrate different wavelength ranges.
-
-A band measurement can be conceptualized as:
+简化 chain：
 
 ```text
-band_value ≈ ∫ spectral_signal(λ) · response(λ) dλ
+solar irradiance E0
+→ atmospheric transmittance
+→ surface/canopy absorption + scattering
+→ upward radiance L
+→ sensor spectral response
 ```
 
-This matters for cross-sensor transfer, synthetic-band generation and foundation models that accept variable spectral channels.
+Top-of-atmosphere radiance 与 surface reflectance 之间还受到：
+- aerosol；
+- water vapor；
+- ozone；
+- adjacency effect；
+- sun-view geometry。
 
-## 6. Atmospheric effects
+### AI 意义
+同一个 surface state 在不同 geometry/atmosphere 下可能产生不同 observation。
 
-Scattering, absorption, aerosols, water vapor and clouds alter the signal. Atmospheric correction is itself a physical inversion/retrieval step.
+---
 
-Useful distinction:
+## 3. BRDF
+
+Bidirectional Reflectance Distribution Function 描述反射随 illumination/view geometry 变化。
+
+因此 multi-date optical time series 中的变化可能同时来自：
+- vegetation/process change；
+- sun angle；
+- view angle；
+- atmosphere。
+
+模型若不处理 geometry，可能把观测几何当成 phenology。
+
+---
+
+## 4. Thermal emission
+
+理想 blackbody 的 spectral radiance 与 temperature 由 Planck law 关联；真实 surface 还需要 emissivity：
 
 ```text
-TOA radiance/reflectance
-≠ surface reflectance
-≠ vegetation biochemical/process variable
+L_λ ≈ ε_λ B_λ(T) + atmospheric terms
 ```
 
-## 7. Observation operator view
+所以 brightness temperature ≠ land surface temperature 的完全等价物。
 
-Represent the whole sensing/retrieval process as `H`:
+---
+
+## 5. Microwave / SAR scattering
+
+SAR observation 受：
+- wavelength；
+- polarization；
+- incidence angle；
+- roughness；
+- dielectric constant；
+- vegetation structure；
+- moisture。
+
+因此“光学模型换 channel 直接用 SAR”通常缺少正确 inductive bias。
+
+---
+
+## 6. LiDAR ranging
+
+理想 range：
 
 ```text
-physical state x
-→ H_sensor(x, atmosphere, geometry)
-→ y
+R = c Δt / 2
 ```
 
-A physics-aware ML system may:
+实际还涉及 waveform、multiple returns、scan geometry、geolocation error、canopy penetration。
 
-- learn the inverse mapping `y → x`;
-- emulate parts of `H`;
-- differentiate through an approximate `H`;
-- use `H` to generate synthetic observations;
-- evaluate predictions in observation space.
+---
 
-## 8. Tensor view
+## 7. SIF
 
-A multispectral sequence might be:
+Solar-induced chlorophyll fluorescence 是 photosynthetic machinery 释放的弱辐射信号，但 observed SIF 还受到：
+- absorbed PAR；
+- fluorescence yield；
+- canopy structure；
+- reabsorption；
+- viewing geometry；
+- atmosphere。
 
-```text
-X:       [B,T,C,H,W]
-angles:  [B,T,G]
-quality: [B,T,H,W]
-time:     [B,T]
-```
+所以 SIF 与 GPP 有过程联系，但**不是 GPP 的直接 measurement**。
 
-The mask is part of the observation state and should not be silently discarded.
+---
 
-## 9. Failure modes
+## 8. AI 中的四种使用方式
 
-- training on cloud-contaminated pixels;
-- treating surface reflectance as direct carbon flux;
-- ignoring viewing/illumination effects in time-series learning;
-- assuming equal spectral bands across sensors;
-- interpreting retrieval uncertainty as ecological variability;
-- evaluating a derived high-resolution field as if it had independent ground truth at the same support.
+1. 直接用 corrected product 作为 input；
+2. 把 geometry/atmosphere metadata 作为 feature；
+3. 用 physical simulator 生成 training/synthetic data；
+4. 将 radiative-transfer model 作为 differentiable forward operator 做 retrieval/inverse learning。
 
-## 10. Prerequisites and next links
+## Sources
 
-Prerequisite: [Observation operators](../02-physics-ai-core/observation-operators.md).
-
-Continue to [Optical and hyperspectral sensing](optical-hyperspectral.md), [SAR and microwave](sar-microwave.md), [Thermal and SIF](thermal-sif.md) and [multisensor fusion](multisensor-fusion.md).
+- Rodgers, *Inverse Methods for Atmospheric Sounding*.
+- MODTRAN / 6S / PROSAIL 等 radiative-transfer family 的官方/原始文献用于具体应用。
+- ESA/NASA 各 sensor product guide 用于 product-specific observation semantics。

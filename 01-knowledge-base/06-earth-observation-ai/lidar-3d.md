@@ -1,79 +1,100 @@
-# LiDAR and 3D Vegetation Structure
+# LiDAR / 3D Earth Observation
 
-## 1. Measurement principle
-
-LiDAR measures distance from travel time of emitted laser pulses.
+## 1. Observation chain
 
 ```text
 laser pulse
-→ target interaction
-→ returned energy / waveform
+→ travel time / waveform
 → range
-→ 3D point or vertical structure
+→ georeferenced returns
+→ point cloud
+→ terrain/canopy/structure metrics
 ```
 
-Airborne and spaceborne systems differ in footprint, sampling pattern and waveform/product structure.
-
-## 2. Point-cloud representation
-
-A point may contain:
+基本 range：
 
 ```text
-[x, y, z, intensity, return_number, class, ...]
+R = cΔt/2
 ```
 
-The raw point cloud is irregular and can contain millions of points.
+---
 
-## 3. Derived vegetation structure
+## 2. Data representation
 
-Common products/features:
+### Raw point cloud
 
-- canopy height;
-- height percentiles;
-- canopy cover;
-- vertical density/profile;
-- gap fraction;
-- terrain/elevation;
-- structural heterogeneity.
+```text
+P [N,D]
+```
 
-These are derived from point/waveform measurements and preprocessing choices.
+feature 可含 xyz、intensity、return number、classification 等。
 
-## 4. AI representations
+### Voxel
+
+```text
+[Vx,Vy,Vz,C]
+```
+
+便于 3D convolution，但 memory 大。
 
 ### Rasterized structure
-Convert metrics to `[C,H,W]` and fuse with imagery.
 
-### Point-based
-Use point-set networks or local neighborhood models.
+例如：
+- canopy height model；
+- height percentiles；
+- vegetation density profile；
+- terrain model。
 
-### Voxel/sparse 3D
-Discretize space and use sparse convolutions.
+适合与 2D EO 对齐。
 
-### Cross-modal latent fusion
-Encode 2D optical and 3D structure separately then fuse.
+---
+
+## 3. Model family
+
+- PointNet / PointNet++；
+- sparse convolution；
+- point Transformer；
+- voxel encoder；
+- raster CNN/ViT；
+- 2D–3D cross-attention。
+
+---
+
+## 4. Ecological meaning
+
+LiDAR 更接近 vegetation **structure**：height、vertical distribution、canopy gap、biomass-related geometry。
+
+Optical 更接近 spectral/phenological state。两者互补，但时间尺度差异很大。
+
+---
 
 ## 5. Temporal mismatch
 
-LiDAR campaigns can be infrequent while optical/meteorological/flux data are continuous. A structure map may be treated as static over a period only if disturbance/growth assumptions are reasonable.
+常见问题：
 
-## 6. Spatial alignment
+```text
+LiDAR: one campaign/year or several years
+Optical: days–weeks
+Meteorology/EC: 30 min–hourly
+```
 
-Check:
+如果直接把静态 LiDAR 当成每个 timestep 的动态信息，需要明确它表达的是 slowly varying structural prior。
 
-- CRS;
-- horizontal/vertical datum;
-- point density;
-- ground classification;
-- raster cell definition;
-- overlap with optical valid pixels;
-- footprint/support.
+---
 
-Small geolocation errors can matter near forest edges or heterogeneous patches.
+## 6. Evaluation
 
-## 7. Carbon-cycle relevance
+2D+3D fusion 必须做 paired ablation：
 
-3D structure provides information related to biomass, canopy height, roughness and vertical organization. It can complement spectral signals, but it does not guarantee better flux prediction when sample size is small or structure varies weakly within the evaluated domain.
+```text
+optical-only
+vs
+optical + LiDAR
+```
 
-## 8. Evaluation design
+保持 split、training、sample 完全一致，才能判断 3D modality 的实际增益。
 
-Compare optical-only versus optical+LiDAR under identical site/time splits and training budgets. Report where 3D helps by ecosystem, structural heterogeneity and sample density.
+## Sources
+
+- NASA GEDI mission/data documentation: https://gedi.umd.edu/
+- PointNet: https://arxiv.org/abs/1612.00593

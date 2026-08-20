@@ -1,74 +1,80 @@
-# Earth-observation Models and Tasks
+# EO Tasks 与 Model Families
 
-## 1. Task taxonomy
+## 1. Classification
 
-### Classification
-One label per patch/object/site.
+```text
+patch/tile → class
+```
 
-### Semantic segmentation
-One class per pixel.
+baseline：RF / CNN / ViT / frozen FM + linear probe。
 
-### Object detection
-Bounding boxes/object instances.
+---
 
-### Regression/retrieval
-Continuous variable such as biomass, temperature, productivity or moisture proxy.
+## 2. Semantic Segmentation
 
-### Change detection
-Difference between times/conditions.
+```text
+[B,C,H,W] → [B,K,H,W]
+```
 
-### Reconstruction/gap filling
-Infer missing/corrupted observations.
+常用：U-Net、DeepLab、SegFormer、Mask2Former-style architectures。
 
-### Forecasting
-Predict future field/state.
+---
 
-### Super-resolution/downscaling
-Produce fine-grid output conditioned on coarse and auxiliary information.
+## 3. Object Detection
 
-## 2. CNN/U-Net family
+任务：ship、building、vehicle、infrastructure、disaster object 等。
 
-Strong local spatial inductive bias and efficient dense prediction.
+注意遥感特性：
+- arbitrary orientation；
+- small objects；
+- huge images；
+- class imbalance；
+- geographic domain shift。
 
-Useful for segmentation, mapping, reconstruction and downscaling.
+---
 
-## 3. Vision Transformers
+## 4. Change Detection
 
-Patch/token representation allows global interactions and large-scale pretraining.
+```text
+image_t1 + image_t2 → change map
+```
 
-EO adaptations must handle multispectral channels, time, resolution and geolocation.
+关键难点：season/illumination/geometry difference 不等于真实 land change。
 
-## 4. Temporal models
+---
 
-- ConvLSTM;
-- temporal CNN;
-- temporal Transformer;
-- space-time factorized attention;
-- state-space models.
+## 5. Regression / Retrieval
 
-Select based on sequence length, irregularity and required temporal dynamics.
+例如：
+- biomass；
+- LAI；
+- soil moisture；
+- carbon/ecological variables。
 
-## 5. Self-supervised learning
+Regression 比简单 land-cover classification 更能检验 foundation representation 是否保留 quantitative process information。
 
-Common objectives:
+---
 
-- masked image/patch reconstruction;
-- temporal prediction;
-- contrastive learning;
-- cross-modal alignment.
+## 6. Time-series modeling
 
-Useful because labeled geospatial data are much smaller than raw satellite archives.
+- crop/phenology；
+- disturbance；
+- gap filling；
+- forecasting；
+- event detection。
 
-## 6. Multimodal models
+---
 
-Combine optical, SAR, LiDAR, thermal, SIF, weather and static geographic context.
+## 7. Foundation-model adaptation
 
-Key design choice: early channel fusion versus modality-specific encoders/cross-attention.
+按严格程度区分：
 
-## 7. Scientific target caution
+```text
+frozen embedding + shallow model
+linear probe
+adapter / LoRA / PEFT
+partial fine-tuning
+full fine-tuning
+```
 
-High mapping accuracy on land-cover/segmentation does not prove equal transfer to process variables such as fluxes. Process targets need support-aware labels, environmental forcing and temporal dynamics.
-
-## 8. Evaluation
-
-Report region/time/sensor OOD performance, spatial resolution, label support, class/regime imbalance and uncertainty.
+比较结果时必须明确是哪一种。
