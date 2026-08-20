@@ -34,9 +34,9 @@ Primary: https://github.com/IBM/terramind
 
 AlphaEarth Foundations exposes annual Satellite Embedding data through Earth Engine, representing a different interface from downloading a task encoder and fine-tuning it.
 
-Primary: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/
+Primary: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/ <!-- manual-review: official source URL path -->
 
-> Note: the source URL contains a promotional phrase that is part of the official page path; repository prose should still avoid repeating promotional superlatives as scientific claims.
+> Note: the source URL contains promotional wording as part of the official page path; repository prose should avoid turning that wording into a scientific claim.
 
 ## 6. Evaluation
 
