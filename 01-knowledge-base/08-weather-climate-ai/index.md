@@ -1,94 +1,120 @@
 # 08 · Weather and Climate AI
 
-Weather AI should be understood as a modeling system, not a leaderboard of model names.
+Weather AI should be understood as a **complete modeling and observing system**, not a list of model names.
 
-## 1. Operational forecasting chain
+## Knowledge path
 
 ```text
-observations
-→ quality control
-→ data assimilation
-→ analysis / initial atmospheric state
-→ forecast model
-→ deterministic forecast or ensemble
-→ post-processing / downscaling
-→ verification and warnings
+Atmospheric dynamics / NWP
+→ observations + QC
+→ data assimilation / initial state
+→ AI or hybrid forecast model
+→ deterministic / probabilistic rollout
+→ extremes / nowcasting
+→ downscaling / post-processing
+→ coupled Earth-system applications
+→ verification / calibration / operations
 ```
 
-A model may replace only one block or several blocks.
+## 1. NWP foundation
 
-## 2. Classical numerical-weather context
+Start with [NWP basics](nwp-basics.md).
 
-Numerical weather prediction solves discretized physical equations for atmospheric dynamics and parameterizes unresolved processes.
+Numerical weather prediction solves discretized atmospheric equations and parameterizes unresolved processes. AI may replace, accelerate or augment selected blocks.
 
-AI can act as:
+## 2. Data assimilation
 
-- full forecast surrogate;
-- learned parameterization/closure;
-- data-assimilation component;
-- bias correction/post-processing;
-- probabilistic ensemble generator;
-- nowcasting model;
-- downscaling/super-resolution model;
-- climate emulator.
+See [Weather data assimilation](weather-data-assimilation.md).
 
-## 3. Spatial representations
+```text
+observations + prior forecast
+→ observation operators / QC
+→ analysis / initial atmospheric state
+```
 
-Global weather is not a flat RGB image.
+Forecast quality depends strongly on the initial state; model architecture is only one part of the system.
 
-Common choices:
+## 3. Forecast model families
 
-- latitude-longitude grid;
-- spherical harmonics/operator representations;
-- icosahedral or mesh graph;
-- cubed-sphere / HEALPix-like grids;
-- patch/token representations.
+See [AI weather-model families](ai-weather-models.md).
 
-Important issues: pole distortion, periodic longitude, multi-level vertical structure, vector winds and conservation.
+Important representations include:
 
-## 4. Forecast paradigms
+- latitude–longitude grids;
+- spectral/operator spaces;
+- spherical meshes/graphs;
+- 3D patches/tokens;
+- multi-variable foundation-model embeddings.
 
-### Deterministic
-One best-estimate trajectory.
+## 4. Hybrid physics–ML
 
-### Probabilistic / ensemble
-A distribution or multiple plausible trajectories. Evaluate calibration and spread, not only mean error.
+See [Hybrid physics–ML weather](physics-hybrid-weather.md).
 
-### Generative
-Diffusion/score or related generative methods can create coherent forecast ensembles and high-resolution fields.
+ML can learn parameterizations/tendencies/corrections while a numerical or differentiable dynamical core advances the atmosphere.
 
-### Hybrid physics-ML
-Learn parameterizations or corrections while retaining numerical dynamics, or build differentiable physical components into training.
+## 5. Deterministic, probabilistic and generative forecasts
 
-## 5. Tasks
+See [Probabilistic and ensemble weather](probabilistic-ensemble-weather.md).
 
-- medium-range global forecasting;
-- short-range / nowcasting;
-- tropical cyclone track/intensity;
-- precipitation and severe weather;
-- data assimilation;
-- regional downscaling;
-- subseasonal/seasonal prediction;
-- climate simulation/emulation.
+A deterministic forecast produces one trajectory. An ensemble/generative system represents multiple plausible trajectories and must be evaluated for calibration/spread as well as mean error.
 
-## 6. Evaluation
+## 6. Nowcasting and extremes
 
-### Deterministic
-RMSE, MAE, anomaly correlation, variable/level/lead-time stratification.
+- [Nowcasting](nowcasting.md): short-horizon high-resolution precipitation/severe-weather prediction.
+- [Weather extremes](extremes-forecasting.md): rare-event/tail evaluation, event objects and probabilistic skill.
 
-### Probabilistic
-CRPS, Brier score, rank/reliability diagnostics, spread-skill and event probabilities.
+## 7. Downscaling and super-resolution
 
-### Extremes
-Tail/event metrics, cyclone track/intensity, heavy precipitation, heat/cold extremes.
+See [Downscaling and super-resolution](downscaling-super-resolution.md).
 
-### Physical quality
-Mass/energy behavior, spectra, balance relationships and stable rollout.
+Separate coarse-to-fine statistical inference from the creation of genuinely observed fine-scale information.
 
-Always match verification source, grid/resolution, lead time and variable before comparing systems.
+## 8. Weather/Earth foundation models
 
-## 7. Current systems to know
+See [Weather and Earth-system foundation models](weather-foundation-models.md) and [Earth/scientific foundation models](../09-earth-foundation-models/index.md).
 
-Stable conceptual anchors include GraphCast, Pangu-Weather, FourCastNet, NeuralGCM, GenCast and Aurora. Current operational/deployment developments are tracked separately in [13 · 2026 Snapshot](../13-2026-snapshot/index.md), including ECMWF AIFS, WeatherNext 2 and NVIDIA Earth-2.
+Transfer across tasks/variables/regions/resolutions is the key evaluation question.
 
-See the [Weather & climate specialty track](../../06-case-studies/geoscience-remote-sensing/weather-and-climate/index.md).
+## 9. Coupled Earth-system AI
+
+See [Coupled Earth-system AI](earth-system-coupling.md).
+
+Atmosphere, land, ocean and carbon processes operate on different grids/timescales but exchange energy, water, momentum and carbon.
+
+## 10. Climate AI
+
+See [Climate AI](climate-ai.md).
+
+Climate applications require distributional/climatological fidelity, extremes, long rollout and regime shift—not only short forecast RMSE.
+
+## 11. Evaluation
+
+See [Weather evaluation](weather-evaluation.md).
+
+Report:
+
+- variable and pressure level;
+- lead time;
+- verification dataset;
+- grid/remapping method;
+- deterministic/probabilistic metric;
+- regional/event stratification;
+- physical consistency;
+- compute/latency.
+
+## 12. Earth-observation and carbon connections
+
+```text
+weather observations / reanalysis
+→ environmental forcing
+→ land/ecosystem response
+→ carbon/water/energy flux
+```
+
+See [Carbon–water–energy coupling](../07-carbon-cycle-ai/carbon-water-energy-coupling.md) and [EO AI](../06-earth-observation-ai/index.md).
+
+## 13. Current systems
+
+Dated operational/deployment developments belong in [13 · 2026 Snapshot](../13-2026-snapshot/index.md) to keep the stable knowledge pages from becoming release-note lists.
+
+See also the [Weather & climate specialty track](../../06-case-studies/geoscience-remote-sensing/weather-and-climate/index.md).
