@@ -41,7 +41,7 @@ Google DeepMind introduced AlphaEarth Foundations in July 2025 and released annu
 
 Why it matters: downstream Earth applications can increasingly consume pretrained geospatial embeddings instead of training every representation from raw imagery.
 
-Primary: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/
+Primary: https://deepmind.google/blog/alphaearth-foundations-helps-map-our-planet-in-unprecedented-detail/ <!-- manual-review: official source URL path -->
 
 ## 6. TerraMind pushes EO toward multimodal any-to-any generation
 
