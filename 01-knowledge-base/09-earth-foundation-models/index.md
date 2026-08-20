@@ -1,98 +1,145 @@
-# 09 · Earth and Scientific Foundation Models
+# 09 · Earth / Geospatial / Scientific Foundation Models
 
-A scientific foundation model should provide reusable representations, generative capability or forecast dynamics across multiple tasks, regions, variables or modalities—not merely be a large task-specific network.
+Earth Foundation Model (FM) 不能只按参数量理解。更有用的分类是看它向下游提供什么**接口**。
 
-## Knowledge path
+## 1. 三种主要接口
 
-```text
-Earth data/observation physics
-→ pretraining corpus design
-→ spatial/temporal/modality representation
-→ self-supervised / predictive / generative objective
-→ adaptation protocol
-→ task/region/sensor/regime transfer
-→ scientific + OOD evaluation
-```
-
-## 1. Why Earth foundation models are different
-
-Earth data are georeferenced, multi-resolution, multi-sensor, multi-temporal and physically structured. Labels are sparse and sampling is highly nonuniform.
-
-Natural-image recipes therefore need adaptation for spectral channels, time, geolocation, vertical coordinates, missing modalities and scale.
-
-## 2. Pretraining and adaptation
-
-See [Earth-FM pretraining and adaptation](earth-fm-pretraining.md).
-
-Possible objectives include:
-
-- masked reconstruction;
-- contrastive learning;
-- temporal prediction;
-- multimodal alignment;
-- cross-modal generation;
-- autoregressive field prediction;
-- supervised multi-task pretraining.
-
-## 3. Multimodal representation
-
-See [Multimodal Earth representations](multimodal-earth-representations.md).
-
-A general model may need modality/sensor, wavelength, geolocation, time, vertical-level, resolution/support and quality/missingness metadata.
-
-## 4. Model families
-
-See [Model-family guide](model-family-guide.md).
-
-Useful families include:
-
-- EO encoders;
-- multimodal generative EO models;
-- global embedding fields;
-- weather/Earth-system forecast foundation models;
-- scientific models pretrained across simulation/field domains.
-
-Fast-moving named releases belong in the dated [2026 Snapshot](../13-2026-snapshot/index.md).
-
-## 5. Physics and observation operators
-
-Broad pretraining does not remove the need for physics. Important integration routes include:
-
-- physics-aware coordinates/tokens;
-- conservation/process constraints;
-- observation operators;
-- hybrid simulator coupling;
-- process-sensitive task heads;
-- physically stratified evaluation.
-
-## 6. Evaluation
-
-See [Earth-FM evaluation](earth-fm-evaluation.md).
-
-A foundation-model claim should be tested across tasks, regions, times, modalities/resolutions and labeled-data budgets with explicit pretraining-overlap audits.
-
-## 7. Priority Earth-system connections
+### A. Downloadable pretrained encoder
 
 ```text
-EO foundation representation
-├→ carbon-cycle / ecosystem process targets
-├→ hydrology/agriculture/disaster tasks
-└→ multimodal geospatial retrieval
-
-weather/Earth-system foundation representation
-├→ atmospheric forecasting
-├→ extremes / downscaling
-└→ coupled land/ocean/carbon tasks
+raw EO / Earth data
+→ pretrained model
+→ embeddings/features
+→ downstream head / fine-tuning
 ```
 
-## 8. Failure modes
+代表：`Prithvi-EO-2.0`, `TerraMind`, `MaRS`。
 
-- benchmark leakage through broad pretraining;
-- location/season shortcut instead of process representation;
-- strong interpolation but weak OOD transfer;
-- sensor/preprocessing dependence hidden by model branding;
-- output scale confused with validation scale;
-- expensive adaptation omitted from comparisons;
-- broad semantic transfer but weak process-sensitive transfer.
+### B. Embedding-as-data / global embedding field
 
-Domain view: [Geospatial foundation models](../../06-case-studies/geoscience-remote-sensing/geospatial-foundation-models/index.md).
+```text
+precomputed annual/global embeddings
+→ directly read as geospatial dataset
+→ classifier/regressor/change analysis
+```
+
+代表：`AlphaEarth Foundations Satellite Embedding`, `TESSERA`。
+
+这类场景下，用户甚至不需要本地运行 foundation encoder。
+
+### C. Dynamical / forecast foundation model
+
+```text
+Earth-system state
+→ pretrained dynamics model
+→ task adaptation / rollout
+```
+
+代表：`Aurora`。
+
+---
+
+## 2. Earth data 为什么需要专门的 FM
+
+Earth observations 具有：
+- geolocation；
+- time / season；
+- multi-resolution；
+- multi-sensor；
+- cloud/missingness；
+- physical observation differences；
+- sparse labels；
+- regional/climate distribution shift。
+
+因此 natural-image pretraining recipe 不能原样照搬。
+
+---
+
+## 3. Pretraining objective
+
+- masked reconstruction；
+- contrastive / self-distillation；
+- temporal prediction；
+- multimodal alignment；
+- cross-modal generation；
+- autoregressive field prediction；
+- multi-task supervised targets。
+
+→ [Earth FM Pretraining](earth-fm-pretraining.md)
+
+---
+
+## 4. Multimodal representation
+
+需要统一：
+- Optical；
+- SAR；
+- elevation/terrain；
+- land cover / labels；
+- climate/weather context；
+- temporal sequences。
+
+但“统一”不等于忽略 sensing physics。
+
+→ [Multimodal Earth Representations](multimodal-earth-representations.md)
+
+---
+
+## 5. 当前 representative families
+
+### Prithvi-EO-2.0
+HLS-based spatiotemporal masked-autoencoder route。
+
+### TerraMind
+9-modality generative multimodal route，dual token/pixel representations。
+
+### AlphaEarth Foundations
+annual global Satellite Embedding dataset，64-dimensional embedding field。
+
+### TESSERA
+pixel-wise annual embedding route；2026 `TESSERA v2` 继续研究 scaling/distillation/Matryoshka representations。
+
+### MaRS
+VHR SAR–optical multimodal foundation model。
+
+### Aurora
+Earth-system dynamics FM，跨 weather/air quality/waves 等任务 adaptation。
+
+→ [Model-family Guide](model-family-guide.md)
+
+---
+
+## 6. Foundation Model 最大的评测陷阱
+
+- pretraining region/time overlap；
+- geolocation leakage；
+- easy classification dominance；
+- frozen vs full fine-tune 混比；
+- sensor mismatch；
+- output resolution 与 label support mismatch；
+- classification skill 被外推成 quantitative-process skill。
+
+→ [Earth FM Evaluation](earth-fm-evaluation.md)
+
+---
+
+## 7. Carbon / weather 为什么要单独验证
+
+### Carbon
+需要 continuous regression、process sensitivity、biome/climate OOD、footprint/support awareness。
+
+### Weather
+需要 rollout、initialization、vertical variables、probabilistic calibration、extremes。
+
+所以“EO benchmark 强”不能直接推导为“carbon/weather task 强”。
+
+---
+
+## Sources
+
+- Prithvi-EO-2.0: https://github.com/NASA-IMPACT/Prithvi-EO-2.0
+- TerraMind ICCV 2025: https://openaccess.thecvf.com/content/ICCV2025/html/Jakubik_TerraMind_Large-Scale_Generative_Multimodality_for_Earth_Observation_ICCV_2025_paper.html
+- AlphaEarth Satellite Embedding: https://developers.google.com/earth-engine/guides/aef_on_gcs_readme
+- TESSERA: https://geotessera.org/
+- MaRS AAAI 2026: https://doi.org/10.1609/aaai.v40i14.38153
+- Aurora: https://www.microsoft.com/en-us/research/publication/aurora-a-foundation-model-for-the-earth-system/
