@@ -1,111 +1,130 @@
-# Dynamical Systems and PDE Foundations
+# Dynamical Systems、ODE 与 PDE
 
-## 1. State-space view
+## 1. 从 state 开始
 
-A physical system can be written as:
-
-```text
-state:       x(t)
-dynamics:    dx/dt = f(x, u, θ, t)
-observation: y(t) = H(x(t)) + ε
-```
-
-where `u` is forcing/control, `θ` parameters, `H` an observation operator and `ε` measurement/error terms.
-
-This separation is useful across weather, ecosystem carbon, fluids and robotics.
-
-## 2. ODEs
-
-An ordinary differential equation represents change with respect to one independent variable, commonly time.
-
-Example:
+一个动态系统可以写成：
 
 ```text
-dC/dt = input - loss
+dx/dt = f(x,t,u,θ)
 ```
 
-Questions:
+- `x`：system state；
+- `u`：external forcing / control；
+- `θ`：parameters；
+- `f`：dynamics。
 
-- what is the state?
-- what are forcing and parameters?
-- what initial condition is required?
-- is the system stiff?
-- is the state conserved or bounded?
+离散时间形式：
 
-## 3. PDEs
+```text
+x_{t+1} = F(x_t, u_t)
+```
 
-Partial differential equations describe fields changing in space and time.
+这与 autoregressive weather model、生态时序模型、world model 的结构直接对应。
+
+---
+
+## 2. PDE 为什么重要
+
+很多自然系统不仅随时间变化，还在空间中 transport / diffuse / interact。
 
 ### Advection
 
-Transport by a velocity field:
+```text
+∂u/∂t + v·∇u = 0
+```
 
-`∂u/∂t + v·∇u = 0`
+描述 quantity 被 flow 搬运。
 
 ### Diffusion
 
-Smoothing/spreading:
+```text
+∂u/∂t = κ∇²u
+```
 
-`∂u/∂t = κ ∇²u`
-
-### Advection-diffusion
-
-Combines transport and diffusion.
+描述 gradient 被平滑。
 
 ### Conservation law
 
-A generic local conservation equation:
+```text
+∂q/∂t + ∇·F(q) = S
+```
 
-`∂q/∂t + ∇·F = S`
+其中：
+- `q`：conserved quantity；
+- `F`：flux；
+- `S`：source/sink。
 
-where `q` is stored quantity, `F` flux and `S` source/sink.
+weather、fluid、water/energy/carbon balance 都可看到类似结构。
 
-This pattern underlies mass, water, energy and constituent transport.
+---
 
-## 4. Boundary and initial conditions
+## 3. Initial / Boundary Conditions
 
-A PDE is not defined by the differential operator alone.
+PDE 不只是方程本身，还需要：
+- initial condition；
+- Dirichlet boundary；
+- Neumann boundary；
+- periodic boundary；
+- physical constraints。
 
-Common boundary types:
+PINN 常见失败之一就是“residual 看起来小，但 BC/IC 没真正满足”。
 
-- Dirichlet: value specified;
-- Neumann: derivative/flux specified;
-- Robin: combination;
-- periodic;
-- open/radiative boundaries.
+---
 
-Physical-AI models that ignore boundary conditions can fit interior samples yet fail near boundaries or under rollout.
+## 4. Stability 与 chaotic dynamics
 
-## 5. Stability and chaos
+### Linearized dynamics
 
-### Stability
+在参考状态附近：
 
-Small perturbations remain controlled under the dynamics/numerical scheme.
+```text
+δx_{t+1} ≈ J_F(x_t) δx_t
+```
 
-### Chaotic sensitivity
+误差是否增长由 local Jacobian 和 system dynamics 决定。
 
-Weather systems exhibit sensitive dependence on initial conditions. This motivates ensembles and probabilistic prediction rather than interpreting one deterministic trajectory as certainty.
+### Weather 的意义
 
-## 6. Linearization
+大气具有 chaotic behavior，initial-condition uncertainty 会随 lead time 增长。因此：
+- deterministic forecast 不能表达全部 uncertainty；
+- ensemble / probabilistic forecast 很重要；
+- rollout stability 不能只看 one-step loss。
 
-Near state `x0`:
+---
 
-`f(x) ≈ f(x0) + J(x0)(x-x0)`
+## 5. Discrete model 与 continuous system
 
-The Jacobian `J` describes local sensitivity and links dynamical systems to stability, tangent-linear models and gradient-based DA.
+神经网络通常训练在离散数据上：
 
-## 7. Multi-scale dynamics
+```text
+x_t → x_{t+Δt}
+```
 
-Earth systems combine fast and slow processes:
+但它隐含近似的是连续 dynamics。需要区分：
+- physical timestep；
+- data sampling interval；
+- model rollout step；
+- solver timestep。
 
-- turbulence: seconds to minutes;
-- diurnal flux cycle: hours;
-- synoptic weather: days;
-- phenology: weeks/months;
-- climate: decades.
+这四个量不一定相同。
 
-A model must decide which scales are resolved, parameterized, aggregated or ignored.
+---
 
-## 8. Minimum understanding
+## 6. Scientific AI 的三种典型任务
 
-You should distinguish state/forcing/parameter/observation, explain local conservation, identify boundary/initial conditions, and understand why chaotic dynamics require lead-time-dependent and probabilistic evaluation.
+### Forward problem
+已知 state/parameter，预测未来或场。
+
+### Inverse problem
+从 observation 反推 hidden state / parameter。
+
+### System identification
+从数据学习 dynamics `F` 或参数结构。
+
+---
+
+## Sources
+
+- Steven L. Brunton & J. Nathan Kutz, *Data-Driven Science and Engineering*.
+- Randall J. LeVeque, *Finite Volume Methods for Hyperbolic Problems*.
+- Lorenz (1963), *Deterministic Nonperiodic Flow*.

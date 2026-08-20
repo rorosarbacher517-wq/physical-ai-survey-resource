@@ -1,84 +1,90 @@
-# Observation Operators
+# Observation Operators · 从 latent state 到真实 measurement
 
-## 1. Core idea
-
-A sensor rarely observes the model state directly.
+## 1. 基本形式
 
 ```text
-state x
-→ observation operator H
-→ expected observation H(x)
-→ measurement y = H(x) + ε
+y = H(x) + ε
 ```
 
-`H` maps from state space to observation space.
+- `x`：latent physical state；
+- `H`：observation operator；
+- `y`：measurement；
+- `ε`：measurement / representation error。
 
-## 2. Operator types
+很多 Scientific AI 问题真正难的是 `H`，不是 neural network。
 
-### Spatial sampling
-Point/station sampling, area averaging, pixel response and flux-footprint weighting.
+---
 
-### Radiative transfer
-State variables produce radiance/reflectance/brightness temperature through electromagnetic interactions.
-
-### Retrieval operator
-A measurement may be inverted into a derived geophysical variable before ML sees it.
-
-### Temporal aggregation
-Instantaneous, interval average, accumulation or composite.
-
-## 3. Why it matters for AI
-
-Without support matching, a model may be supervised with predictors that do not describe the same physical area/time as the target.
-
-This creates representation error even when the neural network is optimized correctly.
-
-## 4. Discrete form
-
-A common area-weighted operator:
+## 2. Remote Sensing
 
 ```text
-ŷ = Σ_i w_i f_i
-Σ_i w_i = 1
+surface/atmosphere state
+→ radiative transfer / scattering
+→ sensor spectral response + geometry
+→ radiance/backscatter/waveform
+→ calibration/retrieval
+→ product
 ```
 
-where `f_i` are pixel/field predictions and `w_i` represent contribution weights.
+因此 reflectance、SAR backscatter、SIF、LST 都不是“直接地面状态”。
 
-Uniform averaging is a special case. Dynamic weights can encode sensor footprint or physical source-area contribution.
+---
 
-## 5. Differentiability
+## 3. Eddy Covariance
 
-If `H` is differentiable, supervision can be applied after observation mapping while the latent state/field model remains spatially explicit.
+连续形式：
 
-This pattern is useful when labels exist only at a coarser or differently supported scale.
+```text
+Y_t = ∬ w_t(x,y) F_t(x,y) dxdy + ε_t
+```
 
-## 6. Uncertainty
+离散到 satellite grid：
 
-Observation error can come from:
+```text
+Y_t ≈ Σ_i w_{i,t} F_{i,t}
+```
 
-- instrument noise;
-- retrieval assumptions;
-- representativeness/support mismatch;
-- geolocation;
-- missing-data/QC;
-- uncertain operator parameters.
+`w_{i,t}` 是 footprint weights。它把 pixel-level field 映射到 tower observation support。
 
-## 7. Domain examples
+---
 
-- EC footprint weighting for carbon flux;
-- satellite point-spread/radiative transfer;
-- weather station versus model-grid interpolation;
-- radar observation operators in DA;
-- line-of-sight measurements in tomography.
+## 4. Weather / Data Assimilation
 
-## 8. Design questions
+weather observation operator 把 atmospheric state 映射到：
+- station temperature/wind；
+- radiosonde profile；
+- satellite radiance；
+- radar reflectivity；
+- GNSS-related observation 等。
 
-For every target ask:
+很多 satellite observations 并不是先 retrieval 成 temperature 再同化，而是可能直接在 radiance space 使用复杂 forward operator。
 
-1. What physical quantity is measured?
-2. What state does the model predict?
-3. What maps state to measurement?
-4. Is the mapping linear/nonlinear?
-5. Is it fixed/dynamic?
-6. Is it differentiable?
-7. How is operator uncertainty represented?
+---
+
+## 5. Learning 中的三种位置
+
+### Input-side
+先把 observation 转成 feature，再训练 model。
+
+### Output-side
+model 预测 field，再通过 `H` 与 observation 比较。
+
+### End-to-end differentiable
+`H` 可微，gradient 从 observation-space loss 传回 latent model。
+
+---
+
+## 6. Failure modes
+
+- 把 point coordinate 当 observation support；
+- 用错误 unit/geometry；
+- interpolation 后忘记 support 改变；
+- 忽略 observation error；
+- retrieval product 与 raw observation 混淆；
+- `H` 与真实 measurement process 不一致。
+
+## Sources
+
+- Tarantola, *Inverse Problem Theory*.
+- Rodgers, *Inverse Methods for Atmospheric Sounding*.
+- Kljun et al. (2015), flux footprint parameterisation: https://doi.org/10.5194/gmd-8-3695-2015

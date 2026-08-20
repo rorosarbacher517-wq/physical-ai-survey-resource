@@ -1,95 +1,83 @@
-# 02 · Physical AI Core: How Physics Enters AI
+# 02 · Physical AI Core：Physics 到底放在哪里？
 
-The most important question is not “Is this a physics-informed model?” but **where and how physical knowledge changes the learning problem**.
+`Physics-informed AI` 不等于“在 loss 里加 PDE residual”。更系统的做法是先判断 physics/measurement knowledge 进入 learning pipeline 的哪一层。
 
-## 1. Seven integration patterns
-
-### A. Physics in data / labels
-Simulation-generated training data, physically corrected observations, retrieval products, derived variables and physically meaningful augmentation.
-
-Risk: the physics may only live upstream; the learned model itself can still violate it.
-
-### B. Physics in inputs
-Add forcings, parameters, coordinates, topography, boundary conditions, material properties or physically derived features.
-
-### C. Physics in representation / architecture
-Use grids, meshes, graphs, equivariant layers, spectral bases, local conservation structure, periodic boundaries or geometry-aware operators.
-
-### D. Physics in loss/objective
-Penalize equation residuals, conservation violation, boundary-condition errors, energy imbalance or impossible states.
-
-### E. Physics as hard constraint
-Parameterize output so conservation, positivity, monotonicity, symmetry or boundary conditions are satisfied by construction.
-
-### F. Physics in simulation / operator loop
-Couple the network with a numerical solver, differentiable simulator, parameterization, closure, emulator or observation operator.
-
-### G. Physics in evaluation
-Check conservation, spectra, extremes, stability, regime transfer and physically meaningful consistency—not only average RMSE.
-
-## 2. Observation physics is a core modeling layer
-
-Many Earth-system tasks are measurement problems before they are prediction problems.
+## 1. Physics integration map
 
 ```text
-true physical state x
-→ sensor / transport / sampling process H
-→ observation y
-→ preprocessing / retrieval
-→ ML input or target
+Data / Labels
+  ↓
+Input features / coordinates
+  ↓
+Representation / Architecture
+  ↓
+Loss / Regularization
+  ↓
+Hard constraint / Projection
+  ↓
+Simulator / Solver loop
+  ↓
+Observation operator / DA
+  ↓
+Evaluation / physical diagnostics
 ```
 
-Examples:
+---
 
-- satellite reflectance is not GPP;
-- EC tower flux is not a point measurement;
-- radar reflectivity is not rainfall itself;
-- reanalysis is not raw observation.
+## 2. 七种常见入口
 
-Therefore `H`, the observation operator/support, belongs in the modeling discussion.
+### 1) Data / labels
+用 process model、simulator、retrieval 或 synthetic data 产生训练样本。
 
-## 3. Soft versus hard physics
+### 2) Inputs
+加入 solar geometry、topography、stability、roughness、physical parameter 等。
 
-**Soft constraint**: violation increases the loss but remains possible.
+### 3) Architecture
+使用 graph geometry、equivariance、conservative layer、operator architecture。
 
-**Hard constraint**: the parameterization prevents violation by construction.
+### 4) Loss
+加入 PDE residual、balance、boundary、energy/carbon constraint。
 
-Hard is not always better: exact enforcement of an approximate or misspecified physical relationship can bias the model.
+### 5) Hard constraint
+通过 parameterization/projection 直接保证 constraint。
 
-## 4. Hybrid versus pure data-driven
+### 6) Simulator loop
+AI 学 residual / closure / parameterization，solver 保留主 dynamics。
 
-A useful spectrum:
+### 7) Observation / evaluation
+即使 model 本体完全 data-driven，也可以用真实 observation operator 做 supervision，并用 conservation/spectrum/balance 做评测。
+
+---
+
+## 3. 为什么 Observation Operator 单独重要
+
+Scientific model 预测的是 latent state/field，但 supervision 往往是 observation：
 
 ```text
-pure numerical model
-↔ ML parameterization/closure
-↔ hybrid numerical + ML
-↔ physics-constrained ML
-↔ pure data-driven predictor
+x̂ = model(input)
+ŷ = H(x̂)
+loss = L(ŷ, y_obs)
 ```
 
-Choose based on data availability, known physics, computational cost, uncertainty and required extrapolation.
+`H` 可以是：
+- sensor response；
+- radiative transfer；
+- spatial integration；
+- flux footprint；
+- interpolation to station；
+- retrieval operator。
 
-## 5. Common failure modes
+这类 physics 不需要写进 neural network hidden layers，也能改变 learning problem。
 
-- calling any physical target “physics-informed”;
-- adding a physical variable as a feature but claiming physical consistency;
-- enforcing a relationship with uncertain parameters as exact truth;
-- evaluating only IID RMSE;
-- ignoring measurement support;
-- hiding numerical instability behind short-horizon metrics;
-- conflating correlation with physical mechanism.
+---
 
-## 6. Method comparison template
+## 4. 页面
 
-| Axis | Questions |
-|---|---|
-| Physics source | equation, conservation, symmetry, process model, observation operator? |
-| Integration stage | input, architecture, loss, simulator, DA, evaluation? |
-| Strength | soft, hard, hybrid, learned residual? |
-| Scale | point, pixel, field, mesh, global? |
-| Dynamics | static mapping or rollout? |
-| Uncertainty | deterministic, ensemble, Bayesian/probabilistic? |
-| Extrapolation | new sites, regimes, parameters, extremes? |
+- [Observation Operators](observation-operators.md)
+- [Conservation / Symmetry / Dimensional Priors](conservation-symmetry-dimensional-priors.md)
+- [Hybrid Modeling Design](hybrid-modeling-design.md)
 
-Next: [03 Physics-informed Learning](../03-physics-informed-learning/index.md) and [04 Neural Operators & Simulation](../04-neural-operators-simulation/index.md).
+Next：
+- [Physics-informed Learning](../03-physics-informed-learning/index.md)
+- [Neural Operators](../04-neural-operators-simulation/index.md)
+- [DA / Inverse / UQ](../10-data-assimilation-inverse-uq/index.md)

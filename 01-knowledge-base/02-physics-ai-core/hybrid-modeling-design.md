@@ -1,82 +1,89 @@
-# Hybrid Numerical–ML Modeling Design
+# Hybrid Modeling Design · Numerical Model × Machine Learning
 
-## 1. Why hybridize?
+Hybrid model 的核心不是“physics + neural network”这几个字，而是明确：**哪部分由 equations/solver 负责，哪部分由 data-driven model 学。**
 
-Pure numerical models encode physical structure but can be expensive or contain uncertain parameterizations. Pure ML can be fast and flexible but may extrapolate poorly or violate physics.
+## 1. 五种常见结构
 
-Hybrid design keeps reliable structure and learns uncertain/expensive components.
-
-## 2. Common patterns
-
-### Learned parameterization
+### A. Residual correction
 
 ```text
-resolved numerical state
-→ ML closure/parameterization
-→ tendency/flux
-→ numerical time step
+ŷ = y_physics + f_θ(x)
 ```
 
-### Residual correction
+AI 修正 systematic bias。
 
-`prediction = physical_model + ML_residual`
+### B. Learned parameterization / closure
 
-Useful when the physical model is broadly correct but biased.
+```text
+resolved dynamics
++ learned unresolved process
+→ numerical integration
+```
 
-### Surrogate component
+适合 cloud/turbulence/subgrid process 等。
 
-Replace an expensive submodule while preserving surrounding solver logic.
+### C. Surrogate
 
-### Emulator
+```text
+input parameters/state
+→ neural surrogate
+→ approximate simulator output
+```
 
-Learn the complete simulator mapping over a bounded parameter/state domain.
+用于加速 repeated simulation / optimization。
 
-### Differentiable hybrid
+### D. Solver-in-the-loop
 
-Backpropagate through both learned and numerical components.
+AI 给 solver 参数、forcing 或 correction，solver 继续推进 state。
 
-### DA-coupled model
+### E. Observation-space hybrid
 
-Use ML inside an observation/state-estimation loop rather than as a standalone predictor.
+AI 预测 latent field，再通过 physical observation operator 与真实 measurement 比较。
 
-## 3. Interface design
+---
 
-A hybrid interface must define:
+## 2. 为什么 hybrid 常比纯 PINN 更实际
 
-- input/output variables and units;
-- time step;
-- grid/mesh;
-- conserved quantities;
-- bounds;
-- differentiability;
-- fallback behavior;
-- uncertainty.
+如果已有成熟 numerical solver：
+- 不必重新学习已知 dynamics；
+- 可保留 conservation / boundary handling；
+- AI 聚焦 expensive/uncertain component；
+- 更容易解释 failure domain。
+
+---
+
+## 3. 设计 checklist
+
+1. 哪个 process 已知？
+2. 哪个 process 计算贵？
+3. 哪个 process 参数化误差大？
+4. observation 是否足够约束 learned component？
+5. learned component 是否会 destabilize solver？
+6. extrapolation 时 physics 是否提供有效 inductive bias？
+
+---
 
 ## 4. Training choices
 
-- offline supervised learning from solver/observations;
-- online learning inside rollout;
-- multi-step loss;
-- physical residual loss;
-- parameter perturbation for robustness;
-- regime-balanced sampling.
+- offline supervised；
+- online / rollout training；
+- differentiable end-to-end；
+- multi-step loss；
+- conservation regularization；
+- teacher-forcing vs closed-loop。
 
-## 5. Distribution shift
+---
 
-A closure trained on states from one numerical model can fail when inserted into a coupled model because its own predictions change the future state distribution.
+## 5. Failure modes
 
-Test closed-loop behavior.
+- learned correction 只在 training climate 有效；
+- one-step accuracy 好但 closed-loop unstable；
+- numerical solver 与 learned component timestep mismatch；
+- correction 吸收了错误 observation bias；
+- hidden compensation 导致 parameter 不可解释。
 
-## 6. Error decomposition
+## Sources
 
-Separate:
-
-- observation error;
-- numerical-model structural error;
-- learned-component approximation error;
-- coupling/rollout error;
-- parameter uncertainty.
-
-## 7. Selection rule
-
-Use the smallest learned component that addresses the actual bottleneck while preserving trustworthy physics and transparent interfaces.
+- Reichstein et al. (2019), *Deep learning and process understanding for data-driven Earth system science*, Nature.
+- Karniadakis et al. (2021), physics-informed machine learning review.
+- Kochkov et al. (2024), NeuralGCM: https://www.nature.com/articles/s41586-024-07744-y

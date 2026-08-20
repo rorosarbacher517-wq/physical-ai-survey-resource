@@ -1,89 +1,100 @@
-# Deep-learning Architectures for Scientific Data
+# Deep Learning Architectures for Scientific Data
 
-## 1. MLP
+## 1. CNN
 
-Input `[B,D] → hidden layers → output`.
-
-Good for tabular/site variables or local parameterization. It has no built-in spatial topology.
-
-## 2. CNN
-
-For grid data:
+适合 regular grid 和 local spatial pattern。
 
 ```text
-[B,C,H,W]
-→ convolution
-→ local feature maps
-→ deeper receptive field
+input [B,C,H,W]
+→ Conv blocks
+→ [B,D,H',W']
 ```
 
-Inductive bias: local translation-shared filters.
+核心 inductive bias：locality + weight sharing。
 
-Strengths: efficient spatial learning. Limitations: regular-grid assumption and global interactions may require depth/large kernels.
+### U-Net
+encoder-decoder + skip connections，适合 dense prediction：segmentation、retrieval、downscaling。
 
-## 3. U-Net / encoder-decoder
+---
 
-Downsample to capture context, then upsample with skip connections for dense outputs.
+## 2. RNN / LSTM / GRU
 
-Common for segmentation, downscaling, reconstruction and field-to-field prediction.
-
-## 4. Recurrent models
-
-RNN/LSTM/GRU maintain hidden state over time.
+适合 sequence，但 long-range dependency 与 parallelism 较弱。
 
 ```text
-x_t, h_{t-1} → h_t → y_t
+h_t = f(x_t, h_{t-1})
 ```
 
-Useful for moderate sequence lengths but less parallel than Transformer-style models.
+仍常用于小规模 ecological / hydrological time series。
 
-## 5. Transformer
+---
 
-Typical scientific tensor after tokenization:
+## 3. Transformer
 
-`[B,N,D]`
-
-Self-attention:
+核心 self-attention：
 
 ```text
-Q = XW_Q
-K = XW_K
-V = XW_V
-Attention = softmax(QK^T / sqrt(d)) V
+Attention(Q,K,V)=softmax(QK^T/√d_k)V
 ```
 
-Global pairwise attention is powerful but naive cost scales roughly with `N²`.
+优势：global interaction；
+主要代价：标准 attention 对 token 数量约为 `O(N²)`。
 
-Scientific adaptations may use local windows, factorized space/time attention, sparse attention, axial attention or hierarchical tokens.
+Scientific data 中 token 可以是：
+- image patch；
+- grid cell；
+- pressure-level patch；
+- time step；
+- station；
+- modality token。
 
-## 6. GNN
+---
 
-Nodes represent grid cells, mesh vertices, stations or objects; edges encode neighborhood/interaction.
+## 4. GNN
 
-Message passing:
+适合 irregular graph / mesh：
 
 ```text
-m_ij = φ_e(h_i, h_j, e_ij)
-h_i' = φ_v(h_i, aggregate_j m_ij)
+node features
+→ message passing over edges
+→ updated node states
 ```
 
-Useful for irregular geometry and spherical meshes.
+典型应用：
+- global weather mesh；
+- unstructured CFD mesh；
+- river/road/network；
+- irregular sensors。
 
-## 7. Generative models
+---
 
-Diffusion/score models learn distributions rather than one conditional mean. This is useful for weather ensembles, downscaling and stochastic unresolved processes.
+## 5. Generative Models
 
-## 8. Architecture selection
+### VAE
+学习 latent distribution。
 
-Ask:
+### Diffusion / Score-based
+从 noise 逐步生成 sample，适合 ensemble、downscaling、uncertainty-aware field generation。
 
-- data topology?
-- local versus long-range interactions?
-- temporal horizon?
-- resolution/token budget?
-- deterministic versus probabilistic output?
-- invariance/equivariance requirements?
-- rollout stability?
-- physical constraints?
+### Flow Matching
+学习连续 probability path 的 vector field，是 2024–2026 generative modeling 中的重要训练框架之一。
 
-Architecture should follow the structure of the scientific problem, not fashion.
+---
+
+## 6. Scientific architecture 选择原则
+
+不要问“哪个模型最新”，先问：
+
+1. grid 还是 irregular geometry？
+2. local pattern 还是 long-range interaction？
+3. one-shot prediction 还是 autoregressive dynamics？
+4. deterministic 还是 probabilistic？
+5. fixed resolution 还是 cross-resolution/operator learning？
+6. observation missingness 是否严重？
+
+## Sources
+
+- He et al. (2016), ResNet.
+- Ronneberger et al. (2015), U-Net: https://arxiv.org/abs/1505.04597
+- Vaswani et al. (2017), Transformer: https://arxiv.org/abs/1706.03762
+- Ho et al. (2020), DDPM: https://arxiv.org/abs/2006.11239

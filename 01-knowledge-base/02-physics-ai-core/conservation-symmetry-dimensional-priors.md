@@ -1,77 +1,92 @@
-# Conservation, Symmetry and Dimensional Priors
+# Conservation、Symmetry 与 Dimensional Priors
 
 ## 1. Conservation
 
-A conservation law links storage, transport and sources/sinks.
-
-Generic form:
-
-`∂q/∂t + ∇·F = S`
-
-AI integration options:
-
-- residual penalty;
-- conservative finite-volume-like architecture;
-- output parameterization;
-- projection onto a constraint set;
-- learned correction that preserves a numerical core.
-
-## 2. Global versus local conservation
-
-A model can conserve a global total while violating local transport, or satisfy local relations yet drift globally due to boundaries/numerics.
-
-Evaluate both when relevant.
-
-## 3. Symmetry
-
-If a physical law is unchanged by a transformation, the model can encode invariance/equivariance.
-
-Examples:
-
-- permutation symmetry in sets/graphs;
-- translation in homogeneous domains;
-- rotation in isotropic 3D systems;
-- periodic longitude in global Earth grids.
-
-## 4. Equivariance
-
-For transformation `g`:
+典型 conservation law：
 
 ```text
-f(g·x) = g·f(x)
+∂q/∂t + ∇·F = S
 ```
 
-The output transforms consistently with the input.
+可用于：mass、momentum、energy、water、carbon 等。
 
-## 5. Dimensional priors
+### 在 AI 中怎么用
+- soft penalty；
+- conservative architecture；
+- projection；
+- flux-form prediction；
+- residual correction；
+- evaluation diagnostic。
 
-Use units and dimensionless groups to:
+---
 
-- detect invalid equations/features;
-- normalize physically disparate variables;
-- construct regime descriptors;
-- reduce dependence on arbitrary unit systems.
+## 2. Balance constraint
 
-## 6. Positivity and bounds
+碳通量常用：
 
-Some variables are physically nonnegative or bounded. Enforce with:
+```text
+NEE = RECO - GPP
+```
 
-- output transforms such as softplus/sigmoid;
-- truncated/probabilistic distributions;
-- projection;
-- penalties.
+如果同时预测三者，可定义：
 
-Do not impose bounds that are artifacts of one dataset rather than physics.
+```text
+L_balance = ||NEE_hat - (RECO_hat-GPP_hat)||²
+```
 
-## 7. Monotonicity
+但前提是：
+- sign convention 一致；
+- units 一致；
+- target definitions 一致。
 
-Known monotonic behavior can be useful but may hold only under restricted regimes. For Earth systems, interactions and feedbacks often make naive monotonic constraints too strong.
+---
 
-## 8. Conservation versus empirical balance
+## 3. Symmetry / Equivariance
 
-Not every empirical relationship is a fundamental conservation law. Clearly distinguish:
+如果 transformation `g` 作用在输入上，模型满足：
 
-- exact physical identity;
-- approximate process relation;
-- dataset convention;
-- statistical correlation.
+```text
+f(gx) = g f(x)
+```
+
+则称为 equivariant（具体定义依 representation 而异）。
+
+常见：
+- translation；
+- rotation；
+- permutation；
+- graph/node symmetry。
+
+---
+
+## 4. Dimensional priors
+
+有物理单位的模型应检查：
+- nondimensionalization；
+- scale separation；
+- unit conversion；
+- parameter range；
+- physically valid bounds。
+
+### Positivity / bounds
+例如 concentration、variance、probability 某些情况下必须非负，可用：
+- `softplus`；
+- bounded transform；
+- projection。
+
+---
+
+## 5. 软约束不是越多越好
+
+如果 physics relation 本身：
+- 只在某 regime 成立；
+- observation definition 与理论变量不同；
+- 数据 uncertainty 很高；
+- 系数不确定；
+
+过强 constraint 可能降低真实数据适配能力。
+
+## Sources
+
+- Karniadakis et al. (2021), physics-informed machine learning review, Nature Reviews Physics.
+- Bronstein et al. (2021), *Geometric Deep Learning*: https://arxiv.org/abs/2104.13478

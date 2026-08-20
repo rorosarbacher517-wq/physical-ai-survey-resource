@@ -1,128 +1,157 @@
-# Linear Algebra, Probability and Optimization for Scientific AI
+# Linear Algebra、Probability 与 Optimization
 
-## 1. Linear algebra as the language of fields
+## 1. Linear Algebra：Scientific AI 的表示语言
 
-Scientific data are often vectors or tensors that discretize continuous fields.
+Scientific data 往往是连续场离散后的 vector / matrix / tensor。
 
 ```text
-scalar: temperature at one point
-vector: wind [u, v, w]
-matrix: 2D raster H×W
-tensor: time × variable × level × latitude × longitude
+scalar:      一个点的 temperature
+vector:      wind [u,v,w]
+matrix:      2D raster [H,W]
+tensor:      [T,C,H,W]
+weather:     [T,C,L,H,W]
+point cloud: [N,D]
 ```
 
 ### Dot product
 
-`x · y = Σ_i x_i y_i`
+```text
+x · y = Σ_i x_i y_i
+```
 
-Interpretations:
-
-- similarity/projection;
-- work or energy-like contractions in physics;
-- attention score before normalization;
-- weighted spatial aggregation.
+常见意义：
+- projection / similarity；
+- attention score；
+- energy-like contraction；
+- weighted spatial aggregation。
 
 ### Matrix multiplication
 
-If `A ∈ R^(m×n)` and `x ∈ R^n`, then `Ax ∈ R^m` transforms one representation into another. In discretized physics, a matrix can represent derivatives, interpolation, diffusion, graph propagation or an observation operator.
+若 `A ∈ R^(m×n)`，`x ∈ R^n`：
 
-### Eigenvalues and eigenvectors
+```text
+Ax ∈ R^m
+```
 
-`A v = λ v`
+在 scientific computing 中，`A` 可以表示：
+- derivative operator；
+- interpolation operator；
+- diffusion operator；
+- graph propagation；
+- observation operator。
 
-They reveal characteristic modes and stability. Applications include EOF/PCA, linearized dynamics, graph Laplacians and spectral PDE methods.
+### Eigen decomposition
+
+```text
+A v = λ v
+```
+
+`λ` 与 `v` 描述系统 characteristic modes。可联系：
+- PCA / EOF；
+- linear stability；
+- graph Laplacian；
+- spectral PDE methods。
 
 ### SVD
 
-`X = U Σ V^T`
+```text
+X = U Σ V^T
+```
 
-Useful for low-rank approximation, reduced-order models, data compression and diagnosing effective rank.
+用途：low-rank approximation、reduced-order modeling、compression、effective rank diagnostics。
 
-## 2. Probability
+---
 
-### Random variables and distributions
-
-Scientific measurements include noise and unresolved variability. A deterministic target can still require a probabilistic observation model.
-
-### Conditional probability
-
-`p(x | y)` is central to inverse problems and data assimilation: infer a hidden state `x` after seeing observation `y`.
+## 2. Probability：从 measurement noise 到 posterior
 
 ### Bayes rule
 
 ```text
-posterior ∝ likelihood × prior
 p(x|y) ∝ p(y|x) p(x)
 ```
 
-- prior: knowledge before observation;
-- likelihood: observation/error model;
-- posterior: updated state/parameter uncertainty.
+- `x`：latent state / parameter；
+- `y`：observation；
+- `p(x)`：prior；
+- `p(y|x)`：likelihood；
+- `p(x|y)`：posterior。
+
+这就是 inverse problems 与 Data Assimilation 的统一语言之一。
 
 ### Covariance
 
-Covariance describes co-variation between variables or locations. In weather DA, covariance determines how one observation updates nearby/unobserved state variables.
+```text
+Cov(X,Y) = E[(X-E[X])(Y-E[Y])]
+```
 
-## 3. Statistical estimation
+在 weather DA 中，covariance 决定一个 observation 如何影响未观测位置和相关变量。
 
-Know the difference between:
+### Spatial / temporal autocorrelation
 
-- sample mean and population expectation;
-- variance and standard deviation;
-- correlation and causation;
-- confidence interval and predictive interval;
-- interpolation error and OOD error.
+Earth data 高度相关，因此 `N` 个样本不等于 `N` 个独立样本。随机切分相邻时间点或同一站点，常会高估 generalization。
 
-Spatial and temporal autocorrelation reduces the effective amount of independent information.
+---
 
-## 4. Optimization
+## 3. Optimization
 
 ### Gradient descent
 
 ```text
-θ_{k+1} = θ_k - η ∇L(θ_k)
+θ_{k+1} = θ_k - η ∇_θ L(θ_k)
 ```
 
-Scientific objectives can contain terms with very different units/scales, making gradient balance important.
+### Jacobian / Hessian
 
-### Adam / AdamW
+- Jacobian：多输出对多输入的一阶导；
+- Hessian：二阶曲率。
 
-Adaptive moment estimates help deep optimization, but they do not solve poor loss scaling, ill-conditioning or conflicting objectives.
+它们在 differentiable simulation、inverse modeling、PINN conditioning 中尤其重要。
 
 ### Constrained optimization
 
-A generic problem:
-
 ```text
-minimize    f(θ)
-subject to  g(θ) = 0
-            h(θ) ≤ 0
+min f(θ)
+subject to g(θ)=0
+           h(θ)≤0
 ```
 
-Physics-informed learning often converts constraints into penalties, parameterizations or differentiable solver components.
+physics constraint 可以通过：
+- penalty；
+- Lagrange multiplier；
+- projection；
+- reparameterization；
+- differentiable solver。
 
-### Lagrange multipliers
+### Conditioning
 
-`L(θ, λ) = f(θ) + λ g(θ)` provides a bridge between constrained optimization and physical constraints.
+如果输入微小扰动导致解大幅变化，问题是 ill-conditioned。典型来源：
+- variables scale 差异过大；
+- inverse problem 不可辨识；
+- 多个 loss 梯度冲突；
+- PDE stiffness；
+- noisy observation。
 
-## 5. Numerical conditioning
+---
 
-A problem is ill-conditioned when small perturbations in input produce large changes in solution. Inverse problems, PDE solvers and multi-loss PINNs can all suffer from conditioning issues.
+## 4. Scientific AI 中最常见的误区
 
-Check:
+1. **normalize 后忘记单位。** 网络看到无量纲值，但物理约束仍可能要求真实单位。
+2. **correlation 当 causality。** 高 covariance 不等于过程因果关系。
+3. **样本数当独立信息量。** 空间/时间自相关会显著降低 effective sample size。
+4. **AdamW 能解决所有优化问题。** optimizer 不能替代合理的 loss scaling 与 conditioning。
 
-- variable scales;
-- normalization;
-- condition numbers;
-- gradient magnitudes;
-- sensitivity to noise;
-- parameter identifiability.
+## 5. 必会推导/解释
 
-## 6. What to be able to derive
+- matrix multiplication shape；
+- gradient/Jacobian/Hessian dimension；
+- Bayes rule；
+- covariance matrix；
+- weighted mean；
+- constrained objective；
+- condition number 的直观意义。
 
-- dot product and matrix multiplication shapes;
-- gradient/Jacobian/Hessian dimensions;
-- Bayes rule and likelihood interpretation;
-- covariance matrix meaning;
-- gradient update;
-- why loss terms with incompatible scales can dominate optimization.
+## Sources
+
+- Goodfellow, Bengio & Courville, *Deep Learning*: https://www.deeplearningbook.org/
+- Tarantola, *Inverse Problem Theory and Methods for Model Parameter Estimation*.
+- Evensen, *Data Assimilation: The Ensemble Kalman Filter*.
