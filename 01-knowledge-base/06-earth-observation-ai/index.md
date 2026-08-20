@@ -1,6 +1,19 @@
 # 06 · Earth Observation / Remote Sensing AI
 
-Remote-sensing AI should start from **what the sensor measures**, then move to model architecture.
+Remote-sensing AI should start from **what the sensor measures**, then move through preprocessing, representation, fusion and model architecture.
+
+## Knowledge path
+
+```text
+Observation physics
+→ sensor modality
+→ calibration / QC / retrieval
+→ spatial-spectral-temporal representation
+→ multisensor fusion
+→ task model / foundation model
+→ reconstruction/downscaling if needed
+→ scale-aware geospatial validation
+```
 
 ## 1. Observation chain
 
@@ -14,85 +27,104 @@ surface / atmosphere state
 → geophysical/ecological target
 ```
 
-This prevents the common mistake of treating reflectance, SIF, SAR or thermal observations as direct measurements of downstream ecological processes.
+Start with [Radiative transfer and observation physics](radiative-transfer-observation-physics.md).
 
-## 2. Modalities and physical meaning
+## 2. Modalities
 
-### Optical multispectral / hyperspectral
-Key ideas: radiance, reflectance, absorption/scattering, atmospheric correction, BRDF, cloud/shadow, spectral response, sun-view geometry.
+- [Optical and hyperspectral](optical-hyperspectral.md): radiance, reflectance, spectral response, atmosphere, BRDF.
+- [SAR and microwave](sar-microwave.md): scattering, polarization, geometry, moisture/structure sensitivity.
+- [LiDAR and 3D](lidar-3d.md): ranging, point clouds, canopy/terrain structure.
+- [Thermal and SIF](thermal-sif.md): emitted radiation, temperature/emissivity and fluorescence observations.
 
-### Thermal infrared
-Brightness/surface temperature, emissivity and atmospheric effects.
+These modalities measure different physical responses; they are not interchangeable image channels.
 
-### SAR / microwave
-Backscatter depends on wavelength, polarization, geometry, roughness, dielectric properties and structure. Microwave observations can provide information under clouds but are not “optical images with another channel”.
+## 3. Data quality and preprocessing
 
-### LiDAR
-3D ranging/waveform geometry provides structure such as canopy height/profile and terrain.
+See [EO preprocessing and quality control](eo-preprocessing-quality.md).
 
-### Solar-induced chlorophyll fluorescence
-A weak radiative signal associated with photosynthetic processes; interpretation still depends on canopy/radiative transfer and scale.
+For every dataset record track:
 
-## 3. Core AI tasks
+1. native sensor resolution;
+2. projection/grid;
+3. resampling;
+4. temporal acquisition/composite interval;
+5. cloud/quality mask;
+6. spectral response;
+7. label/support resolution;
+8. validation scale.
 
-- classification;
-- semantic/instance segmentation;
-- object detection;
-- change detection;
-- regression/retrieval;
-- spatial-temporal forecasting;
-- gap filling/reconstruction;
-- super-resolution/downscaling;
-- cross-modal generation;
-- retrieval and geospatial embeddings.
+## 4. Temporal learning
 
-## 4. Core architectures
+Satellite sequences are often irregular because of orbit, cloud and sensor availability.
 
-- CNN / U-Net / ResNet;
-- ViT / Swin-style encoders;
-- temporal Transformer / ConvLSTM;
-- GNN for irregular geospatial structures;
-- contrastive/self-supervised pretraining;
-- masked autoencoding;
-- multimodal fusion;
-- generative models.
+See [Remote-sensing time-series learning](remote-sensing-time-series.md).
 
-The model must handle spectral channels, spatial scale, geolocation and time—not just RGB semantics.
+Typical representations include:
 
-## 5. Resolution questions
+```text
+image sequence: [B,T,C,H,W]
+patch tokens:   [B,T,P,D]
+quality mask:   [B,T,H,W]
+metadata:       [B,T,G]
+```
 
-For every dataset/model record:
+## 5. Multisensor / multimodal fusion
 
-1. sensor native resolution?
-2. output resolution?
-3. resampling method?
-4. temporal revisit/aggregation?
-5. label/support resolution?
-6. validation resolution?
+See [Multisensor fusion](multisensor-fusion.md).
 
-Prediction at 10–30 m does not imply independent ground validation at 10–30 m.
+Important fusion questions:
 
-## 6. Physics + AI opportunities
+- are modalities aligned in space/time/support?
+- early, feature, cross-attention or late fusion?
+- how are missing modalities handled?
+- does one sensor dominate because of normalization/data density?
+- are modality gains tested with paired ablations?
 
-- radiative-transfer-informed learning;
-- sensor/spectral response-aware encoders;
+## 6. Core AI tasks and architectures
+
+See [EO models and tasks](eo-models-tasks.md).
+
+Tasks include classification, segmentation, detection, change detection, retrieval/regression, forecasting, reconstruction, downscaling and cross-modal generation.
+
+Architectures include CNN/U-Net, ViT/Swin-style encoders, temporal models, GNNs, self-supervised encoders and generative models.
+
+## 7. Reconstruction and resolution enhancement
+
+See [Super-resolution, downscaling and reconstruction](super-resolution-reconstruction.md).
+
+Always distinguish output pixel spacing from independently validated information scale.
+
+## 8. Foundation models
+
+See [EO foundation models](eo-foundation-models.md) and [Earth/scientific foundation models](../09-earth-foundation-models/index.md).
+
+Key design axes are modality, spectral flexibility, time, geolocation, spatial scale, pretraining objective and transfer protocol.
+
+## 9. Physics + AI opportunities
+
+- radiative-transfer-aware learning;
+- spectral-response-aware encoders;
 - cloud/atmospheric uncertainty;
 - BRDF/illumination normalization;
 - SAR scattering priors;
 - geometry-aware LiDAR fusion;
-- multi-sensor observation operators;
-- physically meaningful temporal reconstruction.
+- support-aware observation operators;
+- physically constrained temporal reconstruction.
 
-## 7. Foundation-model transition
+## 10. Validation
 
-EO foundation models increasingly emphasize:
+See [Geospatial validation and OOD evaluation](geospatial-validation.md).
 
-- global pretraining;
-- multi-sensor/multimodal data;
-- temporal context;
-- resolution/scale robustness;
-- geospatial embeddings;
-- zero/few-shot transfer;
-- generative cross-modal capabilities.
+A 10–30 m prediction is not automatically validated at 10–30 m. Explicitly record the support of ground truth and how it maps to model output.
 
-See [Earth & Scientific Foundation Models](../09-earth-foundation-models/index.md) and the [EO specialty track](../../06-case-studies/geoscience-remote-sensing/earth-observation/index.md).
+## 11. Priority downstream connections
+
+```text
+EO sensing / representation
+├→ terrestrial carbon-cycle AI
+├→ weather/climate observation and downscaling
+├→ hydrology/agriculture/disaster mapping
+└→ Earth foundation models
+```
+
+Continue to [Carbon-cycle AI](../07-carbon-cycle-ai/index.md) and the [EO specialty track](../../06-case-studies/geoscience-remote-sensing/earth-observation/index.md).
