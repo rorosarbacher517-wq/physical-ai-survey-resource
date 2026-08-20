@@ -1,128 +1,176 @@
-# Learning Paths
+# Learning Paths · 从下到上的学习路线
 
-The same repository supports different entry points, but all routes share the same dependency graph.
+不同目标不需要按文件夹编号机械学习。下面按“依赖关系”安排。
 
-## Route A — Complete Scientific / Physical AI
+## 路线 A：完整 Scientific / Physical AI
 
-```text
-00 Foundations
-→ 01 ML/DL + Scientific Computing
-→ 02 Physical AI Core
-→ 03 Physics-informed Learning
-→ 04 Neural Operators / Simulation
-→ 10 Data Assimilation / Inverse / UQ
-→ 05 Spatiotemporal / Multiscale AI
-→ domain track
-→ 09 Foundation Models
-→ 11 Data/HPC/Evaluation
-→ 12 Cross-domain Physical AI
-```
-
-**Pass standard:** for a new paper, you can identify the state variables, observations, equations/priors, integration point, spatial-temporal support, validation design and uncertainty without relying on the authors' marketing label.
-
-## Route B — Remote sensing + carbon cycle (priority)
+适合希望建立完整体系的人。
 
 ```text
-00 → 01 → 02
-→ 05 Spatiotemporal / Multiscale
-→ 06 Earth Observation
-→ 07 Carbon Cycle
-→ 10 DA / Inverse / UQ
-→ 09 Earth Foundation Models
-→ 11 Evaluation
+1. Linear Algebra / Probability / Optimization
+2. ODE/PDE / Dynamical Systems / Numerical Methods
+3. Classical ML / Deep Learning / Autograd
+4. CNN / Transformer / GNN
+5. Conservation / Symmetry / Observation Operator
+6. PINN / Neural Operator / Surrogate / Differentiable Simulation
+7. Inverse Problems / Data Assimilation / UQ
+8. Spatiotemporal / Multiscale / Multimodal AI
+9. Earth Observation / Carbon / Weather
+10. Earth Foundation Models
+11. Data Engineering / HPC / Evaluation
+12. Cross-domain Physical AI
 ```
 
-Must understand:
+建议入口：
+- [00 Foundations](../00-foundations/index.md)
+- [01 ML/DL](../01-ml-dl-scientific-computing/index.md)
+- [02 Physical AI Core](../02-physics-ai-core/index.md)
+- [10 DA / Inverse / UQ](../10-data-assimilation-inverse-uq/index.md)
 
-- radiance/reflectance vs biophysical/ecosystem targets;
-- optical, SAR, thermal, LiDAR, SIF and meteorological modalities;
-- pixel/grid support versus EC footprint support;
-- NEE, GPP, RECO and partitioning assumptions;
-- tower-to-grid upscaling and site-blocked validation;
-- process/observation constraints and uncertainty propagation.
+---
 
-## Route C — Weather & climate AI
+## 路线 B：Remote Sensing / Earth Observation
 
 ```text
-00 Numerical/Physics
-→ 01 ML/DL
-→ 04 Neural Operators / Simulation
-→ 05 Spatiotemporal / Spherical representations
-→ 10 Data Assimilation / UQ
-→ 08 Weather & Climate
-→ 09 Foundation Models
-→ 11 HPC / Evaluation
+EM / radiation basics
+→ radiative transfer / observation physics
+→ Optical + Hyperspectral
+→ SAR / Microwave
+→ LiDAR / 3D
+→ Thermal / SIF
+→ preprocessing / QA / geometry / resampling
+→ spatial-spectral-temporal learning
+→ multisensor fusion
+→ retrieval / inversion
+→ EO foundation models / geospatial embeddings
+→ geospatial OOD evaluation
 ```
 
-Must be able to draw:
+核心页：[06 Earth Observation AI](../06-earth-observation-ai/index.md)
+
+重点不是记模型，而是理解：**不同 modality 为什么不能简单当作 channel concat。**
+
+---
+
+## 路线 C：Terrestrial Carbon / Carbon Flux
 
 ```text
-observations
-→ QC / data assimilation
-→ analysis / initial state
-→ deterministic or ensemble forecast
-→ post-processing / downscaling
-→ verification
+carbon-cycle processes
+→ GPP / RECO / NEE
+→ eddy covariance
+→ flux partitioning
+→ flux footprint
+→ EO + meteorology + soil moisture + 3D structure
+→ carbon ML / DL / process constraints
+→ footprint-aware observation operator
+→ tower-to-grid upscaling
+→ extremes / OOD / uncertainty
 ```
 
-and explain where Graph/Transformer/operator/diffusion-style models fit in that chain.
+核心页：[07 Carbon-cycle AI](../07-carbon-cycle-ai/index.md)
 
-## Route D — Domain scientist entering AI
+必须掌握的三个“尺度问题”：
+1. tower location ≠ flux source area；
+2. satellite pixel size ≠ tower observation support；
+3. output grid resolution ≠ independent validation support。
 
-Start with 02, then backfill 01 as needed.
+---
 
-Focus on:
-
-- leakage and unfair splits;
-- units, transformations and normalization;
-- physical constraints;
-- uncertainty;
-- interpretability versus causal claims;
-- reproducible benchmark design.
-
-## Route E — ML researcher entering scientific computing
-
-Prioritize 00 → 04 → 10.
-
-Focus on:
-
-- discretization and numerical error;
-- mesh/grid invariance;
-- PDE residuals;
-- operator learning;
-- differentiable solvers;
-- inverse problems and identifiability;
-- stability under autoregressive rollout.
-
-## Route F — Embodied / broader Physical AI
+## 路线 D：Weather & Climate AI
 
 ```text
-00/01 basics
-→ 02 Physical AI Core
-→ 05 Spatiotemporal representations
-→ 12 Cross-domain Physical AI
+atmospheric state + governing equations
+→ NWP discretization / parameterization
+→ global observing system
+→ data assimilation
+→ analysis / initial condition
+→ AI forecast backbone
+→ autoregressive rollout
+→ probabilistic / ensemble forecast
+→ nowcasting / regional downscaling
+→ extremes
+→ coupled Earth-system / climate
+→ verification / calibration
 ```
 
-Then connect to perception, world models, planning, control, sim-to-real and VLA resources as the embodied branch grows.
+核心页：[08 Weather & Climate AI](../08-weather-climate-ai/index.md)
 
-## How to study a paper
+学习模型时建议按方法族，而不是年份背名字：
 
-Do not start by memorizing the method name. Fill this card before reading implementation details:
+- grid/spectral/operator：`FourCastNet`；
+- graph/mesh：`GraphCast`；
+- 3D Transformer：`Pangu-Weather`；
+- cascade / multi-stage：`FuXi`；
+- multimodal/multitask + replay：`FengWu`；
+- hybrid differentiable dynamics：`NeuralGCM`；
+- probabilistic generative：`GenCast`；
+- operational deterministic + ensemble：`AIFS Single / ENS`；
+- data-to-forecast：`Aardvark Weather`, `FuXi Weather`；
+- Earth-system foundation model：`Aurora`。
 
-| Question | Notes |
-|---|---|
-| Physical system / target | |
-| Observations and sensors | |
-| State variables / units | |
-| Space-time resolution/support | |
-| Governing physics / prior | |
-| Where physics enters | |
-| Architecture / representation | |
-| Loss / likelihood / constraints | |
-| Train/test split | |
-| Baselines | |
-| Uncertainty | |
-| Failure modes | |
-| Reproducibility | |
+---
 
-Then link the paper to the canonical [paper library](../../02-paper-library/index.md).
+## 路线 E：Earth / Geospatial Foundation Models
+
+```text
+ViT / SSL / MAE / contrastive learning
+→ EO-specific tokenization
+→ multi-temporal pretraining
+→ multimodal pretraining
+→ encoder weights vs ready-made embedding products
+→ frozen probe / PEFT / full fine-tuning
+→ PANGAEA-style evaluation
+→ process-sensitive Earth-system downstream tasks
+```
+
+核心页：[09 Earth Foundation Models](../09-earth-foundation-models/index.md)
+
+截至 2026-08-20，建议重点理解：`Prithvi-EO-2.0`, `TerraMind`, `AlphaEarth Foundations`, `TESSERA`, `MaRS`, `Aurora` 的**接口差异**，而不是只比较参数量。
+
+---
+
+## 路线 F：从 ML 转入 Scientific AI
+
+如果已经熟悉 Transformer/CNN，可跳过基础神经网络，从以下开始：
+
+1. [Dynamical Systems / PDE](../00-foundations/dynamical-systems-pde.md)
+2. [Numerical Methods](../00-foundations/numerical-methods.md)
+3. [Observation Operators](../02-physics-ai-core/observation-operators.md)
+4. [Hybrid Modeling](../02-physics-ai-core/hybrid-modeling-design.md)
+5. [Neural Operators](../04-neural-operators-simulation/neural-operator-family.md)
+6. [Data Assimilation](../10-data-assimilation-inverse-uq/data-assimilation.md)
+7. 一个 Earth-system domain。
+
+---
+
+## 路线 G：从遥感/地学转入 AI
+
+1. [Classical ML Baselines](../01-ml-dl-scientific-computing/classical-ml-scientific-baselines.md)
+2. [Deep Learning Architectures](../01-ml-dl-scientific-computing/deep-learning-architectures.md)
+3. [Transformer / GNN for Science](../01-ml-dl-scientific-computing/transformer-gnn-for-science.md)
+4. [Spatiotemporal Learning](../05-spatiotemporal-multiscale-ai/temporal-modeling.md)
+5. [Multiscale / Multimodal Fusion](../05-spatiotemporal-multiscale-ai/multiscale-multimodal-fusion.md)
+6. [Data/HPC](../11-data-hpc-evaluation/index.md)
+
+---
+
+## 每篇论文怎么学
+
+不要只写摘要。建议做一张 study card：
+
+```text
+Problem
+→ Data / observation
+→ Spatial & temporal support
+→ Input / output / shape
+→ Architecture
+→ Physics integration
+→ Loss
+→ Train / inference
+→ Validation split
+→ Metrics
+→ Main finding
+→ Failure / limitation
+→ What is reusable
+→ Primary source
+```
