@@ -31,7 +31,7 @@ point:       [B,N,D]
 
 要明确：
 - contiguous / stride；
-- channel-first vs channel-last；
+- channels-leading vs channels-trailing layout；
 - dtype；
 - device；
 - mask shape；
