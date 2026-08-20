@@ -2,60 +2,60 @@
 
 ## Goal
 
-Build a chain from **sensor physics → preprocessing → spatial/spectral/temporal representation → AI model → geophysical/ecological target → validation**.
-
-## 1. Observation physics
-
-Study by modality:
-
-- optical multispectral/hyperspectral: radiance, reflectance, atmospheric correction, BRDF, clouds, spectral response;
-- thermal infrared: emission, emissivity, surface temperature;
-- SAR/microwave: backscatter, polarization, geometry, roughness/moisture/structure;
-- LiDAR: range/waveform, canopy/terrain geometry;
-- SIF: fluorescence signal, canopy/radiative effects and photosynthetic interpretation.
+Build a chain from **sensor/observation physics → preprocessing → spatial-spectral-temporal representation → multimodal AI → geophysical/ecological target → scale-aware validation**.
 
 Main knowledge page: [Earth Observation AI](../../../01-knowledge-base/06-earth-observation-ai/index.md).
 
-## 2. AI problem families
+## 1. Observation physics
 
-- classification / segmentation / detection;
-- retrieval/regression;
-- change detection;
-- temporal forecasting;
-- missing-data reconstruction;
-- super-resolution/downscaling;
-- multimodal fusion;
-- geospatial retrieval/embeddings;
-- foundation-model transfer.
+Start with [Radiative transfer and observation physics](../../../01-knowledge-base/06-earth-observation-ai/radiative-transfer-observation-physics.md).
 
-## 3. Physical-AI integration points
+Study by modality:
 
-- retrieval/observation operators;
-- spectral response and radiative-transfer priors;
+- [optical/hyperspectral](../../../01-knowledge-base/06-earth-observation-ai/optical-hyperspectral.md);
+- [SAR/microwave](../../../01-knowledge-base/06-earth-observation-ai/sar-microwave.md);
+- [LiDAR/3D](../../../01-knowledge-base/06-earth-observation-ai/lidar-3d.md);
+- [thermal/SIF](../../../01-knowledge-base/06-earth-observation-ai/thermal-sif.md).
+
+## 2. Data and representation
+
+- [preprocessing/QC](../../../01-knowledge-base/06-earth-observation-ai/eo-preprocessing-quality.md);
+- [time-series learning](../../../01-knowledge-base/06-earth-observation-ai/remote-sensing-time-series.md);
+- [multisensor fusion](../../../01-knowledge-base/06-earth-observation-ai/multisensor-fusion.md);
+- [super-resolution/reconstruction](../../../01-knowledge-base/06-earth-observation-ai/super-resolution-reconstruction.md).
+
+## 3. AI problem families
+
+Classification/segmentation/detection, retrieval/regression, change detection, temporal forecasting, reconstruction/downscaling, multimodal fusion, cross-modal generation and geospatial embeddings.
+
+See [EO models and tasks](../../../01-knowledge-base/06-earth-observation-ai/eo-models-tasks.md).
+
+## 4. Physical-AI integration points
+
+- observation/retrieval operators;
+- spectral-response and radiative-transfer priors;
 - geometry-aware representations;
-- temporal/phenological constraints;
+- temporal/phenological structure;
 - multi-resolution consistency;
 - sensor uncertainty;
-- physically meaningful downstream evaluation.
-
-## 4. Key datasets in this repository
-
-Use the [dataset library](../../../04-dataset-library/index.md), especially HLS, MODIS, ERA5-Land, SMAP and flux-network records where relevant.
+- process-sensitive downstream evaluation.
 
 ## 5. Foundation-model path
 
-Learn the progression:
-
 ```text
-task-specific CNN/ViT
+task-specific model
 → self-supervised EO encoder
-→ global/temporal EO pretraining
-→ multimodal EO foundation model
-→ geospatial embedding fields / cross-modal generation
+→ global/temporal pretraining
+→ multimodal Earth representation
+→ foundation-model transfer / geospatial embeddings
 ```
 
-See [Geospatial Foundation Models](../geospatial-foundation-models/index.md) and [2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md).
+See [EO foundation models](../../../01-knowledge-base/06-earth-observation-ai/eo-foundation-models.md), [Earth foundation models](../../../01-knowledge-base/09-earth-foundation-models/index.md) and [2026 Snapshot](../../../01-knowledge-base/13-2026-snapshot/index.md).
 
 ## 6. Validation safeguards
 
-Always record native resolution, resampling, label support, temporal aggregation and independent validation support. Avoid claiming field-scale accuracy solely from pixel-resolution output.
+Use [Geospatial validation/OOD](../../../01-knowledge-base/06-earth-observation-ai/geospatial-validation.md). Always record native resolution, resampling, label support, temporal aggregation, split axis and independent validation support.
+
+## 7. Repository resources
+
+Use the [dataset library](../../../04-dataset-library/index.md), [paper library](../../../02-paper-library/index.md) and [benchmark library](../../../05-benchmarks-and-evaluation/index.md) for canonical records.

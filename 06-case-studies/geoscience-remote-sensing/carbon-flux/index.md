@@ -1,33 +1,47 @@
 # Terrestrial Carbon-flux AI Specialty Track
 
-This priority track connects **eddy covariance, flux footprints, Earth observation, meteorological forcing, process constraints, deep learning and scale-aware upscaling**.
+This priority track connects **ecosystem process understanding, eddy covariance, flux partitioning, footprints, Earth observation, meteorological forcing, process constraints, deep learning and scale-aware upscaling**.
 
 Main knowledge page: [Carbon-cycle AI](../../../01-knowledge-base/07-carbon-cycle-ai/index.md).
 
-## 1. Scientific question
-
-How can AI estimate terrestrial carbon exchange while preserving:
-
-- the physical meaning of NEE/GPP/RECO;
-- the actual source area represented by tower observations;
-- the spatial-temporal support of satellite/meteorological predictors;
-- process relationships and uncertainty;
-- valid transfer to new sites/biomes/climate regimes?
-
-## 2. Observation chain
+## 1. Complete chain
 
 ```text
-surface carbon exchange
-→ turbulent transport
-→ EC measurement
-→ footprint / source-area weighting
-→ tower-scale NEE
-→ partitioned GPP / RECO
+carbon-water-energy processes
+→ EC net exchange
+→ partitioning / target uncertainty
+→ dynamic footprint / observation support
+→ EO + meteorology + 3D structure
+→ data-driven / hybrid / process-constrained model
+→ footprint observation mapping
+→ tower validation
+→ tower-to-grid upscaling
+→ extremes / OOD / uncertainty
 ```
 
-Satellite observations then provide spatially explicit predictors, not direct replacements for this measurement chain.
+## 2. Process and measurement pages
 
-## 3. Multimodal predictor stack
+- [Carbon-cycle processes](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-cycle-processes.md)
+- [Carbon–water–energy coupling](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-water-energy-coupling.md)
+- [Eddy covariance](../../../01-knowledge-base/07-carbon-cycle-ai/eddy-covariance.md)
+- [Flux partitioning and uncertainty](../../../01-knowledge-base/07-carbon-cycle-ai/flux-partitioning-uncertainty.md)
+- [Flux footprints](../../../01-knowledge-base/07-carbon-cycle-ai/flux-footprints.md)
+
+## 3. Modeling pages
+
+- [Carbon data stack](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-data-stack.md)
+- [Carbon modeling methods](../../../01-knowledge-base/07-carbon-cycle-ai/carbon-modeling-methods.md)
+- [Process-constrained carbon AI](../../../01-knowledge-base/07-carbon-cycle-ai/process-constrained-carbon-ai.md)
+- [Footprint-aware AI](../../../01-knowledge-base/07-carbon-cycle-ai/footprint-aware-ai.md)
+- [Multimodal carbon AI](../../../01-knowledge-base/07-carbon-cycle-ai/multimodal-carbon-ai.md)
+
+## 4. Upscaling and stress regimes
+
+- [Tower-to-grid upscaling](../../../01-knowledge-base/07-carbon-cycle-ai/tower-to-grid-upscaling.md)
+- [Climate extremes](../../../01-knowledge-base/07-carbon-cycle-ai/extremes-climate-response.md)
+- [Validation and uncertainty](../../../01-knowledge-base/07-carbon-cycle-ai/validation-uncertainty.md)
+
+## 5. Multimodal predictor stack
 
 ```text
 2D optical / thermal / SIF / SAR
@@ -38,42 +52,15 @@ Satellite observations then provide spatially explicit predictors, not direct re
 → spatiotemporal carbon model
 ```
 
-## 4. Physics-informed opportunities
+See [EO multisensor fusion](../../../01-knowledge-base/06-earth-observation-ai/multisensor-fusion.md) and [weather/climate AI](../../../01-knowledge-base/08-weather-climate-ai/index.md).
 
-- footprint-weighted observation mapping;
-- carbon balance consistency;
-- light/water/temperature process priors;
-- hybrid process-model residual learning;
-- carbon-water-energy coupling;
-- data assimilation;
-- uncertainty propagation.
+## 6. Evaluation hierarchy
 
-## 5. Evaluation hierarchy
+Prefer site-blocked validation, temporal/event stratification, biome/climate transfer, paired ablations, support-aware metrics, uncertainty/calibration and independent spatial validation where available.
 
-Prefer:
-
-1. site-blocked validation;
-2. temporal/event/extreme stratification;
-3. biome/climate-region transfer;
-4. paired ablations for each physics component;
-5. measurement/support-aware metrics;
-6. uncertainty/calibration;
-7. independent spatial validation where available.
-
-## 6. End-to-end resource chain
-
-- datasets: `dataset-fluxnet`, `dataset-ameriflux`, HLS, ERA5-Land, MODIS, SMAP;
-- method views: `machine-learning-upscaling`, `observation-operator-methods`, `hybrid-numerical-machine-learning`;
-- code/resources: FFP and geospatial preprocessing records where available;
-- benchmarks: site-blocked and support-aware carbon-flux definitions.
-
-Browse:
+## 7. Repository resources
 
 - [papers by method](../../../02-paper-library/by-method.md)
 - [papers by domain](../../../02-paper-library/by-domain.md)
 - [datasets](../../../04-dataset-library/index.md)
 - [benchmarks](../../../05-benchmarks-and-evaluation/index.md)
-
-## 7. Research frontier
-
-Dynamic footprint-aware learning, multimodal 2D+3D fusion, dense temporal reconstruction, process-aware foundation representations, OOD climate/biome transfer and calibrated uncertainty are priority directions.

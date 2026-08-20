@@ -1,24 +1,30 @@
 # 09 · Earth and Scientific Foundation Models
 
-A scientific foundation model should provide reusable representations or generative/forecast capability across tasks, regions, variables or modalities—not merely be a large task-specific network.
+A scientific foundation model should provide reusable representations, generative capability or forecast dynamics across multiple tasks, regions, variables or modalities—not merely be a large task-specific network.
+
+## Knowledge path
+
+```text
+Earth data/observation physics
+→ pretraining corpus design
+→ spatial/temporal/modality representation
+→ self-supervised / predictive / generative objective
+→ adaptation protocol
+→ task/region/sensor/regime transfer
+→ scientific + OOD evaluation
+```
 
 ## 1. Why Earth foundation models are different
 
-Earth data are:
+Earth data are georeferenced, multi-resolution, multi-sensor, multi-temporal and physically structured. Labels are sparse and sampling is highly nonuniform.
 
-- georeferenced;
-- multi-resolution;
-- multi-sensor;
-- multi-temporal;
-- physically structured;
-- seasonally and regionally non-stationary;
-- often sparsely labeled.
+Natural-image recipes therefore need adaptation for spectral channels, time, geolocation, vertical coordinates, missing modalities and scale.
 
-Therefore natural-image recipes need adaptation.
+## 2. Pretraining and adaptation
 
-## 2. Pretraining objectives
+See [Earth-FM pretraining and adaptation](earth-fm-pretraining.md).
 
-Common strategies:
+Possible objectives include:
 
 - masked reconstruction;
 - contrastive learning;
@@ -28,57 +34,65 @@ Common strategies:
 - autoregressive field prediction;
 - supervised multi-task pretraining.
 
-## 3. Representation questions
+## 3. Multimodal representation
 
-For every model ask:
+See [Multimodal Earth representations](multimodal-earth-representations.md).
 
-1. What sensors/modalities were seen in pretraining?
-2. What spatial resolution(s)?
-3. What temporal sampling?
-4. How are location and time encoded?
-5. Are spectral channels fixed or flexible?
-6. How are missing modalities handled?
-7. Is the output an embedding, reconstruction, generated modality or physical forecast?
-8. What transfers zero-shot/few-shot versus requiring full fine-tuning?
+A general model may need modality/sensor, wavelength, geolocation, time, vertical-level, resolution/support and quality/missingness metadata.
 
-## 4. Important model families
+## 4. Model families
 
-### Earth-observation encoders
-Prithvi-EO, masked-autoencoder and contrastive EO models, multimodal encoders.
+See [Model-family guide](model-family-guide.md).
 
-### Multimodal generative EO
-TerraMind represents the move toward any-to-any multimodal Earth-observation generation and representation learning.
+Useful families include:
 
-### Global geospatial embeddings
-AlphaEarth Foundations represents a different interface: pretrained global embedding fields that downstream systems can use as geospatial features.
+- EO encoders;
+- multimodal generative EO models;
+- global embedding fields;
+- weather/Earth-system forecast foundation models;
+- scientific models pretrained across simulation/field domains.
 
-### Earth-system forecast foundation models
-Aurora demonstrates large-scale pretraining/fine-tuning across atmospheric/Earth-system forecasting tasks.
+Fast-moving named releases belong in the dated [2026 Snapshot](../13-2026-snapshot/index.md).
 
-## 5. Physics and foundation models
+## 5. Physics and observation operators
 
-Large pretraining does not remove the need for physics. Key opportunities:
+Broad pretraining does not remove the need for physics. Important integration routes include:
 
-- physics-aware tokens/coordinates;
-- conservation-aware fine-tuning;
+- physics-aware coordinates/tokens;
+- conservation/process constraints;
 - observation operators;
-- retrieval constraints;
-- process-informed task heads;
-- hybrid coupling to simulators;
+- hybrid simulator coupling;
+- process-sensitive task heads;
 - physically stratified evaluation.
 
-## 6. Foundation-model failure modes
+## 6. Evaluation
 
-- pretraining-domain leakage into benchmarks;
-- strong interpolation but weak climate/biome/extreme OOD transfer;
-- scale mismatch;
-- hidden preprocessing dependence;
-- sensor-specific artifacts;
-- expensive fine-tuning masked by headline zero-shot results;
-- embeddings correlated with location rather than transferable process information.
+See [Earth-FM evaluation](earth-fm-evaluation.md).
 
-## 7. Current verified examples
+A foundation-model claim should be tested across tasks, regions, times, modalities/resolutions and labeled-data budgets with explicit pretraining-overlap audits.
 
-Fast-moving releases are tracked with primary sources in [13 · 2026 Snapshot](../13-2026-snapshot/index.md).
+## 7. Priority Earth-system connections
+
+```text
+EO foundation representation
+├→ carbon-cycle / ecosystem process targets
+├→ hydrology/agriculture/disaster tasks
+└→ multimodal geospatial retrieval
+
+weather/Earth-system foundation representation
+├→ atmospheric forecasting
+├→ extremes / downscaling
+└→ coupled land/ocean/carbon tasks
+```
+
+## 8. Failure modes
+
+- benchmark leakage through broad pretraining;
+- location/season shortcut instead of process representation;
+- strong interpolation but weak OOD transfer;
+- sensor/preprocessing dependence hidden by model branding;
+- output scale confused with validation scale;
+- expensive adaptation omitted from comparisons;
+- broad semantic transfer but weak process-sensitive transfer.
 
 Domain view: [Geospatial foundation models](../../06-case-studies/geoscience-remote-sensing/geospatial-foundation-models/index.md).

@@ -1,4 +1,4 @@
-current_phase: 13-kb-v2-scientific-physical-ai
+current_phase: 14-deep-knowledge-units
 phases:
   '00': PASS
   '01': PASS
@@ -14,4 +14,5 @@ phases:
   '11': PASS
   '12': PASS
   '13': IN_PROGRESS
-updated: '2026-08-20T12:30:00+00:00'
+  '14': IN_PROGRESS
+updated: '2026-08-20T13:07:00+00:00'
