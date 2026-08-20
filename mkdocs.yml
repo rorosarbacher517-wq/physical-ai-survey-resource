@@ -44,6 +44,19 @@ nav:
       - Climate / Coupling: 01-knowledge-base/08-weather-climate-ai/earth-system-coupling.md
       - Verification: 01-knowledge-base/08-weather-climate-ai/weather-evaluation.md
   - Earth Foundation Models: 01-knowledge-base/09-earth-foundation-models/index.md
+  - Embodied Physical AI / Robotics:
+      - 总览: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/index.md
+      - Foundations: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/00-foundations.md
+      - Robot Perception: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/01-perception.md
+      - Geometry / 3D: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/02-geometry-3d.md
+      - State Estimation / SLAM: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/03-state-estimation.md
+      - Kinematics / Dynamics: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/04-kinematics-dynamics.md
+      - World Models: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/05-world-models-physical-reasoning.md
+      - Planning / Control: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/06-planning-control.md
+      - Robot Learning / Data: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/07-robot-learning.md
+      - VLA / Robot FM: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/08-vla-robot-foundation-models.md
+      - Simulation / Sim-to-Real: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/09-simulation-sim2real.md
+      - Safety / Evaluation: 01-knowledge-base/12-cross-domain-physical-ai/embodied-robotics/10-evaluation-safety.md
   - Data / HPC / Evaluation: 01-knowledge-base/11-data-hpc-evaluation/index.md
   - Cross-domain Physical AI: 01-knowledge-base/12-cross-domain-physical-ai/index.md
   - 2026-08-20 Snapshot: 01-knowledge-base/13-2026-snapshot/index.md

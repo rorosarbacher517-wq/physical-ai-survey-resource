@@ -1,10 +1,8 @@
 # Learning Paths · 从下到上的学习路线
 
-不同目标不需要按文件夹编号机械学习。下面按“依赖关系”安排。
+不同目标不需要按文件夹编号机械学习。下面按依赖关系安排。
 
 ## 路线 A：完整 Scientific / Physical AI
-
-适合希望建立完整体系的人。
 
 ```text
 1. Linear Algebra / Probability / Optimization
@@ -15,10 +13,12 @@
 6. PINN / Neural Operator / Surrogate / Differentiable Simulation
 7. Inverse Problems / Data Assimilation / UQ
 8. Spatiotemporal / Multiscale / Multimodal AI
-9. Earth Observation / Carbon / Weather
-10. Earth Foundation Models
+9. 选择 domain branch
+   ├─ Earth Observation / Carbon / Weather
+   └─ Embodied Physical AI / Robotics
+10. Foundation Models / World Models
 11. Data Engineering / HPC / Evaluation
-12. Cross-domain Physical AI
+12. Cross-domain synthesis
 ```
 
 建议入口：
@@ -48,8 +48,6 @@ EM / radiation basics
 
 核心页：[06 Earth Observation AI](../06-earth-observation-ai/index.md)
 
-重点不是记模型，而是理解：**不同 modality 为什么不能简单当作 channel concat。**
-
 ---
 
 ## 路线 C：Terrestrial Carbon / Carbon Flux
@@ -69,10 +67,7 @@ carbon-cycle processes
 
 核心页：[07 Carbon-cycle AI](../07-carbon-cycle-ai/index.md)
 
-必须掌握的三个“尺度问题”：
-1. tower location ≠ flux source area；
-2. satellite pixel size ≠ tower observation support；
-3. output grid resolution ≠ independent validation support。
+三个尺度问题：tower location ≠ flux source area；satellite pixel size ≠ tower observation support；output grid resolution ≠ independent validation support。
 
 ---
 
@@ -95,19 +90,6 @@ atmospheric state + governing equations
 
 核心页：[08 Weather & Climate AI](../08-weather-climate-ai/index.md)
 
-学习模型时建议按方法族，而不是年份背名字：
-
-- grid/spectral/operator：`FourCastNet`；
-- graph/mesh：`GraphCast`；
-- 3D Transformer：`Pangu-Weather`；
-- cascade / multi-stage：`FuXi`；
-- multimodal/multitask + replay：`FengWu`；
-- hybrid differentiable dynamics：`NeuralGCM`；
-- probabilistic generative：`GenCast`；
-- operational deterministic + ensemble：`AIFS Single / ENS`；
-- data-to-forecast：`Aardvark Weather`, `FuXi Weather`；
-- Earth-system foundation model：`Aurora`。
-
 ---
 
 ## 路线 E：Earth / Geospatial Foundation Models
@@ -119,19 +101,15 @@ ViT / SSL / MAE / contrastive learning
 → multimodal pretraining
 → encoder weights vs ready-made embedding products
 → frozen probe / PEFT / full fine-tuning
-→ PANGAEA-style evaluation
+→ geospatial/OOD evaluation
 → process-sensitive Earth-system downstream tasks
 ```
 
 核心页：[09 Earth Foundation Models](../09-earth-foundation-models/index.md)
 
-截至 2026-08-20，建议重点理解：`Prithvi-EO-2.0`, `TerraMind`, `AlphaEarth Foundations`, `TESSERA`, `MaRS`, `Aurora` 的**接口差异**，而不是只比较参数量。
-
 ---
 
 ## 路线 F：从 ML 转入 Scientific AI
-
-如果已经熟悉 Transformer/CNN，可跳过基础神经网络，从以下开始：
 
 1. [Dynamical Systems / PDE](../00-foundations/dynamical-systems-pde.md)
 2. [Numerical Methods](../00-foundations/numerical-methods.md)
@@ -139,7 +117,7 @@ ViT / SSL / MAE / contrastive learning
 4. [Hybrid Modeling](../02-physics-ai-core/hybrid-modeling-design.md)
 5. [Neural Operators](../04-neural-operators-simulation/neural-operator-family.md)
 6. [Data Assimilation](../10-data-assimilation-inverse-uq/data-assimilation.md)
-7. 一个 Earth-system domain。
+7. 选择一个 domain branch。
 
 ---
 
@@ -154,19 +132,47 @@ ViT / SSL / MAE / contrastive learning
 
 ---
 
-## 每篇论文怎么学
+## 路线 H：Embodied Physical AI / Robotics
 
-不要只写摘要。建议做一张 study card：
+建议不要从 VLA 模型表开始，而按真实机器人闭环学习：
+
+```text
+robot/environment/task
+→ sensor observation physics
+→ camera geometry / SE(3) / 3D representation
+→ state estimation / sensor fusion / SLAM
+→ kinematics / dynamics / contact
+→ world model / physical reasoning
+→ task & motion planning
+→ feedback control / MPC / whole-body control
+→ imitation learning / RL / generative policy
+→ VLA / robot foundation models
+→ simulation / synthetic data / sim-to-real
+→ safety / OOD / deployment
+```
+
+核心页：[Embodied Physical AI / Robotics](../12-cross-domain-physical-ai/embodied-robotics/index.md)
+
+必须区分：
+1. `state ≠ observation`；
+2. semantic plan ≠ kinematically/dynamically feasible motion；
+3. offline action accuracy ≠ closed-loop task success；
+4. simulation success ≠ real-robot robustness；
+5. VLA capability ≠ complete safety system。
+
+---
+
+## 每篇论文怎么学
 
 ```text
 Problem
 → Data / observation
-→ Spatial & temporal support
+→ Spatial/temporal or control support
 → Input / output / shape
 → Architecture
-→ Physics integration
-→ Loss
-→ Train / inference
+→ Physics / geometry / dynamics integration
+→ Loss / reward
+→ Train / inference / rollout
 → Validation split
 → Metrics
 → Main finding

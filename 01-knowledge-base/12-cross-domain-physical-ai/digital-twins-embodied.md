@@ -1,6 +1,17 @@
-# Digital Twins 与 Embodied Physical AI
+# Digital Twins 与 Embodied Physical AI：桥接页
 
-## 1. Digital Twin 的闭环
+这个页面保留原路径兼容，但不再承载完整 robotics 内容。
+
+- **Digital Twin**：重点是 physical system 与 digital model 之间持续 observation update、state estimation、forecast/simulation 与 decision/control 的闭环；
+- **Embodied Physical AI / Robotics**：重点是 agent/robot 在环境中 perception、estimation、planning、control、action 与 feedback。
+
+完整机器人学习路径见：
+
+→ [Embodied Physical AI / Robotics](embodied-robotics/index.md)
+
+---
+
+## 1. Digital Twin 闭环
 
 ```text
 physical system
@@ -13,99 +24,52 @@ physical system
 → new observations
 ```
 
-如果只有一个静态 simulator，没有 observation update/control loop，通常不应把它泛化成完整 digital twin。
+如果只有静态 simulator，没有 observation update 或 operational feedback loop，通常更准确的称呼是 simulation/model，而不是完整 digital twin。
 
 ---
 
 ## 2. 与 Data Assimilation 的关系
 
-Digital twin 需要持续校正 state：
-
 ```text
-model forecast + observations → updated state
+model forecast + observations
+→ updated state
 ```
 
-这与 DA 有直接数学共性。
+这与 DA / Bayesian filtering 具有直接数学共性。
+
+→ [Data Assimilation](../10-data-assimilation-inverse-uq/data-assimilation.md)
 
 ---
 
-## 3. Embodied intelligence
+## 3. 与 Embodied Robotics 的关系
 
-典型链：
+Robot loop：
 
 ```text
-perception
-→ localization/state estimation
-→ world model
-→ planning
-→ control/action
-→ new observation
+physical world
+→ sensor observations
+→ state / belief
+→ world/dynamics model
+→ planning/control
+→ action
+→ physical world
 ```
 
----
-
-## 4. Physical perception
-
-- RGB / depth；
-- LiDAR；
-- tactile；
-- proprioception；
-- audio；
-- force/torque。
-
-与 EO 一样，sensor modality 有 observation physics，不应只视作 generic tokens。
-
----
-
-## 5. World Model
-
-学习：
-
-```text
-state + action → future state/observation
-```
-
-需要：
-- dynamics；
-- uncertainty；
-- multimodal prediction；
-- long-horizon consistency。
-
----
-
-## 6. Planning / Control
-
-- model predictive control；
-- reinforcement learning；
-- trajectory optimization；
-- vision-language-action (VLA) systems。
-
-Physical AI 需要考虑 constraints、contact、stability 与 safety。
-
----
-
-## 7. Sim-to-real
-
-simulation 与 real world 存在：
-- dynamics gap；
-- sensor gap；
-- appearance gap；
-- contact/friction uncertainty。
-
-策略包括 domain randomization、system identification、online adaptation。
-
----
-
-## 8. 与 Scientific AI 的桥
-
-Scientific AI 更关注“理解/模拟/反演 physical system”；Embodied AI 更关注“感知/决策/行动”。
-
-两者在：
-- state estimation；
-- world/dynamics model；
-- uncertainty；
-- differentiable simulation；
+两者共有：
 - observation operator；
-- control
+- state estimation；
+- dynamics/world model；
+- uncertainty；
+- simulation；
+- optimization/control。
 
-处汇合。
+不同之处是 robotics 通常更强调 embodied action、contact、real-time latency、collision/safety 与 active exploration。
+
+---
+
+## 4. 什么时候 cross-link
+
+- digital twin 的 estimator → [State Estimation](embodied-robotics/03-state-estimation.md)
+- digital twin simulator → [Simulation / Sim-to-Real](embodied-robotics/09-simulation-sim2real.md)
+- active decision/control → [Planning / Control](embodied-robotics/06-planning-control.md)
+- physical deployment risk → [Evaluation / Safety](embodied-robotics/10-evaluation-safety.md)
