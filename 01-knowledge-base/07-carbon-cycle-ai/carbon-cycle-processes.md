@@ -1,64 +1,115 @@
-# Terrestrial Carbon-cycle Processes for AI
+# Carbon-cycle Processes：先理解过程，再做预测
 
-## 1. Core ecosystem fluxes
+## 1. Carbon pool 与 flux
 
-### Gross primary productivity (GPP)
-Carbon uptake through photosynthesis before subtracting ecosystem respiration.
-
-### Ecosystem respiration (RECO)
-Respiratory carbon release from autotrophic and heterotrophic processes.
-
-### Net ecosystem exchange (NEE)
-A commonly used convention is:
-
-`NEE = RECO - GPP`
-
-Negative NEE then indicates net ecosystem uptake. Dataset conventions must always be checked.
-
-## 2. Process controls
-
-### Radiation
-Photosynthesis requires absorbed photosynthetically active radiation. Light response can saturate and interacts with canopy structure/phenology.
-
-### Temperature
-Influences enzymatic/photosynthetic processes and respiration rates.
-
-### Water availability
-Soil moisture and atmospheric dryness can constrain stomatal conductance and photosynthesis; severe water stress can also change respiration/substrate dynamics.
-
-### Phenology and canopy state
-Leaf area, greenness, pigment and canopy structure control the capacity to absorb light and exchange carbon/water.
-
-### Disturbance/management
-Fire, harvest, mowing, irrigation, fertilization and land-use change can alter fluxes abruptly.
-
-## 3. Carbon-water-energy coupling
-
-Photosynthesis and transpiration share stomatal controls, while surface energy determines temperature and evaporation. Carbon modeling can therefore benefit from coupled meteorological/hydrological information.
-
-## 4. Time scales
-
-- sub-daily light/turbulence response;
-- daily weather;
-- seasonal phenology;
-- interannual climate variability;
-- disturbance/recovery;
-- long-term ecosystem change.
-
-A model should not infer all scales from one static satellite image.
-
-## 5. Spatial heterogeneity
-
-Neighboring patches can differ in vegetation, soil moisture, management and flux. Dynamic EC footprints change their contribution to the tower measurement.
-
-## 6. AI implication
-
-Useful predictors represent both:
+陆地碳循环可简化为多个 carbon pools 之间的 flux：
 
 ```text
-capacity/state: vegetation + structure + soil
-forcing: radiation + temperature + moisture + atmosphere
-observation support: footprint / measurement mapping
+atmosphere
+   ↓ photosynthesis
+vegetation carbon
+   ↕ allocation / mortality
+soil / litter carbon
+   ↑ respiration / decomposition
+atmosphere
 ```
 
-This provides a more physical framing than feature-only regression.
+AI 预测的是其中某个 flux/state，不等于学会了整个 carbon cycle。
+
+---
+
+## 2. GPP
+
+`GPP` 表示 photosynthesis 固定的总碳量/速率。
+
+主要受：
+- absorbed radiation；
+- canopy leaf area / chlorophyll；
+- temperature；
+- VPD / stomatal regulation；
+- soil moisture；
+- phenology；
+- nutrient status；
+- disturbance。
+
+### Light-use-efficiency (LUE) 思路
+
+概念形式：
+
+```text
+GPP ≈ APAR × ε
+```
+
+`APAR` 是 absorbed PAR，`ε` 是 effective light-use efficiency，受环境限制。
+
+这解释了为什么 optical/SIF/radiation 与 GPP 联系较直接，但不是 deterministic one-to-one mapping。
+
+---
+
+## 3. RECO
+
+`RECO` 包含 autotrophic + heterotrophic respiration。
+
+常见控制：
+- temperature；
+- soil moisture；
+- substrate/carbon availability；
+- biomass；
+- microbial activity；
+- phenology。
+
+相比 GPP，RECO 对 optical canopy state 的直接可观测性通常更弱，因此需要 soil/temperature/structure/process context。
+
+---
+
+## 4. NEE
+
+常见 convention：
+
+```text
+NEE = RECO - GPP
+```
+
+因此 NEE 是两个大 flux 的净差，可能发生 cancellation：
+
+```text
+large GPP + large RECO → modest NEE
+```
+
+这意味着：
+- NEE 小不等于 ecosystem processes 弱；
+- 单独优化 NEE 可能掩盖 GPP/RECO compensation；
+- joint modeling 可提供更强 physical diagnostic。
+
+---
+
+## 5. Disturbance / management
+
+fire、harvest、drought mortality、cropping/irrigation 会改变：
+- structure；
+- LAI；
+- carbon pool；
+- albedo/temperature；
+- soil moisture；
+- photosynthesis/respiration。
+
+模型如果只学习 smooth seasonal cycle，往往难以处理 abrupt regime shift。
+
+---
+
+## 6. Carbon–climate feedback
+
+carbon cycle 与 climate 双向耦合：
+
+```text
+climate → GPP / RECO / disturbance → atmospheric CO2
+atmospheric CO2 → radiative forcing / climate + CO2 fertilization
+```
+
+因此 future-climate carbon prediction 是 OOD problem，而不是普通时间外推。
+
+## Sources
+
+- Chapin et al., ecosystem carbon-cycle fundamentals.
+- Friedlingstein et al., annual Global Carbon Budget series for current global carbon accounting.
+- [Carbon–Water–Energy Coupling](carbon-water-energy-coupling.md)

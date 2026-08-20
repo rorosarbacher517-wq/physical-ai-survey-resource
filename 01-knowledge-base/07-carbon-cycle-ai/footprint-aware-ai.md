@@ -1,152 +1,157 @@
-# Footprint-aware AI for Tower-scale Flux Learning
+# Footprint-aware AI：把 Source-area Physics 放进 Learning
 
-## 1. One-sentence definition
+## 1. 问题定义
 
-Footprint-aware learning explicitly maps spatial predictors or spatial flux predictions to the dynamic source area represented by each eddy-covariance observation.
-
-## 2. Physical problem
-
-A fixed satellite window is static, while the EC source area changes with wind direction, turbulence, stability, measurement geometry and surface characteristics.
-
-Over heterogeneous landscapes, a uniform window can weight pixels differently from the actual tower measurement.
-
-Primary footprint-model anchor: Kljun et al. (2015), https://doi.org/10.5194/gmd-8-3695-2015
-
-## 3. Inputs and shapes
-
-A typical site-day representation may be:
+固定遥感 window：
 
 ```text
-EO pixels:      X  [B,T,C,H,W]
-meteorology:    M  [B,T,P]
-footprints:     Wf [B,T,H,W]
-tower targets:  Y  [B,T,F]
+all valid pixels → equal/static treatment
 ```
 
-where `T` can represent half-hourly steps and `F` can contain NEE/GPP/RECO.
-
-Footprint weights should be aligned to the same spatial grid/mask used by the predictions and normalized over valid contributing pixels.
-
-## 4. Footprint roles
-
-### Input-side predictor aggregation
+真实 EC observation：
 
 ```text
-X_tower = Σ_i w_i X_i
-→ tower-scale model
+pixels → dynamic turbulence-dependent weights
 ```
 
-### Output-side aggregation / observation operator
+在 homogeneous surface 上差异可能很小；在 heterogeneous landscape 上可能产生显著 representativeness mismatch。
+
+---
+
+## 2. Tensor design
 
 ```text
-pixels → model → ŷ_i
-ŷ_tower = Σ_i w_i ŷ_i
+EO input       X [B,T,C,H,W]
+meteorology    M [B,T,P]
+footprint      W [B,T,H,W]
+pixel flux     F [B,T,K,H,W]
+tower target   Y [B,T,K]
 ```
 
-### Flux disaggregation
-
-Changing footprints plus class fractions/latent classes are used to infer component/source-class fluxes.
-
-### Representativeness analysis
-
-Footprints quantify which land-cover/remote-sensing conditions are actually sampled.
-
-### Footprint as model feature
-
-Geometry/source-area descriptors enter the network as predictors. This is not equivalent to using the footprint as an observation operator.
-
-## 5. Operator placement
+要求每个 timestep：
 
 ```text
-A) pixels
-→ footprint-weight predictors
-→ tower model
-→ tower prediction
-
-B) pixels
-→ spatial/pixel model
-→ predicted flux field
-→ footprint observation operator
-→ tower prediction
-→ tower loss
+Σ_h Σ_w W[b,t,h,w] = 1
 ```
 
-Design B preserves a spatial latent prediction and separates **process model** from **measurement mapping**.
+（在 normalized valid-footprint convention 下）。
 
-## 6. Nonlinear predictor issue
+---
 
-For nonlinear transformation `g`:
+## 3. Output-side observation operator
+
+model：
+
+```text
+F_hat = f_θ(X,M,...)
+```
+
+operator：
+
+```text
+Y_hat[b,t,k]
+= Σ_h Σ_w W[b,t,h,w] F_hat[b,t,k,h,w]
+```
+
+loss：
+
+```text
+L_obs = ||Y_hat - Y_obs||²_masked
+```
+
+优点：pixel latent field 保留下来；tower supervision 通过真实 support 映射。
+
+---
+
+## 4. Input-side aggregation
+
+另一种路线：
+
+```text
+X_bar[t,c] = Σ_i W[t,i] X[t,c,i]
+X_bar → tower model
+```
+
+更简单，但模型只在 footprint-aggregated feature space 工作，无法直接产生由 tower supervision 验证的 pixel latent flux structure。
+
+---
+
+## 5. Nonlinear predictor trap
+
+若 vegetation index `g` 非线性：
 
 ```text
 Σ_i w_i g(x_i) ≠ g(Σ_i w_i x_i)
 ```
 
-in general.
-
-Therefore weighting raw spectral bands, vegetation indices or learned embeddings at different stages changes the modeling meaning.
-
-## 7. Training objective
-
-For tower observations `y_t` and footprint-aggregated predictions `ŷ_t`:
+例如：
 
 ```text
-L_data = mean_t mask_t · ||ŷ_t - y_t||²
+weighted mean of pixel NDVI
+≠
+NDVI of weighted mean Red/NIR
 ```
 
-A multi-task model can add process-consistency terms, but all ablation variants should keep data, splits, architecture and optimization fixed when isolating the footprint effect.
+两者都可能有用途，但科学含义不同。
 
-## 8. Inference
+---
 
-Two modes must be distinguished:
+## 6. Paired ablation
 
-### Tower inference
-Use the dynamic footprint and compare directly with EC support.
+最干净的验证设计：
 
-### Spatial-field inference
-Use the learned pixel/field predictor on a regional grid without applying tower footprints; this requires separate spatial validation claims.
+```text
+Baseline: identical model/data/split + uniform weights
+FAT-like: identical model/data/split + dynamic footprint weights
+```
 
-## 9. When gains are plausible
-
-Footprint-aware aggregation has limited effect when spatially relevant conditions are homogeneous. Its potential increases when:
-
-- flux-relevant spatial contrast is strong;
-- source-area position/shape varies;
-- environmental forcing causes neighboring patches to respond differently.
-
-## 10. Diagnostics
-
-Useful diagnostics include:
-
-- spatial NDVI/reflectance variability;
-- land-cover/edge heterogeneity;
-- roughness/3D structure variation;
-- difference between footprint-weighted and uniform vegetation state;
-- footprint centroid/extent/orientation variability;
-- wind/stability/turbulence regime.
-
-## 11. Paired evaluation
-
-With identical held-out samples:
+定义 paired error gain，例如：
 
 ```text
 Δ|AE| = |AE_uniform| - |AE_footprint|
 ```
 
-Positive values indicate lower absolute error for the footprint-aware variant under this convention.
+正值表示 footprint-aware 误差更小（按此 convention）。
 
-Report site-blocked CV and stratify by ecosystem, season, time of day, heterogeneity and climate regime.
+---
 
-## 12. Failure modes
+## 7. 什么时候 footprint 更可能重要
 
-- footprint raster and EO grid misalignment;
-- weights not renormalized after cloud/quality masking;
-- footprint variables leaking target construction;
-- comparing variants with different data/splits/backbones;
-- assuming a spatial latent field is independently validated because tower aggregation matches observations;
-- interpreting footprint gain as a universal property rather than a context-dependent effect.
+需要三个条件共同出现：
 
-## 13. Connections
+```text
+spatial flux-relevant heterogeneity
+× dynamic source-area movement
+× environmental forcing that creates patch contrast
+```
 
-Prerequisites: [Observation operators](../02-physics-ai-core/observation-operators.md) and [support-aware learning](../05-spatiotemporal-multiscale-ai/support-aware-learning.md).
+如果 surface 高度 homogeneous，即使 footprint 移动，weighted field 也变化不大。
 
-Continue to [tower-to-grid upscaling](tower-to-grid-upscaling.md), [multimodal carbon AI](multimodal-carbon-ai.md) and [process-constrained carbon AI](process-constrained-carbon-ai.md).
+---
+
+## 8. Diagnostic variables
+
+- NDVI/reflectance heterogeneity；
+- land-cover edges；
+- canopy roughness/height variation；
+- footprint–uniform vegetation mismatch；
+- wind direction variability；
+- stability / turbulence；
+- radiation / soil moisture / VPD；
+- season/daytime。
+
+---
+
+## 9. 当前 evidence
+
+- 2025 RSE：footprint-weighted spatial features + GNN residual modeling：https://doi.org/10.1016/j.rse.2025.114952
+- 2026 footprint synthesis：https://doi.org/10.1111/gcb.70887
+
+## 10. Failure modes
+
+- footprint 与 satellite grid misregistration；
+- invalid pixels renormalized incorrectly；
+- footprint mass 超出 patch 被忽略；
+- wind direction convention 错；
+- 同日/static EO 被误描述为 half-hourly canopy observation；
+- tower-scale gain 被误写成 pixel-map independent validation。

@@ -1,80 +1,113 @@
-# Carbon-flux Data Stack
+# Carbon AI Data Stack
 
-## 1. Tower targets
+## 1. Tower observations
 
-Typical sources:
+### Flux networks
+- `FLUXNET2015`；
+- `AmeriFlux`；
+- `ICOS`；
+- regional networks。
 
-- FLUXNET;
-- AmeriFlux;
-- regional flux networks.
+常见 flux：`NEE`, `GPP`, `RECO`, `LE`, `H` 等。
 
-Record target definition, partitioning product, QC and sign convention.
+---
 
-## 2. Optical Earth observation
+## 2. Optical EO
 
-Potential products:
+- `HLS`：30 m harmonized Landsat/Sentinel-2；
+- Landsat / Sentinel-2；
+- MODIS / VIIRS；
+- high-resolution commercial/public imagery where licensed。
 
-- HLS;
-- Landsat;
-- Sentinel-2;
-- MODIS/VIIRS.
+信息：vegetation spectral state、phenology、disturbance、surface heterogeneity。
 
-Useful for canopy state, phenology, spectral traits and disturbance.
+---
 
-## 3. Meteorology / reanalysis
+## 3. Meteorology / Reanalysis
 
-Potential variables:
+- tower meteorology；
+- `ERA5 / ERA5-Land`；
+- other regional/global forcing。
 
-- air/dew-point temperature;
-- pressure;
-- radiation;
-- precipitation;
-- wind;
-- soil temperature/moisture;
-- boundary-layer/stability variables.
+典型 variables：
 
-Important: accumulated variables require correct temporal conversion before resampling.
+```text
+Tair, radiation, precipitation,
+RH/VPD, wind, pressure,
+soil temperature/moisture,
+BLH/stability-related variables
+```
 
-## 4. Soil moisture
+注意 accumulated vs instantaneous variable semantics。
 
-In situ, reanalysis or microwave products such as SMAP can provide water-availability information at different supports/resolutions.
+---
 
-## 5. 3D structure
+## 4. Soil moisture / microwave
 
-Airborne/spaceborne LiDAR can provide canopy height/profile and terrain structure.
+`SMAP`, `SMOS` 等可提供 water-state constraint，但 spatial support 常比 tower/30 m EO 粗得多。
 
-## 6. SIF and thermal
+---
 
-Complement spectral reflectance with photosynthesis-related radiative information and surface-temperature/energy information.
+## 5. SIF / Thermal
 
-## 7. Static context
+SIF：photosynthesis-related radiative signal；
+Thermal：temperature / energy balance / stress context。
 
-- soil properties;
-- topography;
-- land cover/biome;
-- disturbance history;
-- management when available.
+二者都需要 scale matching。
 
-## 8. Sample unit
+---
 
-A robust dataset defines a unique sample ID such as:
+## 6. LiDAR / structure
 
-`site + date/time + sensor acquisition + product versions`
+- airborne LiDAR；
+- GEDI；
+- NEON AOP；
+- canopy height products。
 
-For daily optical + half-hour flux modeling, explicitly document how one image is shared/interpolated across sub-daily time steps.
+用于 structure：height、vertical profile、biomass-related geometry。
 
-## 9. Alignment checklist
+---
 
-- CRS and pixel grid;
-- timezone/UTC;
-- temporal support;
-- quality masks;
-- valid-pixel fraction;
-- tower/footprint geometry;
-- missing-data policy;
-- split membership;
-- normalization computed from train data.
+## 7. Static/context data
 
-## 10. Repository resources
+- land cover；
+- soil properties；
+- topography；
+- disturbance history；
+- management；
+- climate normals。
 
-Use [datasets](../../04-dataset-library/index.md) for canonical source records and licenses.
+---
+
+## 8. Sample construction
+
+一个 site-day / site-window sample 可包含：
+
+```text
+site_id
+time window
+EO scene IDs + QA
+meteorology sequence
+flux target + QC
+partitioning version
+footprint sequence
+static context
+split fold
+```
+
+---
+
+## 9. Leakage safeguards
+
+- same site 不跨 train/test；
+- normalization stats 只从 train；
+- EO temporal interpolation 不偷看 test future；
+- foundation pretraining overlap 单独记录；
+- duplicated tower products/version 不重复算独立样本。
+
+## Sources
+
+- FLUXNET2015: https://doi.org/10.1038/s41597-020-0534-3
+- AmeriFlux: https://ameriflux.lbl.gov/
+- HLS: https://www.earthdata.nasa.gov/data/projects/hls
+- ERA5: https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5

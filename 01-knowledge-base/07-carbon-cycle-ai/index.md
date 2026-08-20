@@ -1,152 +1,233 @@
-# 07 · Terrestrial Carbon-cycle / Carbon-flux AI
+# 07 · Terrestrial Carbon Cycle / Carbon-flux AI
 
-This is a priority track of the repository. The organizing principle is the complete chain from **ecosystem processes → measurement physics → multimodal observations → model → observation operator → scale-aware validation**.
+这一模块把**碳循环过程、Eddy Covariance、flux footprint、Earth Observation、meteorology、process constraints 与 AI**放在同一条观测—建模链里。
 
-## Knowledge path
+真正要解决的问题不是“用什么模型预测 GPP”，而是：
+
+> **模型预测的物理场、塔实际观测到的 source area、遥感看到的 surface state，以及最终验证尺度是否一致？**
+
+---
+
+## 1. 从过程到 observation 的完整链
 
 ```text
-Carbon-cycle processes
-→ EC measurement
-→ flux partitioning / target uncertainty
-→ flux footprint / observation support
-→ EO + meteorology + structure data stack
-→ carbon-water-energy coupling
-→ data-driven / hybrid / process-constrained model
-→ footprint-aware observation mapping
-→ tower validation
-→ tower-to-grid upscaling
-→ extremes / climate-regime OOD
-→ uncertainty propagation
+photosynthesis / respiration / disturbance
+              ↓
+        GPP / RECO / NEE
+              ↓
+      turbulent transport
+              ↓
+       Eddy Covariance
+              ↓
+      dynamic flux footprint
+              ↓
+     tower-scale observation
+              ↑
+EO + meteorology + soil moisture + structure
+              ↓
+spatiotemporal / multimodal carbon model
+              ↓
+pixel/field-level latent flux prediction
+              ↓
+footprint observation operator
+              ↓
+tower-scale loss / supervision
+              ↓
+tower-to-grid inference + uncertainty
 ```
 
-## 1. Process foundation
+---
 
-Start with [Carbon-cycle processes](carbon-cycle-processes.md).
+## 2. 三个核心 flux quantity
 
-Common tower-scale quantities are NEE, GPP and RECO. Under one common sign convention:
+常见 convention：
 
 ```text
 NEE = RECO - GPP
 ```
 
-Always verify the product convention.
+其中：
+- `NEE`：Net Ecosystem Exchange；
+- `GPP`：Gross Primary Production；
+- `RECO`：Ecosystem Respiration。
 
-Then study [carbon–water–energy coupling](carbon-water-energy-coupling.md) to understand why radiation, temperature, water availability and atmospheric demand interact with carbon exchange.
+**必须检查具体 dataset 的 sign convention。**
 
-## 2. Eddy covariance and targets
+另外需要区分：
+- EC directly estimates turbulent net CO₂ exchange after processing/QC；
+- `GPP` 和 `RECO` 通常来自 flux partitioning，而不是两台传感器分别直接测量。
 
-- [Eddy covariance](eddy-covariance.md): what EC measures and key QC/measurement assumptions.
-- [Flux partitioning and target uncertainty](flux-partitioning-uncertainty.md): why GPP/RECO are inferred labels rather than independent direct measurements.
-- [Flux footprints](flux-footprints.md): dynamic spatial support of the tower observation.
+→ [Flux Partitioning / Uncertainty](flux-partitioning-uncertainty.md)
 
-A half-hourly EC record should be treated as an area-support observation, not a point label automatically aligned with a center pixel.
+---
 
-## 3. Data stack
+## 3. Eddy Covariance 不是 point observation
 
-See [Carbon data stack](carbon-data-stack.md).
-
-Typical inputs:
-
-```text
-EO patch:       [B,T,C,H,W]
-meteorology:    [B,T,M]
-static context: [B,S]
-3D structure:   [B,N,C3d] or raster features
-footprint:      [B,T,H,W]
-target:         [B,T,F]
-```
-
-Related EO foundations: [Earth Observation AI](../06-earth-observation-ai/index.md) and [multisensor fusion](../06-earth-observation-ai/multisensor-fusion.md).
-
-## 4. Modeling families
-
-See [Carbon modeling methods](carbon-modeling-methods.md).
-
-The hierarchy includes empirical/process models, classical ML upscaling, deep spatiotemporal learning, hybrid process-ML, physics/process constraints and foundation-model representations.
-
-For explicit physical integration see [Process-constrained carbon AI](process-constrained-carbon-ai.md).
-
-## 5. Footprint-aware learning
-
-See [Footprint-aware AI](footprint-aware-ai.md).
-
-Distinguish:
-
-- input-side predictor aggregation;
-- output-side observation-operator aggregation;
-- flux disaggregation;
-- representativeness analysis;
-- footprint descriptors as model features.
-
-These placements are scientifically different.
-
-## 6. Multimodal carbon AI
-
-See [Multimodal carbon AI](multimodal-carbon-ai.md).
-
-A high-value design combines:
+塔坐标只是 instrument location。一个 averaging interval 的 flux 来自动态 upwind source area：
 
 ```text
-2D optical/SAR/thermal/SIF
-+ 3D canopy structure
-+ meteorological forcing
-+ static context
-+ EC observation support
-→ spatiotemporal model
-→ flux field / tower prediction
+Y_t = ∬ w_t(x,y) F_t(x,y) dxdy + ε_t
 ```
 
-## 7. Tower-to-grid upscaling
+离散到 raster：
 
-See [Tower-to-grid upscaling](tower-to-grid-upscaling.md).
+```text
+Y_t ≈ Σ_i w_{i,t} F_{i,t}
+```
 
-Separate:
+`w_t` 随 wind direction、turbulence、stability、measurement height、roughness 等变化。
 
-- tower-scale predictive validation;
-- spatial prediction resolution;
-- independent spatial validation scale;
-- regional OOD coverage.
+这就是为什么固定 center pixel / uniform window 与真实 observation support 不是同一个问题。
 
-## 8. Extremes and climate response
+→ [Flux Footprints](flux-footprints.md)
 
-See [Carbon-flux AI under climate extremes](extremes-climate-response.md).
+---
 
-Evaluate onset, peak and recovery under heat/drought/compound events rather than relying only on average seasonal metrics.
+## 4. Carbon AI 的 input stack
 
-## 9. Validation and uncertainty
+### 2D Earth Observation
+- optical reflectance / vegetation indices；
+- thermal；
+- SIF；
+- SAR / microwave；
+- land cover / disturbance。
 
-See [Validation and uncertainty](validation-uncertainty.md).
+### 3D structure
+- LiDAR canopy height / profile；
+- point cloud / waveform-derived structure。
 
-Prefer:
+### Meteorology / environment
+- shortwave / longwave radiation；
+- air/soil temperature；
+- RH / VPD；
+- precipitation；
+- soil moisture；
+- wind / turbulence；
+- BLH / stability。
 
-- site-blocked CV;
-- region/biome/climate transfer;
-- temporal/event blocking;
-- component-specific NEE/GPP/RECO metrics;
-- support-aware evaluation;
-- uncertainty/calibration;
-- process-consistency diagnostics.
+### Static context
+- biome；
+- soil；
+- topography；
+- management / disturbance history。
 
-## 10. Major scientific traps
+→ [Carbon Data Stack](carbon-data-stack.md)
 
-- describing partitioned GPP/RECO as direct EC measurements;
-- random date splitting within the same sites;
-- treating optical predictors as causal controllers of carbon exchange;
-- ignoring footprint/pixel mismatch;
-- using a fine output grid as evidence of fine-scale validation;
-- interpreting one feature-importance ranking as process mechanism;
-- ignoring measurement/partitioning uncertainty.
+---
 
-## 11. Research frontier
+## 5. 模型层级
 
-Priority directions include:
+```text
+empirical / LUE
+→ process model
+→ classical ML
+→ temporal / spatiotemporal DL
+→ multimodal AI
+→ physics-constrained learning
+→ footprint-aware observation mapping
+→ hybrid process–ML
+→ Earth/EO foundation representations
+```
 
-- dynamic observation-operator learning;
-- 2D EO + 3D structure + meteorology fusion;
-- dense time-series reconstruction with uncertainty;
-- coupled carbon-water-energy objectives;
-- process-informed Earth foundation models;
-- event/extreme/OOD evaluation;
-- uncertainty propagation from measurement to regional product.
+不同层级解决的问题不同；不应该只按“模型复杂度”排序。
 
-See the [Carbon-flux specialty track](../../06-case-studies/geoscience-remote-sensing/carbon-flux/index.md) and [papers by method](../../02-paper-library/by-method.md).
+→ [Carbon Modeling Methods](carbon-modeling-methods.md)
+
+---
+
+## 6. Tensor-level 统一表示
+
+一个典型 footprint-aware multimodal batch 可写成：
+
+```text
+EO pixels       X : [B,T,C,H,W]
+meteorology     M : [B,T,P]
+3D/static       S : [B,D_s] or [B,N,D]
+footprint       W : [B,T,H,W]
+pixel flux      F : [B,T,K,H,W]
+tower target    Y : [B,T,K]
+```
+
+其中 `K` 可对应 `NEE/GPP/RECO`。
+
+输出 observation mapping：
+
+```text
+Y_hat[b,t,k] = Σ_h Σ_w W[b,t,h,w] · F_hat[b,t,k,h,w]
+```
+
+这使得**pixel field prediction**与**tower supervision**可以同时成立。
+
+→ [Footprint-aware AI](footprint-aware-ai.md)
+
+---
+
+## 7. Physics 可以放在哪里
+
+- carbon balance；
+- light / water / temperature response prior；
+- positivity / bounds（仅在定义上成立时）；
+- phenology；
+- footprint observation operator；
+- process-model residual correction；
+- carbon–water–energy coupling；
+- Data Assimilation；
+- process-aware evaluation。
+
+→ [Process-constrained Carbon AI](process-constrained-carbon-ai.md)
+
+---
+
+## 8. 从 tower 到 map 的关键限制
+
+即使模型内部输出 30 m / 500 m spatial flux：
+
+```text
+fine-resolution prediction ≠ fine-resolution independent validation
+```
+
+如果 training/reference 主要来自 tower footprint 或 coarse products，必须明确 latent map 的 validation support。
+
+→ [Tower-to-grid Upscaling](tower-to-grid-upscaling.md)
+
+---
+
+## 9. Extremes 与 OOD
+
+carbon response 在：
+- drought；
+- heatwave；
+- compound hot–dry event；
+- wildfire / disturbance；
+- phenological transition；
+- management event
+
+下可能与 normal conditions 完全不同。
+
+因此 evaluation 应从 overall RMSE 扩展到 event/regime/OOD diagnostics。
+
+→ [Extremes / Climate Response](extremes-climate-response.md)
+
+---
+
+## 10. 截至 2026-08-20 应重点跟踪的方向
+
+- dynamic footprint 与 remote sensing/model support matching；
+- footprint-weighted spatial/graph modeling；
+- joint NEE/GPP/RECO physics-constrained learning；
+- SIF + soil moisture + EO + EC integration；
+- ML-assisted process-model parameter optimization；
+- EO foundation representations 向 ecohydrology/carbon regression 迁移；
+- climate/biome/extreme OOD；
+- uncertainty propagation from measurement → partitioning → footprint → model → map。
+
+当前版本与论文见 [2026 Snapshot](../13-2026-snapshot/index.md)。
+
+---
+
+## 11. Primary anchors
+
+- Baldocchi (2003), *Assessing the eddy covariance technique for evaluating carbon dioxide exchange rates of ecosystems*.
+- Kljun et al. (2015), footprint parameterisation: https://doi.org/10.5194/gmd-8-3695-2015
+- Pastorello et al. (2020), FLUXNET2015: https://doi.org/10.1038/s41597-020-0534-3
+- Chu et al. (2026), *Flux Footprints: A Critical Link to Bridge Eddy-Covariance Measurements With Models, Remote Sensing, and Other Observations*: https://doi.org/10.1111/gcb.70887

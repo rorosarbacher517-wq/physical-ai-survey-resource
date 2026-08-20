@@ -1,64 +1,101 @@
-# Flux Footprints
+# Flux Footprints · EC 的 Spatial Observation Support
 
-## 1. Definition
+## 1. Footprint 是什么
 
-A flux footprint describes how upwind surface locations contribute to an eddy-covariance measurement.
+Flux footprint 描述不同 upwind surface locations 对某次 EC measurement 的相对贡献。
 
-It is a spatial weighting function, not simply a circular buffer around the tower.
-
-## 2. Why it changes
-
-Footprints vary with conditions such as:
-
-- wind direction;
-- wind speed/turbulence;
-- friction velocity;
-- atmospheric stability;
-- measurement height;
-- roughness/displacement;
-- boundary-layer state.
-
-## 3. Continuous-to-grid mapping
-
-A footprint model may produce a continuous or fine-grid contribution field. To combine it with 30 m imagery:
+连续表示：
 
 ```text
-footprint surface
-→ rotate/georeference
-→ sample/integrate to satellite grid
-→ apply valid-pixel mask
-→ renormalize weights
-→ aggregate field/predictions
+f(x,y,t) ≥ 0
 ```
 
-## 4. Output-side observation operator
+积分/归一化后得到 source contribution distribution。
 
-If the model predicts pixel flux `F_i,t`:
+---
 
-`Y_hat_t = Σ_i w_i,t F_i,t`
+## 2. 为什么 footprint 动态变化
 
-This preserves pixel-level latent predictions while matching supervision to the tower support.
+主要相关因素包括：
+- wind direction；
+- friction velocity `u*`；
+- atmospheric stability / Obukhov length `L`；
+- cross-wind turbulence `σ_v`；
+- measurement height；
+- roughness / displacement height；
+- boundary-layer conditions。
 
-## 5. Input-side aggregation
+因此 footprint 的 location、extent、shape 每个 averaging period 都可不同。
 
-An alternative is to footprint-average satellite predictors before model fitting.
+---
 
-This directly creates tower-support predictors but removes fine-scale spatial information before the model and can interact poorly with nonlinear indices.
+## 3. Continuous footprint → raster weights
 
-## 6. Dynamic versus uniform weights
+如果 satellite grid 为 `H×W`：
 
-Uniform aggregation assumes all valid pixels contribute equally. Dynamic footprint aggregation uses contribution-specific weights.
+```text
+continuous f(x,y)
+→ integrate/sample per pixel
+→ apply valid-data mask
+→ normalize
+→ W [H,W]
+```
 
-A paired comparison can isolate this choice if inputs, architecture, loss, training samples and splits remain identical.
+需注意：
+- CRS；
+- tower/sensor orientation；
+- wind-direction convention；
+- pixel area；
+- clipped footprint mass；
+- missing pixels。
 
-## 7. Missing pixels
+---
 
-Cloud/quality masks change the set of usable pixels. Weights must be handled explicitly so missing pixels do not silently bias totals.
+## 4. Footprint 的五种角色
 
-## 8. Uncertainty
+### A. Predictor aggregation
 
-Footprint models are approximations. Wind/turbulence inputs, canopy assumptions and model validity affect the source-area estimate.
+```text
+pixels → footprint-weight features → tower model
+```
 
-## 9. Primary anchor
+### B. Prediction aggregation / Observation operator
 
-Kljun et al. (2015) provides a widely used parameterization for flux-footprint prediction: https://doi.org/10.5194/gmd-8-3695-2015
+```text
+pixels → pixel flux field → footprint-weight output → tower loss
+```
+
+### C. Flux disaggregation
+利用动态 footprint + land-cover fractions 推断 latent class-specific flux。
+
+### D. Representativeness analysis
+分析 tower 实际采样哪些 land-cover/vegetation conditions。
+
+### E. Footprint geometry as feature
+把 extent/shape/center 等作为 predictor。
+
+**E 与真正使用 footprint weights 的 observation operator 不等价。**
+
+---
+
+## 5. Footprint uncertainty
+
+来源：
+- input meteorology；
+- canopy displacement/roughness estimates；
+- model assumptions；
+- complex terrain / canopy；
+- advection/non-stationarity。
+
+未来模型可以把 `W` 作为 uncertain operator，而不是完全确定的 mask。
+
+---
+
+## 6. 2026 synthesis
+
+Chu et al. (2026) 系统强调了 flux footprints 在连接 EC 与 models、remote sensing 和其他 observations 中的作用，说明 source-area matching 已成为跨数据整合中的核心问题。
+
+## Sources
+
+- Kljun et al. (2015): https://doi.org/10.5194/gmd-8-3695-2015
+- Chu et al. (2026): https://doi.org/10.1111/gcb.70887

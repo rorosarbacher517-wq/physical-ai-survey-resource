@@ -1,104 +1,102 @@
 # Process-constrained Carbon AI
 
-## 1. Definition
+## 1. 为什么需要 process constraint
 
-Process-constrained carbon AI incorporates ecological/biophysical relationships into data-driven prediction through inputs, architecture, objectives, hybrid models or evaluation.
+纯 data-driven model 可能在 training distribution 内预测准确，但产生：
+- NEE/GPP/RECO inconsistency；
+- impossible sign/range；
+- extreme regime instability；
+- compensation without process meaning。
 
-The important question is **which process relationship enters where**.
+process prior 的目标是减少这些自由度，而不是强行替代 observations。
 
-## 2. Integration levels
+---
 
-### Process-derived inputs
+## 2. Carbon balance constraint
 
-Examples: absorbed radiation proxies, VPD, soil moisture, canopy structure, phenology and physical footprint variables.
-
-### Soft objective
-
-```text
-L = L_data + λ_balance L_balance + λ_process L_process
-```
-
-### Hard parameterization
-
-Construct outputs so selected bounds/balances hold by design.
-
-### Hybrid process + ML
-
-```text
-process model output
-+ learned residual/correction
-→ final prediction
-```
-
-or learn uncertain process parameters/closures.
-
-### Observation operator
-
-Use EC footprint weighting to map a predicted spatial field to the tower observation support.
-
-## 3. Carbon balance example
-
-Under the chosen sign convention:
+常见 convention：
 
 ```text
 NEE = RECO - GPP
 ```
 
-A multi-task model can penalize deviations between predicted components. The coefficient should be tuned against predictive and physical-consistency behavior rather than assumed universal.
-
-## 4. Light, temperature and water-response priors
-
-Possible process priors include:
-
-- radiation controls photosynthetic opportunity;
-- water stress/atmospheric demand modifies stomatal response;
-- temperature and substrate/moisture influence respiration;
-- phenology controls active canopy state.
-
-These are mechanistic guides, not globally fixed monotonic equations.
-
-## 5. Architecture example
+### Soft loss
 
 ```text
-EO pixels → spatial encoder → latent field
-meteorology → temporal forcing encoder
-static/site context → context embedding
-→ fused spatiotemporal state
-→ pixel/field flux heads
-→ footprint observation operator
-→ tower-scale loss
+L_bal = ||NEE_hat - (RECO_hat-GPP_hat)||²
 ```
 
-## 6. Training questions
-
-- Is the process term scaled comparably to data loss?
-- Does it improve held-out-site performance?
-- Does it reduce physical violation only on train data?
-- Is the relationship valid across ecosystems/regimes?
-- Does the constraint conflict with uncertain labels?
-
-## 7. Evaluation
-
-Report both:
+### Hard construction
 
 ```text
-predictive skill
-+
-physical/process diagnostics
+predict GPP_hat, RECO_hat
+NEE_hat = RECO_hat - GPP_hat
 ```
 
-Useful diagnostics include balance residuals, response curves by environmental regime, event behavior and OOD site transfer.
+hard construction 一定满足 balance，但减少独立拟合 NEE 的 flexibility。
 
-## 8. Failure modes
+---
 
-- calling meteorological inputs a physical constraint;
-- enforcing an approximate ecological relationship as exact truth;
-- improving balance residual while degrading predictive skill;
-- using partitioned GPP/RECO as if uncertainty-free;
-- ignoring the tower observation operator.
+## 3. Nighttime GPP
 
-## 9. Connections
+在 physically appropriate nighttime definition 下可加入：
 
-Prerequisites: [Physical AI core](../02-physics-ai-core/index.md) and [hard/soft constraints](../03-physics-informed-learning/hard-soft-constraints.md).
+```text
+GPP_hat ≈ 0
+```
 
-Applications: [Footprint-aware AI](footprint-aware-ai.md), [carbon-water-energy coupling](carbon-water-energy-coupling.md), [tower-to-grid upscaling](tower-to-grid-upscaling.md).
+但 twilight、polar/high-latitude conditions 与 target product definitions 需要谨慎处理。
+
+---
+
+## 4. Positivity
+
+某些 GPP/RECO product 定义为 non-negative magnitude，可使用 `softplus` 或 projection；但必须先确认 dataset convention。
+
+NEE 本身通常可正可负。
+
+---
+
+## 5. Process-model residual
+
+```text
+F_hat = F_process + ΔF_θ
+```
+
+AI 学 process model systematic error。
+
+风险：如果 process model 输入或 observations 有 bias，residual 可能吸收错误来源。
+
+---
+
+## 6. Parameter optimization / emulator
+
+```text
+θ_process
+→ process model
+→ compare multi-source observations
+→ optimizer / emulator
+→ improved parameter ensemble
+```
+
+2026 ESD 研究使用 genetic algorithm + Gaussian-process emulator + multiple global Earth observations 对 terrestrial carbon model 参数进行优化，并分析 equifinality：
+https://doi.org/10.5194/esd-17-651-2026
+
+---
+
+## 7. Constraint ablation
+
+必须比较：
+
+```text
+same data + same backbone + no constraint
+vs
+same data + same backbone + constraint
+```
+
+否则不能把提升归因于 physics constraint。
+
+## Sources
+
+- 2025 physics-constrained NEE/GPP/RECO model: https://doi.org/10.1016/j.isprsjprs.2025.06.033
+- 2026 process-model parameter optimization: https://doi.org/10.5194/esd-17-651-2026

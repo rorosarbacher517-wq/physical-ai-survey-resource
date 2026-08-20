@@ -1,105 +1,93 @@
-# Carbon–Water–Energy Coupling for AI
+# Carbon–Water–Energy Coupling
 
-## 1. Why carbon should not be modeled in isolation
+Terrestrial carbon flux 不能脱离 water 和 energy 单独理解。
 
-Photosynthesis, respiration, evapotranspiration, radiation balance, temperature and water availability interact. Many predictive relationships change across environmental regimes.
+## 1. Photosynthesis 与 stomata
 
-A conceptual chain is:
-
-```text
-radiation + temperature + water availability + atmospheric demand
-→ stomatal/canopy response
-→ photosynthesis + transpiration
-→ carbon and water fluxes
-```
-
-Respiration adds temperature/moisture/substrate dependencies.
-
-## 2. Core variables
-
-Carbon:
-
-- NEE;
-- GPP;
-- RECO.
-
-Water/atmosphere:
-
-- evapotranspiration / latent heat;
-- precipitation;
-- soil moisture;
-- vapor-pressure deficit / humidity;
-- wind/turbulence.
-
-Energy:
-
-- shortwave/longwave radiation;
-- sensible/latent heat;
-- surface/canopy temperature;
-- ground heat where relevant.
-
-## 3. Why multimodal AI benefits
-
-Remote sensing captures vegetation state/structure; meteorology captures forcing; EC captures surface-atmosphere exchange.
+CO₂ uptake 与 water vapor loss 通过 stomatal conductance 耦合：
 
 ```text
-EO state      [B,T,C,H,W]
-meteorology   [B,T,M]
-static context[B,S]
-→ spatiotemporal model
-→ carbon/water/energy targets
+CO2 enters leaf
+H2O exits leaf
 ```
 
-The modalities play different causal/observational roles and should not be treated as interchangeable features.
+因此 VPD、soil moisture、radiation 会共同调节 GPP。
 
-## 4. Multi-task learning
+---
 
-One approach predicts several coupled quantities:
+## 2. Surface energy balance
+
+概念形式：
 
 ```text
-shared encoder
-→ GPP head
-→ RECO head
-→ NEE head
-→ ET/energy head(s)
+R_n = H + LE + G + storage
 ```
 
-Possible benefits include shared representation and consistency checks. Risks include negative transfer when tasks have different noise and support.
+- `R_n`：net radiation；
+- `H`：sensible heat；
+- `LE`：latent heat；
+- `G`：ground heat flux。
 
-## 5. Physical relationships
+water stress 降低 transpiration 时，可改变 `LE` 与 canopy temperature。
 
-Useful constraints depend on dataset definitions and closure quality. Examples can include:
+这解释了为什么 thermal EO 对 vegetation stress 有补充价值。
 
-- NEE/GPP/RECO balance;
-- energy-balance consistency;
-- nonnegative component fluxes under selected conventions;
-- process-sensitive responses to radiation, moisture and temperature.
+---
 
-Avoid forcing approximate ecological relationships as exact equations.
+## 3. Soil moisture × VPD
 
-## 6. Regime dependence
+### Atmospheric drought
+高 `VPD` 增强 evaporative demand，可能引起 stomatal closure。
 
-Relationships can change across:
+### Soil drought
+低 soil moisture 限制 plant water supply。
 
-- wet versus dry conditions;
-- dormant versus growing season;
-- daytime versus nighttime;
-- heat/drought extremes;
-- forest/crop/grassland/wetland systems.
+两者可能：
+- 独立；
+- 同时发生；
+- 对不同 biome 产生不同 response。
 
-This motivates conditional diagnostics rather than one global feature-importance ranking.
+所以不能用一个“dry”变量概括所有 drought mechanism。
 
-## 7. Evaluation
+---
 
-Check:
+## 4. Radiation × heterogeneity
 
-- per-target metrics;
-- cross-target physical consistency;
-- regime-stratified errors;
-- OOD climate transfer;
-- calibration;
-- whether adding coupled targets improves held-out sites rather than only training fit.
+在空间异质 landscape 中，相邻 patches 若具有不同 vegetation/water status：
 
-## 8. Research direction
+```text
+radiation / VPD / soil moisture forcing
+→ patch-specific GPP/RECO contrast
+→ dynamic footprint changes patch contribution
+→ tower observation changes
+```
 
-A strong Earth AI system should represent coupled carbon-water-energy responses while preserving the observation support of each target. This connects [multimodal carbon AI](multimodal-carbon-ai.md), [weather/climate forcing](../08-weather-climate-ai/index.md) and [data assimilation/UQ](../10-data-assimilation-inverse-uq/index.md).
+这说明 weather forcing 可以**放大或抑制** footprint spatial mismatch 的影响，而不是 footprint 与 meteorology 完全独立。
+
+---
+
+## 5. Model design
+
+可做：
+- joint carbon/water/energy prediction；
+- multi-task loss；
+- shared latent state；
+- process constraints；
+- thermal + soil moisture + optical fusion；
+- stress-regime stratification。
+
+---
+
+## 6. Failure modes
+
+- 用 NDVI 单独代表 water stress；
+- 只看 soil moisture 不看 atmospheric demand；
+- 把 correlation with radiation 直接解释成 mechanism；
+- day/night 混合导致 driver importance 难解释；
+- coarse soil-moisture support 与 tower/EO mismatch。
+
+## Sources
+
+- ecosystem physiology / stomatal conductance literature；
+- FLUXNET energy/carbon flux observations；
+- 2026 XGBoost EC gap-filling study: https://doi.org/10.1016/j.agrformet.2025.110987

@@ -1,69 +1,116 @@
-# Carbon-flux Validation and Uncertainty
+# Carbon-flux Validation 与 Uncertainty
 
-## 1. Split design
+## 1. 误差来源链
 
-### Site-blocked
-Entire tower sites belong to one fold only. Tests transfer to unseen locations.
+```text
+instrument / EC processing
+→ gap filling
+→ partitioning
+→ footprint estimation
+→ EO/reanalysis retrieval
+→ spatial-temporal alignment
+→ model
+→ upscaling
+```
 
-### Temporal blocked
-Tests future periods/events while preserving site identity.
+最终 prediction error 是多层 uncertainty 的组合。
 
-### Biome/climate-region blocked
-Tests stronger ecological/domain extrapolation.
+---
 
-Different splits answer different questions and should not be conflated.
+## 2. Split design
 
-## 2. Metrics
+### 不推荐作为唯一验证
+random half-hour / random day split within same sites。
 
-Common deterministic metrics:
+### 推荐
+- site-blocked CV；
+- leave-one-biome/region-out；
+- temporal block；
+- event/extreme holdout；
+- climate-range OOD。
 
-- RMSE;
-- MAE;
-- R²/correlation with stated definition;
-- bias.
+---
 
-Report units and sample counts.
+## 3. Metrics
 
-## 3. Paired model comparison
+### Point/tower scale
+- RMSE；
+- MAE；
+- bias；
+- R² / correlation。
 
-If models use the same samples, compare sample-wise or site-wise paired errors. This reduces noise from different test sets.
+### Paired model comparison
+在完全相同 samples 上比较 error difference。
 
-## 4. Component uncertainty
+### Physical
+- NEE–GPP–RECO balance residual；
+- day/night behavior；
+- seasonal cycle；
+- annual carbon balance。
 
-GPP/RECO are partitioned products. Treat their uncertainty separately from NEE and avoid interpreting small differences as direct measurement truth.
+### Probabilistic
+- CRPS；
+- coverage；
+- calibration；
+- ensemble spread-skill。
 
-## 5. Footprint uncertainty
+---
 
-Sources include:
+## 4. Stratified diagnostics
 
-- turbulence inputs;
-- stability assumptions;
-- roughness/displacement;
-- canopy changes;
-- footprint model applicability;
-- rasterization/masking.
+按：
+- biome；
+- heterogeneity；
+- season；
+- daytime；
+- radiation；
+- VPD；
+- soil moisture；
+- footprint variability；
+- extreme regime
 
-## 6. Remote-sensing uncertainty
+分层，能比一个 global metric 更好解释 model behavior。
 
-Cloud masks, atmospheric correction, retrieval, temporal gaps and resampling can propagate to flux estimates.
+---
 
-## 7. OOD diagnostics
+## 5. Feature importance 的边界
 
-Stratify by:
+Permutation importance / SHAP 可回答：
 
-- ecosystem;
-- climate;
-- heterogeneity;
-- season/phenology;
-- daytime/nighttime;
-- heat/drought/extreme conditions;
-- footprint variability;
-- sensor availability.
+> 模型预测依赖哪些 features？
 
-## 8. Resolution claim
+不能直接回答：
 
-If the model produces 30 m flux pixels but supervision is tower-scale, describe output as 30 m model resolution/latent field unless independent 30 m flux validation exists.
+> ecosystem causal mechanism 是什么？
 
-## 9. Calibration
+相关 predictors、spatial confounding 和 feature construction 都会影响 importance。
 
-For probabilistic predictions report interval coverage/reliability and whether uncertainty grows in unseen sites/regimes.
+---
+
+## 6. External validation
+
+用另一 product 比较时，需要问：
+- 它是否也由相同 tower data 训练？
+- resolution/support？
+- target definition/sign？
+- temporal aggregation？
+
+否则并非真正独立 reference。
+
+---
+
+## 7. Reporting checklist
+
+```text
+data versions
+site count
+sample count
+split manifest
+target definition
+QC/partitioning
+footprint method
+input support
+metric convention
+confidence interval / uncertainty
+OOD diagnostics
+```

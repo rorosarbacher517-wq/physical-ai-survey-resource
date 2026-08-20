@@ -1,69 +1,103 @@
-# Multimodal Carbon AI: 2D + 3D + Meteorology + Observation Physics
+# Multimodal Carbon AI
 
-## 1. Modality roles
+## 1. 为什么需要 multimodal
 
-### 2D optical/SAR/thermal/SIF
-Spatial canopy/surface state and sensor-specific physical signals.
+carbon exchange 同时依赖：
+- canopy spectral state；
+- 3D structure；
+- radiation / temperature / humidity；
+- soil moisture；
+- disturbance / land cover；
+- atmospheric transport/source area。
 
-### 3D LiDAR
-Canopy height/profile, terrain and structural heterogeneity.
+单一 optical modality 无法完整观测这些过程。
 
-### Meteorology
-Dynamic forcing of photosynthesis/respiration and footprint/turbulence state.
+---
 
-### EC footprint
-Observation support rather than another generic image channel.
-
-## 2. Example architecture
-
-```text
-2D EO pixels ─→ spatial encoder ─┐
-3D structure ─→ 3D encoder ─────┼→ pixel/site latent features
-meteorology ─→ temporal encoder ┘
-                              ↓
-                       temporal model
-                              ↓
-                    pixel/field fluxes
-                              ↓
-                  footprint operator H_t
-                              ↓
-                       tower-scale loss
-```
-
-## 3. Shape example
+## 2. 一个可解释的 architecture
 
 ```text
-EO:       [B,T,C,H,W]
-LiDAR:    [B,C3,H,W] or point set [B,N,C3]
-meteo:    [B,T,P]
-footprint:[B,T,H,W]
-output:   [B,T,K,H,W] or latent pixel list
+2D EO [B,T,C,H,W]
+→ spatial encoder ───────────┐
+                             │
+3D structure [B,N,D]
+→ 3D encoder ────────────────┼→ fusion → temporal model → pixel flux field
+                             │                         ↓
+meteorology [B,T,P]           │                   footprint H_t
+→ temporal/MLP encoder ──────┘                         ↓
+                                                   tower loss
 ```
 
-where `K` may represent NEE/GPP/RECO.
+---
 
-## 4. Static versus dynamic 3D
+## 3. Optical + SAR
 
-LiDAR may be much less frequent than optical/weather. Treat it as structural context, not a dynamic daily observation, unless repeated acquisitions support change modeling.
+潜在互补：
+- cloud gaps；
+- moisture/structure sensitivity；
+- different observation physics。
 
-## 5. Missing modality strategy
+必须处理 acquisition-time mismatch 与 incidence/polarization metadata。
 
-Use masks/modality dropout and compare performance when 3D/SIF/SAR are unavailable.
+---
 
-## 6. Physics constraints
+## 4. Optical + LiDAR
 
-Potential additions:
+Optical：动态 spectral/phenological state；
+LiDAR：较慢变化 structural prior。
 
-- carbon-balance consistency;
-- footprint observation mapping;
-- phenology/radiation timing;
-- water-stress features;
-- uncertainty-weighted loss.
+适合：
+- forest structure；
+- biomass / canopy heterogeneity；
+- roughness / footprint context。
 
-## 7. Evaluation
+但 sparse LiDAR campaign 可能导致 small-sample overfitting。
 
-Ablate each modality and report pooled plus site-level behavior. A modality that helps some ecosystems and hurts pooled error can still reveal where its information is useful or where data volume is insufficient.
+---
 
-## 8. Research direction
+## 5. SIF + Optical + Meteorology
 
-A valuable Earth foundation model for carbon should learn reusable spatial/spectral/structural state while leaving dynamic meteorology and observation physics explicit.
+SIF 增加 photosynthesis-related observation；optical 提供 canopy state；meteorology 提供 forcing。
+
+2025 transfer-learning work 使用 SIF + EC data 进行 GPP estimation：
+https://doi.org/10.1016/j.jag.2025.104503
+
+---
+
+## 6. Soil moisture
+
+coarse SMAP/ERA soil moisture 可提供 water limitation context，但需要处理 coarse support。
+
+可把 coarse variable 作为 regional forcing/context，而不是假装是 30 m pixel measurement。
+
+---
+
+## 7. Foundation embeddings
+
+```text
+EO FM embedding
++ meteorology
++ structural/process variables
+→ carbon head
+```
+
+必须做：
+- raw-band baseline；
+- frozen embedding baseline；
+- fine-tuned model；
+- label-efficiency curve；
+- biome/climate OOD。
+
+---
+
+## 8. Negative transfer
+
+如果加入一个 modality 后性能下降，并不矛盾。可能原因：
+- temporal mismatch；
+- noisy modality；
+- insufficient samples；
+- scale mismatch；
+- redundant feature；
+- optimization imbalance。
+
+因此每个 modality 都需要 paired ablation。
