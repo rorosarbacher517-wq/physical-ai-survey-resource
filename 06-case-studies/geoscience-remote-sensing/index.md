@@ -36,6 +36,6 @@ Scientific foundations
 1. **Observation is not state.** Sensor/retrieval/footprint physics matters.
 2. **Resolution is not support.** A 30 m output can still be supervised by a much larger/variable observation footprint.
 3. **Space and time are coupled.** Revisit, temporal aggregation and moving source areas can change the learning problem.
-4. **Random splits are often invalid.** Site, region, event and time blocking are first-class design choices.
+4. **Random splits are often invalid.** Site, region, event and time blocking are core design choices.
 5. **Physics can enter at multiple layers.** Inputs, architecture, loss, operator, simulator, DA and evaluation should be distinguished.
 6. **Uncertainty is part of the prediction.** Measurement, retrieval, model and scale uncertainty should be tracked.
