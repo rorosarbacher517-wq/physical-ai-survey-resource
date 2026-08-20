@@ -1,13 +1,23 @@
-site_name: Physical AI Survey Resource
+site_name: Physical AI / Scientific AI Knowledge Base
 theme:
   name: mkdocs
 nav:
   - Home: README.md
-  - Resource counts: docs/resource-counts.md
+  - Knowledge Base: 01-knowledge-base/index.md
+  - Detailed Knowledge Index: 01-knowledge-base/DETAILED_INDEX.md
+  - Learning Paths: 01-knowledge-base/learning-paths/index.md
+  - Knowledge-unit Standard: 01-knowledge-base/KNOWLEDGE_UNIT_STANDARD.md
+  - Foundations: 01-knowledge-base/00-foundations/index.md
+  - Physical AI Core: 01-knowledge-base/02-physics-ai-core/index.md
+  - Earth Observation AI: 01-knowledge-base/06-earth-observation-ai/index.md
+  - Carbon-cycle AI: 01-knowledge-base/07-carbon-cycle-ai/index.md
+  - Weather & Climate AI: 01-knowledge-base/08-weather-climate-ai/index.md
+  - Earth Foundation Models: 01-knowledge-base/09-earth-foundation-models/index.md
+  - 2026 Snapshot: 01-knowledge-base/13-2026-snapshot/index.md
   - Papers: 02-paper-library/index.md
   - Code: 03-code-library/index.md
   - Datasets: 04-dataset-library/index.md
   - Benchmarks: 05-benchmarks-and-evaluation/index.md
-  - Geoscience track: 06-case-studies/geoscience-remote-sensing/index.md
-  - Carbon flux: 06-case-studies/geoscience-remote-sensing/carbon-flux/index.md
+  - Earth-system Specialty Track: 06-case-studies/geoscience-remote-sensing/index.md
   - Governance: CONTRIBUTING.md
+  - Update Policy: AUDIT_AND_UPDATE_POLICY.md
