@@ -1,6 +1,6 @@
 # Phase 16 acceptance report — Embodied Physical AI / Robotics
 
-Status: `PENDING_CI`
+Status: `PASS`
 
 Date: 2026-08-20
 
@@ -97,12 +97,18 @@ robot/environment/task
 - [x] stable concepts are separated from dated 2026 releases；
 - [x] current claims use primary/official sources and avoid unsupported generalization；
 - [x] existing Scientific AI / Earth AI cross-links are explicit；
-- [ ] `python -m scripts.full_check` observed as passing for final branch head；
-- [ ] external-link verification observed as passing for final branch head；
-- [ ] no broken internal links / generated drift reported by final CI。
+- [x] `python -m scripts.full_check` observed as passing；
+- [x] external-link verification observed as passing；
+- [x] no broken internal links / generated drift reported by CI。
 
-## Current validation limitation
+## Validation evidence
 
-Branch `kb-v4-embodied-physical-ai` is based on the current `main` and is ahead without known divergence. The GitHub connector available in this session does not expose a generic branch Actions-run listing endpoint, and its commit-workflow helper only surfaces pull-request-triggered runs. A local clone/check attempt is unavailable because the current container cannot resolve `github.com`.
+PR #3 pull-request CI run `#72` (workflow run ID `32438018255`) completed successfully on head `8b674283e24ad360f4dd8e1dff839007498462ba` at 2026-08-21 02:01:16 UTC.
 
-Therefore the content, sourcing and navigation work is complete, but Phase 16 remains `PENDING_CI` / `IN_PROGRESS` until a pull-request CI run verifies the final branch head. No passing CI result is inferred.
+Successful validation steps included:
+
+- `python -m scripts.full_check` → success；
+- `python -m scripts.verify_external_links --respect-cache --report` → success；
+- final `validate` job → success。
+
+The audit/state update that records this result is itself revalidated by pull-request CI before merge, so the merged branch is required to have a passing latest-head CI rather than relying only on the earlier content head.
